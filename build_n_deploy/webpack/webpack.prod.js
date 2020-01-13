@@ -52,7 +52,7 @@ const config = merge.strategy({
         new webpack.optimize.OccurrenceOrderPlugin(false),
         new webpack.NoEmitOnErrorsPlugin(),
         new MiniCssExtractPlugin({
-            filename: 'familie-ks-mottak-frontend.css',
+            filename: 'familie-prosessering.css',
         }),
     ],
     optimization: {

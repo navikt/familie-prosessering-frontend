@@ -1,12 +1,12 @@
 apiVersion: "nais.io/v1alpha1"
 kind: "Application"
 metadata:
-  name: familie-ks-mottak-frontend
+  name: familie-prosessering
   namespace: default
   labels:
     team: teamfamilie
 spec:
-  image: navikt/familie-ks-mottak-frontend:{{version}}
+  image: navikt/familie-prosessering:{{version}}
   team: teamfamilie
   replicas:
     min: 1
@@ -25,7 +25,7 @@ spec:
   istio:
     enabled: false
   ingresses:
-    - https://familie-ks-mottak-frontend.nais.preprod.local
+    - https://familie-prosessering.nais.preprod.local
   vault:
     enabled: true
   webproxy: true

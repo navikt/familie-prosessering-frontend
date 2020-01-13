@@ -1,8 +1,8 @@
 {
-  "name": "familie-ks-mottak-frontend",
+  "name": "familie-prosessering",
   "version": "0.0.1",
   "main": "node_dist/server.js",
-  "repository": "https://github.com/navikt/familie-ks-mottak-frontend.git",
+  "repository": "https://github.com/navikt/familie-prosessering.git",
   "author": "Henning Håkonsen",
   "license": "MIT",
   "scripts": {

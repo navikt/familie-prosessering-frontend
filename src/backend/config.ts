@@ -22,7 +22,7 @@ const hentPassportConfig = () => {
         tenant: '',
     };
 
-    const host = 'familie-ks-mottak-frontend';
+    const host = 'familie-prosessering';
     switch (process.env.ENV) {
         case 'local':
             config = {

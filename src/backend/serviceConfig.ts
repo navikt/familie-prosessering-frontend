@@ -6,6 +6,17 @@ export interface IService {
     proxyUrl: string;
 }
 
+const hentMiljø = () => {
+    switch (process.env.ENV) {
+        case 'preprod':
+            return 'dev';
+        case 'production':
+            return 'prod';
+        default:
+            throw new Error('Ukjent miljø');
+    }
+};
+
 let proxyUrls: { [key: string]: string } = {};
 if (process.env.ENV === 'local') {
     proxyUrls = {
@@ -15,9 +26,9 @@ if (process.env.ENV === 'local') {
     };
 } else {
     proxyUrls = {
-        barnetrygd_mottak: 'http://familie-ba-mottak',
-        barnetrygd_sak: 'http://familie-ba-sak',
-        kontantstøtte: 'http://familie-ks-mottak',
+        barnetrygd_mottak: `https://familie-ba-mottak.${hentMiljø()}-fss-pub.nais.io`,
+        barnetrygd_sak: `https://familie-ba-sak.${hentMiljø()}-fss-pub.nais.io`,
+        kontantstøtte: `https://familie-ks-mottak.${hentMiljø()}-fss-pub.nais.io`,
     };
 }
 

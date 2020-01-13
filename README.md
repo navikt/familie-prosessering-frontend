@@ -1,4 +1,4 @@
-# familie-ks-mottak-frontend
+# familie-prosessering
 
 Frontend applikasjon for monitorering og håndtering av mottak for familieområdet
 
@@ -6,7 +6,7 @@ Applikasjonen kan snakke med flere "backends" med konfigurasjon du finner i serv
 Ting du må gjøre for å få frontend til å snakke med din backend:
 1. Legg til config for din app i serviceConfig.ts
 2. Legg til appen som preauthorized i aad-iac repoet.
-3. Legg til scope for azure i vault for familie-ks-mottak-frontend
+3. Legg til scope for azure i vault for familie-prosessering
 4. Implementer interfacene som kreves i backenden. Se familie-ks-mottak for inspirasjon.
 
 # Kom i gang med utvikling
