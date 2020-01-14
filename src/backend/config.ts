@@ -33,7 +33,7 @@ const hentPassportConfig = () => {
                 tenant: 'navq.onmicrosoft.com',
             };
             break;
-        case 'preprod':
+        case 'dev':
             config = {
                 allowHttpForRedirectUrl: false,
                 cookieDomain: `${host}.nais.preprod.local`,
@@ -42,7 +42,7 @@ const hentPassportConfig = () => {
                 tenant: 'navq.onmicrosoft.com',
             };
             break;
-        case 'production':
+        case 'prod':
             config = {
                 allowHttpForRedirectUrl: false,
                 cookieDomain: `${host}.nais.adeo.no`,
@@ -57,8 +57,12 @@ const hentPassportConfig = () => {
 
     return {
         ...config,
-        clientID: process.env.CLIENT_ID ? process.env.CLIENT_ID : 'invalid',
-        clientSecret: process.env.CLIENT_SECRET ? process.env.CLIENT_SECRET : '',
+        clientID: process.env.PROSESSERING_CLIENT_ID
+            ? process.env.PROSESSERING_CLIENT_ID
+            : 'invalid',
+        clientSecret: process.env.PROSESSERING_CLIENT_SECRET
+            ? process.env.PROSESSERING_CLIENT_SECRET
+            : '',
         identityMetadata: `https://login.microsoftonline.com/${config.tenant}/v2.0/.well-known/openid-configuration`,
         tokenURI: `https://login.microsoftonline.com/${config.tenant}/oauth2/v2.0/token`,
         useCookieInsteadOfSession: false,
@@ -69,9 +73,9 @@ const hentPassportConfig = () => {
 // Sett opp config mot felles backend skall
 export const nodeConfig = hentPassportConfig();
 export const sessionConfig: ISessionKonfigurasjon = {
-    cookieSecret: process.env.SESSION_SECRET,
+    cookieSecret: process.env.FAMILIE_SESSION_SECRET,
     navn: 'familie-ks-mottak',
-    sessionSecret: process.env.SESSION_SECRET,
+    sessionSecret: process.env.FAMILIE_SESSION_SECRET,
 };
 
 export const saksbehandlerTokenConfig: ITokenRequest = {

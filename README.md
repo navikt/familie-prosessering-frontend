@@ -17,15 +17,9 @@ Ting du må gjøre for å få frontend til å snakke med din backend:
 
 Appen krever en del environment variabler og legges til i .env fila i root på prosjektet.  
 ```
-    CLIENT_ID='<application_id from aad app>'
-    CLIENT_SECRET='<KEY from aad app>'
-    COOKIE_KEY1='<any string of length 32>'
-    COOKIE_KEY2='<any string of length 32>'
-    PASSPORTCOOKIE_KEY1='<any string of length 32>'
-    PASSPORTCOOKIE_KEY2='<any string of length 32>'
-    PASSPORTCOOKIE_KEY3='<any string of length 12>'
-    PASSPORTCOOKIE_KEY4='<any string of length 12>'
-    SESSION_SECRET='<any string of length 32>'
+    PROSESSERING_CLIENT_ID='<application_id from aad app>'
+    PROSESSERING_CLIENT_SECRET='<KEY from aad app>'
+    FAMILIE_SESSION_SECRET='<any string of length 32>'
     
     ENV=local
     APP_VERSION=0.0.1
