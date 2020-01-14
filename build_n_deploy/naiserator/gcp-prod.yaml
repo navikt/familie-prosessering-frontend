@@ -28,4 +28,3 @@ spec:
     requests:
       memory: 512Mi
   envFrom:
-    - secret: familie-slackbot-token
