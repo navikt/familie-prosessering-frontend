@@ -73,9 +73,9 @@ const hentPassportConfig = () => {
 // Sett opp config mot felles backend skall
 export const nodeConfig = hentPassportConfig();
 export const sessionConfig: ISessionKonfigurasjon = {
-    cookieSecret: process.env.FAMILIE_SESSION_SECRET,
+    cookieSecret: process.env.PROSESSERING_SESSION_SECRET,
     navn: 'familie-ks-mottak',
-    sessionSecret: process.env.FAMILIE_SESSION_SECRET,
+    sessionSecret: process.env.PROSESSERING_SESSION_SECRET,
 };
 
 export const saksbehandlerTokenConfig: ITokenRequest = {
