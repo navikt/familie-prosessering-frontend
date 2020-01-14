@@ -7,6 +7,8 @@ export interface IService {
 }
 
 const hentMiljø = () => {
+    console.log(process.env.ENV);
+    console.log(process.env.KS_MOTTAK_SCOPE);
     switch (process.env.ENV) {
         case 'preprod':
             return 'dev';
