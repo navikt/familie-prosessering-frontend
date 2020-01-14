@@ -3,4 +3,7 @@ RUN apk --no-cache add curl
 
 ADD ./ /var/server/
 
+RUN yarn
+
+EXPOSE 8000
 CMD ["yarn", "start"]
