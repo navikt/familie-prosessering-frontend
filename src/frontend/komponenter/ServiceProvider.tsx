@@ -83,8 +83,6 @@ const ServiceProvider: React.StatelessComponent = ({ children }) => {
                     type: actions.HENT_SERVICES_FEILET,
                 });
             });
-
-        console.log(history.location);
     }, []);
 
     return (

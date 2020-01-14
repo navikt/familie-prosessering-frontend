@@ -26,12 +26,8 @@ const Tasks: React.FunctionComponent<IProps> = ({ serviceId }) => {
     const valgtService: IService | undefined = useServiceContext().valgtService;
     const serviceDispatch = useServiceDispatch();
     const services = useServiceContext().services;
-    const history = useHistory();
 
-    console.log('valgtService: ', valgtService);
-    console.log('tasks: ', tasks);
     if (valgtService === undefined) {
-        console.log(serviceId);
         if (services.status === RessursStatus.SUKSESS) {
             serviceDispatch({
                 payload: services.data.find((service: IService) => service.id === serviceId),

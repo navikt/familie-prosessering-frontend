@@ -1,5 +1,6 @@
 import Backend from '@navikt/familie-backend';
 import bodyParser from 'body-parser';
+import dotenv from 'dotenv';
 import express from 'express';
 import helmet from 'helmet';
 import loglevel from 'loglevel';
@@ -17,6 +18,7 @@ import { passportConfig, saksbehandlerTokenConfig, sessionConfig } from './confi
 const config = require('../build_n_deploy/webpack/webpack.dev');
 /* tslint:enable */
 
+dotenv.config();
 loglevel.setDefaultLevel(loglevel.levels.INFO);
 const backend = new Backend(passportConfig, sessionConfig, saksbehandlerTokenConfig);
 
