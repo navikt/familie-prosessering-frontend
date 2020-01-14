@@ -2,8 +2,10 @@ name: Build, push, and deploy app to prod
 
 on:
   push:
-    branch:
+    branches:
       - 'master'
+    branches-ignore:
+      - '*'
 
 env:
   IMAGE: docker.pkg.github.com/${{ github.repository }}/familie-prosessering:${{ github.sha }}

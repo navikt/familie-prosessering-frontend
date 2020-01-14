@@ -2,6 +2,8 @@ name: Build, push, and deploy app to dev
 
 on:
   push:
+    branches:
+      - '*'
     branches-ignore:
       - 'master'
 
