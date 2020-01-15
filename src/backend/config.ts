@@ -37,8 +37,8 @@ const hentPassportConfig = () => {
             config = {
                 allowHttpForRedirectUrl: false,
                 cookieDomain: `${host}.nais.preprod.local`,
-                logoutUri: `https://login.microsoftonline.com/navq.onmicrosoft.com/oauth2/logout?post_logout_redirect_uri=https:\\\\${host}.nais.preprod.local`,
-                redirectUrl: `https://${host}.nais.preprod.local/auth/openid/callback`,
+                logoutUri: `https://login.microsoftonline.com/navq.onmicrosoft.com/oauth2/logout?post_logout_redirect_uri=https://${host}.dev-adeo.no`,
+                redirectUrl: `https://${host}.dev-adeo.no/auth/openid/callback`,
                 tenant: 'navq.onmicrosoft.com',
             };
             break;
@@ -46,8 +46,8 @@ const hentPassportConfig = () => {
             config = {
                 allowHttpForRedirectUrl: false,
                 cookieDomain: `${host}.nais.adeo.no`,
-                logoutUri: `https://login.microsoftonline.com/navno.onmicrosoft.com/oauth2/logout?post_logout_redirect_uri=https:\\\\${host}.nais.adeo.no`,
-                redirectUrl: `https://${host}.nais.adeo.no/auth/openid/callback`,
+                logoutUri: `https://login.microsoftonline.com/navno.onmicrosoft.com/oauth2/logout?post_logout_redirect_uri=https://${host}.prod-adeo.no`,
+                redirectUrl: `https://${host}.prod-adeo.no/auth/openid/callback`,
                 tenant: 'navno.onmicrosoft.com',
             };
             break;
