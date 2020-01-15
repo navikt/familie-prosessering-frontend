@@ -21,6 +21,12 @@ spec:
     cpuThresholdPercentage: 50
   ingresses: 
     - "https://familie-prosessering.adeo.no"
+  accessPolicy:
+    outbound:
+      external:
+        - host: familie-ba-mottak.prod-fss-pub.nais.io
+        - host: familie-ba-sak.prod-fss-pub.nais.io
+        - host: familie-ks-mottak.prod-fss-pub.nais.io
   resources:
     limits:
       cpu: 2000m
