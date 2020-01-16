@@ -23,4 +23,17 @@ app.get('/user/profile', (req, res) => {
     });
 });
 
+app.get('/services', (req, res) => {
+    res.send({
+        data: [
+            {
+                displayName: 'KS mottak',
+                id: 'familie-ks-mottak',
+                proxyPath: '/familie-ks-mottak/api',
+            },
+        ],
+        status: 'SUKSESS',
+    });
+});
+
 module.exports = app;

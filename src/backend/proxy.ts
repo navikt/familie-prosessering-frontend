@@ -32,14 +32,15 @@ export const doProxy = (service: IService) => {
 
 export const attachToken = (service: IService, backend: Backend) => {
     return async (req: SessionRequest, res: Response, next: NextFunction) => {
-        const accessToken = await backend.validerEllerOppdaterOnBehalfOfToken(
-            req,
-            saksbehandlerTokenConfig,
-            {
+        const accessToken = await backend
+            .validerEllerOppdaterOnBehalfOfToken(req, saksbehandlerTokenConfig, {
                 ...oboTokenConfig,
                 scope: service.azureScope,
-            }
-        );
+            })
+            .catch((error: Error) => {
+                backend.logError(req, `Feil ved henting av obo token: ${error.message}`);
+                res.status(500).send(`Feil ved autentisering mot baksystem`);
+            });
         req.headers['Nav-Call-Id'] = uuid.v1();
         req.headers.Authorization = `Bearer ${accessToken}`;
         return next();

@@ -5,7 +5,7 @@ export enum avvikstyper {
 }
 
 export enum taskStatus {
-    AVVIKS_HÅNDTERT = 'AVVIKS_HÅNDTERT',
+    AVVIKSHÅNDTERT = 'AVVIKSHÅNDTERT',
     BEHANDLER = 'BEHANDLER',
     FEILET = 'FEILET',
     FERDIG = 'FERDIG',
@@ -26,9 +26,12 @@ export enum loggType {
 export enum taskTyper {
     hentJournalpostIdFraJoarkTask = 'hentJournalpostIdFraJoarkTask',
     hentSaksnummerFraJoark = 'hentSaksnummerFraJoark',
+    iverksettMotOppdrag = 'iverksettMotOppdrag',
     journalførSøknad = 'journalførSøknad',
+    mottaFødselshendelse = 'mottaFødselshendelse',
     sendMeldingTilDittNav = 'sendMeldingTilDittNav',
     sendSøknadTilSak = 'sendSøknadTilSak',
+    sendTilSak = 'sendTilSak',
 }
 
 // Tekster
@@ -39,9 +42,12 @@ type ITaskTypeTekster = {
 export const taskTypeTekster: ITaskTypeTekster = {
     hentJournalpostIdFraJoarkTask: 'Hent journalpost id fra joark',
     hentSaksnummerFraJoark: 'Hent saksnummer fra joark',
+    iverksettMotOppdrag: 'Iverksett mot oppdrag',
     journalførSøknad: 'Journalfør søknad',
+    mottaFødselshendelse: 'Motta fødseslhendelse',
     sendMeldingTilDittNav: 'Send melding til ditt NAV',
     sendSøknadTilSak: 'Send søknad til sak',
+    sendTilSak: 'Send til sak',
 };
 
 type ITaskStatusTekster = {
@@ -49,7 +55,7 @@ type ITaskStatusTekster = {
 };
 
 export const taskStatusTekster: ITaskStatusTekster = {
-    AVVIKS_HÅNDTERT: 'Avvikshåndtert',
+    AVVIKSHÅNDTERT: 'Avvikshåndtert',
     BEHANDLER: 'Behandler',
     FEILET: 'Feilet',
     FERDIG: 'Ferdig',

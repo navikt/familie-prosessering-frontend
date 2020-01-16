@@ -51,7 +51,11 @@ const TaskPanel: React.StatelessComponent<IProps> = ({ taskDTO }) => {
             </Knapp>
 
             <div className={'taskpanel__innhold'}>
-                <Undertittel children={`#${task.id}: ${taskTypeTekster[task.type]}`} />
+                <Undertittel
+                    children={`#${task.id}: ${
+                        taskTypeTekster[task.type] ? taskTypeTekster[task.type] : `${task.type}`
+                    }`}
+                />
                 <div className={'taskpanel__innhold--elementer'}>
                     <TaskElement
                         label={'Søkers fødselsnummer'}
