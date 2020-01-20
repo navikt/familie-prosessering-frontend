@@ -77,7 +77,7 @@ const Tasks: React.FunctionComponent<IProps> = ({ serviceId }) => {
                         </div>
 
                         <br />
-                        <TaskListe tasksDTO={tasks.data} />
+                        <TaskListe tasks={tasks.data} />
                     </React.Fragment>
                 );
             case RessursStatus.HENTER:

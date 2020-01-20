@@ -3,7 +3,7 @@ import * as React from 'react';
 import { avvikshåndterTask, hentTasks, rekjørTask } from '../api/task';
 import { byggFeiletRessurs, byggTomRessurs, Ressurs, RessursStatus } from '../typer/ressurs';
 import { IService } from '../typer/service';
-import { IAvvikshåndteringDTO, ITaskDTO, taskStatus } from '../typer/task';
+import { IAvvikshåndteringDTO, ITask, taskStatus } from '../typer/task';
 import { useServiceContext } from './ServiceProvider';
 
 export enum actions {
@@ -28,7 +28,7 @@ interface IState {
     rekjørAlle: boolean;
     rekjørId: string;
     statusFilter: taskStatus;
-    tasks: Ressurs<ITaskDTO[]>;
+    tasks: Ressurs<ITask[]>;
 }
 
 const TaskStateContext = React.createContext<IState | undefined>(undefined);
@@ -93,13 +93,13 @@ const TaskProvider: React.StatelessComponent = ({ children }) => {
         rekjørAlle: false,
         rekjørId: '',
         statusFilter: taskStatus.FEILET,
-        tasks: byggTomRessurs<ITaskDTO[]>(),
+        tasks: byggTomRessurs<ITask[]>(),
     });
 
     const internHentTasks = () => {
         if (valgtService) {
             hentTasks(valgtService, state.statusFilter)
-                .then((tasks: Ressurs<ITaskDTO[]>) => {
+                .then((tasks: Ressurs<ITask[]>) => {
                     dispatch({
                         payload: tasks,
                         type: actions.HENT_TASKS_SUKSESS,

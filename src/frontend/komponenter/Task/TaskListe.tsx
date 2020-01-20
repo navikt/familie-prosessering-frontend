@@ -2,25 +2,25 @@ import * as moment from 'moment';
 import AlertStripe from 'nav-frontend-alertstriper';
 import { Element } from 'nav-frontend-typografi';
 import * as React from 'react';
-import { ITaskDTO } from '../../typer/task';
+import { ITask } from '../../typer/task';
 import { useTaskContext } from '../TaskProvider';
 import TaskPanel from './TaskPanel';
 
 interface IProps {
-    tasksDTO: ITaskDTO[];
+    tasks: ITask[];
 }
 
-const TaskListe: React.StatelessComponent<IProps> = ({ tasksDTO }) => {
+const TaskListe: React.StatelessComponent<IProps> = ({ tasks }) => {
     const statusFilter = useTaskContext().statusFilter;
 
-    return tasksDTO.length > 0 ? (
+    return tasks.length > 0 ? (
         <React.Fragment>
-            <Element children={`Viser ${tasksDTO.length} tasker`} />
+            <Element children={`Viser ${tasks.length} tasker`} />
 
-            {tasksDTO
-                .sort((a, b) => moment(b.task.opprettetTidspunkt).diff(a.task.opprettetTidspunkt))
-                .map(taskDTO => {
-                    return <TaskPanel key={taskDTO.task.id} taskDTO={taskDTO} />;
+            {tasks
+                .sort((a, b) => moment(b.opprettetTidspunkt).diff(a.opprettetTidspunkt))
+                .map(task => {
+                    return <TaskPanel key={task.id} task={task} />;
                 })}
         </React.Fragment>
     ) : (

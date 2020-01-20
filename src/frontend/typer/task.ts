@@ -67,10 +67,6 @@ export const taskStatusTekster: ITaskStatusTekster = {
 };
 
 // Interface
-export interface ITaskDTO {
-    task: ITask;
-}
-
 export interface ITask {
     avvikstype: avvikstyper;
     callId: string;
