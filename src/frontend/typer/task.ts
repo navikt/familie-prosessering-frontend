@@ -10,6 +10,7 @@ export enum taskStatus {
     FEILET = 'FEILET',
     FERDIG = 'FERDIG',
     KLAR_TIL_PLUKK = 'KLAR_TIL_PLUKK',
+    MANUELL_OPPFØLGING = 'MANUELL_OPPFØLGING',
     PLUKKET = 'PLUKKET',
     UBEHANDLET = 'UBEHANDLET',
 }
@@ -19,6 +20,7 @@ export enum loggType {
     FEILET = 'FEILET',
     FERDIG = 'FERDIG',
     KLAR_TIL_PLUKK = 'KLAR_TIL_PLUKK',
+    MANUELL_OPPFØLGING = 'MANUELL_OPPFØLGING',
     PLUKKET = 'PLUKKET',
     UBEHANDLET = 'UBEHANDLET',
 }
@@ -62,6 +64,7 @@ export const taskStatusTekster: ITaskStatusTekster = {
     FEILET: 'Feilet',
     FERDIG: 'Ferdig',
     KLAR_TIL_PLUKK: 'Klar til plukk',
+    MANUELL_OPPFØLGING: 'Manuell oppfølging',
     PLUKKET: 'Plukket',
     UBEHANDLET: 'Ubehandlet',
 };

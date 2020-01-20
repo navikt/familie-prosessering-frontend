@@ -1,12 +1,12 @@
 import { Ressurs } from '../typer/ressurs';
 import { IService } from '../typer/service';
-import { IAvvikshåndteringDTO, ITaskDTO, taskStatus } from '../typer/task';
+import { IAvvikshåndteringDTO, ITask, taskStatus } from '../typer/task';
 import { axiosRequest } from './axios';
 
 export const hentTasks = (
     valgtService: IService,
     statusFilter: taskStatus
-): Promise<Ressurs<ITaskDTO[]>> => {
+): Promise<Ressurs<ITask[]>> => {
     return axiosRequest({
         headers: {
             status: statusFilter,
@@ -20,7 +20,7 @@ export const rekjørTask = (
     valgtService: IService,
     statusFilter: taskStatus,
     taskId?: string
-): Promise<Ressurs<ITaskDTO[]>> => {
+): Promise<Ressurs<ITask[]>> => {
     if (taskId) {
         return axiosRequest({
             method: 'PUT',
@@ -40,7 +40,7 @@ export const rekjørTask = (
 export const avvikshåndterTask = (
     valgtService: IService,
     avvikshåndteringDTO: IAvvikshåndteringDTO
-): Promise<Ressurs<ITaskDTO[]>> => {
+): Promise<Ressurs<ITask[]>> => {
     return axiosRequest({
         data: {
             avvikstype: avvikshåndteringDTO.avvikstype,

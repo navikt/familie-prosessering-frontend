@@ -5,7 +5,7 @@ import { Systemtittel } from 'nav-frontend-typografi';
 import * as React from 'react';
 import { RessursStatus } from '../../typer/ressurs';
 import { IService } from '../../typer/service';
-import { taskStatus } from '../../typer/task';
+import { taskStatus, taskStatusTekster } from '../../typer/task';
 import {
     actions as serviceActions,
     useServiceContext,
@@ -66,10 +66,10 @@ const Tasks: React.FunctionComponent<IProps> = ({ serviceId }) => {
                                 value={statusFilter}
                                 label={'Vis saker med status'}
                             >
-                                {Object.keys(taskStatus).map(status => {
+                                {Object.values(taskStatus).map((status: taskStatus) => {
                                     return (
                                         <option key={status} value={status}>
-                                            {status}
+                                            {taskStatusTekster[status]}
                                         </option>
                                     );
                                 })}
