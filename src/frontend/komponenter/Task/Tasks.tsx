@@ -3,7 +3,6 @@ import { Knapp } from 'nav-frontend-knapper';
 import { Select } from 'nav-frontend-skjema';
 import { Systemtittel } from 'nav-frontend-typografi';
 import * as React from 'react';
-import { useHistory } from 'react-router';
 import { RessursStatus } from '../../typer/ressurs';
 import { IService } from '../../typer/service';
 import { taskStatus } from '../../typer/task';

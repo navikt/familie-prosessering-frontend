@@ -74,7 +74,8 @@ const hentPassportConfig = () => {
 export const nodeConfig = hentPassportConfig();
 export const sessionConfig: ISessionKonfigurasjon = {
     cookieSecret: process.env.PROSESSERING_SESSION_SECRET,
-    navn: 'familie-ks-mottak',
+    navn: 'familie-prosessering',
+    secureCookie: process.env.ENV === 'local' ? false : true,
     sessionSecret: process.env.PROSESSERING_SESSION_SECRET,
 };
 
@@ -100,6 +101,7 @@ export const passportConfig: IOIDCStrategyOptionWithRequest = {
     clientSecret: nodeConfig.clientSecret,
     identityMetadata: nodeConfig.identityMetadata,
     loggingLevel: 'warn',
+    loggingNoPII: true,
     passReqToCallback: true,
     redirectUrl: nodeConfig.redirectUrl,
     responseMode: 'form_post',

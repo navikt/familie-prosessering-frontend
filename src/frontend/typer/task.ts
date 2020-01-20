@@ -32,6 +32,7 @@ export enum taskTyper {
     sendMeldingTilDittNav = 'sendMeldingTilDittNav',
     sendSøknadTilSak = 'sendSøknadTilSak',
     sendTilSak = 'sendTilSak',
+    statusFraOppdrag = 'statusFraOppdrag',
 }
 
 // Tekster
@@ -48,6 +49,7 @@ export const taskTypeTekster: ITaskTypeTekster = {
     sendMeldingTilDittNav: 'Send melding til ditt NAV',
     sendSøknadTilSak: 'Send søknad til sak',
     sendTilSak: 'Send til sak',
+    statusFraOppdrag: 'Hent status fra oppdrag',
 };
 
 type ITaskStatusTekster = {
@@ -67,9 +69,6 @@ export const taskStatusTekster: ITaskStatusTekster = {
 // Interface
 export interface ITaskDTO {
     task: ITask;
-    journalpostID?: string;
-    saksnummer?: string;
-    søkerFødselsnummer: string;
 }
 
 export interface ITask {
@@ -77,12 +76,14 @@ export interface ITask {
     callId: string;
     id: number;
     logg: ITaskLogg[];
-    metadata: any;
+    metadata: {
+        [key: string]: string;
+    };
     opprettetTidspunkt: string;
     payload: string;
     status: taskStatus;
     triggerTid: string;
-    type: taskTyper;
+    taskStepType: taskTyper;
 }
 
 export interface ITaskLogg {

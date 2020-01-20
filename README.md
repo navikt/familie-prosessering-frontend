@@ -20,7 +20,7 @@ Appen krever en del environment variabler og legges til i .env fila i root på p
 ```
     PROSESSERING_CLIENT_ID='<application_id from aad app>'
     PROSESSERING_CLIENT_SECRET='<KEY from aad app>'
-    PROSESSRING_SESSION_SECRET='<any string of length 32>'
+    PROSESSERING_SESSION_SECRET='<any string of length 32>'
 
     APP_SCOPE: api://APP_CLIENT_ID/.default // Hver tjeneste appen kaller må legges til på denne måten
     

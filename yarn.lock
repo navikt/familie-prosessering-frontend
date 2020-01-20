@@ -97,7 +97,7 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
-"@navikt/familie-backend@^1.3.2":
+"@navikt/familie-backend@^1.3.3":
   version "1.3.3"
   resolved "https://registry.yarnpkg.com/@navikt/familie-backend/-/familie-backend-1.3.3.tgz#14376679372539c3e9bc142c6f60a1b5583e9fdb"
   integrity sha512-TBeBxHRO5EPo6PRMF/GoQCOAvWJcgnrPFJfyEU3Q2oDASnQqBazq4z+PKA04+K8Z16ZEXvQfog9z5o7aRVtrnw==
