@@ -94,15 +94,15 @@ const TaskPanel: React.StatelessComponent<IProps> = ({ task }) => {
 
             <div className={classNames('taskpanel__logg', visLogg ? '' : 'skjul')}>
                 {sortertTaskLogg.map((logg: ITaskLogg, index: number) => {
-                    let melding;
+                    let stackTrace;
                     try {
-                        melding = logg.melding
-                            ? JSON.parse(logg.melding).stacktrace
-                                ? JSON.parse(logg.melding).stacktrace
+                        stackTrace = logg.melding
+                            ? JSON.parse(logg.melding).stackTrace
+                                ? JSON.parse(logg.melding).stackTrace
                                 : logg.melding
-                            : 'Ingen melding';
+                            : 'Ingen stack trace';
                     } catch (error) {
-                        melding = logg.melding ? logg.melding : undefined;
+                        stackTrace = logg.melding ? logg.melding : undefined;
                     }
 
                     return (
@@ -118,10 +118,10 @@ const TaskPanel: React.StatelessComponent<IProps> = ({ task }) => {
                                 <Normaltekst children={logg.node} />
                             </div>
 
-                            {melding && (
+                            {stackTrace && (
                                 <pre
                                     className={'taskpanel__logg--item-melding'}
-                                    children={melding}
+                                    children={stackTrace}
                                 />
                             )}
                         </div>
