@@ -94,16 +94,7 @@ const TaskPanel: React.StatelessComponent<IProps> = ({ task }) => {
 
             <div className={classNames('taskpanel__logg', visLogg ? '' : 'skjul')}>
                 {sortertTaskLogg.map((logg: ITaskLogg, index: number) => {
-                    let stackTrace;
-                    try {
-                        stackTrace = logg.melding
-                            ? JSON.parse(logg.melding).stackTrace
-                                ? JSON.parse(logg.melding).stackTrace
-                                : logg.melding
-                            : 'Ingen stack trace';
-                    } catch (error) {
-                        stackTrace = logg.melding ? logg.melding : undefined;
-                    }
+                    const stackTrace = hentStackTrace(logg.melding);
 
                     return (
                         <div key={index} className={'taskpanel__logg--item'}>
@@ -132,8 +123,17 @@ const TaskPanel: React.StatelessComponent<IProps> = ({ task }) => {
     );
 };
 
-const hentSisteBehandlerLoggmelding = (logg: ITaskLogg[]) => {
-    return logg.filter((l: ITaskLogg) => l.type === loggType.BEHANDLER).slice(-1)[0];
+const hentStackTrace = (melding?: string) => {
+    if (!melding) {
+        return 'Ingen melding';
+    }
+
+    try {
+        const json = JSON.parse(melding);
+        return json.stackTrace ? json.stackTrace : 'Ingen stack trace';
+    } catch (error) {
+        return melding ? melding : undefined;
+    }
 };
 
 export default TaskPanel;
