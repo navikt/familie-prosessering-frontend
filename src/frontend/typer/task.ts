@@ -47,7 +47,7 @@ export const taskTypeTekster: ITaskTypeTekster = {
     hentSaksnummerFraJoark: 'Hent saksnummer fra joark',
     iverksettMotOppdrag: 'Iverksett mot oppdrag',
     journalførSøknad: 'Journalfør søknad',
-    mottaFødselshendelse: 'Motta fødseslhendelse',
+    mottaFødselshendelse: 'Motta fødselshendelse',
     sendMeldingTilDittNav: 'Send melding til ditt NAV',
     sendSøknadTilSak: 'Send søknad til sak',
     sendTilSak: 'Send til sak',
