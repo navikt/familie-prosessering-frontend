@@ -25,6 +25,13 @@ const TaskPanel: React.StatelessComponent<IProps> = ({ task }) => {
     const sortertTaskLogg = task.logg.sort((a, b) =>
         moment(b.opprettetTidspunkt).diff(moment(a.opprettetTidspunkt))
     );
+    const behandlerLoggMeldinger = sortertTaskLogg.filter(
+        (taskLogg: ITaskLogg) => taskLogg.type === loggType.BEHANDLER
+    );
+    const sistKjørt =
+        behandlerLoggMeldinger.length > 0
+            ? moment(behandlerLoggMeldinger[0].opprettetTidspunkt).format('DD.MM.YYYY HH:mm')
+            : 'Venter på første kjøring';
 
     return (
         <PanelBase className={'taskpanel'} border={true}>
@@ -56,12 +63,7 @@ const TaskPanel: React.StatelessComponent<IProps> = ({ task }) => {
                     {Object.keys(task.metadata).map((key: string) => {
                         return <TaskElement key={key} label={key} innhold={task.metadata[key]} />;
                     })}
-                    <TaskElement
-                        label={'Sist kjørt'}
-                        innhold={moment(sortertTaskLogg[0].opprettetTidspunkt).format(
-                            'DD.MM.YYYY HH:mm'
-                        )}
-                    />
+                    <TaskElement label={'Sist kjørt'} innhold={sistKjørt} />
                 </div>
             </div>
 
