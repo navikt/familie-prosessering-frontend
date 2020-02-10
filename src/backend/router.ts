@@ -1,6 +1,5 @@
 import Backend from '@navikt/familie-backend';
-import { SessionRequest } from '@navikt/familie-backend/lib/typer';
-import { Response } from 'express';
+import { Request, Response } from 'express';
 import path from 'path';
 import { buildPath, saksbehandlerTokenConfig } from './config';
 import { IService, serviceConfig } from './serviceConfig';
@@ -35,7 +34,7 @@ export default (backend: Backend, middleware: any) => {
             .get(
                 '*',
                 backend.ensureAuthenticated(false, saksbehandlerTokenConfig),
-                (req: SessionRequest, res: Response) => {
+                (req: Request, res: Response) => {
                     res.writeHead(200, { 'Content-Type': 'text/html' });
                     res.write(
                         middleware.fileSystem.readFileSync(
@@ -51,7 +50,7 @@ export default (backend: Backend, middleware: any) => {
             .get(
                 '*',
                 backend.ensureAuthenticated(false, saksbehandlerTokenConfig),
-                (req: SessionRequest, res: Response) => {
+                (req: Request, res: Response) => {
                     res.sendFile('index.html', { root: path.join(__dirname, buildPath) });
                 }
             );

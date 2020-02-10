@@ -2,7 +2,7 @@ import {
     IOIDCStrategyOptionWithRequest,
     ISessionKonfigurasjon,
     ITokenRequest,
-} from '@navikt/familie-backend/lib/typer';
+} from '@navikt/familie-backend/dist/typer';
 
 // Generer auth config basert på miljø
 interface IConfig {
@@ -104,7 +104,7 @@ export const passportConfig: IOIDCStrategyOptionWithRequest = {
     loggingNoPII: true,
     passReqToCallback: true,
     redirectUrl: nodeConfig.redirectUrl,
-    responseMode: 'form_post',
+    responseMode: 'query',
     responseType: 'code',
     scope: 'profile offline_access',
     useCookieInsteadOfSession: nodeConfig.useCookieInsteadOfSession,
