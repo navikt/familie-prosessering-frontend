@@ -1,9 +1,8 @@
-import Backend from '@navikt/familie-backend';
+import { Client, appConfig, getOnBehalfOfAccessToken, IApi } from '@navikt/familie-backend';
 import { NextFunction, Request, Response } from 'express';
 import { ClientRequest } from 'http';
-import proxy from 'http-proxy-middleware';
-import uuid from 'uuid';
-import { oboTokenConfig, saksbehandlerTokenConfig } from './config';
+import { createProxyMiddleware } from 'http-proxy-middleware';
+import { v4 as uuidv4 } from 'uuid';
 import { IService } from './serviceConfig';
 
 const restream = (proxyReq: ClientRequest, req: Request, res: Response) => {
@@ -16,11 +15,11 @@ const restream = (proxyReq: ClientRequest, req: Request, res: Response) => {
 };
 
 export const doProxy = (service: IService) => {
-    return proxy(service.proxyPath, {
+    return createProxyMiddleware(service.proxyPath, {
         changeOrigin: true,
         logLevel: 'info',
         onProxyReq: restream,
-        pathRewrite: (path, req) => {
+        pathRewrite: (path: string, _req: Request) => {
             const newPath = path.replace(service.proxyPath, '');
             return `/api${newPath}`;
         },
@@ -29,19 +28,16 @@ export const doProxy = (service: IService) => {
     });
 };
 
-export const attachToken = (service: IService, backend: Backend) => {
-    return async (req: Request, res: Response, next: NextFunction) => {
-        const accessToken = await backend
-            .validerEllerOppdaterOnBehalfOfToken(req, saksbehandlerTokenConfig, {
-                ...oboTokenConfig,
-                scope: service.azureScope,
-            })
-            .catch((error: Error) => {
-                backend.logError(req, `Feil ved henting av obo token: ${error.message}`);
-                res.status(500).send(`Feil ved autentisering mot baksystem`);
-            });
-        req.headers['Nav-Call-Id'] = uuid.v1();
-        req.headers.Authorization = `Bearer ${accessToken}`;
-        return next();
+export const attachToken = (authClient: Client, service: IService) => {
+    return async (req: Request, _res: Response, next: NextFunction) => {
+        const oboConfig: IApi = {
+            clientId: appConfig.clientId,
+            scopes: [service.azureScope],
+        };
+        getOnBehalfOfAccessToken(authClient, req, oboConfig).then((accessToken: string) => {
+            req.headers['Nav-Call-Id'] = uuidv4();
+            req.headers.Authorization = `Bearer ${accessToken}`;
+            return next();
+        });
     };
 };
