@@ -23,7 +23,7 @@ const Environment = () => {
 const env = Environment();
 
 export const sessionConfig: ISessionKonfigurasjon = {
-    cookieSecret: process.env.PROSESSERING_SESSION_SECRET,
+    cookieSecret: process.env.SESSION_SECRET,
     navn: 'familie-prosessering',
     secureCookie: process.env.ENV === 'local' ? false : true,
 };

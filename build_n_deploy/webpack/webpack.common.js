@@ -27,6 +27,14 @@ module.exports = {
                     transpileOnly: true,
                 },
             },
+            {
+                test: /\.(css|less)$/,
+                use: [
+                    { loader: require.resolve('style-loader') },
+                    { loader: require.resolve('css-loader') },
+                    { loader: require.resolve('less-loader') },
+                ],
+            },
         ],
     },
     optimization: {

@@ -1,5 +1,4 @@
-import dotenv from 'dotenv';
-dotenv.config();
+import './azureConfig';
 import backend, { IApp, ensureAuthenticated, getLogTimestamp } from '@navikt/familie-backend';
 import bodyParser from 'body-parser';
 import express from 'express';
