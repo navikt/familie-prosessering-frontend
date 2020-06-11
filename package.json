@@ -61,7 +61,7 @@
     "nav-frontend-skjema-style": "^1.0.48",
     "nav-frontend-tabell-style": "^0.2.18",
     "nav-frontend-typografi": "^2.0.16",
-    "nav-frontend-typografi-style": "^1.0.17",
+    "nav-frontend-typografi-style": "^1.0.20",
     "prop-types": "^15.7.2",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
