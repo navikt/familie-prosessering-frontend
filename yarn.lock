@@ -4092,10 +4092,10 @@ nav-frontend-skjema@^1.0.78:
   resolved "https://registry.yarnpkg.com/nav-frontend-skjema/-/nav-frontend-skjema-1.0.78.tgz#589cd264b94c79c67b7599bbf56e52ffebd40c74"
   integrity sha512-pmgt5aiWZ8lzIY09XSDi5Qty5+qgMSjo2+waMUIkdXIfFwSHpqoaLu4/skFBXcVvUQ+A+HSZZJba7SKXUwoOMw==
 
-nav-frontend-tabell-style@^0.2.18:
-  version "0.2.18"
-  resolved "https://registry.yarnpkg.com/nav-frontend-tabell-style/-/nav-frontend-tabell-style-0.2.18.tgz#ba8172f8ab30161f237581396e435c2edaa51700"
-  integrity sha512-Q2xRM4zgM7M40cbCnTDqGDuqcJbqeicWqwDkS1HCHq8P/RpHIiBuRE5rewdpusbdmPra84XwZ2YGbO9aYhP9iw==
+nav-frontend-tabell-style@^0.2.21:
+  version "0.2.23"
+  resolved "https://registry.yarnpkg.com/nav-frontend-tabell-style/-/nav-frontend-tabell-style-0.2.23.tgz#f03aa396dd90a321dad1db303d133107c37c4105"
+  integrity sha512-yHVDtl44f6iXbv5jjDjv0xfnxqfLeMqekkCnhGe0gnatkjkKKTA6gelknG4+WU1NDD28nlRcmIi1e5qCBUYvrg==
 
 nav-frontend-typografi-style@^1.0.17:
   version "1.0.17"
