@@ -32,7 +32,7 @@ export const attachToken = (authClient: Client, service: IService) => {
     return async (req: Request, _res: Response, next: NextFunction) => {
         const oboConfig: IApi = {
             clientId: service.clientId,
-            scopes: [],
+            scopes: [`${service.clientId}/.default`],
         };
         getOnBehalfOfAccessToken(authClient, req, oboConfig).then((accessToken: string) => {
             req.headers['Nav-Call-Id'] = uuidv4();
