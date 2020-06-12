@@ -31,8 +31,8 @@ export const doProxy = (service: IService) => {
 export const attachToken = (authClient: Client, service: IService) => {
     return async (req: Request, _res: Response, next: NextFunction) => {
         const oboConfig: IApi = {
-            clientId: appConfig.clientId,
-            scopes: [service.azureScope],
+            clientId: service.clientId,
+            scopes: [],
         };
         getOnBehalfOfAccessToken(authClient, req, oboConfig).then((accessToken: string) => {
             req.headers['Nav-Call-Id'] = uuidv4();
