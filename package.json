@@ -10,7 +10,9 @@
     "start:mock": "NODE_ENV=development node dev-server/mock-server.js",
     "start:dev": "tsc && NODE_ENV=development node node_dist/server.js",
     "build": "yarn build:prod",
-    "build:prod": "tsc & webpack --config ./build_n_deploy/webpack/webpack.prod.js"
+    "build:prod": "tsc & webpack --config ./build_n_deploy/webpack/webpack.prod.js",
+    "snyk-protect": "snyk protect",
+    "prepare": "yarn run snyk-protect"
   },
   "husky": {
     "hooks": {
@@ -70,7 +72,8 @@
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
     "request-promise": "^4.2.5",
-    "uuid": "^8.1.0"
+    "uuid": "^8.1.0",
+    "snyk": "^1.339.1"
   },
   "devDependencies": {
     "@babel/preset-react": "^7.10.1",
@@ -103,5 +106,6 @@
     "webpack-dev-middleware": "^3.7.2",
     "webpack-hot-middleware": "^2.25.0",
     "webpack-merge": "^4.2.2"
-  }
+  },
+  "snyk": true
 }
