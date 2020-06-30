@@ -1,0 +1,48 @@
+{
+  "data": {
+    "tasks": [
+      {
+        "id": 1,
+        "payload": "1",
+        "status": "FEILET",
+        "opprettetTidspunkt": "2019-10-22T14:57:34.928358",
+        "triggerTid": "2019-10-22T14:57:34.923353",
+        "taskStepType": "hentJournalpostIdFraJoarkTask",
+        "metadata": {
+          "callId": "30809c34e2a148e7ad0c567ac64f3456"
+        },
+        "antallLogger": 3,
+        "sistKjørt": "2019-10-22T14:57:34.928358"
+      },
+      {
+        "id": 2,
+        "payload": "2",
+        "status": "FERDIG",
+        "opprettetTidspunkt": "2019-10-22T14:57:34.928358",
+        "triggerTid": "2019-10-22T14:57:34.923353",
+        "taskStepType": "hentJournalpostIdFraJoarkTask",
+        "metadata": {
+          "callId": "30809c34e2a148e7ad0c567ac64f3456"
+        },
+        "antallLogger": 2,
+        "sistKjørt": "2019-10-22T14:57:34.928358"
+      },
+      {
+        "id": 3,
+        "payload": "3",
+        "status": "UBEHANDLET",
+        "opprettetTidspunkt": "2019-10-22T14:57:34.928358",
+        "triggerTid": "2019-10-22T14:57:34.923353",
+        "taskStepType": "hentJournalpostIdFraJoarkTask",
+        "metadata": {
+          "callId": "30809c34e2a148e7ad0c567ac64f3456"
+        },
+        "antallLogger": 0,
+        "sistKjørt": null
+      }
+    ]
+  },
+  "status": "SUKSESS",
+  "melding": "Innhenting av data var vellykket",
+  "errorMelding": null
+}

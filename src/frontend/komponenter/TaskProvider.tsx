@@ -157,11 +157,9 @@ const TaskProvider: React.StatelessComponent = ({ children }) => {
                                 if (responseV1.status === RessursStatus.SUKSESS) {
                                     const getLogg = (logger?: ITaskLogg[]) => {
                                         if (logger && logger.length > 0) {
-                                            return moment(logger[0].opprettetTidspunkt).format(
-                                                'DD.MM.YYYY HH:mm'
-                                            );
+                                            return logger[0].opprettetTidspunkt;
                                         } else {
-                                            return 'Venter på første kjøring';
+                                            return undefined;
                                         }
                                     };
                                     const logg: ITaskLogger = responseV1.data.reduce(
