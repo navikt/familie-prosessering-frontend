@@ -5055,10 +5055,10 @@ nav-frontend-knapper@^2.0.3:
   resolved "https://registry.yarnpkg.com/nav-frontend-knapper/-/nav-frontend-knapper-2.0.3.tgz#a24a5dc99807e7ffc22d9a932fd256411b4aac59"
   integrity sha512-N78lgCLqVifyt9/BLQdVJTh+e9CgU+06qVaoVsoIcJLhKAF2Dh+dVyav6EnxQvOybJ6JshwQoLZ3Xe1Xd+O/Gw==
 
-nav-frontend-lenker-style@^0.2.27:
-  version "0.2.27"
-  resolved "https://registry.yarnpkg.com/nav-frontend-lenker-style/-/nav-frontend-lenker-style-0.2.27.tgz#a79c04b77eb20b37ffa62a2e4e73bb6e87d1149e"
-  integrity sha512-ykZZUXhHvXdh6XPQnWMTEOAl+7FbEDdumtTa7Z2FaYRrnrOjHnqZdggF5jSUSbsmGk/I/vyUF2eyvti1rliQ9Q==
+nav-frontend-lenker-style@^0.2.28:
+  version "0.2.29"
+  resolved "https://registry.yarnpkg.com/nav-frontend-lenker-style/-/nav-frontend-lenker-style-0.2.29.tgz#19c3b3d3356a06718950ffdebe68799bdc580fb5"
+  integrity sha512-0LLaONtn0Rn+Tg5t+N9Elq2Qgmh9iF6zhbUJGDLLq50rjRtNkhmXqb7czlwhi7JuCCge+bdXEe2ai741oXRr/w==
 
 nav-frontend-lenker@^1.0.36:
   version "1.0.36"
