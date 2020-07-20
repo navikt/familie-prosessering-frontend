@@ -145,15 +145,14 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
-"@navikt/familie-backend@^5.0.4":
-  version "5.0.4"
-  resolved "https://registry.yarnpkg.com/@navikt/familie-backend/-/familie-backend-5.0.4.tgz#34cbea3adee04fff6332aeeb4de66de56b0f5b31"
-  integrity sha512-XncLyNN8TQuKBMqabsAKB/1Xw93/UprFY+Y/d+stFqz2bag7AhJe5IuHqmT/dvSWf642WNq+SeG68MXZTshJlQ==
+"@navikt/familie-backend@^5.0.10":
+  version "5.0.10"
+  resolved "https://registry.yarnpkg.com/@navikt/familie-backend/-/familie-backend-5.0.10.tgz#eab6273756c6cda23a3b51da99a3a050ba90dc4d"
+  integrity sha512-8e4lJni/wgPDcL8kOxzrpoC6suA7n6rW/DtIm4I9KJxz6Ul7843uo/of6YNJKU6MfKKmvaYHej9RqUyLL7l4BA==
   dependencies:
     "@types/cookie-parser" "^1.4.2"
     "@types/express" "^4.17.2"
     "@types/express-session" "^1.15.15"
-    "@types/moment-timezone" "^0.5.12"
     "@types/morgan" "^1.7.37"
     "@types/passport" "^1.0.1"
     "@types/redis" "^2.8.14"
@@ -529,13 +528,6 @@
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/@types/minimatch/-/minimatch-3.0.3.tgz#3dca0e3f33b200fc7d1139c0cd96c1268cadfd9d"
   integrity sha512-tHq6qdbT9U1IRSGf14CL0pUlULksvY9OZ+5eEgl1N7t+OA3tGvNpxJCzuKQlsNgCVwbAs670L1vcVQi8j9HjnA==
-
-"@types/moment-timezone@^0.5.12":
-  version "0.5.13"
-  resolved "https://registry.yarnpkg.com/@types/moment-timezone/-/moment-timezone-0.5.13.tgz#0317ccc91eb4c7f4901704166166395c39276528"
-  integrity sha512-SWk1qM8DRssS5YR9L4eEX7WUhK/wc96aIr4nMa6p0kTk9YhGGOJjECVhIdPEj13fvJw72Xun69gScXSZ/UmcPg==
-  dependencies:
-    moment ">=2.14.0"
 
 "@types/morgan@^1.7.37":
   version "1.9.0"
@@ -4945,7 +4937,7 @@ moment-timezone@^0.5.27:
   dependencies:
     moment ">= 2.9.0"
 
-"moment@>= 2.9.0", moment@>=2.14.0, moment@^2.26.0:
+"moment@>= 2.9.0", moment@^2.26.0:
   version "2.26.0"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.26.0.tgz#5e1f82c6bafca6e83e808b30c8705eed0dcbd39a"
   integrity sha512-oIixUO+OamkUkwjhAVE18rAMfRJNsNe/Stid/gwHSOfHrOtw9EhAY2AHvdKZ/k/MggcYELFCJz/Sn2pL8b8JMw==
