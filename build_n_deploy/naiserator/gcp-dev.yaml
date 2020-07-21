@@ -20,7 +20,6 @@ spec:
     max: 2
     cpuThresholdPercentage: 50
   ingresses:
-    - "https://familie-prosessering.dev-adeo.no"
     - "https://familie-prosessering.dev.nav.no"
   accessPolicy:
     outbound:
