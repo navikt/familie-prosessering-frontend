@@ -5025,10 +5025,10 @@ nav-frontend-alertstriper-style@^2.0.15:
   resolved "https://registry.yarnpkg.com/nav-frontend-alertstriper-style/-/nav-frontend-alertstriper-style-2.0.15.tgz#937992cc80459bc2408d19d0c203bb023d03e466"
   integrity sha512-549EyBvkRxFTz6BfflP/8M+3Iu4bVybP9gO/rEIxbRcaLZhy6L70j4hhdQnZxf5ZEn2AATlFTk6Vr3WGzBISHg==
 
-nav-frontend-alertstriper@^3.0.17:
-  version "3.0.17"
-  resolved "https://registry.yarnpkg.com/nav-frontend-alertstriper/-/nav-frontend-alertstriper-3.0.17.tgz#ac50cb2b54f1fadbcea2b3985760739e1242b80b"
-  integrity sha512-7gR4TKudCHWEQVuqQWK3sMLKroWXI1MmWwfQXagPH5u00ZRsM6KOzAilY6sVTfPzOP2yvEIdv9xYyJm+ww7ZIQ==
+nav-frontend-alertstriper@^3.0.18:
+  version "3.0.22"
+  resolved "https://registry.yarnpkg.com/nav-frontend-alertstriper/-/nav-frontend-alertstriper-3.0.22.tgz#4934ab176055fac69ec546cbc58c532d80fcf6af"
+  integrity sha512-ez6jPuJ+GFJwZsWkrp1nS+jyMyxooIT5PyEeJ9P46jdEk/zIE0RvbBve92bCWwrS/EOzxdKHhWXM2MeGn0UPoA==
 
 nav-frontend-core@^4.0.13:
   version "4.0.13"
