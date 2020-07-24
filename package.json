@@ -44,7 +44,7 @@
     "https-proxy-agent": "^5.0.0",
     "lodash.throttle": "^4.1.1",
     "loglevel": "^1.6.8",
-    "moment": "^2.26.0",
+    "moment": "^2.27.0",
     "nav-frontend-alertstriper": "^3.0.17",
     "nav-frontend-alertstriper-style": "^2.0.15",
     "nav-frontend-core": "^4.0.13",
