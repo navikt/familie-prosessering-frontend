@@ -72,6 +72,7 @@
     "react-modal": "^3.11.2",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
+    "request": "^2.88.2",
     "request-promise": "^4.2.5",
     "snyk": "^1.360.0",
     "uuid": "^8.1.0"
