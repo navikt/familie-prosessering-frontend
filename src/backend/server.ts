@@ -49,14 +49,13 @@ backend(sessionConfig).then(({ app, azureAuthClient, router }: IApp) => {
     app.use(bodyParser.urlencoded({ limit: '200mb', extended: true }));
     app.use('/', setupRouter(azureAuthClient, router, middleware));
 
-    app.listen(port, '0.0.0.0', (err: Error) => {
-        if (err) {
-            loglevel.error(`${getLogTimestamp()}: server startup failed - ${err}`);
-        }
+    app.listen(port, '0.0.0.0', () => {
         loglevel.info(
             `${getLogTimestamp()}: server startet på port ${port}. Build version: ${
                 process.env.APP_VERSION
             }.`
         );
+    }).on('error', (err) => {
+        loglevel.error(`${getLogTimestamp()}: server startup failed - ${err}`);
     });
 });
