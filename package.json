@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "@navikt/familie-backend": "^5.0.4",
+    "@navikt/familie-typer": "^3.0.6",
     "@navikt/fnrvalidator": "^1.1.2",
     "@types/body-parser": "^1.19.0",
     "@types/classnames": "^2.2.10",
@@ -74,7 +75,7 @@
     "react-router-dom": "^5.2.0",
     "request": "^2.88.2",
     "request-promise": "^4.2.5",
-    "snyk": "^1.386.0",
+    "snyk": "^1.416.0",
     "uuid": "^8.1.0"
   },
   "devDependencies": {

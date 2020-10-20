@@ -2,7 +2,6 @@ import { AxiosError } from 'axios';
 import * as React from 'react';
 import { useHistory, useLocation } from 'react-router';
 import { avvikshåndterTask, hentTasks, hentTasks2, rekjørTask } from '../api/task';
-import { byggTomRessurs, Ressurs, RessursStatus } from '../typer/ressurs';
 import { IService } from '../typer/service';
 import {
     IAvvikshåndteringDTO,
@@ -14,6 +13,7 @@ import {
 } from '../typer/task';
 import { useServiceContext } from './ServiceProvider';
 import * as moment from 'moment';
+import { Ressurs, RessursStatus, byggTomRessurs } from '@navikt/familie-typer';
 
 export enum actions {
     AVVIKSHÅNDTER_TASK = 'AVVIKSHÅNDTER_TASK',

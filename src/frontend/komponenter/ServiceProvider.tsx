@@ -2,8 +2,8 @@ import { AxiosError } from 'axios';
 import * as React from 'react';
 import { useHistory } from 'react-router';
 import { hentServices } from '../api/service';
-import { byggFeiletRessurs, byggTomRessurs, Ressurs, RessursStatus } from '../typer/ressurs';
 import { IService } from '../typer/service';
+import { Ressurs, RessursStatus, byggTomRessurs, byggFeiletRessurs } from '@navikt/familie-typer';
 
 export enum actions {
     HENT_SERVICES = 'HENT_SERVICES',
@@ -89,7 +89,7 @@ const ServiceProvider: React.StatelessComponent = ({ children }) => {
             })
             .catch((error: AxiosError) => {
                 dispatch({
-                    payload: byggFeiletRessurs('Ukent feil ved henting av services', error),
+                    payload: byggFeiletRessurs('Ukent feil ved henting av services'),
                     type: actions.HENT_SERVICES_FEILET,
                 });
             });

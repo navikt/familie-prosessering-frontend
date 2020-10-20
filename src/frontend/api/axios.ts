@@ -1,5 +1,5 @@
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
-import { byggFeiletRessurs, Ressurs, RessursStatus } from '../typer/ressurs';
+import { Ressurs, RessursStatus, byggFeiletRessurs } from '@navikt/familie-typer';
 
 axios.defaults.baseURL = window.location.origin;
 export const preferredAxios = axios;
@@ -23,20 +23,20 @@ export const axiosRequest = async <T>(config: AxiosRequestConfig): Promise<Ressu
                     break;
                 case RessursStatus.IKKE_TILGANG:
                     typetRessurs = {
-                        melding: responsRessurs.melding,
+                        frontendFeilmelding: responsRessurs.frontendFeilmelding ?? 'Ikke tilgang',
                         status: RessursStatus.IKKE_TILGANG,
                     };
                     break;
                 case RessursStatus.FEILET:
                     typetRessurs = {
-                        errorMelding: responsRessurs.errorMelding,
-                        melding: responsRessurs.melding,
+                        frontendFeilmelding:
+                            responsRessurs.frontendFeilmelding ?? 'En feil har oppstått!',
                         status: RessursStatus.FEILET,
                     };
                     break;
                 default:
                     typetRessurs = {
-                        melding: 'Ukjent api feil',
+                        frontendFeilmelding: 'En feil har oppstått!',
                         status: RessursStatus.FEILET,
                     };
                     break;
@@ -45,6 +45,6 @@ export const axiosRequest = async <T>(config: AxiosRequestConfig): Promise<Ressu
             return typetRessurs;
         })
         .catch((error: AxiosError) => {
-            return byggFeiletRessurs<T>('Ukjent api feil', error);
+            return byggFeiletRessurs<T>('Ukjent api feil');
         });
 };

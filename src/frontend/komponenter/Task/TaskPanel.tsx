@@ -10,9 +10,9 @@ import { actions, useTaskContext, useTaskDispatch } from '../TaskProvider';
 import AvvikshåndteringModal from './AvvikshåndteringModal/AvvikshåndteringModal';
 import TaskElement from './TaskElement';
 import { hentTaskLogg } from '../../api/task';
-import { Ressurs, RessursStatus } from '../../typer/ressurs';
 import { IService } from '../../typer/service';
 import { useServiceContext } from '../ServiceProvider';
+import { Ressurs, RessursStatus } from '@navikt/familie-typer';
 
 interface IProps {
     task: ITask;

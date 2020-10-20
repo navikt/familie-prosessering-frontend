@@ -3,13 +3,13 @@ import { NavLink, useHistory, useParams } from 'react-router-dom';
 import { parse } from 'query-string';
 import { Normaltekst } from 'nav-frontend-typografi';
 import * as React from 'react';
-import { RessursStatus } from '../../typer/ressurs';
 import { taskStatus, ITask } from '../../typer/task';
 import { useTaskContext } from '../TaskProvider';
 import * as moment from 'moment';
 import * as classNames from 'classnames';
 import TaskListe from '../Task/TaskListe';
 import TopBar from '../Felleskomponenter/TopBar/TopBar';
+import { RessursStatus } from '@navikt/familie-typer';
 
 const GruppertTasks: React.FunctionComponent = () => {
     const { service } = useParams();
@@ -89,10 +89,17 @@ const GruppertTasks: React.FunctionComponent = () => {
             );
         case RessursStatus.HENTER:
             return <AlertStripe children={`Laster tasker`} type={'info'} />;
+        case RessursStatus.IKKE_TILGANG:
+            return (
+                <AlertStripe
+                    children={`Ikke tilgang til tasker: ${tasks.frontendFeilmelding}`}
+                    type={'advarsel'}
+                />
+            );
         case RessursStatus.FEILET:
             return (
                 <AlertStripe
-                    children={`Innhenting av tasker feilet. Feilmelding: ${tasks.melding}`}
+                    children={`Innhenting av tasker feilet: ${tasks.frontendFeilmelding}`}
                     type={'feil'}
                 />
             );
