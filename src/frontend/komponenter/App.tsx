@@ -1,8 +1,7 @@
 import Modal from 'nav-frontend-modal';
 import * as React from 'react';
-import { BrowserRouter as Router, Route, Switch, useHistory } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { hentInnloggetBruker } from '../api/saksbehandler';
-import { ISaksbehandler } from '../typer/saksbehandler';
 import Dekoratør from './Felleskomponenter/Dekoratør/Dekoratør';
 import { ServiceProvider } from './ServiceProvider';
 import Services from './Services/Services';
@@ -10,6 +9,7 @@ import Tasks from './Task/Tasks';
 import { TaskProvider } from './TaskProvider';
 import GruppertTasks from './GruppertTasks/GruppertTasks';
 import { taskStatus } from '../typer/task';
+import { ISaksbehandler } from '@navikt/familie-typer';
 
 Modal.setAppElement(document.getElementById('modal-a11y-wrapper'));
 

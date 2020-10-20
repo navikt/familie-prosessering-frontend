@@ -2,7 +2,7 @@ import * as classNames from 'classnames';
 import { Innholdstittel } from 'nav-frontend-typografi';
 import * as React from 'react';
 import { useHistory } from 'react-router';
-import { ISaksbehandler } from '../../../typer/saksbehandler';
+import { ISaksbehandler } from '@navikt/familie-typer';
 
 interface IProps {
     innloggetSaksbehandler?: ISaksbehandler;
