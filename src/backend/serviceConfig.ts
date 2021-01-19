@@ -19,7 +19,7 @@ if (process.env.ENV === 'local') {
         barnetrygd_mottak: `https://familie-ba-mottak.${process.env.ENV}-fss-pub.nais.io`,
         barnetrygd_sak: `https://familie-ba-sak.${process.env.ENV}-fss-pub.nais.io`,
         enslig_mottak: `https://familie-ef-mottak.${process.env.ENV}-fss-pub.nais.io`,
-        enslig_sak: `https://familie-ef-sak.${process.env.ENV}-fss.nais.io`,
+        enslig_sak: `https://familie-ef-sak.${process.env.ENV}-fss-pub.nais.io`,
         kontantstøtte_mottak: `https://familie-ks-mottak.${process.env.ENV}-fss-pub.nais.io`,
     };
 }

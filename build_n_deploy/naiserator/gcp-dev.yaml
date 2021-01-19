@@ -28,7 +28,7 @@ spec:
         - host: familie-ba-sak.dev-fss-pub.nais.io
         - host: familie-ks-mottak.dev-fss-pub.nais.io
         - host: familie-ef-mottak.dev-fss-pub.nais.io
-        - host: familie-ef-sak.dev-fss.nais.io
+        - host: familie-ef-sak.dev-fss-pub.nais.io
   resources:
     limits:
       cpu: 2000m
