@@ -19,6 +19,7 @@ if (process.env.ENV === 'local') {
         barnetrygd_mottak: `https://familie-ba-mottak.${process.env.ENV}-fss-pub.nais.io`,
         barnetrygd_sak: `https://familie-ba-sak.${process.env.ENV}-fss-pub.nais.io`,
         enslig_mottak: `https://familie-ef-mottak.${process.env.ENV}-fss-pub.nais.io`,
+        enslig_sak: `https://familie-ef-sak.${process.env.ENV}-fss-pub.nais.io`,
         kontantstøtte_mottak: `https://familie-ks-mottak.${process.env.ENV}-fss-pub.nais.io`,
     };
 }
@@ -51,5 +52,12 @@ export const serviceConfig: IService[] = [
         id: 'familie-ef-mottak',
         proxyPath: '/familie-ef-mottak/api',
         proxyUrl: proxyUrls.enslig_mottak,
+    },
+    {
+        clientId: process.env.EF_SAK_CLIENT_ID,
+        displayName: 'Alene med barn - sak',
+        id: 'familie-ef-sak',
+        proxyPath: '/familie-ef-sak/api',
+        proxyUrl: proxyUrls.enslig_sak,
     },
 ];
