@@ -23,12 +23,13 @@ spec:
     - "https://familie-prosessering.adeo.no"
   accessPolicy:
     outbound:
+      rules:
+        - application: familie-ef-sak
       external:
         - host: familie-ba-mottak.prod-fss-pub.nais.io
         - host: familie-ba-sak.prod-fss-pub.nais.io
         - host: familie-ks-mottak.prod-fss-pub.nais.io
         - host: familie-ef-mottak.prod-fss-pub.nais.io
-        - host: familie-ef-sak.prod-fss-pub.nais.io
         - host: familie-tilbake.prod-fss-pub.nais.io
   resources:
     limits:

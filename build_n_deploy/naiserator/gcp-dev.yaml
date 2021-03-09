@@ -23,12 +23,13 @@ spec:
     - "https://familie-prosessering.dev.nav.no"
   accessPolicy:
     outbound:
+      rules:
+        - application: familie-ef-sak
       external:
         - host: familie-ba-mottak.dev-fss-pub.nais.io
         - host: familie-ba-sak.dev-fss-pub.nais.io
         - host: familie-ks-mottak.dev-fss-pub.nais.io
         - host: familie-ef-mottak.dev-fss-pub.nais.io
-        - host: familie-ef-sak.dev-fss-pub.nais.io
         - host: familie-tilbake.dev-fss-pub.nais.io
   resources:
     limits:
