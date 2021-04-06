@@ -1,6 +1,12 @@
 import dotenv from 'dotenv';
 dotenv.config();
 
+const settAzureAdPropsFraEnv = () => {
+    process.env.AAD_DISCOVERY_URL = process.env.AZURE_APP_WELL_KNOWN_URL;
+    process.env.CLIENT_ID = process.env.AZURE_APP_CLIENT_ID;
+    process.env.CLIENT_SECRET = process.env.AZURE_APP_CLIENT_SECRET;
+};
+
 const konfigurerAzure = () => {
     const host = 'familie-prosessering';
     switch (process.env.ENV) {
@@ -13,14 +19,14 @@ const konfigurerAzure = () => {
         case 'dev':
             process.env.AAD_LOGOUT_REDIRECT_URL = `https://login.microsoftonline.com/navq.onmicrosoft.com/oauth2/logout?post_logout_redirect_uri=https:\\\\${host}.dev.nav.no`;
             process.env.AAD_REDIRECT_URL = `https://${host}.dev.nav.no/auth/openid/callback`;
-            process.env.AAD_DISCOVERY_URL = `https://login.microsoftonline.com/navq.onmicrosoft.com/v2.0/.well-known/openid-configuration`;
             process.env.GRAPH_API = 'https://graph.microsoft.com/v1.0/me';
+            settAzureAdPropsFraEnv();
             break;
         case 'prod':
             process.env.AAD_LOGOUT_REDIRECT_URL = `https://login.microsoftonline.com/navno.onmicrosoft.com/oauth2/logout?post_logout_redirect_uri=https:\\\\${host}.adeo.no`;
             process.env.AAD_REDIRECT_URL = `https://${host}.adeo.no/auth/openid/callback`;
-            process.env.AAD_DISCOVERY_URL = `https://login.microsoftonline.com/navno.onmicrosoft.com/v2.0/.well-known/openid-configuration`;
             process.env.GRAPH_API = 'https://graph.microsoft.com/v1.0/me';
+            settAzureAdPropsFraEnv();
             break;
         default:
             break;

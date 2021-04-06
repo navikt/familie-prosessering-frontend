@@ -21,6 +21,11 @@ spec:
     cpuThresholdPercentage: 50
   ingresses: 
     - "https://familie-prosessering.adeo.no"
+  azure:
+    application:
+      enabled: true
+      replyURLs:
+        - 'https://familie-prosessering.adeo.no/auth/openid/callback'
   accessPolicy:
     outbound:
       rules:
