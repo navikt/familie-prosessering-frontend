@@ -26,7 +26,7 @@ const konfigurerAzure = () => {
             process.env.AAD_LOGOUT_REDIRECT_URL = `https://login.microsoftonline.com/navno.onmicrosoft.com/oauth2/logout?post_logout_redirect_uri=https:\\\\${host}.adeo.no`;
             process.env.AAD_REDIRECT_URL = `https://${host}.adeo.no/auth/openid/callback`;
             process.env.GRAPH_API = 'https://graph.microsoft.com/v1.0/me';
-            settAzureAdPropsFraEnv();
+            // settAzureAdPropsFraEnv();
             break;
         default:
             break;
