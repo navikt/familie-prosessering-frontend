@@ -154,7 +154,13 @@ const hentStackTrace = (melding?: string) => {
 
     try {
         const json = JSON.parse(melding);
-        return json.stackTrace ? json.stackTrace : 'Ingen stack trace';
+        if (json.stackTrace) {
+            return json.stackTrace;
+        } else if (json.feilmelding) {
+            return `${json.feilmelding} - Ingen stack trace`;
+        } else {
+            return 'Ingen stack trace';
+        }
     } catch (error) {
         return melding ? melding : undefined;
     }
