@@ -1,8 +1,8 @@
 import { AxiosError } from 'axios';
 import * as React from 'react';
 import { useHistory } from 'react-router';
-import { hentServices } from '../api/service';
-import { IService } from '../typer/service';
+import { hentServices, hentServiceStatistikk } from '../api/service';
+import { IService, IServiceStatistikkResponse } from '../typer/service';
 import { Ressurs, RessursStatus, byggTomRessurs, byggFeiletRessurs } from '@navikt/familie-typer';
 
 export enum actions {
@@ -10,6 +10,10 @@ export enum actions {
     HENT_SERVICES_SUKSESS = 'HENT_SERVICES_SUKSESS',
     HENT_SERVICES_FEILET = 'HENT_SERVICES_FEILET',
     SETT_VALGT_SERVICE = 'SETT_VALGT_SERVICE',
+
+    HENT_STATISTIKK = 'HENT_STATISTIKK',
+    HENT_STATISTIKK_SUKSESS = 'HENT_STATISTIKK_SUKSESS',
+    HENT_STATISTIKK_FEILET = 'HENT_STATISTIKK_FEILET',
 }
 
 interface IAction {
@@ -21,6 +25,7 @@ export type Dispatch = (action: IAction) => void;
 
 interface IState {
     services: Ressurs<IService[]>;
+    serviceStatistikk: Ressurs<IServiceStatistikkResponse>;
     valgtService: IService | undefined;
 }
 
@@ -37,12 +42,7 @@ const ServiceReducer = (state: IState, action: IAction): IState => {
                 },
             };
         }
-        case actions.HENT_SERVICES_SUKSESS: {
-            return {
-                ...state,
-                services: action.payload,
-            };
-        }
+        case actions.HENT_SERVICES_SUKSESS:
         case actions.HENT_SERVICES_FEILET: {
             return {
                 ...state,
@@ -53,6 +53,21 @@ const ServiceReducer = (state: IState, action: IAction): IState => {
             return {
                 ...state,
                 valgtService: action.payload,
+            };
+        }
+        case actions.HENT_STATISTIKK: {
+            return {
+                ...state,
+                serviceStatistikk: {
+                    status: RessursStatus.HENTER,
+                },
+            };
+        }
+        case actions.HENT_STATISTIKK_SUKSESS:
+        case actions.HENT_STATISTIKK_FEILET: {
+            return {
+                ...state,
+                serviceStatistikk: action.payload,
             };
         }
         default: {
@@ -66,6 +81,7 @@ const ServiceProvider: React.StatelessComponent = ({ children }) => {
 
     const [state, dispatch] = React.useReducer(ServiceReducer, {
         services: byggTomRessurs<IService[]>(),
+        serviceStatistikk: byggTomRessurs<IServiceStatistikkResponse>(),
         valgtService: undefined,
     });
 
@@ -91,6 +107,20 @@ const ServiceProvider: React.StatelessComponent = ({ children }) => {
                 dispatch({
                     payload: byggFeiletRessurs('Ukent feil ved henting av services'),
                     type: actions.HENT_SERVICES_FEILET,
+                });
+            });
+        dispatch({ type: actions.HENT_STATISTIKK });
+        hentServiceStatistikk()
+            .then((statistikk: Ressurs<IServiceStatistikkResponse>) => {
+                dispatch({
+                    payload: statistikk,
+                    type: actions.HENT_STATISTIKK_SUKSESS,
+                });
+            })
+            .catch((error: AxiosError) => {
+                dispatch({
+                    payload: byggFeiletRessurs('Ukent feil ved henting av statistikk'),
+                    type: actions.HENT_STATISTIKK_FEILET,
                 });
             });
     }, []);

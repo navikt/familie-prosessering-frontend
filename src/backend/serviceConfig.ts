@@ -4,6 +4,7 @@ export interface IService {
     proxyPath: string;
     id: string;
     proxyUrl: string;
+    statistikk?: boolean;
 }
 
 let proxyUrls: { [key: string]: string } = {};
@@ -54,13 +55,7 @@ export const serviceConfig: IService[] = [
         id: 'familie-ef-mottak',
         proxyPath: '/familie-ef-mottak/api',
         proxyUrl: proxyUrls.enslig_mottak,
-    },
-    {
-        clientId: process.env.FAMILIE_TILBAKE_CLIENT_ID,
-        displayName: 'Tilbakekreving',
-        id: 'familie-tilbake',
-        proxyPath: '/familie-tilbake/api',
-        proxyUrl: proxyUrls.tilbake,
+        statistikk: false,
     },
     {
         clientId: process.env.EF_SAK_CLIENT_ID,
@@ -75,5 +70,12 @@ export const serviceConfig: IService[] = [
         id: 'familie-ef-iverksett',
         proxyPath: '/familie-ef-iverksett/api',
         proxyUrl: proxyUrls.enslig_iverksett,
+    },
+    {
+        clientId: process.env.FAMILIE_TILBAKE_CLIENT_ID,
+        displayName: 'Tilbakekreving',
+        id: 'familie-tilbake',
+        proxyPath: '/familie-tilbake/api',
+        proxyUrl: proxyUrls.tilbake,
     },
 ];

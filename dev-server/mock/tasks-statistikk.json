@@ -1,0 +1,14 @@
+{
+  "status": "SUKSESS",
+  "melding": "Innhenting av data var vellykket",
+  "errorMelding": null,
+  "data": {
+    "hentet": 1626017451240,
+    "statistikk": {
+      "familie-ks-mottak": {
+        "FERDIG": 1,
+        "FEILET": 3
+      }
+    }
+  }
+}

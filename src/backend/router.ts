@@ -4,6 +4,7 @@ import path from 'path';
 import { buildPath } from './config';
 import { IService, serviceConfig } from './serviceConfig';
 import WebpackDevMiddleware from 'webpack-dev-middleware';
+import { hentStatistikk } from './statistikk';
 
 export default (
     authClient: Client,
@@ -29,6 +30,14 @@ export default (
             })
             .end();
     });
+
+    router.get(
+        '/statistikk',
+        ensureAuthenticated(authClient, false),
+        (req: Request, res: Response) => {
+            hentStatistikk(req, res);
+        }
+    );
 
     // APP
     if (process.env.NODE_ENV === 'development') {

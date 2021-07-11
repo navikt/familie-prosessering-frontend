@@ -45,4 +45,8 @@ app.get('/services', (req, res) => {
     });
 });
 
+app.get('/statistikk', (req, res) => {
+    setTimeout(() => res.send(lesMockFil(`tasks-statistikk.json`)), delayMs);
+});
+
 module.exports = app;
