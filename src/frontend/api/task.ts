@@ -1,22 +1,9 @@
-import { Ressurs } from '../typer/ressurs';
 import { IService } from '../typer/service';
 import { IAvvikshåndteringDTO, ITask, ITaskResponse, ITaskLogg, taskStatus } from '../typer/task';
 import { axiosRequest } from './axios';
+import { Ressurs } from '@navikt/familie-typer';
 
 export const hentTasks = (
-    valgtService: IService,
-    statusFilter: taskStatus
-): Promise<Ressurs<ITask[]>> => {
-    return axiosRequest({
-        headers: statusFilter !== taskStatus.ALLE && {
-            status: statusFilter,
-        },
-        method: 'GET',
-        url: `${valgtService.proxyPath}/task`,
-    });
-};
-
-export const hentTasks2 = (
     valgtService: IService,
     statusFilter: taskStatus,
     side: number
@@ -31,7 +18,7 @@ export const hentTasks2 = (
     return axiosRequest({
         params,
         method: 'GET',
-        url: `${valgtService.proxyPath}/v2/task`,
+        url: `${valgtService.proxyPath}/task/v2`,
     });
 };
 

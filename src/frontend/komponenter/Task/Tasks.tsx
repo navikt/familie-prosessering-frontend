@@ -2,12 +2,12 @@ import AlertStripe from 'nav-frontend-alertstriper';
 import * as React from 'react';
 import { RessursStatus } from '@navikt/familie-typer';
 import Paginering from '../Felleskomponenter/Paginering/Paginering';
-import { useTaskContext } from '../TaskProvider';
 import TaskListe from './TaskListe';
 import TopBar from '../Felleskomponenter/TopBar/TopBar';
+import { useTaskContext } from '../TaskProvider';
 
 const Tasks: React.FunctionComponent = () => {
-    const tasks = useTaskContext().tasks;
+    const { tasks } = useTaskContext();
 
     switch (tasks.status) {
         case RessursStatus.SUKSESS:

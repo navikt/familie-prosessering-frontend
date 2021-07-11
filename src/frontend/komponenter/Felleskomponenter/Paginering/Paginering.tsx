@@ -1,34 +1,17 @@
 import { Knapp } from 'nav-frontend-knapper';
 import { UndertekstBold } from 'nav-frontend-typografi';
 import * as React from 'react';
-import { actions as taskActions, useTaskContext, useTaskDispatch } from '../../TaskProvider';
+import { useTaskContext } from '../../TaskProvider';
+import { FC } from 'react';
 
-const Paginering: React.FunctionComponent = () => {
-    const side = useTaskContext().side;
-    const tasksDispatcher = useTaskDispatch();
+const Paginering: FC = () => {
+    const { side, settSide } = useTaskContext();
     return (
         <div>
-            <Knapp
-                onClick={() =>
-                    tasksDispatcher({
-                        payload: side - 1,
-                        type: taskActions.SETT_SIDE,
-                    })
-                }
-                mini={true}
-                disabled={side <= 0}
-            >
+            <Knapp onClick={() => settSide(side - 1)} mini={true} disabled={side <= 0}>
                 Forrige
             </Knapp>
-            <Knapp
-                onClick={() =>
-                    tasksDispatcher({
-                        payload: side + 1,
-                        type: taskActions.SETT_SIDE,
-                    })
-                }
-                mini={true}
-            >
+            <Knapp onClick={() => settSide(side + 1)} mini={true}>
                 Neste
             </Knapp>
             <UndertekstBold>Side: {side}</UndertekstBold>

@@ -11,16 +11,20 @@ import * as classNames from 'classnames';
 import TaskListe from '../Task/TaskListe';
 import TopBar from '../Felleskomponenter/TopBar/TopBar';
 import { RessursStatus } from '@navikt/familie-typer';
+import { FC } from 'react';
 
-const GruppertTasks: React.FunctionComponent = () => {
+interface GruppertTasker {
+    [key: string]: ITask[];
+}
+
+const GruppertTasks: FC = () => {
     const { service } = useParams();
-    const tasks = useTaskContext().tasks;
+    const { tasks, statusFilter } = useTaskContext();
     const history = useHistory();
     const search = parse(history.location.search);
     const callId = search.callId ? search.callId.toString() : '';
-    const statusFilter = useTaskContext().statusFilter;
 
-    const gruppertTasks =
+    const gruppertTasks: GruppertTasker =
         tasks.status === RessursStatus.SUKSESS
             ? tasks.data.tasks.reduce((gruppert: { [key: string]: ITask[] }, task: ITask) => {
                   const gruppeTasks = gruppert[task.metadata.callId]

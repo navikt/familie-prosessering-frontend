@@ -10,8 +10,8 @@ interface IProps {
     tasks: ITask[];
 }
 
-const TaskListe: React.StatelessComponent<IProps> = ({ tasks }) => {
-    const statusFilter = useTaskContext().statusFilter;
+const TaskListe: React.FC<IProps> = ({ tasks }) => {
+    const { statusFilter } = useTaskContext();
 
     return tasks.length > 0 ? (
         <React.Fragment>

@@ -13,17 +13,21 @@ const lesMockFil = (filnavn) => {
     }
 };
 
-app.get('/familie-ks-mottak/api/task', (req, res) => {
-    setTimeout(() => res.send(lesMockFil(`tasks-feilede.json`)), delayMs);
-});
-
-app.get('/familie-ks-mottak/api/v2/task', (req, res) => {
+app.get('/familie-ks-mottak/api/task/v2', (req, res) => {
     //res.status(500).send()
     setTimeout(() => res.send(lesMockFil(`tasks-feilede2.json`)), delayMs);
 });
 
 app.get('/familie-ks-mottak/api/task/logg/:id', (req, res) => {
     setTimeout(() => res.send(lesMockFil(`tasks-logg.json`)), delayMs);
+});
+
+app.put('/familie-ks-mottak/api/task/rekjorAlle', (req, res) => {
+    res.send({
+        status: 'SUKSESS',
+        melding: 'Innhenting av data var vellykket',
+        data: {},
+    });
 });
 
 app.get('/user/profile', (req, res) => {

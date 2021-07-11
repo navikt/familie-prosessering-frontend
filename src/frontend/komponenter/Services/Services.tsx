@@ -3,21 +3,23 @@ import { Systemtittel } from 'nav-frontend-typografi';
 import * as React from 'react';
 import { useHistory } from 'react-router';
 import { IService } from '../../typer/service';
-import { actions, Dispatch, useServiceContext, useServiceDispatch } from '../ServiceProvider';
 import ServiceIkon from './ServiceIkon';
 import { Knapp } from 'nav-frontend-knapper';
 import { RessursStatus } from '@navikt/familie-typer';
+import { useServiceContext } from '../ServiceContext';
 
 const Services: React.FunctionComponent = () => {
-    const services = useServiceContext().services;
-    const dispatch = useServiceDispatch();
+    const { services } = useServiceContext();
+    const { settValgtService } = useServiceContext();
     const history = useHistory();
 
     switch (services.status) {
         case RessursStatus.SUKSESS:
             return (
                 <div className={'services'}>
-                    {services.data.map((service: IService) => Service(service, dispatch, history))}
+                    {services.data.map((service: IService) =>
+                        Service(service, settValgtService, history)
+                    )}
                 </div>
             );
         case RessursStatus.HENTER:
@@ -34,7 +36,11 @@ const Services: React.FunctionComponent = () => {
     }
 };
 
-const Service = (service: IService, dispatch: Dispatch, history: any) => {
+const Service = (
+    service: IService,
+    settValgtService: (service: IService) => void,
+    history: any
+) => {
     return (
         <div key={service.id} className={'services__service'}>
             <ServiceIkon heigth={150} width={150} />
@@ -43,10 +49,6 @@ const Service = (service: IService, dispatch: Dispatch, history: any) => {
             <div className={'services__service--actions'}>
                 <Knapp
                     onClick={() => {
-                        dispatch({
-                            payload: service,
-                            type: actions.SETT_VALGT_SERVICE,
-                        });
                         history.push(`/service/${service.id}`);
                     }}
                     mini={true}
@@ -55,10 +57,6 @@ const Service = (service: IService, dispatch: Dispatch, history: any) => {
                 </Knapp>
                 <Knapp
                     onClick={() => {
-                        dispatch({
-                            payload: service,
-                            type: actions.SETT_VALGT_SERVICE,
-                        });
                         history.push(`/service/${service.id}/gruppert`);
                     }}
                     mini={true}

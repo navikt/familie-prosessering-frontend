@@ -3,7 +3,7 @@ import * as React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { hentInnloggetBruker } from '../api/saksbehandler';
 import Dekoratør from './Felleskomponenter/Dekoratør/Dekoratør';
-import { ServiceProvider } from './ServiceProvider';
+import { ServiceProvider } from './ServiceContext';
 import Services from './Services/Services';
 import Tasks from './Task/Tasks';
 import { TaskProvider } from './TaskProvider';

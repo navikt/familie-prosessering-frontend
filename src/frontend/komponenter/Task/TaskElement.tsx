@@ -6,7 +6,7 @@ interface IProps {
     label: string;
 }
 
-const TaskElement: React.StatelessComponent<IProps> = ({ innhold, label }) => {
+const TaskElement: React.FC<IProps> = ({ innhold, label }) => {
     return (
         <div className={'taskelement'}>
             <Element children={`${label}:`} />
