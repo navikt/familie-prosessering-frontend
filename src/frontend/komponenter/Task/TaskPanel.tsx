@@ -57,6 +57,10 @@ const TaskPanel: FC<IProps> = ({ task }) => {
                         return <TaskElement key={key} label={key} innhold={task.metadata[key]} />;
                     })}
                     <TaskElement label={'Sist kjørt'} innhold={sistKjørt} />
+                    <TaskElement
+                        label={'Triggertid'}
+                        innhold={moment(task.triggerTid).format('DD.MM.YYYY HH:mm')}
+                    />
                 </div>
             </div>
 
