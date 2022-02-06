@@ -169,10 +169,10 @@
   resolved "https://registry.yarnpkg.com/@navikt/familie-typer/-/familie-typer-3.0.14.tgz#f6a78ca686383e4e2c55d2363ee33b1abf662be9"
   integrity sha512-c3a+WyHPXwQSJfDZnNS6LbbjeHf9wjN8eQ8PKKM7K3VMbrRWC5lFeltV21J70aU9QWvqApTWXUgS5R4qlKqErA==
 
-"@navikt/fnrvalidator@^1.1.4":
-  version "1.1.4"
-  resolved "https://registry.yarnpkg.com/@navikt/fnrvalidator/-/fnrvalidator-1.1.4.tgz#22a776ba05a90c1ba5316a4f7567f9a45abcda04"
-  integrity sha512-IroYFqa8PpzVxtIk6ifeEQBFzsI2QJX/FSIQyBtJvpp2D8Cb5Z9+hGNFppCILWR+QYbY8Dkk48la7K5fPGXeWQ==
+"@navikt/fnrvalidator@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@navikt/fnrvalidator/-/fnrvalidator-1.2.0.tgz#41799586c418bb98bc6b45a62bedbcb5869792a3"
+  integrity sha512-WMK+Y+BLw/4qbdKRQCo2TZQDiELidnXNU+GZ3bpk9DdfOi6UbxBDrNYU/s5QOKyzX/Duws1QCnYKm4nz9lq+xw==
 
 "@panva/asn1.js@^1.0.0":
   version "1.0.0"
