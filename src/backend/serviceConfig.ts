@@ -39,7 +39,6 @@ export const utledScope = (appId: string, cluster: 'gcp' | 'fss') => {
 
 export const serviceConfig: IService[] = [
     {
-        scope: process.env.KS_MOTTAK_SCOPE,
         cluster: 'fss',
         displayName: 'Kontantstøtte mottak',
         id: 'familie-ks-mottak',
