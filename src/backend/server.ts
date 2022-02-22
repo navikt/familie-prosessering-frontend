@@ -31,6 +31,7 @@ backend(sessionConfig).then(({ app, azureAuthClient, router }: IApp) => {
         });
 
         app.use(middleware);
+        // @ts-ignore
         app.use(webpackHotMiddleware(compiler));
     } else {
         app.use('/assets', express.static(path.join(__dirname, '..', 'frontend_production')));
