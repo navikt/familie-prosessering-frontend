@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { byggTomRessurs, Ressurs, RessursStatus } from '@navikt/familie-typer';
 import { ITaskLogg } from '../../typer/task';
 import { Element, Normaltekst } from 'nav-frontend-typografi';

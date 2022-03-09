@@ -9,6 +9,7 @@ import { ServiceProvider } from './ServiceContext';
 import Services from './Services/Services';
 import Tasks from './Task/Tasks';
 import { TaskProvider } from './TaskProvider';
+import '@navikt/ds-css';
 
 Modal.setAppElement(document.getElementById('modal-a11y-wrapper'));
 
@@ -28,19 +29,27 @@ const App: React.FunctionComponent = () => {
                 tittel={'Oppgavebehandling'}
                 onClick={() => {
                     window.location.href = `${window.origin}/auth/logout`;
-                }}/>
+                }}
+            />
             <div className={'container'}>
                 <ServiceProvider>
                     <Routes>
-
-                        <Route path={'/'} element={<Services/>}/>
+                        <Route path={'/'} element={<Services />} />
                         <Route
                             path="service/:service"
-                            element={<TaskProvider><Tasks/></TaskProvider>}
+                            element={
+                                <TaskProvider>
+                                    <Tasks />
+                                </TaskProvider>
+                            }
                         />
                         <Route
                             path="service/:service/gruppert"
-                            element={<TaskProvider><GruppertTasks/></TaskProvider>}
+                            element={
+                                <TaskProvider>
+                                    <GruppertTasks />
+                                </TaskProvider>
+                            }
                         />
                     </Routes>
                 </ServiceProvider>

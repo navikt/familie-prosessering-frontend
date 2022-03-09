@@ -26,7 +26,7 @@ module.exports = {
                 },
             },
             {
-                test: /\.(less)$/,
+                test: /\.(less|css)$/,
                 use: [
                     { loader: require.resolve('style-loader') },
                     {

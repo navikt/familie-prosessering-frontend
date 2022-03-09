@@ -1,6 +1,5 @@
 import { Systemtittel } from 'nav-frontend-typografi';
-import * as React from 'react';
-import { FC } from 'react';
+import React, { FC } from 'react';
 import { useTaskContext } from '../../TaskProvider';
 import { useServiceContext } from '../../ServiceContext';
 import { taskStatus, taskStatusTekster } from '../../../typer/task';

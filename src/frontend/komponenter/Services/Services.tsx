@@ -1,25 +1,33 @@
-import AlertStripe from 'nav-frontend-alertstriper';
-import { Systemtittel } from 'nav-frontend-typografi';
-import * as React from 'react';
-import { NavigateFunction } from "react-router";
-import { useNavigate } from "react-router-dom";
-import { IService } from '../../typer/service';
-import ServiceIkon from './ServiceIkon';
-import { Knapp } from 'nav-frontend-knapper';
 import { RessursStatus } from '@navikt/familie-typer';
+import AlertStripe from 'nav-frontend-alertstriper';
+import { Knapp } from 'nav-frontend-knapper';
+import { Systemtittel } from 'nav-frontend-typografi';
+import React from 'react';
+import { NavigateFunction } from 'react-router';
+import { useNavigate } from 'react-router-dom';
+import { IOppfølgingstask, IService } from '../../typer/service';
 import { useServiceContext } from '../ServiceContext';
+import ServiceIkon from './ServiceIkon';
+import TaskerTilOppfølging from './TaskerTilOppfølging';
 
 const Services: React.FunctionComponent = () => {
-    const { services } = useServiceContext();
+    const { services, taskerTilOppfølging } = useServiceContext();
     const navigate = useNavigate();
 
     switch (services.status) {
         case RessursStatus.SUKSESS:
             return (
                 <div className={'services'}>
-                    {services.data.map((service: IService) =>
-                        Service(service, navigate)
-                    )}
+                    {services.data.map((service: IService) => (
+                        <Service
+                            key={service.id}
+                            service={service}
+                            navigate={navigate}
+                            taskerTilOppfølging={taskerTilOppfølging.find(
+                                (taskTilOppfølging) => taskTilOppfølging.serviceId === service.id
+                            )}
+                        />
+                    ))}
                 </div>
             );
         case RessursStatus.HENTER:
@@ -36,15 +44,18 @@ const Services: React.FunctionComponent = () => {
     }
 };
 
-const Service = (
-    service: IService,
-    navigate: NavigateFunction
-) => {
+const Service: React.FC<{
+    service: IService;
+    navigate: NavigateFunction;
+    taskerTilOppfølging?: IOppfølgingstask;
+}> = ({ service, navigate, taskerTilOppfølging }) => {
     return (
         <div key={service.id} className={'services__service'}>
             <ServiceIkon heigth={150} width={150} />
             <Systemtittel children={service.displayName} />
-
+            {taskerTilOppfølging && (
+                <TaskerTilOppfølging taskerTilOppfølging={taskerTilOppfølging} />
+            )}
             <div className={'services__service--actions'}>
                 <Knapp
                     onClick={() => {
@@ -66,5 +77,4 @@ const Service = (
         </div>
     );
 };
-
 export default Services;
