@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "jsx": "react",
+        "jsx": "react-jsx",
         "lib": [
             "es6",
             "dom",
@@ -12,9 +12,10 @@
         "rootDir": ".",
         "sourceMap": true,
         "strict": true,
+        "allowSyntheticDefaultImports": true,
         "strictNullChecks": true,
         "skipLibCheck": true,
-        "target": "es5",
+        "target": "es6",
         "typeRoots": ["../../node_modules/@types", "./@types"]
     },
     "exclude": [

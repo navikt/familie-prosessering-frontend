@@ -3,3 +3,9 @@ export interface IService {
     id: string;
     proxyPath: string;
 }
+
+export interface IOppfølgingstask {
+    serviceId: string;
+    harMottattSvar: boolean;
+    antallTilOppfølging: number;
+}

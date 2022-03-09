@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react';
-import { hentServices } from '../api/service';
-import { IService } from '../typer/service';
 import { byggTomRessurs, Ressurs, RessursStatus } from '@navikt/familie-typer';
 import constate from 'constate';
-import { useLocation} from 'react-router';
+import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router';
+import { hentServices, hentTaskerTilOppfølgingForService } from '../api/service';
+import { IOppfølgingstask, IService } from '../typer/service';
 
 const getServiceId = (pathname: string) => {
     return pathname.split('/')[2];
@@ -13,10 +13,13 @@ const [ServiceProvider, useServiceContext] = constate(() => {
     const { pathname } = useLocation();
     const [services, settServices] = useState<Ressurs<IService[]>>(byggTomRessurs());
     const [valgtService, settValgtService] = useState<IService>();
+    const [taskerTilOppfølging, settTaskerTilOppfølging] = useState<{
+        [key: string]: IOppfølgingstask;
+    }>({});
 
-    const oppdaterValgtService = (response: Ressurs<IService[]>, pathname: string) => {
+    const oppdaterValgtService = (response: Ressurs<IService[]>, path: string) => {
         if (response.status === RessursStatus.SUKSESS) {
-            const serviceId = getServiceId(pathname);
+            const serviceId = getServiceId(path);
             settValgtService(response.data.find((service) => service.id === serviceId));
         }
     };
@@ -29,13 +32,25 @@ const [ServiceProvider, useServiceContext] = constate(() => {
     }, []);
 
     useEffect(() => {
+        if (services.status === RessursStatus.SUKSESS) {
+            services.data.map((service) => {
+                hentTaskerTilOppfølgingForService(service).then((response) => {
+                    settTaskerTilOppfølging((prevState) => {
+                        return { ...prevState, [service.id]: response };
+                    });
+                });
+            });
+        }
+    }, [services]);
+    useEffect(() => {
         oppdaterValgtService(services, pathname);
     }, [pathname]);
 
     return {
         services,
+        taskerTilOppfølging,
         valgtService,
-        settValgtService
+        settValgtService,
     };
 });
 

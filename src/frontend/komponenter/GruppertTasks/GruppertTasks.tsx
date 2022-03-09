@@ -1,7 +1,6 @@
 import AlertStripe from 'nav-frontend-alertstriper';
-import { NavLink, useParams } from 'react-router-dom';
+import { NavLink, useParams, useSearchParams } from 'react-router-dom';
 import { Normaltekst } from 'nav-frontend-typografi';
-import * as React from 'react';
 import { taskStatus, ITask } from '../../typer/task';
 import Paginering from '../Felleskomponenter/Paginering/Paginering';
 import { useTaskContext } from '../TaskProvider';
@@ -10,8 +9,7 @@ import classNames from 'classnames';
 import TaskListe from '../Task/TaskListe';
 import TopBar from '../Felleskomponenter/TopBar/TopBar';
 import { RessursStatus } from '@navikt/familie-typer';
-import { useSearchParams } from 'react-router-dom'
-import { FC } from 'react';
+import React, { FC } from 'react';
 
 interface GruppertTasker {
     [key: string]: ITask[];
@@ -69,10 +67,7 @@ const GruppertTasks: FC = () => {
                                             className={classNames(
                                                 'venstremeny__link',
                                                 finnesDetFeiledeTasker ? 'FEILET' : 'OK',
-                                                callId === displayCallId
-                                                    ? 'active-task'
-                                                    : '',
-
+                                                callId === displayCallId ? 'active-task' : ''
                                             )}
                                         >
                                             <Normaltekst>{`#${sistKjørtTask.id}, ${moment(

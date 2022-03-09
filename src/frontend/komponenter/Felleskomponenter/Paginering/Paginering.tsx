@@ -1,8 +1,7 @@
 import { Knapp } from 'nav-frontend-knapper';
 import { UndertekstBold } from 'nav-frontend-typografi';
-import * as React from 'react';
 import { useTaskContext } from '../../TaskProvider';
-import { FC } from 'react';
+import React, { FC } from 'react';
 
 const Paginering: FC = () => {
     const { side, settSide } = useTaskContext();

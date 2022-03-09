@@ -3,8 +3,7 @@ import Modal from 'nav-frontend-modal';
 import { Select, Textarea } from 'nav-frontend-skjema';
 import 'nav-frontend-tabell-style';
 import { Element, Undertittel } from 'nav-frontend-typografi';
-import * as React from 'react';
-import { FC, useState } from 'react';
+import React, { FC, useState } from 'react';
 import { avvikstyper, ITask } from '../../../typer/task';
 import { useTaskContext } from '../../TaskProvider';
 
