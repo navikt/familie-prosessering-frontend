@@ -23,9 +23,7 @@ const Services: React.FunctionComponent = () => {
                             key={service.id}
                             service={service}
                             navigate={navigate}
-                            taskerTilOppfølging={taskerTilOppfølging.find(
-                                (taskTilOppfølging) => taskTilOppfølging.serviceId === service.id
-                            )}
+                            taskerTilOppfølging={taskerTilOppfølging[service.id]}
                         />
                     ))}
                 </div>

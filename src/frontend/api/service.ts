@@ -14,7 +14,7 @@ const ukjentVerdiForOppfølgingstasks = (service: IService) => ({
     harMottattSvar: false,
     antallTilOppfølging: 0,
 });
-const hentTaskerTilOppfølgingForService = async (service: IService): Promise<IOppfølgingstask> => {
+export const hentTaskerTilOppfølgingForService = (service: IService): Promise<IOppfølgingstask> => {
     return axiosRequest<number>({
         method: 'GET',
         url: `${service.proxyPath}/task/antall-til-oppfolging`,
@@ -31,12 +31,4 @@ const hentTaskerTilOppfølgingForService = async (service: IService): Promise<IO
         .catch(() => {
             return ukjentVerdiForOppfølgingstasks(service);
         });
-};
-export const hentTaskerTilOppfølging = async (
-    servicer: IService[]
-): Promise<IOppfølgingstask[]> => {
-    const svar = servicer.map(async (service) => {
-        return hentTaskerTilOppfølgingForService(service);
-    });
-    return Promise.all(svar);
 };

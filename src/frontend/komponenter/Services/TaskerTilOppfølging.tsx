@@ -11,7 +11,7 @@ export const TaskerTilOppfølging: React.FC<TaskerTilOppfølgingProps> = ({
     taskerTilOppfølging,
 }) => {
     const iconRef = useRef(null);
-    const [åpen, settÅpen] = useState(true);
+    const [åpen, settÅpen] = useState(false);
     const ikonType = utledIkonType(taskerTilOppfølging);
 
     return (
