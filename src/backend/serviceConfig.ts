@@ -15,6 +15,7 @@ if (process.env.ENV === 'local') {
         enslig_mottak: 'http://localhost:8092',
         enslig_sak: 'http://localhost:8093',
         kontantstøtte_mottak: 'http://localhost:8084',
+        barnetrygd_migrering: 'http://localhost:8098',
     };
 } else {
     proxyUrls = {
