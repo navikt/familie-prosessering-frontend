@@ -82,6 +82,7 @@ const [TaskProvider, useTaskContext] = constate(() => {
         settSide,
         statusFilter,
         settStatusFilter,
+        type,
         settTypeFilter,
         rekjørTasks,
         avvikshåndter,
