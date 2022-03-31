@@ -6,15 +6,17 @@ import { Ressurs } from '@navikt/familie-typer';
 export const hentTasks = (
     valgtService: IService,
     statusFilter: taskStatus,
-    side: number
+    side: number,
+    type: string
 ): Promise<Ressurs<ITaskResponse>> => {
-    const params =
+    const params: any =
         statusFilter !== taskStatus.ALLE
             ? {
                   status: statusFilter,
                   page: side,
               }
             : { page: side };
+    if (type !== '') params.type = type;
     return axiosRequest({
         params,
         method: 'GET',

@@ -11,7 +11,7 @@ interface IProps {
 }
 
 const TaskListe: React.FC<IProps> = ({ tasks }) => {
-    const { statusFilter } = useTaskContext();
+    const { statusFilter, type } = useTaskContext();
 
     return tasks.length > 0 ? (
         <React.Fragment>
@@ -24,7 +24,10 @@ const TaskListe: React.FC<IProps> = ({ tasks }) => {
                 })}
         </React.Fragment>
     ) : (
-        <AlertStripe type={'info'} children={`Ingen tasker med status ${statusFilter}`} />
+        <AlertStripe
+            type={'info'}
+            children={`Ingen tasker med status ${statusFilter}${type ? ` av type ${type}` : ''}`}
+        />
     );
 };
 

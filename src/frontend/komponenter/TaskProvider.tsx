@@ -17,6 +17,11 @@ const getQueryParamSide = (location: Location): number => {
     return queryParamSideAsString ? parseInt(queryParamSideAsString, 10) : 0;
 };
 
+const getQueryParamTaskType = (location: Location): string => {
+    const taskType = new URLSearchParams(location.search).get('taskType');
+    return taskType || '';
+};
+
 const [TaskProvider, useTaskContext] = constate(() => {
     const { valgtService } = useServiceContext();
     const navigate = useNavigate();
@@ -27,25 +32,29 @@ const [TaskProvider, useTaskContext] = constate(() => {
         getQueryParamStatusFilter(location)
     );
     const [side, settSide] = useState<number>(getQueryParamSide(location));
+    const [type, settTypeFilter] = useState<string>(getQueryParamTaskType(location));
 
     const hentEllerOppdaterTasks = () => {
         if (valgtService) {
-            hentTasks(valgtService, statusFilter, side).then((res) => settTasks(res));
+            hentTasks(valgtService, statusFilter, side, type).then((res) => settTasks(res));
         }
     };
 
     useEffect(() => {
         hentEllerOppdaterTasks();
-    }, [valgtService, statusFilter, side]);
+    }, [valgtService, statusFilter, side, type]);
 
     useEffect(() => {
         if (
             getQueryParamStatusFilter(location) !== statusFilter ||
-            getQueryParamSide(location) !== side
+            getQueryParamSide(location) !== side ||
+            getQueryParamTaskType(location) !== type
         ) {
-            navigate(`${location.pathname}?statusFilter=${statusFilter}&side=${side}`);
+            navigate(
+                `${location.pathname}?statusFilter=${statusFilter}&side=${side}&taskType=${type}`
+            );
         }
-    }, [statusFilter, side, history]);
+    }, [statusFilter, side, type, history]);
 
     const rekjørTasks = (id?: number) => {
         if (valgtService && statusFilter) {
@@ -73,6 +82,8 @@ const [TaskProvider, useTaskContext] = constate(() => {
         settSide,
         statusFilter,
         settStatusFilter,
+        type,
+        settTypeFilter,
         rekjørTasks,
         avvikshåndter,
     };
