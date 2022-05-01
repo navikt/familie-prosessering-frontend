@@ -38,7 +38,7 @@
     "@types/request-promise": "^4.1.48",
     "@types/uuid": "^8.3.4",
     "autoprefixer": "^10.4.4",
-    "axios": "^0.26.1",
+    "axios": "^0.27.2",
     "babel-loader": "^8.2.4",
     "body-parser": "^1.20.0",
     "classnames": "^2.3.1",
