@@ -236,10 +236,10 @@
   dependencies:
     uuid "^8.3.2"
 
-"@navikt/ds-react@^0.17.25":
-  version "0.17.25"
-  resolved "https://registry.yarnpkg.com/@navikt/ds-react/-/ds-react-0.17.25.tgz#8a385ac30dd354200416001e049d3794a9b140cb"
-  integrity sha512-CYrfhbhuMNL3KP1hfxZDZsoGFiftUsG3th4GljR8P2WXJvssKnWOaHnaZmolT+Nss8wgh4cH4szGlwUb+sFTPQ==
+"@navikt/ds-react@^0.18.3":
+  version "0.18.3"
+  resolved "https://registry.yarnpkg.com/@navikt/ds-react/-/ds-react-0.18.3.tgz#ab2e997e589da412da138deef54d33947b0b2e4f"
+  integrity sha512-c+ffL3fMU4jVJGTdV9q/Q1YM4+xAa9280TlFRWIWGUzsodhiS0Bh4Dm+uuyMfvizPEz8Dfyyg4zOH0LA7aWdBg==
   dependencies:
     "@floating-ui/react-dom" "0.6.0"
     "@material-ui/core" "^4.12.3"
