@@ -224,10 +224,10 @@
     prop-types "^15.7.2"
     react-is "^16.8.0 || ^17.0.0"
 
-"@navikt/ds-css@^0.16.19":
-  version "0.16.19"
-  resolved "https://registry.yarnpkg.com/@navikt/ds-css/-/ds-css-0.16.19.tgz#b5ed24e6ae20bfe7ac3563db2195574fe94816ed"
-  integrity sha512-UsCnMF+c1Wyb6erSgABf0CfZvG8wDlPRNb/BA1yLg4w3IqqRhaE4mgKy6pwSQ5u498kijTHwQWFe+qHsXU4HxQ==
+"@navikt/ds-css@^0.17.0":
+  version "0.17.0"
+  resolved "https://registry.yarnpkg.com/@navikt/ds-css/-/ds-css-0.17.0.tgz#49fbc36fd11d01bc5e9bd4a59e8387e903ac3002"
+  integrity sha512-dT28NGB0toDer5KsSnIib+ACP2n/AG11vFbwI9gTTuZNo6pP2VRP2WbiXUB7mUO7BJcleMXl7ALkILwv5q0aVw==
 
 "@navikt/ds-icons@^0.8.11":
   version "0.8.11"
