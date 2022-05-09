@@ -1,8 +1,8 @@
 import { Client, ensureAuthenticated } from '@navikt/familie-backend';
 import { Request, Response, Router } from 'express';
 import path from 'path';
-import { buildPath } from './config';
-import { IService, serviceConfig } from './serviceConfig';
+import { buildPath } from './config.js';
+import { IService, serviceConfig } from './serviceConfig.js';
 import WebpackDevMiddleware from 'webpack-dev-middleware';
 
 export default (
@@ -37,7 +37,10 @@ export default (
                 res.writeHead(200, { 'Content-Type': 'text/html' });
                 res.write(
                     middleware.context.outputFileSystem.readFileSync(
-                        path.join(__dirname, `${buildPath}/index.html`)
+                        path.resolve(
+                            middleware.context.compiler.outputPath,
+                            `${buildPath}/index.html`
+                        )
                     )
                 );
                 res.end();
@@ -45,7 +48,7 @@ export default (
         });
     } else {
         router.get('*', ensureAuthenticated(authClient, false), (req: Request, res: Response) => {
-            res.sendFile('index.html', { root: path.join(__dirname, buildPath) });
+            res.sendFile('index.html', { root: path.resolve(process.cwd(), buildPath) });
         });
     }
 

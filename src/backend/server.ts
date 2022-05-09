@@ -1,4 +1,4 @@
-import './azureConfig';
+import './azureConfig.js';
 import backend, { IApp, ensureAuthenticated } from '@navikt/familie-backend';
 import bodyParser from 'body-parser';
 import express from 'express';
@@ -8,14 +8,13 @@ import path from 'path';
 import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
-import { attachToken, doProxy } from './proxy';
-import setupRouter from './router';
-import { IService, serviceConfig } from './serviceConfig';
-import { sessionConfig } from './config';
+import { attachToken, doProxy } from './proxy.js';
+import setupRouter from './router.js';
+import { IService, serviceConfig } from './serviceConfig.js';
+import { sessionConfig } from './config.js';
 
-/* tslint:disable */
-const config = require('../build_n_deploy/webpack/webpack.dev');
-/* tslint:enable */
+// @ts-ignore
+import config from '../build_n_deploy/webpack/webpack.dev.js';
 
 loglevel.setDefaultLevel(loglevel.levels.INFO);
 
@@ -34,7 +33,7 @@ backend(sessionConfig).then(({ app, azureAuthClient, router }: IApp) => {
         // @ts-ignore
         app.use(webpackHotMiddleware(compiler));
     } else {
-        app.use('/assets', express.static(path.join(__dirname, '..', 'frontend_production')));
+        app.use('/assets', express.static(path.resolve(process.cwd(), 'frontend_production/')));
     }
 
     serviceConfig.map((service: IService) => {

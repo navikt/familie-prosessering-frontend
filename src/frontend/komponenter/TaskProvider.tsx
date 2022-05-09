@@ -1,8 +1,8 @@
+import { byggTomRessurs, Ressurs, RessursStatus } from '@navikt/familie-typer';
 import { Location, useLocation } from 'react-router';
 import { useNavigate } from 'react-router-dom';
 import { avvikshåndterTask, hentTasks, rekjørTask } from '../api/task';
 import { IAvvikshåndteringDTO, ITaskResponse, taskStatus } from '../typer/task';
-import { byggTomRessurs, Ressurs, RessursStatus } from '@navikt/familie-typer';
 import constate from 'constate';
 import { useEffect, useState } from 'react';
 import { useServiceContext } from './ServiceContext';

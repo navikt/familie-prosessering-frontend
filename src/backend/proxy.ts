@@ -4,8 +4,8 @@ import { NextFunction, Request, Response } from 'express';
 import { ClientRequest, IncomingMessage, ServerResponse } from 'http';
 import { createProxyMiddleware } from 'http-proxy-middleware';
 import { v4 as uuidv4 } from 'uuid';
-import { oboConfig } from './config';
-import { IService } from './serviceConfig';
+import { oboConfig } from './config.js';
+import { IService } from './serviceConfig.js';
 
 const restream = (proxyReq: ClientRequest, req: IncomingMessage, _res: ServerResponse) => {
     const requestBody = (req as Request).body;

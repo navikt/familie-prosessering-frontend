@@ -1,7 +1,7 @@
-const path = require('path');
-const webpack = require('webpack');
-const { mergeWithCustomize } = require('webpack-merge');
-const common = require('./webpack.common');
+import path from "path";
+import webpack from "webpack";
+import { mergeWithCustomize } from "webpack-merge";
+import common from './webpack.common';
 
 const config = mergeWithCustomize({
     'entry.familie-ks-mottak': 'prepend',
@@ -16,7 +16,7 @@ const config = mergeWithCustomize({
         ],
     },
     output: {
-        path: path.join(__dirname, '../../frontend_development'),
+        path: path.resolve(process.cwd(), 'frontend_development/'),
         filename: '[name].[contenthash].js',
         publicPath: '/assets/',
         globalObject: 'this',
@@ -40,4 +40,4 @@ const config = mergeWithCustomize({
     },
 });
 
-module.exports = config;
+export default config
