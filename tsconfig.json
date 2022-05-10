@@ -1,23 +1,23 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
-        "esModuleInterop": true,
-        "allowSyntheticDefaultImports": true,
         "target": "es6",
+        "module": "es6",
+        "lib": ["dom", "esnext", "es6"],
+        "allowSyntheticDefaultImports": true,
         "noImplicitAny": true,
         "moduleResolution": "node",
         "sourceMap": true,
         "strictFunctionTypes": true,
         "strictPropertyInitialization": true,
-
+        "resolveJsonModule": true,
         "strictNullChecks": true,
         "skipLibCheck": true,
         "esModuleInterop": true,
         "outDir": "node_dist",
         "baseUrl": "./src/backend",
-
+        "isolatedModules": true,
     },
     "include": ["./src/backend"],
     "exclude": ["./src/frontend"],
-    "lib": ["es2015"]
-  }
+    "lib": ["dom", "esnext", "es6"]
+}

@@ -16,7 +16,9 @@ export const hentTasks = (
                   page: side,
               }
             : { page: side };
-    if (type !== '') params.type = type;
+    if (type !== '') {
+        params.type = type;
+    }
     return axiosRequest({
         params,
         method: 'GET',

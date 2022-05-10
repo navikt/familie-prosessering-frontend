@@ -14,6 +14,8 @@ if (process.env.ENV === 'local') {
         barnetrygd_sak: 'http://localhost:8089',
         enslig_mottak: 'http://localhost:8092',
         enslig_sak: 'http://localhost:8093',
+        enslig_iverksett: 'http://localhost:8094',
+        tilbake: 'http://localhost:8030',
         kontantstøtte_mottak: 'http://localhost:8084',
         barnetrygd_migrering: 'http://localhost:8098',
     };

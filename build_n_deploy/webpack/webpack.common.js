@@ -1,8 +1,8 @@
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const TypeScriptTypeChecker = require('fork-ts-checker-webpack-plugin');
+import path from "path";
+import HtmlWebpackPlugin from "html-webpack-plugin";
+import TypeScriptTypeChecker from "fork-ts-checker-webpack-plugin";
 
-module.exports = {
+const common = {
     entry: {
         'familie-ks-mottak': ['./src/frontend/index.tsx'],
     },
@@ -18,6 +18,12 @@ module.exports = {
                 enforce: 'pre',
             },
             {
+                test: /\.m?js$/,
+                resolve: {
+                    fullySpecified: false, // Fikser at man ikke kan gjøre import uten filextension fra moduler med type: module i package.json
+                },
+            },
+            {
                 test: /\.(js|ts|tsx)$/,
                 loader: 'ts-loader',
                 exclude: /node_modules/,
@@ -28,7 +34,7 @@ module.exports = {
             {
                 test: /\.(less|css)$/,
                 use: [
-                    { loader: require.resolve('style-loader') },
+                    { loader: 'style-loader' },
                     {
                         loader: 'css-loader',
                         options: {
@@ -37,7 +43,7 @@ module.exports = {
                             },
                         },
                     },
-                    { loader: require.resolve('less-loader') },
+                    { loader: 'less-loader' },
                 ],
             },
             {
@@ -61,10 +67,12 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: path.join(__dirname, '../../src/frontend/index.html'),
+            template: path.join(process.cwd(), 'src/frontend/index.html'),
             inject: 'body',
             alwaysWriteToDisk: true,
         }),
         new TypeScriptTypeChecker(),
     ],
 };
+
+export default common

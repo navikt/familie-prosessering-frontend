@@ -21,8 +21,9 @@ export const TaskerTilOppfølging: React.FC<TaskerTilOppfølgingProps> = ({
                 key={taskerTilOppfølging.serviceId}
                 variant={'tertiary'}
                 size={'small'}
+                onClick={() => settÅpen(!åpen)}
             >
-                <Icon kind={ikonType} onClick={() => settÅpen(!åpen)} />
+                <Icon kind={ikonType} />
             </Button>
             <Popover
                 open={åpen}

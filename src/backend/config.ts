@@ -1,23 +1,23 @@
 import { IApi, ISessionKonfigurasjon } from '@navikt/familie-backend';
 import { logError } from '@navikt/familie-logging';
-import { IService, utledScope } from './serviceConfig';
+import { IService, utledScope } from './serviceConfig.js';
 
 // Miljøvariabler
 const Environment = () => {
     if (process.env.ENV === 'local') {
         return {
-            buildPath: '../frontend_development',
+            buildPath: 'frontend_development',
             namespace: 'local',
         };
     } else if (process.env.ENV === 'preprod') {
         return {
-            buildPath: '../frontend_production',
+            buildPath: 'frontend_production',
             namespace: 'preprod',
         };
     }
 
     return {
-        buildPath: '../frontend_production',
+        buildPath: 'frontend_production',
         namespace: 'production',
     };
 };
