@@ -14,7 +14,8 @@ const TopBar: FC = () => {
         <div className={'topbar'}>
             <Systemtittel children={`Tasks for ${valgtService ? valgtService.displayName : ''}`} />
 
-            {statusFilter === taskStatus.FEILET && (
+            {(statusFilter === taskStatus.FEILET ||
+                statusFilter === taskStatus.MANUELL_OPPFØLGING) && (
                 <Knapp mini={true} onClick={() => rekjørTasks()}>
                     Rekjør alle tasks
                 </Knapp>
