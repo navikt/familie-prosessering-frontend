@@ -37,10 +37,7 @@ export default (
                 res.writeHead(200, { 'Content-Type': 'text/html' });
                 res.write(
                     middleware.context.outputFileSystem.readFileSync(
-                        path.resolve(
-                            middleware.context.compiler.outputPath,
-                            `${buildPath}/index.html`
-                        )
+                        path.resolve(middleware.context.compiler.outputPath, `index.html`)
                     )
                 );
                 res.end();

@@ -1,17 +1,18 @@
 import * as React from 'react';
-import { render } from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { AppContainer } from 'react-hot-loader';
 import App from './komponenter/App';
 
 import './index.less';
 
 const rootElement = document.getElementById('app');
+const root = createRoot(rootElement!);
+
 const renderApp = (Component: React.ComponentType<{}>): void => {
-    render(
+    root.render(
         <AppContainer>
             <Component />
-        </AppContainer>,
-        rootElement
+        </AppContainer>
     );
 };
 
