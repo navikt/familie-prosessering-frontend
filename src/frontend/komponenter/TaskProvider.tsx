@@ -57,10 +57,13 @@ const [TaskProvider, useTaskContext] = constate(() => {
     }, [statusFilter, side, type, history]);
 
     const rekjørTasks = (id?: number) => {
+        const rekjørAlleTasks = id === undefined || id === null;
         if (
             valgtService &&
             statusFilter &&
-            (statusFilter === taskStatus.MANUELL_OPPFØLGING || statusFilter === taskStatus.FEILET)
+            (!rekjørAlleTasks ||
+                statusFilter === taskStatus.MANUELL_OPPFØLGING ||
+                statusFilter === taskStatus.FEILET)
         ) {
             rekjørTask(valgtService, statusFilter, id).then((response) => {
                 if (response.status === RessursStatus.SUKSESS) {
