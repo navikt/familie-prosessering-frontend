@@ -4841,15 +4841,10 @@ slice-ansi@^5.0.0:
     ansi-styles "^6.0.0"
     is-fullwidth-code-point "^4.0.0"
 
-snyk@^1.473.0:
-  version "1.833.0"
-  resolved "https://registry.yarnpkg.com/snyk/-/snyk-1.833.0.tgz#969004c43da4f3f26f7dfed8c6ff3b0e36294ea5"
-  integrity sha512-/wAFQIoJDOA17eCOyIZFAGw54dXrSFPLjbBbjV+yXwLBfJpgs8kbc3BuFH/JGoMB663YCYZzoorkymMDbuD6+A==
-
-snyk@^1.941.0:
-  version "1.941.0"
-  resolved "https://registry.yarnpkg.com/snyk/-/snyk-1.941.0.tgz#1e5ff00abfcc9327d8a17bd17aad914ba0f6aebf"
-  integrity sha512-K4aLDhsgOW4jkLoKl19wHWnYxlUrPyrLvegeQiuh6Cde4yfJ/7wL6/grUUsBFSe/kqQeR9nEvfQ258AujPHFSg==
+snyk@^1.473.0, snyk@^1.947.0:
+  version "1.947.0"
+  resolved "https://registry.yarnpkg.com/snyk/-/snyk-1.947.0.tgz#98d033367e0533d9c35302d207e17aa9aa5d6843"
+  integrity sha512-/u+HyhaIaFhnrpn+aOiGR0ts9ZR7mr6uiqgRn5EQIwaFKpCFOEnOJTlQAM25ggomqmxRldArMMXe4dBWw855LA==
 
 source-map-js@^1.0.2:
   version "1.0.2"
