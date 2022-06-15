@@ -98,11 +98,7 @@ const [TaskProvider, useTaskContext] = constate(() => {
             kommenterTask(valgtService, data).then((response) => {
                 if (response.status === RessursStatus.SUKSESS) {
                     hentEllerOppdaterTasks();
-                    if (data.taskId % 2 == 0) {
-                        onSuccess(response);
-                    } else {
-                        onError('Synthetic error');
-                    }
+                    onSuccess(response);
                 } else if (response.status === RessursStatus.FEILET) {
                     onError(response.frontendFeilmelding);
                 }
