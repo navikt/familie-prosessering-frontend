@@ -3,8 +3,8 @@ import constate from 'constate';
 import { useEffect, useState } from 'react';
 import { Location, useLocation } from 'react-router';
 import { useNavigate } from 'react-router-dom';
-import { avvikshåndterTask, hentTasks, rekjørTask } from '../api/task';
-import { IAvvikshåndteringDTO, ITaskResponse, taskStatus } from '../typer/task';
+import { avvikshåndterTask, hentTasks, kommenterTask, rekjørTask } from '../api/task';
+import { IAvvikshåndteringDTO, IKommentarDTO, ITaskResponse, taskStatus } from '../typer/task';
 import { useServiceContext } from './ServiceContext';
 
 const getQueryParamStatusFilter = (location: Location): taskStatus => {
@@ -83,6 +83,16 @@ const [TaskProvider, useTaskContext] = constate(() => {
         }
     };
 
+    const kommenter = (data: IKommentarDTO) => {
+        if (valgtService) {
+            kommenterTask(valgtService, data).then((response) => {
+                if (response.status === RessursStatus.SUKSESS) {
+                    hentEllerOppdaterTasks();
+                }
+            });
+        }
+    };
+
     return {
         tasks,
         side,
@@ -93,6 +103,7 @@ const [TaskProvider, useTaskContext] = constate(() => {
         settTypeFilter,
         rekjørTasks,
         avvikshåndter,
+        kommenter,
     };
 });
 

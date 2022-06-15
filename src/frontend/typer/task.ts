@@ -87,6 +87,7 @@ export interface ITask {
     antallLogger?: number;
     sistKjørt?: string;
     visLogg?: boolean;
+    kommentar?: string;
 }
 
 // Muliggjør for fremtidlig pagination
@@ -106,4 +107,10 @@ export interface IAvvikshåndteringDTO {
     taskId: number;
     årsak: string;
     avvikstype: avvikstyper;
+}
+
+export interface IKommentarDTO {
+    taskId: number;
+    settTilManuellOppfølging: boolean;
+    kommentar: string;
 }
