@@ -51,7 +51,7 @@ const KommenteringModal: FC<IProps> = ({ settÅpen, task, åpen }) => {
                         settTilManuellOppfølging(!tilManuellOppfølging);
                     }}
                 >
-                    "Manuell Oppfølging"
+                    Manuell oppfølging
                 </Checkbox>
                 <br />
                 <Textarea

@@ -85,6 +85,6 @@ export const kommenterTask = (
             kommentar: kommentarDTO.kommentar,
         },
         method: 'PUT',
-        url: `${valgtService.proxyPath}/task/avvikshaandter?taskId=${kommentarDTO.taskId}`,
+        url: `${valgtService.proxyPath}/task/kommenter?taskId=${kommentarDTO.taskId}`,
     });
 };
