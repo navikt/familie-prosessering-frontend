@@ -6,7 +6,7 @@ import { Element, Undertittel } from 'nav-frontend-typografi';
 import React, { FC, useState } from 'react';
 import { avvikstyper, ITask } from '../../../typer/task';
 import { useTaskContext } from '../../TaskProvider';
-import { Checkbox } from '@navikt/ds-react';
+import { Alert, Checkbox } from '@navikt/ds-react';
 
 interface IProps {
     settÅpen: (åpen: boolean) => void;
@@ -18,6 +18,7 @@ const KommenteringModal: FC<IProps> = ({ settÅpen, task, åpen }) => {
     const { kommenter } = useTaskContext();
     const [tilManuellOppfølging, settTilManuellOppfølging] = useState<boolean>(false);
     const [kommentar, settKommentar] = useState('');
+    const [feilMelding, settFeilMelding] = useState('');
 
     return (
         <Modal
@@ -36,11 +37,20 @@ const KommenteringModal: FC<IProps> = ({ settÅpen, task, åpen }) => {
 
             <form
                 onSubmit={(event) => {
-                    kommenter({
-                        taskId: task.id,
-                        settTilManuellOppfølging: tilManuellOppfølging,
-                        kommentar: kommentar,
-                    });
+                    kommenter(
+                        {
+                            taskId: task.id,
+                            settTilManuellOppfølging: tilManuellOppfølging,
+                            kommentar: kommentar,
+                        },
+                        () => {
+                            settÅpen(false);
+                            settFeilMelding('');
+                        },
+                        (error: string) => {
+                            settFeilMelding(error);
+                        }
+                    );
                     event.preventDefault();
                 }}
             >
@@ -64,6 +74,7 @@ const KommenteringModal: FC<IProps> = ({ settÅpen, task, åpen }) => {
                 />
 
                 <br />
+                {feilMelding && <Alert variant={'error'}>{feilMelding}</Alert>}
                 <Knapp className={'taskpanel__vislogg'} mini={true}>
                     Kommenter
                 </Knapp>

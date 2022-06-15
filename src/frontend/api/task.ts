@@ -78,7 +78,7 @@ export const avvikshåndterTask = (
 export const kommenterTask = (
     valgtService: IService,
     kommentarDTO: IKommentarDTO
-): Promise<Ressurs<ITask[]>> => {
+): Promise<Ressurs<string>> => {
     return axiosRequest({
         data: {
             settTilManuellOppfølging: kommentarDTO.settTilManuellOppfølging,

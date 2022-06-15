@@ -4,7 +4,13 @@ import { useEffect, useState } from 'react';
 import { Location, useLocation } from 'react-router';
 import { useNavigate } from 'react-router-dom';
 import { avvikshåndterTask, hentTasks, kommenterTask, rekjørTask } from '../api/task';
-import { IAvvikshåndteringDTO, IKommentarDTO, ITaskResponse, taskStatus } from '../typer/task';
+import {
+    IAvvikshåndteringDTO,
+    IKommentarDTO,
+    ITask,
+    ITaskResponse,
+    taskStatus,
+} from '../typer/task';
 import { useServiceContext } from './ServiceContext';
 
 const getQueryParamStatusFilter = (location: Location): taskStatus => {
@@ -83,11 +89,22 @@ const [TaskProvider, useTaskContext] = constate(() => {
         }
     };
 
-    const kommenter = (data: IKommentarDTO) => {
+    const kommenter = (
+        data: IKommentarDTO,
+        onSuccess = (response: Ressurs<string>) => {},
+        onError = (err: string) => {}
+    ) => {
         if (valgtService) {
             kommenterTask(valgtService, data).then((response) => {
                 if (response.status === RessursStatus.SUKSESS) {
                     hentEllerOppdaterTasks();
+                    if (data.taskId % 2 == 0) {
+                        onSuccess(response);
+                    } else {
+                        onError('Synthetic error');
+                    }
+                } else if (response.status === RessursStatus.FEILET) {
+                    onError(response.frontendFeilmelding);
                 }
             });
         }
