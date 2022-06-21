@@ -20,6 +20,15 @@ const KommenteringModal: FC<IProps> = ({ settÅpen, task, åpen }) => {
     const [kommentar, settKommentar] = useState('');
     const [feilMelding, settFeilMelding] = useState('');
 
+    const onSuccess = () => {
+        settÅpen(false);
+        settFeilMelding('');
+    };
+
+    const onError = (error: string) => {
+        settFeilMelding(error);
+    };
+
     const leggTilKommentarForTask = () => {
         leggTilKommentar(
             {
@@ -27,15 +36,11 @@ const KommenteringModal: FC<IProps> = ({ settÅpen, task, åpen }) => {
                 settTilManuellOppfølging: tilManuellOppfølging,
                 kommentar: kommentar,
             },
-            () => {
-                settÅpen(false);
-                settFeilMelding('');
-            },
-            (error: string) => {
-                settFeilMelding(error);
-            }
+            onSuccess,
+            onError
         );
     };
+
     return (
         <Modal
             contentClass={'kommentering'}
