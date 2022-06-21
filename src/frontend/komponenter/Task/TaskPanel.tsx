@@ -10,6 +10,7 @@ import AvvikshåndteringModal from './AvvikshåndteringModal/AvvikshåndteringMo
 import TaskElement from './TaskElement';
 import { useTaskContext } from '../TaskProvider';
 import TaskLogg from './TaskLogg';
+import KommenteringModal from './KommenteringModal/kommenteringModal';
 
 interface IProps {
     task: ITask;
@@ -22,6 +23,7 @@ const getSistKjørt = (task: ITask) =>
 const TaskPanel: FC<IProps> = ({ task }) => {
     const { rekjørTasks } = useTaskContext();
     const [visAvvikshåndteringModal, settVisAvvikshåndteringModal] = useState(false);
+    const [visKommenteringModal, settVisKommenteringModal] = useState(false);
     const [visLogg, settVisLogg] = useState(false);
 
     const kibanaErrorLenke = `https://logs.adeo.no/app/kibana#/discover/48543ce0-877e-11e9-b511-6967c3e45603?_g=(refreshInterval:(pause:!t,value:0),time:(from:'${task.opprettetTidspunkt}',mode:relative,to:now))&_a=(columns:!(message,envclass,environment,level,application,host),filters:!(('$state':(store:appState),meta:(alias:!n,disabled:!f,index:'logstash-apps-*',key:team,negate:!f,params:(query:teamfamilie,type:phrase),type:phrase,value:teamfamilie),query:(match:(team:(query:teamfamilie,type:phrase)))),('$state':(store:appState),meta:(alias:!n,disabled:!f,index:'96e648c0-980a-11e9-830a-e17bbd64b4db',key:level,negate:!f,params:(query:Error,type:phrase),type:phrase,value:Error),query:(match:(level:(query:Error,type:phrase))))),index:'96e648c0-980a-11e9-830a-e17bbd64b4db',interval:auto,query:(language:lucene,query:"${task.metadata.callId}"),sort:!('@timestamp',desc))`;
@@ -35,6 +37,11 @@ const TaskPanel: FC<IProps> = ({ task }) => {
                 settÅpen={settVisAvvikshåndteringModal}
                 task={task}
                 åpen={visAvvikshåndteringModal}
+            />
+            <KommenteringModal
+                settÅpen={settVisKommenteringModal}
+                task={task}
+                åpen={visKommenteringModal}
             />
             <div className={classNames('taskpanel__status', task.status)}>
                 <Element children={taskStatusTekster[task.status]} />
@@ -60,6 +67,7 @@ const TaskPanel: FC<IProps> = ({ task }) => {
                         label={'Triggertid'}
                         innhold={moment(task.triggerTid).format('DD.MM.YYYY HH:mm')}
                     />
+                    {task.kommentar && <TaskElement label={'Kommentar'} innhold={task.kommentar} />}
                 </div>
             </div>
 
@@ -73,6 +81,14 @@ const TaskPanel: FC<IProps> = ({ task }) => {
                         event.preventDefault();
                     }}
                     children={'Avvikshåndter'}
+                />
+                <Lenke
+                    href={''}
+                    onClick={(event) => {
+                        settVisKommenteringModal(!visKommenteringModal);
+                        event.preventDefault();
+                    }}
+                    children={'Kommenter'}
                 />
             </div>
 

@@ -1,5 +1,12 @@
 import { IService } from '../typer/service';
-import { IAvvikshåndteringDTO, ITask, ITaskResponse, ITaskLogg, taskStatus } from '../typer/task';
+import {
+    IAvvikshåndteringDTO,
+    ITask,
+    ITaskResponse,
+    ITaskLogg,
+    taskStatus,
+    IKommentarDTO,
+} from '../typer/task';
 import { axiosRequest } from './axios';
 import { Ressurs } from '@navikt/familie-typer';
 
@@ -65,5 +72,19 @@ export const avvikshåndterTask = (
         },
         method: 'PUT',
         url: `${valgtService.proxyPath}/task/avvikshaandter?taskId=${avvikshåndteringDTO.taskId}`,
+    });
+};
+
+export const kommenterTask = (
+    valgtService: IService,
+    kommentarDTO: IKommentarDTO
+): Promise<Ressurs<string>> => {
+    return axiosRequest({
+        data: {
+            settTilManuellOppfølging: kommentarDTO.settTilManuellOppfølging,
+            kommentar: kommentarDTO.kommentar,
+        },
+        method: 'PUT',
+        url: `${valgtService.proxyPath}/task/kommenter?taskId=${kommentarDTO.taskId}`,
     });
 };
