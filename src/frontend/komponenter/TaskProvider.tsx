@@ -89,10 +89,10 @@ const [TaskProvider, useTaskContext] = constate(() => {
         }
     };
 
-    const kommenter = (
+    const leggTilKommentar = (
         data: IKommentarDTO,
-        onSuccess = (response: Ressurs<string>) => {},
-        onError = (err: string) => {}
+        onSuccess: (response: Ressurs<string>) => void,
+        onError: (err: string) => void
     ) => {
         if (valgtService) {
             kommenterTask(valgtService, data).then((response) => {
@@ -116,7 +116,7 @@ const [TaskProvider, useTaskContext] = constate(() => {
         settTypeFilter,
         rekjørTasks,
         avvikshåndter,
-        kommenter,
+        leggTilKommentar: leggTilKommentar,
     };
 });
 

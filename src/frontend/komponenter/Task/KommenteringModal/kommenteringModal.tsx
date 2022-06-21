@@ -15,11 +15,27 @@ interface IProps {
 }
 
 const KommenteringModal: FC<IProps> = ({ settÅpen, task, åpen }) => {
-    const { kommenter } = useTaskContext();
+    const { leggTilKommentar } = useTaskContext();
     const [tilManuellOppfølging, settTilManuellOppfølging] = useState<boolean>(false);
     const [kommentar, settKommentar] = useState('');
     const [feilMelding, settFeilMelding] = useState('');
 
+    const leggTilKommentarForTask = () => {
+        leggTilKommentar(
+            {
+                taskId: task.id,
+                settTilManuellOppfølging: tilManuellOppfølging,
+                kommentar: kommentar,
+            },
+            () => {
+                settÅpen(false);
+                settFeilMelding('');
+            },
+            (error: string) => {
+                settFeilMelding(error);
+            }
+        );
+    };
     return (
         <Modal
             contentClass={'kommentering'}
@@ -37,20 +53,7 @@ const KommenteringModal: FC<IProps> = ({ settÅpen, task, åpen }) => {
 
             <form
                 onSubmit={(event) => {
-                    kommenter(
-                        {
-                            taskId: task.id,
-                            settTilManuellOppfølging: tilManuellOppfølging,
-                            kommentar: kommentar,
-                        },
-                        () => {
-                            settÅpen(false);
-                            settFeilMelding('');
-                        },
-                        (error: string) => {
-                            settFeilMelding(error);
-                        }
-                    );
+                    leggTilKommentarForTask();
                     event.preventDefault();
                 }}
             >
