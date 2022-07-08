@@ -10,14 +10,18 @@ env:
 
 jobs:
   build:
-    name: Build and push Docker container
+    name: Build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-      - name: Build and publish Docker image
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+          cache: yarn
+          registry-url: "https://npm.pkg.github.com"
+      - name: Yarn install
+        run: yarn --prefer-offline --frozen-lockfile
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          echo ${GITHUB_TOKEN} | docker login ghcr.io --username ${GITHUB_REPOSITORY} --password-stdin
-          docker build --tag ${IMAGE} .
-          docker push ${IMAGE}
+          NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
+      - name: Yarn build
+        run: yarn build
