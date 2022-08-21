@@ -255,10 +255,10 @@
     prop-types "^15.7.2"
     react-is "^16.8.0 || ^17.0.0"
 
-"@navikt/ds-css@^0.18.15":
-  version "0.18.15"
-  resolved "https://npm.pkg.github.com/download/@navikt/ds-css/0.18.15/2a87bad036c3fe9fe040241d57b9c3f68cb72dfb6dfa4ea9f94848cef435a459#8c0db1eabb8bc29fd61e5dce1eb0782d289b85bd"
-  integrity sha512-v677/N1jUF74TsjpQZ13UyHQ/4wgxsG794MCjlyKGLBFEsjJPNGPv8NW6nkTccjEaSxAD0ZqPPC0GVG0ZZkFHA==
+"@navikt/ds-css@^1.0.2":
+  version "1.0.2"
+  resolved "https://npm.pkg.github.com/download/@navikt/ds-css/1.0.2/ac56c76348a4ca809a9bda7bf42f4aabbf17613f7d885f9f3ad284140f833f36#411b1e6f149b0833f4c5247f1aec89f88ebf00ec"
+  integrity sha512-BCD8lj5XKPyIlQXd4071Wl+/LpCiMkofPbFSgV+ewp2sfEDhPTYkupMbArn4kC0k5iJ3ksj0AXCk3QKquUIS6w==
 
 "@navikt/ds-icons@^0.8.17":
   version "0.8.17"

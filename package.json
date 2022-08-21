@@ -22,7 +22,7 @@
     ]
   },
   "dependencies": {
-    "@navikt/ds-css": "^0.18.15",
+    "@navikt/ds-css": "^1.0.2",
     "@navikt/ds-react": "^0.19.14",
     "@navikt/familie-backend": "^7.0.1",
     "@navikt/familie-logging": "^3.0.0",
