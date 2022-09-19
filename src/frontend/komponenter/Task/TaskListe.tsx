@@ -1,6 +1,5 @@
+import { Alert, BodyShort } from '@navikt/ds-react';
 import * as moment from 'moment';
-import AlertStripe from 'nav-frontend-alertstriper';
-import { Element } from 'nav-frontend-typografi';
 import * as React from 'react';
 import { ITask } from '../../typer/task';
 import { useTaskContext } from '../TaskProvider';
@@ -15,7 +14,7 @@ const TaskListe: React.FC<IProps> = ({ tasks }) => {
 
     return tasks.length > 0 ? (
         <React.Fragment>
-            <Element children={`Viser ${tasks.length} tasker`} />
+            <BodyShort>Viser {tasks.length} tasker</BodyShort>
 
             {tasks
                 .sort((a, b) => moment(b.opprettetTidspunkt).diff(a.opprettetTidspunkt))
@@ -24,10 +23,10 @@ const TaskListe: React.FC<IProps> = ({ tasks }) => {
                 })}
         </React.Fragment>
     ) : (
-        <AlertStripe
-            type={'info'}
-            children={`Ingen tasker med status ${statusFilter}${type ? ` av type ${type}` : ''}`}
-        />
+        <Alert variant={'info'}>
+            Ingen tasker med status {statusFilter}
+            {type ? ` av type {type}` : ''}
+        </Alert>
     );
 };
 

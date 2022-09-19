@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import { BodyShort, Label } from '@navikt/ds-react';
 import { byggTomRessurs, Ressurs, RessursStatus } from '@navikt/familie-typer';
-import { ITaskLogg } from '../../typer/task';
-import { Element, Normaltekst } from 'nav-frontend-typografi';
 import * as moment from 'moment';
-import { useServiceContext } from '../ServiceContext';
+import React, { useEffect, useState } from 'react';
 import { hentTaskLogg } from '../../api/task';
+import { ITaskLogg } from '../../typer/task';
+import { useServiceContext } from '../ServiceContext';
 
 const hentStackTrace = (melding?: string) => {
     if (!melding) {
@@ -50,12 +50,12 @@ const TaskLogg: React.FC<{ taskId: number; visLogg: boolean }> = ({ taskId, visL
             return (
                 <div key={index} className={'taskpanel__logg--item'}>
                     <div className={'taskpanel__logg--item-metadata'}>
-                        <Element children={logg.type} />
-                        <Normaltekst children={`Endret av: ${logg.endretAv}`} />
-                        <Normaltekst
-                            children={moment(logg.opprettetTidspunkt).format('DD.MM.YYYY HH:mm')}
-                        />
-                        <Normaltekst children={logg.node} />
+                        <Label>{logg.type}</Label>
+                        <BodyShort size={'small'}>Endret av: {logg.endretAv}</BodyShort>
+                        <BodyShort size={'small'}>
+                            {moment(logg.opprettetTidspunkt).format('DD.MM.YYYY HH:mm')}
+                        </BodyShort>
+                        <BodyShort size={'small'}>{logg.node}</BodyShort>
                     </div>
 
                     {stackTrace && (

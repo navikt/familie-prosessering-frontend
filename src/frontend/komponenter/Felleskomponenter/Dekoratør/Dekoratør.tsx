@@ -1,8 +1,7 @@
-import classNames from 'classnames';
-import { Innholdstittel } from 'nav-frontend-typografi';
+import { Heading, Link } from '@navikt/ds-react';
+import { ISaksbehandler } from '@navikt/familie-typer';
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ISaksbehandler } from '@navikt/familie-typer';
 
 interface IProps {
     innloggetSaksbehandler?: ISaksbehandler;
@@ -16,17 +15,17 @@ const Dekoratør: React.FC<IProps> = ({ innloggetSaksbehandler, onClick, tittel 
     return (
         <div className={'dekoratør'}>
             <button onClick={() => navigate('/')} className={'dekoratør__tittel'}>
-                <Innholdstittel className={'dekoratør__tittel--tekst'} children={tittel} />
+                <Heading size={'large'} className={'dekoratør__tittel--tekst'}>
+                    {tittel}{' '}
+                </Heading>
                 <div className={'dekoratør__skille'} />
             </button>
             <div className={'dekoratør__innloggetsaksbehandler'}>
                 {innloggetSaksbehandler && innloggetSaksbehandler.displayName}
                 <div className={'dekoratør__skille'} />
-                <button
-                    className={classNames('dekoratør__innloggetsaksbehandler--lenke')}
-                    onClick={onClick}
-                    children={'Logg ut'}
-                />
+                <Link className={'dekoratør__innloggetsaksbehandler--lenke'} onClick={onClick}>
+                    Logg ut
+                </Link>
             </div>
         </div>
     );

@@ -1,7 +1,5 @@
+import { Alert, Button, Heading } from '@navikt/ds-react';
 import { RessursStatus } from '@navikt/familie-typer';
-import AlertStripe from 'nav-frontend-alertstriper';
-import { Knapp } from 'nav-frontend-knapper';
-import { Systemtittel } from 'nav-frontend-typografi';
 import React from 'react';
 import { NavigateFunction } from 'react-router';
 import { useNavigate } from 'react-router-dom';
@@ -29,13 +27,12 @@ const Services: React.FunctionComponent = () => {
                 </div>
             );
         case RessursStatus.HENTER:
-            return <AlertStripe children={`Laster tasker`} type={'info'} />;
+            return <Alert variant={'info'}>Laster tasker</Alert>;
         case RessursStatus.FEILET:
             return (
-                <AlertStripe
-                    children={`Innhenting av services feilet: ${services.frontendFeilmelding}`}
-                    type={'feil'}
-                />
+                <Alert variant={'error'}>
+                    Innhenting av services feilet: {services.frontendFeilmelding}
+                </Alert>
             );
         default:
             return <div />;
@@ -50,27 +47,27 @@ const Service: React.FC<{
     return (
         <div key={service.id} className={'services__service'}>
             <ServiceIkon heigth={150} width={150} />
-            <Systemtittel children={service.displayName} />
+            <Heading size={'medium'}>{service.displayName}</Heading>
             {taskerTilOppfølging && (
                 <TaskerTilOppfølging taskerTilOppfølging={taskerTilOppfølging} />
             )}
             <div className={'services__service--actions'}>
-                <Knapp
+                <Button
                     onClick={() => {
                         navigate(`/service/${service.id}`);
                     }}
-                    mini={true}
+                    variant={'secondary'}
                 >
                     Alle tasker
-                </Knapp>
-                <Knapp
+                </Button>
+                <Button
                     onClick={() => {
                         navigate(`/service/${service.id}/gruppert`);
                     }}
-                    mini={true}
+                    variant={'secondary'}
                 >
                     Gruppert
-                </Knapp>
+                </Button>
             </div>
         </div>
     );

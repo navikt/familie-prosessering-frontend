@@ -1,19 +1,23 @@
-import { Knapp } from 'nav-frontend-knapper';
-import { UndertekstBold } from 'nav-frontend-typografi';
-import { useTaskContext } from '../../TaskProvider';
+import { BodyShort, Button } from '@navikt/ds-react';
 import React, { FC } from 'react';
+import { useTaskContext } from '../../TaskProvider';
 
 const Paginering: FC = () => {
     const { side, settSide } = useTaskContext();
     return (
         <div>
-            <Knapp onClick={() => settSide(side - 1)} mini={true} disabled={side <= 0}>
+            <Button
+                variant={'secondary'}
+                onClick={() => settSide(side - 1)}
+                size={'medium'}
+                disabled={side <= 0}
+            >
                 Forrige
-            </Knapp>
-            <Knapp onClick={() => settSide(side + 1)} mini={true}>
+            </Button>
+            <Button variant={'secondary'} onClick={() => settSide(side + 1)} size={'medium'}>
                 Neste
-            </Knapp>
-            <UndertekstBold>Side: {side}</UndertekstBold>
+            </Button>
+            <BodyShort>Side: {side}</BodyShort>
         </div>
     );
 };

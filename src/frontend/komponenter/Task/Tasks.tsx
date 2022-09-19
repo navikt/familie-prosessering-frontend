@@ -1,4 +1,4 @@
-import AlertStripe from 'nav-frontend-alertstriper';
+import { Alert } from '@navikt/ds-react';
 import * as React from 'react';
 import { RessursStatus } from '@navikt/familie-typer';
 import Paginering from '../Felleskomponenter/Paginering/Paginering';
@@ -21,19 +21,19 @@ const Tasks: React.FunctionComponent = () => {
                 </div>
             );
         case RessursStatus.HENTER:
-            return <AlertStripe children={`Laster tasker`} type={'info'} />;
+            return <Alert children={`Laster tasker`} variant={'info'} />;
         case RessursStatus.IKKE_TILGANG:
             return (
-                <AlertStripe
+                <Alert
                     children={`Ikke tilgang til tasker: ${tasks.frontendFeilmelding}`}
-                    type={'advarsel'}
+                    variant={'warning'}
                 />
             );
         case RessursStatus.FEILET:
             return (
-                <AlertStripe
+                <Alert
                     children={`Innhenting av tasker feilet: ${tasks.frontendFeilmelding}`}
-                    type={'feil'}
+                    variant={'error'}
                 />
             );
         default:

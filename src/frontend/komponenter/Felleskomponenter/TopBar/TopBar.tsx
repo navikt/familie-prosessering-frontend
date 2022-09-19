@@ -1,10 +1,8 @@
-import { Systemtittel } from 'nav-frontend-typografi';
+import { Button, Heading, Select } from '@navikt/ds-react';
 import React, { FC } from 'react';
-import { useTaskContext } from '../../TaskProvider';
-import { useServiceContext } from '../../ServiceContext';
 import { taskStatus, taskStatusTekster } from '../../../typer/task';
-import { Knapp } from 'nav-frontend-knapper';
-import { Select } from 'nav-frontend-skjema';
+import { useServiceContext } from '../../ServiceContext';
+import { useTaskContext } from '../../TaskProvider';
 
 const TopBar: FC = () => {
     const { statusFilter, rekjørTasks, settStatusFilter } = useTaskContext();
@@ -12,13 +10,15 @@ const TopBar: FC = () => {
 
     return (
         <div className={'topbar'}>
-            <Systemtittel children={`Tasks for ${valgtService ? valgtService.displayName : ''}`} />
+            <Heading size={'large'}>
+                Tasks for {valgtService ? valgtService.displayName : ''}
+            </Heading>
 
             {(statusFilter === taskStatus.FEILET ||
                 statusFilter === taskStatus.MANUELL_OPPFØLGING) && (
-                <Knapp mini={true} onClick={() => rekjørTasks()}>
+                <Button size={'small'} variant={'secondary'} onClick={() => rekjørTasks()}>
                     Rekjør alle tasks
-                </Knapp>
+                </Button>
             )}
 
             <Select

@@ -1,8 +1,4 @@
-import { Knapp } from 'nav-frontend-knapper';
-import Modal from 'nav-frontend-modal';
-import { Select, Textarea } from 'nav-frontend-skjema';
-import 'nav-frontend-tabell-style';
-import { Element, Undertittel } from 'nav-frontend-typografi';
+import { BodyShort, Button, Heading, Modal, Select, Textarea } from '@navikt/ds-react';
 import React, { FC, useState } from 'react';
 import { avvikstyper, ITask } from '../../../typer/task';
 import { useTaskContext } from '../../TaskProvider';
@@ -20,60 +16,60 @@ const AvvikshåndteringModal: FC<IProps> = ({ settÅpen, task, åpen }) => {
 
     return (
         <Modal
-            contentClass={'avvikshåndtering'}
-            isOpen={åpen}
+            className={'avvikshåndtering'}
+            open={åpen}
             closeButton={true}
-            onRequestClose={() => {
+            onClose={() => {
                 settÅpen(!åpen);
             }}
-            contentLabel="Avvikshåndter"
         >
-            <Undertittel children={`Avvikshåndter`} />
+            <Modal.Content>
+                <Heading size={'medium'}>Avvikshåndter</Heading>
 
-            <br />
-            <Element children={'Husk at avvikshåndterte tasks aldri vil bli saksbehandlet.'} />
+                <br />
+                <BodyShort>Husk at avvikshåndterte tasks aldri vil bli saksbehandlet.</BodyShort>
+                <br />
 
-            <form
-                onSubmit={(event) => {
-                    avvikshåndter({
-                        avvikstype: valgtAvvikType as avvikstyper,
-                        taskId: task.id,
-                        årsak,
-                    });
-                    event.preventDefault();
-                }}
-            >
-                <Select
-                    onChange={(event) => settValgtAvvikType(event.target.value)}
-                    value={valgtAvvikType}
-                    label={'Velg type avvik'}
-                    required={true}
+                <form
+                    onSubmit={(event) => {
+                        avvikshåndter({
+                            avvikstype: valgtAvvikType as avvikstyper,
+                            taskId: task.id,
+                            årsak,
+                        });
+                        event.preventDefault();
+                    }}
                 >
-                    <option value={''}>Velg avvikstype</option>
-                    {Object.keys(avvikstyper).map((avvikType) => {
-                        return (
-                            <option key={avvikType} value={avvikType}>
-                                {avvikType}
-                            </option>
-                        );
-                    })}
-                </Select>
+                    <Select
+                        onChange={(event) => settValgtAvvikType(event.target.value)}
+                        value={valgtAvvikType}
+                        label={'Velg type avvik'}
+                        required={true}
+                    >
+                        <option value={''}>Velg avvikstype</option>
+                        {Object.keys(avvikstyper).map((avvikType) => {
+                            return (
+                                <option key={avvikType} value={avvikType}>
+                                    {avvikType}
+                                </option>
+                            );
+                        })}
+                    </Select>
 
-                <br />
-                <Textarea
-                    label={'Oppgi en årsak til avvik'}
-                    maxLength={500}
-                    onChange={(event) => settÅrsak(event.target.value)}
-                    required={true}
-                    textareaClass={'avvikshåndtering__textarea'}
-                    value={årsak}
-                />
+                    <br />
+                    <Textarea
+                        label={'Oppgi en årsak til avvik'}
+                        maxLength={500}
+                        onChange={(event) => settÅrsak(event.target.value)}
+                        required={true}
+                        className={'avvikshåndtering__textarea'}
+                        value={årsak}
+                    />
 
-                <br />
-                <Knapp className={'taskpanel__vislogg'} mini={true}>
-                    Avvikshåndter task
-                </Knapp>
-            </form>
+                    <br />
+                    <Button className={'taskpanel__vislogg'}>Avvikshåndter task</Button>
+                </form>
+            </Modal.Content>
         </Modal>
     );
 };
