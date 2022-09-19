@@ -116,7 +116,7 @@ const [TaskProvider, useTaskContext] = constate(() => {
         settTypeFilter,
         rekjørTasks,
         avvikshåndter,
-        leggTilKommentar: leggTilKommentar,
+        leggTilKommentar,
     };
 });
 

@@ -34,7 +34,7 @@ const KommenteringModal: FC<IProps> = ({ settÅpen, task, åpen }) => {
             {
                 taskId: task.id,
                 settTilManuellOppfølging: tilManuellOppfølging,
-                kommentar: kommentar,
+                kommentar,
             },
             onSuccess,
             onError

@@ -22,7 +22,7 @@ export const TaskerTilOppfølging: React.FC<TaskerTilOppfølgingProps> = ({
                 variant={'tertiary'}
                 onClick={() => settÅpen(!åpen)}
                 icon={<Ikon />}
-            ></Button>
+            />
             <Popover
                 open={åpen}
                 onClose={() => settÅpen(!åpen)}
