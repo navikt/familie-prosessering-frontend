@@ -9,7 +9,7 @@ interface IProps {
 const TaskElement: React.FC<IProps> = ({ innhold, label }) => {
     return (
         <div className={'taskelement'}>
-            <Label size={'small'}>{label}:&nbsp;</Label>
+            <Label as="p" size={'small'}>{label}:&nbsp;</Label>
             <BodyShort size={'small'}>{innhold}</BodyShort>
         </div>
     );
