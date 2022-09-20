@@ -41,7 +41,7 @@ const TaskPanel: FC<IProps> = ({ task }) => {
                 åpen={visKommenteringModal}
             />
             <div className={classNames('taskpanel__status', task.status)}>
-                <Label children={taskStatusTekster[task.status]} />
+                <Label as="p" children={taskStatusTekster[task.status]} />
             </div>
             <Button
                 size={'small'}
