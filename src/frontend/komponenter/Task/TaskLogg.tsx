@@ -50,7 +50,7 @@ const TaskLogg: React.FC<{ taskId: number; visLogg: boolean }> = ({ taskId, visL
             return (
                 <div key={index} className={'taskpanel__logg--item'}>
                     <div className={'taskpanel__logg--item-metadata'}>
-                        <Label>{logg.type}</Label>
+                        <Label as="p">{logg.type}</Label>
                         <BodyShort size={'small'}>Endret av: {logg.endretAv}</BodyShort>
                         <BodyShort size={'small'}>
                             {moment(logg.opprettetTidspunkt).format('DD.MM.YYYY HH:mm')}
