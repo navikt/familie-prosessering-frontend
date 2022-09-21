@@ -64,7 +64,7 @@
     "request": "^2.88.2",
     "request-promise": "^4.2.6",
     "snyk": "^1.953.0",
-    "uuid": "^8.3.2"
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "@babel/preset-react": "^7.18.6",
