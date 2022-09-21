@@ -1,12 +1,7 @@
-import { Knapp } from 'nav-frontend-knapper';
-import Modal from 'nav-frontend-modal';
-import { Select, Textarea } from 'nav-frontend-skjema';
-import 'nav-frontend-tabell-style';
-import { Element, Undertittel } from 'nav-frontend-typografi';
+import { Alert, BodyShort, Button, Checkbox, Heading, Modal, Textarea } from '@navikt/ds-react';
 import React, { FC, useState } from 'react';
-import { avvikstyper, ITask } from '../../../typer/task';
+import { ITask } from '../../../typer/task';
 import { useTaskContext } from '../../TaskProvider';
-import { Alert, Checkbox } from '@navikt/ds-react';
 
 interface IProps {
     settÅpen: (åpen: boolean) => void;
@@ -34,7 +29,7 @@ const KommenteringModal: FC<IProps> = ({ settÅpen, task, åpen }) => {
             {
                 taskId: task.id,
                 settTilManuellOppfølging: tilManuellOppfølging,
-                kommentar: kommentar,
+                kommentar,
             },
             onSuccess,
             onError
@@ -43,50 +38,52 @@ const KommenteringModal: FC<IProps> = ({ settÅpen, task, åpen }) => {
 
     return (
         <Modal
-            contentClass={'kommentering'}
-            isOpen={åpen}
+            className={'kommentering'}
+            open={åpen}
             closeButton={true}
-            onRequestClose={() => {
+            onClose={() => {
                 settÅpen(!åpen);
             }}
-            contentLabel="Kommenter"
         >
-            <Undertittel children={`Kommenter`} />
+            <Modal.Content>
+                <Heading size={'medium'}>Kommenter</Heading>
 
-            <br />
-            <Element children={'Legg til kommentar og velge hvis task skal bli manuelloppfølgt'} />
+                <br />
+                <BodyShort>
+                    Legg til kommentar og velge hvis task skal bli manuelloppfølgt
+                </BodyShort>
+                <br />
 
-            <form
-                onSubmit={(event) => {
-                    leggTilKommentarForTask();
-                    event.preventDefault();
-                }}
-            >
-                <Checkbox
-                    id={'settTilManuellOppfølging-checkbox'}
-                    checked={tilManuellOppfølging}
-                    onChange={() => {
-                        settTilManuellOppfølging(!tilManuellOppfølging);
+                <form
+                    onSubmit={(event) => {
+                        leggTilKommentarForTask();
+                        event.preventDefault();
                     }}
                 >
-                    Manuell oppfølging
-                </Checkbox>
-                <br />
-                <Textarea
-                    label={'Oppgi en kommentar'}
-                    maxLength={500}
-                    onChange={(event) => settKommentar(event.target.value)}
-                    required={true}
-                    textareaClass={'kommentering__textarea'}
-                    value={kommentar}
-                />
+                    <Checkbox
+                        id={'settTilManuellOppfølging-checkbox'}
+                        checked={tilManuellOppfølging}
+                        onChange={() => {
+                            settTilManuellOppfølging(!tilManuellOppfølging);
+                        }}
+                    >
+                        Manuell oppfølging
+                    </Checkbox>
+                    <br />
+                    <Textarea
+                        label={'Oppgi en kommentar'}
+                        maxLength={500}
+                        onChange={(event) => settKommentar(event.target.value)}
+                        required={true}
+                        className={'kommentering__textarea'}
+                        value={kommentar}
+                    />
 
-                <br />
-                {feilMelding && <Alert variant={'error'}>{feilMelding}</Alert>}
-                <Knapp className={'taskpanel__vislogg'} mini={true}>
-                    Kommenter
-                </Knapp>
-            </form>
+                    <br />
+                    {feilMelding && <Alert variant={'error'}>{feilMelding}</Alert>}
+                    <Button className={'taskpanel__vislogg'}>Kommenter</Button>
+                </form>
+            </Modal.Content>
         </Modal>
     );
 };

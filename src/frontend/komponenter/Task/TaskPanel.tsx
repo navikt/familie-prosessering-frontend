@@ -1,16 +1,13 @@
+import { BodyShort, Button, Heading, Label, Link, Panel } from '@navikt/ds-react';
 import classNames from 'classnames';
 import * as moment from 'moment';
-import { Knapp } from 'nav-frontend-knapper';
-import Lenke from 'nav-frontend-lenker';
-import PanelBase from 'nav-frontend-paneler';
-import { Element, Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import React, { FC, useState } from 'react';
 import { ITask, taskStatusTekster, taskTypeTekster } from '../../typer/task';
-import AvvikshåndteringModal from './AvvikshåndteringModal/AvvikshåndteringModal';
-import TaskElement from './TaskElement';
 import { useTaskContext } from '../TaskProvider';
-import TaskLogg from './TaskLogg';
+import AvvikshåndteringModal from './AvvikshåndteringModal/AvvikshåndteringModal';
 import KommenteringModal from './KommenteringModal/kommenteringModal';
+import TaskElement from './TaskElement';
+import TaskLogg from './TaskLogg';
 
 interface IProps {
     task: ITask;
@@ -32,7 +29,7 @@ const TaskPanel: FC<IProps> = ({ task }) => {
     const sistKjørt = getSistKjørt(task);
 
     return (
-        <PanelBase className={'taskpanel'} border={true}>
+        <Panel className={'taskpanel'} border={true}>
             <AvvikshåndteringModal
                 settÅpen={settVisAvvikshåndteringModal}
                 task={task}
@@ -44,20 +41,24 @@ const TaskPanel: FC<IProps> = ({ task }) => {
                 åpen={visKommenteringModal}
             />
             <div className={classNames('taskpanel__status', task.status)}>
-                <Element children={taskStatusTekster[task.status]} />
+                <Label as="p" children={taskStatusTekster[task.status]} />
             </div>
-            <Knapp mini={true} onClick={() => rekjørTasks(task.id)} className={'taskpanel__rekjør'}>
+            <Button
+                size={'small'}
+                variant={'secondary'}
+                onClick={() => rekjørTasks(task.id)}
+                className={'taskpanel__rekjør'}
+            >
                 Rekjør
-            </Knapp>
+            </Button>
 
             <div className={'taskpanel__innhold'}>
-                <Undertittel
-                    children={`#${task.id}: ${
-                        taskTypeTekster[task.taskStepType]
-                            ? taskTypeTekster[task.taskStepType]
-                            : `${task.taskStepType}`
-                    }`}
-                />
+                <Heading size={'medium'}>
+                    #{task.id}:{' '}
+                    {taskTypeTekster[task.taskStepType]
+                        ? taskTypeTekster[task.taskStepType]
+                        : task.taskStepType}
+                </Heading>
                 <div className={'taskpanel__innhold--elementer'}>
                     {Object.keys(task.metadata).map((key: string) => {
                         return <TaskElement key={key} label={key} innhold={task.metadata[key]} />;
@@ -72,9 +73,9 @@ const TaskPanel: FC<IProps> = ({ task }) => {
             </div>
 
             <div className={'taskpanel__lenker'}>
-                <Lenke href={kibanaErrorLenke} children={'Kibana error'} />
-                <Lenke href={kibanaInfoLenke} children={'Kibana info'} />
-                <Lenke
+                <Link href={kibanaErrorLenke} children={'Kibana error'} />
+                <Link href={kibanaInfoLenke} children={'Kibana info'} />
+                <Link
                     href={''}
                     onClick={(event) => {
                         settVisAvvikshåndteringModal(!visAvvikshåndteringModal);
@@ -82,7 +83,7 @@ const TaskPanel: FC<IProps> = ({ task }) => {
                     }}
                     children={'Avvikshåndter'}
                 />
-                <Lenke
+                <Link
                     href={''}
                     onClick={(event) => {
                         settVisKommenteringModal(!visKommenteringModal);
@@ -93,26 +94,27 @@ const TaskPanel: FC<IProps> = ({ task }) => {
             </div>
 
             <div className={'taskpanel__metadata'}>
-                <Normaltekst
+                <BodyShort
+                    size={'small'}
                     children={moment(task.opprettetTidspunkt).format('DD.MM.YYYY HH:mm')}
                 />
             </div>
 
-            <Knapp
+            <Button
                 className={'taskpanel__vislogg'}
-                mini={true}
+                variant={'secondary'}
                 onClick={(event) => {
                     settVisLogg(!visLogg);
                     event.preventDefault();
                 }}
             >
                 {`${visLogg ? 'Skjul' : 'Vis'} logg (${task.antallLogger})`}
-            </Knapp>
+            </Button>
 
             <div className={classNames('taskpanel__logg', visLogg ? '' : 'skjul')}>
                 <TaskLogg taskId={task.id} visLogg={visLogg} />
             </div>
-        </PanelBase>
+        </Panel>
     );
 };
 

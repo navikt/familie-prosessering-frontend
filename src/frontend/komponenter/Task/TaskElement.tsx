@@ -1,4 +1,4 @@
-import { Element, Normaltekst } from 'nav-frontend-typografi';
+import { BodyShort, Label } from '@navikt/ds-react';
 import * as React from 'react';
 
 interface IProps {
@@ -9,8 +9,8 @@ interface IProps {
 const TaskElement: React.FC<IProps> = ({ innhold, label }) => {
     return (
         <div className={'taskelement'}>
-            <Element children={`${label}:`} />
-            <Normaltekst children={innhold} />
+            <Label as="p" size={'small'}>{label}:&nbsp;</Label>
+            <BodyShort size={'small'}>{innhold}</BodyShort>
         </div>
     );
 };

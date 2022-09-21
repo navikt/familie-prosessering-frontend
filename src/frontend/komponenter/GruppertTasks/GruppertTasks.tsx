@@ -1,15 +1,14 @@
-import AlertStripe from 'nav-frontend-alertstriper';
-import { NavLink, useParams, useSearchParams } from 'react-router-dom';
-import { Normaltekst } from 'nav-frontend-typografi';
-import { taskStatus, ITask } from '../../typer/task';
-import Paginering from '../Felleskomponenter/Paginering/Paginering';
-import { useTaskContext } from '../TaskProvider';
-import * as moment from 'moment';
-import classNames from 'classnames';
-import TaskListe from '../Task/TaskListe';
-import TopBar from '../Felleskomponenter/TopBar/TopBar';
+import { Alert, BodyShort } from '@navikt/ds-react';
 import { RessursStatus } from '@navikt/familie-typer';
+import classNames from 'classnames';
+import * as moment from 'moment';
 import React, { FC } from 'react';
+import { NavLink, useParams, useSearchParams } from 'react-router-dom';
+import { ITask, taskStatus } from '../../typer/task';
+import Paginering from '../Felleskomponenter/Paginering/Paginering';
+import TopBar from '../Felleskomponenter/TopBar/TopBar';
+import TaskListe from '../Task/TaskListe';
+import { useTaskContext } from '../TaskProvider';
 
 interface GruppertTasker {
     [key: string]: ITask[];
@@ -70,10 +69,14 @@ const GruppertTasks: FC = () => {
                                                 callId === displayCallId ? 'active-task' : ''
                                             )}
                                         >
-                                            <Normaltekst>{`#${sistKjørtTask.id}, ${moment(
-                                                sistKjørtTask.opprettetTidspunkt
-                                            ).format('DD.MM.YYYY HH:mm')}`}</Normaltekst>
-                                            <Normaltekst>{`Call id: ${displayCallId}`}</Normaltekst>
+                                            <BodyShort size={'small'}>{`#${
+                                                sistKjørtTask.id
+                                            }, ${moment(sistKjørtTask.opprettetTidspunkt).format(
+                                                'DD.MM.YYYY HH:mm'
+                                            )}`}</BodyShort>
+                                            <BodyShort
+                                                size={'small'}
+                                            >{`Call id: ${displayCallId}`}</BodyShort>
                                         </NavLink>
                                     );
                                 })}
@@ -89,20 +92,18 @@ const GruppertTasks: FC = () => {
                 </div>
             );
         case RessursStatus.HENTER:
-            return <AlertStripe children={`Laster tasker`} type={'info'} />;
+            return <Alert variant={'info'}>Laster tasker</Alert>;
         case RessursStatus.IKKE_TILGANG:
             return (
-                <AlertStripe
-                    children={`Ikke tilgang til tasker: ${tasks.frontendFeilmelding}`}
-                    type={'advarsel'}
-                />
+                <Alert variant={'warning'}>
+                    Ikke tilgang til tasker: {tasks.frontendFeilmelding}
+                </Alert>
             );
         case RessursStatus.FEILET:
             return (
-                <AlertStripe
-                    children={`Innhenting av tasker feilet: ${tasks.frontendFeilmelding}`}
-                    type={'feil'}
-                />
+                <Alert variant={'error'}>
+                    Innhenting av tasker feilet: {tasks.frontendFeilmelding}
+                </Alert>
             );
         default:
             return <div />;

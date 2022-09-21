@@ -1,7 +1,7 @@
 import { Button, Popover } from '@navikt/ds-react';
-import Icon from 'nav-frontend-ikoner-assets/lib';
 import React, { useRef, useState } from 'react';
 import { IOppfølgingstask } from '../../typer/service';
+import { WarningColored, SuccessColored, ErrorColored, InformationColored } from '@navikt/ds-icons';
 
 export interface TaskerTilOppfølgingProps {
     taskerTilOppfølging: IOppfølgingstask;
@@ -12,7 +12,7 @@ export const TaskerTilOppfølging: React.FC<TaskerTilOppfølgingProps> = ({
 }) => {
     const iconRef = useRef(null);
     const [åpen, settÅpen] = useState(false);
-    const ikonType = utledIkonType(taskerTilOppfølging);
+    const Ikon = utledIkonType(taskerTilOppfølging);
 
     return (
         <>
@@ -20,11 +20,9 @@ export const TaskerTilOppfølging: React.FC<TaskerTilOppfølgingProps> = ({
                 ref={iconRef}
                 key={taskerTilOppfølging.serviceId}
                 variant={'tertiary'}
-                size={'small'}
                 onClick={() => settÅpen(!åpen)}
-            >
-                <Icon kind={ikonType} />
-            </Button>
+                icon={<Ikon />}
+            />
             <Popover
                 open={åpen}
                 onClose={() => settÅpen(!åpen)}
@@ -37,18 +35,18 @@ export const TaskerTilOppfølging: React.FC<TaskerTilOppfølgingProps> = ({
     );
 };
 
-const utledIkonType = (taskerTilOppfølging: IOppfølgingstask): string => {
+const utledIkonType = (taskerTilOppfølging: IOppfølgingstask) => {
     if (!taskerTilOppfølging.harMottattSvar) {
-        return 'advarsel-sirkel-fyll';
+        return WarningColored;
     } else if (
         taskerTilOppfølging.harMottattSvar &&
         taskerTilOppfølging.antallTilOppfølging === 0
     ) {
-        return 'ok-sirkel-fyll';
+        return SuccessColored;
     } else if (taskerTilOppfølging.harMottattSvar && taskerTilOppfølging.antallTilOppfølging > 0) {
-        return 'feil-sirkel-fyll';
+        return ErrorColored;
     } else {
-        return 'help-circle';
+        return InformationColored;
     }
 };
 

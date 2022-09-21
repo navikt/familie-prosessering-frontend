@@ -2,6 +2,7 @@ import * as React from 'react';
 import { createRoot } from 'react-dom/client';
 import { AppContainer } from 'react-hot-loader';
 import App from './komponenter/App';
+import '@navikt/ds-tokens';
 
 import './index.less';
 
