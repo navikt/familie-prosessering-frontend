@@ -13,6 +13,7 @@ export enum taskStatus {
     MANUELL_OPPFØLGING = 'MANUELL_OPPFØLGING',
     PLUKKET = 'PLUKKET',
     UBEHANDLET = 'UBEHANDLET',
+    FERDIG_NÅ_FEILET_FØR = 'FERDIG_NÅ_FEILET_FØR',
     ALLE = 'ALLE',
 }
 
@@ -68,6 +69,7 @@ export const taskStatusTekster: ITaskStatusTekster = {
     MANUELL_OPPFØLGING: 'Manuell oppfølging',
     PLUKKET: 'Plukket',
     UBEHANDLET: 'Ubehandlet',
+    FERDIG_NÅ_FEILET_FØR: 'Ferdig nå, men har feilet før',
     ALLE: 'Alle',
 };
 
