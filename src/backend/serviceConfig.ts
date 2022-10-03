@@ -16,6 +16,7 @@ if (process.env.ENV === 'local') {
         enslig_sak: 'http://localhost:8093',
         enslig_iverksett: 'http://localhost:8094',
         tilbake: 'http://localhost:8030',
+        klage: 'http://localhost:8094',
         kontantstøtte_mottak: 'http://localhost:8084',
         kontantstøtte_sak: 'http://localhost:8083',
         barnetrygd_migrering: 'http://localhost:8098',
@@ -30,6 +31,7 @@ if (process.env.ENV === 'local') {
         kontantstøtte_mottak: `https://familie-ks-mottak.${process.env.ENV}-fss-pub.nais.io`,
         kontantstøtte_sak: `http://familie-ks-sak`,
         tilbake: `http://familie-tilbake`,
+        klage: `http://familie-klage`,
         barnetrygd_migrering: `http://familie-ba-migrering`,
     };
 }
@@ -91,6 +93,13 @@ export const serviceConfig: IService[] = [
         id: 'familie-tilbake',
         proxyPath: '/familie-tilbake/api',
         proxyUrl: proxyUrls.tilbake,
+    },
+    {
+        cluster: 'gcp',
+        displayName: 'Klage',
+        id: 'familie-klage',
+        proxyPath: '/familie-klage/api',
+        proxyUrl: proxyUrls.klage,
     },
     {
         cluster: 'gcp',
