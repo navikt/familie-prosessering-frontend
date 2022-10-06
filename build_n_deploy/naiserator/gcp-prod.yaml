@@ -37,6 +37,7 @@ spec:
         - application: familie-ba-migrering
         - application: familie-ba-sak
         - application: familie-ks-sak
+        - application: familie-baks-mottak
       external:
         - host: familie-ba-mottak.prod-fss-pub.nais.io
         - host: familie-ks-mottak.prod-fss-pub.nais.io

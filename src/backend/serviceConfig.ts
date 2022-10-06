@@ -20,6 +20,7 @@ if (process.env.ENV === 'local') {
         kontantstøtte_mottak: 'http://localhost:8084',
         kontantstøtte_sak: 'http://localhost:8083',
         barnetrygd_migrering: 'http://localhost:8098',
+        baks_mottak: 'http://localhost:8090',
     };
 } else {
     proxyUrls = {
@@ -33,6 +34,7 @@ if (process.env.ENV === 'local') {
         tilbake: `http://familie-tilbake`,
         klage: `http://familie-klage`,
         barnetrygd_migrering: `http://familie-ba-migrering`,
+        baks_mottak: `http://familie-baks-mottak`,
     };
 }
 
@@ -114,5 +116,12 @@ export const serviceConfig: IService[] = [
         id: 'familie-ef-iverksett',
         proxyPath: '/familie-ef-iverksett/api',
         proxyUrl: proxyUrls.enslig_iverksett,
+    },
+    {
+        cluster: 'gcp',
+        displayName: 'BAKS mottak',
+        id: 'familie-baks-mottak',
+        proxyPath: '/familie-baks-mottak/api',
+        proxyUrl: proxyUrls.baks_mottak,
     },
 ];
