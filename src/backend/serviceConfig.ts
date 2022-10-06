@@ -122,6 +122,6 @@ export const serviceConfig: IService[] = [
         displayName: 'BAKS mottak',
         id: 'familie-baks-mottak',
         proxyPath: '/familie-baks-mottak/api',
-        proxyUrl: proxyUrls.enslig_iverksett,
+        proxyUrl: proxyUrls.baks_mottak,
     },
 ];
