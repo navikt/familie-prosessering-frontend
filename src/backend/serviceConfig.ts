@@ -20,7 +20,7 @@ if (process.env.ENV === 'local') {
         kontantstøtte_mottak: 'http://localhost:8084',
         kontantstøtte_sak: 'http://localhost:8083',
         barnetrygd_migrering: 'http://localhost:8098',
-        baks_mottak: 'http://localhost:8084',
+        baks_mottak: 'http://localhost:8090',
     };
 } else {
     proxyUrls = {
