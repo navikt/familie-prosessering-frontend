@@ -1,12 +1,19 @@
-import { Button, Heading, Select } from '@navikt/ds-react';
-import React, { FC } from 'react';
+import { Button, Checkbox, Heading, Select } from '@navikt/ds-react';
+import React, { FC, useState } from 'react';
 import { taskStatus, taskStatusTekster } from '../../../typer/task';
 import { useServiceContext } from '../../ServiceContext';
 import { useTaskContext } from '../../TaskProvider';
 
 const TopBar: FC = () => {
-    const { statusFilter, rekjørTasks, settStatusFilter } = useTaskContext();
+    const {
+        statusFilter,
+        rekjørTasks,
+        settStatusFilter,
+        tasksSomErFerdigNåMenFeiletFør,
+        hentEllerOppdaterTasks,
+    } = useTaskContext();
     const { valgtService } = useServiceContext();
+    const [visFeilaMenFerdig, setVisFeilaMenFerdig] = useState(false);
 
     return (
         <div className={'topbar'}>
@@ -21,6 +28,22 @@ const TopBar: FC = () => {
                 </Button>
             )}
 
+            {statusFilter === taskStatus.FERDIG && (
+                <Checkbox
+                    id={'feila-men-ferdig-checkbox'}
+                    checked={visFeilaMenFerdig}
+                    onChange={() => {
+                        setVisFeilaMenFerdig(!visFeilaMenFerdig);
+                        if (!visFeilaMenFerdig) {
+                            tasksSomErFerdigNåMenFeiletFør();
+                        } else {
+                            hentEllerOppdaterTasks();
+                        }
+                    }}
+                >
+                    Vis de som feila, men nå er ferdige
+                </Checkbox>
+            )}
             <Select
                 onChange={(event) => settStatusFilter(event.target.value as taskStatus)}
                 value={statusFilter}
