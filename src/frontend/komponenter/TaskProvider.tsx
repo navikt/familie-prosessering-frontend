@@ -3,14 +3,14 @@ import constate from 'constate';
 import { useEffect, useState } from 'react';
 import { Location, useLocation } from 'react-router';
 import { useNavigate } from 'react-router-dom';
-import { avvikshåndterTask, hentTasks, kommenterTask, rekjørTask } from '../api/task';
 import {
-    IAvvikshåndteringDTO,
-    IKommentarDTO,
-    ITask,
-    ITaskResponse,
-    taskStatus,
-} from '../typer/task';
+    avvikshåndterTask,
+    hentTasks,
+    hentTasksSomErFerdigNåMenFeiletFør,
+    kommenterTask,
+    rekjørTask,
+} from '../api/task';
+import { IAvvikshåndteringDTO, IKommentarDTO, ITaskResponse, taskStatus } from '../typer/task';
 import { useServiceContext } from './ServiceContext';
 
 const getQueryParamStatusFilter = (location: Location): taskStatus => {
@@ -106,6 +106,12 @@ const [TaskProvider, useTaskContext] = constate(() => {
         }
     };
 
+    const tasksSomErFerdigNåMenFeiletFør = () => {
+        if (valgtService) {
+            hentTasksSomErFerdigNåMenFeiletFør(valgtService).then((res) => settTasks(res));
+        }
+    };
+
     return {
         tasks,
         side,
@@ -117,6 +123,8 @@ const [TaskProvider, useTaskContext] = constate(() => {
         rekjørTasks,
         avvikshåndter,
         leggTilKommentar,
+        tasksSomErFerdigNåMenFeiletFør,
+        hentEllerOppdaterTasks,
     };
 });
 

@@ -33,6 +33,15 @@ export const hentTasks = (
     });
 };
 
+export const hentTasksSomErFerdigNåMenFeiletFør = (
+    valgtService: IService
+): Promise<Ressurs<ITaskResponse>> => {
+    return axiosRequest({
+        method: 'GET',
+        url: `${valgtService.proxyPath}/task/ferdigNaaFeiletFoer`,
+    });
+};
+
 export const hentTaskLogg = (valgtService: IService, id: number): Promise<Ressurs<ITaskLogg[]>> => {
     return axiosRequest({
         method: 'GET',
