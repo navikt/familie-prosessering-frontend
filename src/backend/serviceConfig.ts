@@ -10,7 +10,6 @@ export interface IService {
 let proxyUrls: { [key: string]: string } = {};
 if (process.env.ENV === 'local') {
     proxyUrls = {
-        barnetrygd_mottak: 'http://localhost:8090',
         barnetrygd_sak: 'http://localhost:8089',
         enslig_mottak: 'http://localhost:8092',
         enslig_sak: 'http://localhost:8093',
@@ -24,7 +23,6 @@ if (process.env.ENV === 'local') {
     };
 } else {
     proxyUrls = {
-        barnetrygd_mottak: `https://familie-ba-mottak.${process.env.ENV}-fss-pub.nais.io`,
         barnetrygd_sak: `http://familie-ba-sak`,
         enslig_mottak: `http://familie-ef-mottak`,
         enslig_sak: `http://familie-ef-sak`,
@@ -53,13 +51,6 @@ export const serviceConfig: IService[] = [
         id: 'familie-ks-mottak',
         proxyPath: '/familie-ks-mottak/api',
         proxyUrl: proxyUrls.kontantstøtte_mottak,
-    },
-    {
-        cluster: 'fss',
-        displayName: 'Barnetrygd mottak',
-        id: 'familie-ba-mottak',
-        proxyPath: '/familie-ba-mottak/api',
-        proxyUrl: proxyUrls.barnetrygd_mottak,
     },
     {
         cluster: 'gcp',
