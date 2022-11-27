@@ -24,7 +24,7 @@
   "dependencies": {
     "@navikt/ds-css": "^1.5.6",
     "@navikt/ds-react": "^1.5.6",
-    "@navikt/ds-icons": "^1.5.6",
+    "@navikt/ds-icons": "^2.0.5",
     "@navikt/ds-tokens": "^1.5.6",
     "@navikt/familie-backend": "^7.0.5",
     "@navikt/familie-logging": "^3.0.2",
