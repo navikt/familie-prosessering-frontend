@@ -248,6 +248,13 @@
     request-promise "^4.2.5"
     snyk "^1.473.0"
 
+"@navikt/familie-logging@^3.0.10":
+  version "3.0.10"
+  resolved "https://npm.pkg.github.com/download/@navikt/familie-logging/3.0.10/ea60cea21889f1ce891705fa8dbeb765746845a8#ea60cea21889f1ce891705fa8dbeb765746845a8"
+  integrity sha512-JRbU7XYjnKylHtIAy042tUMczkdWdwAIzETNqWGc8+el98dHSB8ig+ZFyhJ8xStAI5PQ0cio7PktdTsIrW207A==
+  dependencies:
+    winston "^3.8.1"
+
 "@navikt/familie-logging@^3.0.2":
   version "3.0.2"
   resolved "https://npm.pkg.github.com/download/@navikt/familie-logging/3.0.2/30f1f25b955fe6d42668ec883822bd067099a49b#30f1f25b955fe6d42668ec883822bd067099a49b"
@@ -255,10 +262,10 @@
   dependencies:
     winston "^3.8.1"
 
-"@navikt/familie-typer@^5.0.0":
-  version "5.0.0"
-  resolved "https://npm.pkg.github.com/download/@navikt/familie-typer/5.0.0/457a7865af7d164c5ea26ba942fec62da74e02c0fdcd48165fc6c1c8c9d19f1c#9b59ac4a1b044de72586339c2e3e4af60c9baac4"
-  integrity sha512-rHc1Q+ND28qJ02A7ddn7Y3LDZBelvZv/g528GvxNhgYidpN+nD75czbUje/x3ZwD3W+f+WealUlcDMf057DTGg==
+"@navikt/familie-typer@^5.0.9":
+  version "5.0.9"
+  resolved "https://npm.pkg.github.com/download/@navikt/familie-typer/5.0.9/255c10fe7fedae3ec4545a363fdef023e27684b2#255c10fe7fedae3ec4545a363fdef023e27684b2"
+  integrity sha512-0viB44J2sLOvgdMzpoOj8zZjLP5LpmWfEaCCT8Fsw3N4YkosNlGoPFU62nXJo6gvsSklg3EkBcfJFTArDJtRZw==
 
 "@navikt/fnrvalidator@^1.3.3":
   version "1.3.3"
@@ -784,10 +791,10 @@
   dependencies:
     "@types/node" "*"
 
-"@types/uuid@^8.3.4":
-  version "8.3.4"
-  resolved "https://registry.yarnpkg.com/@types/uuid/-/uuid-8.3.4.tgz#bd86a43617df0594787d38b735f55c805becf1bc"
-  integrity sha512-c/I8ZRb51j+pYGAu5CrFMRxqZ2ke4y2grEBO5AUjgSkSk+qT2Ea+OdWElz/OiMf5MNpn2b17kuVBwZLQJXzihw==
+"@types/uuid@^9.0.0":
+  version "9.0.0"
+  resolved "https://registry.yarnpkg.com/@types/uuid/-/uuid-9.0.0.tgz#53ef263e5239728b56096b0a869595135b7952d2"
+  integrity sha512-kr90f+ERiQtKWMz5rP32ltJ/BtULDI5RVO0uavn1HQUOwjx0R1h0rnDYNL0CepF1zL5bSY6FISAfd9tOdDhU5Q==
 
 "@types/webpack-dev-middleware@^5.3.0":
   version "5.3.0"
