@@ -190,23 +190,23 @@
     "@types/yargs" "^17.0.8"
     chalk "^4.0.0"
 
-"@navikt/ds-css@^1.5.6":
-  version "1.5.6"
-  resolved "https://npm.pkg.github.com/download/@navikt/ds-css/1.5.6/a4c7dcc0e8dab6ab00f620f2dcb07243580d014d#a4c7dcc0e8dab6ab00f620f2dcb07243580d014d"
-  integrity sha512-+4MN62Doi9j82gqpbA5lS+JPbFOPo3rSTaBINtRgNRZ/svA4IVDsl/ayH3qfKKjl7DMqNZe8HUeEmQrYHCXSqQ==
+"@navikt/ds-css@^2.0.10":
+  version "2.0.10"
+  resolved "https://npm.pkg.github.com/download/@navikt/ds-css/2.0.10/aa781c5e89f05fba0a325ab7beb68558d60d3a23#aa781c5e89f05fba0a325ab7beb68558d60d3a23"
+  integrity sha512-xFlTsWN4GnWBifOUp3SvA8c8Y6XDrKGHFxFsT+hdOs0i65f1Pa+IVPe3jbf+8rrowrzbuO00hZ3iK7RYpb2yKw==
 
-"@navikt/ds-icons@^1.5.6":
-  version "1.5.6"
-  resolved "https://npm.pkg.github.com/download/@navikt/ds-icons/1.5.6/5a02a5501bb30bd8798c060c4d6d67c7697e76cf#5a02a5501bb30bd8798c060c4d6d67c7697e76cf"
-  integrity sha512-Kp5gzstB0J99J+cDKFgRQlgR31egle5SrL9uA+otgqKoVCroV8QM0q9wFOjFaxOv8GMHKylI6VRFFwONXiDhlQ==
+"@navikt/ds-icons@^2.0.10":
+  version "2.0.10"
+  resolved "https://npm.pkg.github.com/download/@navikt/ds-icons/2.0.10/de484386c4477b6fc4165d05775a43e496491a89#de484386c4477b6fc4165d05775a43e496491a89"
+  integrity sha512-QsBBPEbG7+I1x0nwBcIi6GwRkCi9V+/kcDLO700Sg5qxqu2SPkbhKOsGeZLt17r0GT127aKbbkVoWkw3ZKVUfA==
 
-"@navikt/ds-react@^1.5.6":
-  version "1.5.6"
-  resolved "https://npm.pkg.github.com/download/@navikt/ds-react/1.5.6/32ec3f7eb7cc7b409980fcf0b86c939a35b7ded5#32ec3f7eb7cc7b409980fcf0b86c939a35b7ded5"
-  integrity sha512-Mt5ZaxYJegHz+9BJTOYKlXo7k0cSV96qDZgEl1txidETnloIWd69wAJpFFBm5eWT7BZRQgde2BLMdCUOZWsmRQ==
+"@navikt/ds-react@^2.0.10":
+  version "2.0.10"
+  resolved "https://npm.pkg.github.com/download/@navikt/ds-react/2.0.10/ed696f9d8e82e1edcd7d2460f3a7b7f094a01eb0#ed696f9d8e82e1edcd7d2460f3a7b7f094a01eb0"
+  integrity sha512-jwzCV1fQ0vgcQRoJtr89JgYTWwF+gtOZ624gPr9kNGpGGlgKmMQyGPBz1JRyiRZOr963IxDSzpRyMQ9Ew0Sy+g==
   dependencies:
     "@floating-ui/react-dom-interactions" "0.9.2"
-    "@navikt/ds-icons" "^1.5.6"
+    "@navikt/ds-icons" "^2.0.10"
     "@radix-ui/react-tabs" "1.0.0"
     "@radix-ui/react-toggle-group" "1.0.0"
     clsx "^1.2.1"
@@ -214,10 +214,10 @@
     react-day-picker "8.3.4"
     react-modal "3.15.1"
 
-"@navikt/ds-tokens@^1.5.6":
-  version "1.5.6"
-  resolved "https://npm.pkg.github.com/download/@navikt/ds-tokens/1.5.6/f0c11b41e39392690bddee3ffe5c3fb62afad134#f0c11b41e39392690bddee3ffe5c3fb62afad134"
-  integrity sha512-bdugFQObwLtEukkCHqJClVWpxXvtVs3LS/OvoaS9cF/equlriWAoOqcZ6H9lxByHEGz188a2mZ3JcMp6BDi4uw==
+"@navikt/ds-tokens@^2.0.10":
+  version "2.0.10"
+  resolved "https://npm.pkg.github.com/download/@navikt/ds-tokens/2.0.10/86cd76b6db92b6e90da85d55c5e5f60151123474#86cd76b6db92b6e90da85d55c5e5f60151123474"
+  integrity sha512-VJ1fxK6uyL9l9NxUL7P0A1SLHv6OzuZniWxLYTAevDtK+rgKScZ+X5KYNl5EIBfVbqWWs8fq+z5fqrMDzDN4iw==
 
 "@navikt/familie-backend@^7.0.5":
   version "7.0.5"
@@ -419,10 +419,10 @@
   dependencies:
     "@babel/runtime" "^7.13.10"
 
-"@remix-run/router@1.0.3":
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/@remix-run/router/-/router-1.0.3.tgz#953b88c20ea00d0eddaffdc1b115c08474aa295d"
-  integrity sha512-ceuyTSs7PZ/tQqi19YZNBc5X7kj1f8p+4DIyrcIYFY9h+hd1OKm4RqtiWldR9eGEvIiJfsqwM4BsuCtRIuEw6Q==
+"@remix-run/router@1.0.5":
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/@remix-run/router/-/router-1.0.5.tgz#d5c65626add4c3c185a89aa5bd38b1e42daec075"
+  integrity sha512-my0Mycd+jruq/1lQuO5LBB6WTlL/e8DTCYWp44DfMTDcXz8DcTlgF0ISaLsGewt+ctHN+yA8xMq3q/N7uWJPug==
 
 "@sinclair/typebox@^0.24.1":
   version "0.24.51"
@@ -685,10 +685,10 @@
   resolved "https://registry.yarnpkg.com/@types/range-parser/-/range-parser-1.2.4.tgz#cd667bcfdd025213aafb7ca5915a932590acdcdc"
   integrity sha512-EEhsLsD6UsDM1yFhAvy0Cjr6VwmpMWqFBCb9w07wVugF7w9nfajxLuVmngTIpgS6svCnm6Vaw+MZhoDCKnOfsw==
 
-"@types/react-dom@^18.0.8":
-  version "18.0.8"
-  resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-18.0.8.tgz#d2606d855186cd42cc1b11e63a71c39525441685"
-  integrity sha512-C3GYO0HLaOkk9dDAz3Dl4sbe4AKUGTCfFIZsz3n/82dPNN8Du533HzKatDxeUYWu24wJgMP1xICqkWk1YOLOIw==
+"@types/react-dom@^18.0.9":
+  version "18.0.9"
+  resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-18.0.9.tgz#ffee5e4bfc2a2f8774b15496474f8e7fe8d0b504"
+  integrity sha512-qnVvHxASt/H7i+XG1U1xMiY5t+IHcPGUK7TDMDzom08xa7e86eCeKOiLZezwCKVxJn6NEiiy2ekgX8aQssjIKg==
   dependencies:
     "@types/react" "*"
 
@@ -718,10 +718,10 @@
     "@types/scheduler" "*"
     csstype "^3.0.2"
 
-"@types/react@^18.0.25":
-  version "18.0.25"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-18.0.25.tgz#8b1dcd7e56fe7315535a4af25435e0bb55c8ae44"
-  integrity sha512-xD6c0KDT4m7n9uD4ZHi02lzskaiqcBxf4zi+tXZY98a04wvc0hi/TcCPC2FOESZi51Nd7tlUeOJY8RofL799/g==
+"@types/react@^18.0.26":
+  version "18.0.26"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-18.0.26.tgz#8ad59fc01fef8eaf5c74f4ea392621749f0b7917"
+  integrity sha512-hCR3PJQsAIXyxhTNSiDFY//LhnMZWpNNr5etoCqx/iUfGc5gXWtQR2Phl908jVR6uPXacojQWTg4qRpkxTuGug==
   dependencies:
     "@types/prop-types" "*"
     "@types/scheduler" "*"
@@ -1179,10 +1179,10 @@ axios@^0.21.0:
   dependencies:
     follow-redirects "^1.14.0"
 
-axios@^1.1.3:
-  version "1.1.3"
-  resolved "https://registry.yarnpkg.com/axios/-/axios-1.1.3.tgz#8274250dada2edf53814ed7db644b9c2866c1e35"
-  integrity sha512-00tXVRwKx/FZr/IDVFt4C+f9FYairX517WoGCL6dpOntqLkZofjhu43F/Xl44UOpqa+9sLFDrG/XAnFsUYgkDA==
+axios@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-1.2.1.tgz#44cf04a3c9f0c2252ebd85975361c026cb9f864a"
+  integrity sha512-I88cFiGu9ryt/tfVEi4kX2SITsvDddTajXTOFmt2uK1ZVA8LytjtdeyefdQWEf5PU8w+4SSJDoYnggflB5tW4A==
   dependencies:
     follow-redirects "^1.15.0"
     form-data "^4.0.0"
@@ -4040,10 +4040,10 @@ postcss@^8.4.7:
     picocolors "^1.0.0"
     source-map-js "^1.0.2"
 
-prettier@^2.7.1:
-  version "2.7.1"
-  resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.7.1.tgz#e235806850d057f97bb08368a4f7d899f7760c64"
-  integrity sha512-ujppO+MkdPqoVINuDFDRLClm7D78qbDt0/NR+wp5FqEZOoTNAjPHWj17QRhu7geIHJfcNhRk1XVQmF8Bp3ye+g==
+prettier@^2.8.1:
+  version "2.8.1"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.8.1.tgz#4e1fd11c34e2421bc1da9aea9bd8127cd0a35efc"
+  integrity sha512-lqGoSJBQNJidqCHE80vqZJHWHRFoNYsSpP9AjFhlhi9ODCJA541svILes/+/1GM3VaL/abZi7cpFzOpdR9UPKg==
 
 pretty-error@^4.0.0:
   version "4.0.0"
@@ -4236,20 +4236,20 @@ react-modal@^3.16.1:
     react-lifecycles-compat "^3.0.0"
     warning "^4.0.3"
 
-react-router-dom@^6.4.3:
-  version "6.4.3"
-  resolved "https://registry.yarnpkg.com/react-router-dom/-/react-router-dom-6.4.3.tgz#70093b5f65f85f1df9e5d4182eb7ff3a08299275"
-  integrity sha512-MiaYQU8CwVCaOfJdYvt84KQNjT78VF0TJrA17SIQgNHRvLnXDJO6qsFqq8F/zzB1BWZjCFIrQpu4QxcshitziQ==
+react-router-dom@^6.4.5:
+  version "6.4.5"
+  resolved "https://registry.yarnpkg.com/react-router-dom/-/react-router-dom-6.4.5.tgz#4fdb12efef4f3848c693a76afbeaed1f6ca02047"
+  integrity sha512-a7HsgikBR0wNfroBHcZUCd9+mLRqZS8R5U1Z1mzLWxFXEkUT3vR1XXmSIVoVpxVX8Bar0nQYYYc9Yipq8dWwAA==
   dependencies:
-    "@remix-run/router" "1.0.3"
-    react-router "6.4.3"
+    "@remix-run/router" "1.0.5"
+    react-router "6.4.5"
 
-react-router@6.4.3, react-router@^6.4.3:
-  version "6.4.3"
-  resolved "https://registry.yarnpkg.com/react-router/-/react-router-6.4.3.tgz#9ed3ee4d6e95889e9b075a5d63e29acc7def0d49"
-  integrity sha512-BT6DoGn6aV1FVP5yfODMOiieakp3z46P1Fk0RNzJMACzE7C339sFuHebfvWtnB4pzBvXXkHP2vscJzWRuUjTtA==
+react-router@6.4.5, react-router@^6.4.5:
+  version "6.4.5"
+  resolved "https://registry.yarnpkg.com/react-router/-/react-router-6.4.5.tgz#73f382af2c8b9a86d74e761a7c5fc3ce7cb0024d"
+  integrity sha512-1RQJ8bM70YEumHIlNUYc6mFfUDoWa5EgPDenK/fq0bxD8DYpQUi/S6Zoft+9DBrh2xmtg92N5HMAJgGWDhKJ5Q==
   dependencies:
-    "@remix-run/router" "1.0.3"
+    "@remix-run/router" "1.0.5"
 
 react@^18.2.0:
   version "18.2.0"
@@ -4683,10 +4683,10 @@ slice-ansi@^5.0.0:
     ansi-styles "^6.0.0"
     is-fullwidth-code-point "^4.0.0"
 
-snyk@^1.1054.0:
-  version "1.1054.0"
-  resolved "https://registry.yarnpkg.com/snyk/-/snyk-1.1054.0.tgz#381717679c4aec9216f8c72000aef3f886fd7aa8"
-  integrity sha512-gRatzs9zNU5c+Z+t+qf04XjRJn/pP1f8j0HMclE95VmDwhP/nwE8Fd7Cz5PLJ7D+ehFvV3cpKX4EpGaGgZak6w==
+snyk@^1.1071.0:
+  version "1.1071.0"
+  resolved "https://registry.yarnpkg.com/snyk/-/snyk-1.1071.0.tgz#b72472e845886d24d3df66c0620f0ecf7e88f43a"
+  integrity sha512-SAJbLaREe/PE2VrOhv4s9KBFMki7oLU/phu0LgB3E3YjgkpJGPExSmeqqSGhKIl2Wj9e2+OLtXPnJye8uyuMIA==
 
 snyk@^1.473.0:
   version "1.833.0"
@@ -4957,10 +4957,10 @@ triple-beam@^1.3.0:
   resolved "https://registry.yarnpkg.com/triple-beam/-/triple-beam-1.3.0.tgz#a595214c7298db8339eeeee083e4d10bd8cb8dd9"
   integrity sha512-XrHUvV5HpdLmIj4uVMxHggLbFSZYIn7HEWsqePZcI50pco+MPqJ50wMGY794X7AOOhxOBAjbkqfAbEe/QMp2Lw==
 
-ts-loader@^9.4.1:
-  version "9.4.1"
-  resolved "https://registry.yarnpkg.com/ts-loader/-/ts-loader-9.4.1.tgz#b6f3d82db0eac5a8295994f8cb5e4940ff6b1060"
-  integrity sha512-384TYAqGs70rn9F0VBnh6BPTfhga7yFNdC5gXbQpDrBj9/KsT4iRkGqKXhziofHOlE2j6YEaiTYVGKKvPhGWvw==
+ts-loader@^9.4.2:
+  version "9.4.2"
+  resolved "https://registry.yarnpkg.com/ts-loader/-/ts-loader-9.4.2.tgz#80a45eee92dd5170b900b3d00abcfa14949aeb78"
+  integrity sha512-OmlC4WVmFv5I0PpaxYb+qGeGOdm5giHU7HwDDUjw59emP2UYMHy9fFSDcYgSNoH8sXcj4hGCSEhlDZ9ULeDraA==
   dependencies:
     chalk "^4.1.0"
     enhanced-resolve "^5.0.0"
@@ -5207,10 +5207,10 @@ webpack-dev-middleware@^5.3.3:
     range-parser "^1.2.1"
     schema-utils "^4.0.0"
 
-webpack-hot-middleware@2.25.2:
-  version "2.25.2"
-  resolved "https://registry.yarnpkg.com/webpack-hot-middleware/-/webpack-hot-middleware-2.25.2.tgz#f7f936f3871d8c4eb95ecdf23a34e9cefe9806e8"
-  integrity sha512-CVgm3NAQyfdIonRvXisRwPTUYuSbyZ6BY7782tMeUzWOO7RmVI2NaBYuCp41qyD4gYCkJyTneAJdK69A13B0+A==
+webpack-hot-middleware@2.25.3:
+  version "2.25.3"
+  resolved "https://registry.yarnpkg.com/webpack-hot-middleware/-/webpack-hot-middleware-2.25.3.tgz#be343ce2848022cfd854dd82820cd730998c6794"
+  integrity sha512-IK/0WAHs7MTu1tzLTjio73LjS3Ov+VvBKQmE8WPlJutgG5zT6Urgq/BbAdRrHTRpyzK0dvAvFh1Qg98akxgZpA==
   dependencies:
     ansi-html-community "0.0.8"
     html-entities "^2.1.0"
