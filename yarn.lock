@@ -219,12 +219,12 @@
   resolved "https://npm.pkg.github.com/download/@navikt/ds-tokens/2.0.10/86cd76b6db92b6e90da85d55c5e5f60151123474#86cd76b6db92b6e90da85d55c5e5f60151123474"
   integrity sha512-VJ1fxK6uyL9l9NxUL7P0A1SLHv6OzuZniWxLYTAevDtK+rgKScZ+X5KYNl5EIBfVbqWWs8fq+z5fqrMDzDN4iw==
 
-"@navikt/familie-backend@^7.0.5":
-  version "7.0.5"
-  resolved "https://npm.pkg.github.com/download/@navikt/familie-backend/7.0.5/6d3c8ef1bb294aed837f17570801dad4ddf43eaa#6d3c8ef1bb294aed837f17570801dad4ddf43eaa"
-  integrity sha512-3wv13mIQ81N1Wtl+oOjG0pjMDu3Ybd8UcfawDwEzkfQwMyEBrpJjxkvgfkMEya1kABqtmggYg9QFLfa6JNFiJg==
+"@navikt/familie-backend@^7.0.13":
+  version "7.0.13"
+  resolved "https://npm.pkg.github.com/download/@navikt/familie-backend/7.0.13/b086c9addae10be8a69b6fd76a8d8ff1f0eee99d#b086c9addae10be8a69b6fd76a8d8ff1f0eee99d"
+  integrity sha512-xWiualRYpgIdfGblxzfxRM6ACAMaF8K+dIxMsxpOSg+TyZs81QpQxILx8DDyC/kSvTnJVc72wmkQrjvpjgh9FA==
   dependencies:
-    "@navikt/familie-logging" "^3.0.2"
+    "@navikt/familie-logging" "^3.0.10"
     "@types/connect-redis" "~0.0.18"
     "@types/cookie-parser" "^1.4.2"
     "@types/express" "^4.17.11"
@@ -252,13 +252,6 @@
   version "3.0.10"
   resolved "https://npm.pkg.github.com/download/@navikt/familie-logging/3.0.10/ea60cea21889f1ce891705fa8dbeb765746845a8#ea60cea21889f1ce891705fa8dbeb765746845a8"
   integrity sha512-JRbU7XYjnKylHtIAy042tUMczkdWdwAIzETNqWGc8+el98dHSB8ig+ZFyhJ8xStAI5PQ0cio7PktdTsIrW207A==
-  dependencies:
-    winston "^3.8.1"
-
-"@navikt/familie-logging@^3.0.2":
-  version "3.0.2"
-  resolved "https://npm.pkg.github.com/download/@navikt/familie-logging/3.0.2/30f1f25b955fe6d42668ec883822bd067099a49b#30f1f25b955fe6d42668ec883822bd067099a49b"
-  integrity sha512-T4S7byfxHwMRjKZtIZ822dmnQhfvfd3UPO21gkmHW7zXcqvEgk/DNoVPIC7/UHSD/t/dJk67G0sZO2rsMGMwcw==
   dependencies:
     winston "^3.8.1"
 
