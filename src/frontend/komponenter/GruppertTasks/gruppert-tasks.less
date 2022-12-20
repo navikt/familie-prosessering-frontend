@@ -1,8 +1,4 @@
 .gruppert-tasks {
-    & .typo-systemtittel {
-        padding: 1rem 0 0 1rem;
-    }
-
     &__container {
         border-top: 2px solid black;
         display: flex;
@@ -10,7 +6,7 @@
 
         &--venstremeny {
             min-width: 10rem;
-            border-right: 2px solid @navds-global-color-gray-400;
+            border-right: 2px solid @a-gray-400;
             overflow: auto;
 
             .venstremeny {
@@ -22,31 +18,31 @@
                 height: 100%;
                 max-width: 20rem;
                 min-width: 10rem;
-                border-right: 2px solid @navds-global-color-gray-400;
+                border-right: 2px solid @a-gray-400;
                 
                 .FEILET {
-                    border-left: .5rem solid @navds-global-color-red-400;
+                    border-left: .5rem solid @a-red-400;
                 }
     
                 .OK {
-                    border-left: .5rem solid @navds-global-color-green-400;
+                    border-left: .5rem solid @a-green-400;
                 }
     
                 &__link {
                     text-decoration: none;
                     padding: 0.5rem 3rem 0.5rem 2rem;
-                    color: @navds-global-color-gray-800;
+                    color: @a-gray-800;
             
                     &:hover {
-                        background: @navds-global-color-gray-200;
+                        background: @a-gray-200;
                     }
             
                     &.active-task {
-                        background: @navds-global-color-gray-400;
+                        background: @a-gray-400;
                     }
                     
                     &:focus {
-                        box-shadow: 0 0 0 3px @navds-global-color-blue-800;
+                        box-shadow: 0 0 0 3px @a-blue-800;
                         outline: none;
                     }
                     
