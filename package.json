@@ -74,7 +74,7 @@
     "babel-polyfill": "^6.26.0",
     "css-loader": "^6.7.3",
     "css-minimizer-webpack-plugin": "^4.2.2",
-    "fork-ts-checker-webpack-plugin": "^7.2.14",
+    "fork-ts-checker-webpack-plugin": "^7.3.0",
     "html-webpack-plugin": "^5.5.0",
     "husky": "^8.0.2",
     "less": "^4.1.3",
