@@ -38,8 +38,6 @@ spec:
         - application: familie-ba-sak
         - application: familie-ks-sak
         - application: familie-baks-mottak
-      external:
-        - host: familie-ks-mottak.prod-fss-pub.nais.io
   resources:
     limits:
       cpu: 2000m

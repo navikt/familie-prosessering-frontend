@@ -1,10 +1,10 @@
-import path from "path";
-import HtmlWebpackPlugin from "html-webpack-plugin";
-import TypeScriptTypeChecker from "fork-ts-checker-webpack-plugin";
+import path from 'path';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import TypeScriptTypeChecker from 'fork-ts-checker-webpack-plugin';
 
 const common = {
     entry: {
-        'familie-ks-mottak': ['./src/frontend/index.tsx'],
+        'familie-prosessering': ['./src/frontend/index.tsx'],
     },
     devtool: 'source-map',
     resolve: {
@@ -75,4 +75,4 @@ const common = {
     ],
 };
 
-export default common
+export default common;
