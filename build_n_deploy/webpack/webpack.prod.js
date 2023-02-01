@@ -1,18 +1,18 @@
-import path from "path";
-import webpack from "webpack";
+import path from 'path';
+import webpack from 'webpack';
 import common from './webpack.common.js';
-import MiniCssExtractPlugin from "mini-css-extract-plugin";
-import TerserPlugin from "terser-webpack-plugin";
-import CssMinimizerWebpackPlugin from "css-minimizer-webpack-plugin";
-import { mergeWithCustomize } from "webpack-merge";
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import TerserPlugin from 'terser-webpack-plugin';
+import CssMinimizerWebpackPlugin from 'css-minimizer-webpack-plugin';
+import { mergeWithCustomize } from 'webpack-merge';
 
 const config = mergeWithCustomize({
-    'entry.familie-ks-mottak': 'prepend',
+    'entry.familie-prosessering': 'prepend',
     'module.rules': 'append',
 })(common, {
     mode: 'production',
     entry: {
-        'familie-ks-mottak': ['babel-polyfill'],
+        'familie-prosessering': ['babel-polyfill'],
     },
     output: {
         path: path.resolve(process.cwd(), 'frontend_production/'),
@@ -34,4 +34,4 @@ const config = mergeWithCustomize({
     },
 });
 
-export default config
+export default config;

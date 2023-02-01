@@ -1,15 +1,15 @@
-import path from "path";
-import webpack from "webpack";
-import { mergeWithCustomize } from "webpack-merge";
+import path from 'path';
+import webpack from 'webpack';
+import { mergeWithCustomize } from 'webpack-merge';
 import common from './webpack.common';
 
 const config = mergeWithCustomize({
-    'entry.familie-ks-mottak': 'prepend',
+    'entry.familie-prosessering': 'prepend',
     'module.rules': 'append',
 })(common, {
     mode: 'development',
     entry: {
-        'familie-ks-mottak': [
+        'familie-prosessering': [
             'babel-polyfill',
             'react-hot-loader/patch',
             'webpack-hot-middleware/client?reload=true',
@@ -40,4 +40,4 @@ const config = mergeWithCustomize({
     },
 });
 
-export default config
+export default config;
