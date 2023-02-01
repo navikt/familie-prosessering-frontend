@@ -7,7 +7,7 @@ Ting du må gjøre for å få frontend til å snakke med din backend:
 1. Legg til config for din app i serviceConfig.ts
 2. Legg til appen som preauthorized i aad-iac repoet.
 3. Legg til scope for azure i familie secret for hvert cluster (dev og prod gcp)
-4. Implementer interfacene som kreves i backenden. Se familie-ks-mottak for inspirasjon.
+4. Implementer interfacene som kreves i backenden. Se familie-baks-mottak for inspirasjon.
 5. Backend må ha en ingress slik at denne appen kan kalle backend fra gcp til fss.
 
 # Kom i gang med utvikling
