@@ -5,11 +5,11 @@
 
 .service-gruppe:not(:last-child) {
     border-right: 1px solid @a-gray-400;
-
 }
+
 .service-gruppe-header {
     text-align: center;
-    margin: 0 1rem;
+    margin-top: 1rem;
 }
 
 .services {
@@ -17,6 +17,7 @@
     flex-wrap: wrap;
     margin: 0 1rem;
     flex-direction: column;
+    width: 25rem;
 
     &__service:not(:last-child) {
         border-bottom: 1px solid @a-gray-400;
@@ -31,4 +32,8 @@
             column-gap: 0.5rem;
         }
     }
+}
+
+.varsel-wrapper {
+    margin: 1rem 0;
 }

@@ -1,10 +1,9 @@
-import { Alert, Button, Heading } from '@navikt/ds-react';
+import { Alert, Button, Heading, Loader } from '@navikt/ds-react';
 import { RessursStatus } from '@navikt/familie-typer';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { IOppfølgingstask, IService, IServiceGruppe } from '../../typer/service';
 import { useServiceContext } from '../ServiceContext';
-import ServiceIkon from './ServiceIkon';
 import TaskerTilOppfølging from './TaskerTilOppfølging';
 
 const Services: React.FunctionComponent = () => {
@@ -75,25 +74,29 @@ const Service: React.FC<{
     const navigate = useNavigate();
     return (
         <div key={service.id} className={'services__service'}>
-            <ServiceIkon heigth={90} width={90} />
             <Heading size={'medium'}>{service.displayName}</Heading>
+            {taskerTilOppfølging ? (
+                <TaskerTilOppfølging taskerTilOppfølging={taskerTilOppfølging} />
+            ) : (
+                <Loader size={'large'} />
+            )}
 
             <div className={'services__service--actions'}>
                 <Button
                     onClick={() => {
                         navigate(`/service/${service.id}`);
                     }}
+                    size={'medium'}
                     variant={'secondary'}
                 >
                     Alle tasker
                 </Button>
-                {taskerTilOppfølging && (
-                    <TaskerTilOppfølging taskerTilOppfølging={taskerTilOppfølging} />
-                )}
+
                 <Button
                     onClick={() => {
                         navigate(`/service/${service.id}/gruppert`);
                     }}
+                    size={'medium'}
                     variant={'secondary'}
                 >
                     Gruppert
