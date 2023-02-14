@@ -4,6 +4,7 @@ export interface IService {
     displayName: string;
     proxyPath: string;
     id: string;
+    gruppe: 'EF' | 'BAKS' | 'FELLES';
     proxyUrl: string;
 }
 
@@ -47,6 +48,7 @@ export const serviceConfig: IService[] = [
         cluster: 'gcp',
         displayName: 'Barnetrygd sak',
         id: 'familie-ba-sak',
+        gruppe: 'BAKS',
         proxyPath: '/familie-ba-sak/api',
         proxyUrl: proxyUrls.barnetrygd_sak,
     },
@@ -54,6 +56,7 @@ export const serviceConfig: IService[] = [
         cluster: 'gcp',
         displayName: 'Kontantstøtte sak',
         id: 'familie-ks-sak',
+        gruppe: 'BAKS',
         proxyPath: '/familie-ks-sak/api',
         proxyUrl: proxyUrls.kontantstøtte_sak,
     },
@@ -61,13 +64,15 @@ export const serviceConfig: IService[] = [
         cluster: 'gcp',
         displayName: 'Barnetrygd migrering',
         id: 'familie-ba-migrering',
+        gruppe: 'BAKS',
         proxyPath: '/familie-ba-migrering/api',
         proxyUrl: proxyUrls.barnetrygd_migrering,
     },
     {
         cluster: 'gcp',
-        displayName: 'Alene med barn - mottak',
+        displayName: 'EF mottak',
         id: 'familie-ef-mottak',
+        gruppe: 'EF',
         proxyPath: '/familie-ef-mottak/api',
         proxyUrl: proxyUrls.enslig_mottak,
     },
@@ -75,6 +80,7 @@ export const serviceConfig: IService[] = [
         cluster: 'gcp',
         displayName: 'Tilbakekreving',
         id: 'familie-tilbake',
+        gruppe: 'FELLES',
         proxyPath: '/familie-tilbake/api',
         proxyUrl: proxyUrls.tilbake,
     },
@@ -82,20 +88,23 @@ export const serviceConfig: IService[] = [
         cluster: 'gcp',
         displayName: 'Klage',
         id: 'familie-klage',
+        gruppe: 'FELLES',
         proxyPath: '/familie-klage/api',
         proxyUrl: proxyUrls.klage,
     },
     {
         cluster: 'gcp',
-        displayName: 'Alene med barn - sak',
+        displayName: 'EF sak',
         id: 'familie-ef-sak',
+        gruppe: 'EF',
         proxyPath: '/familie-ef-sak/api',
         proxyUrl: proxyUrls.enslig_sak,
     },
     {
         cluster: 'gcp',
-        displayName: 'Alene med barn - iverksett',
+        displayName: 'EF iverksett',
         id: 'familie-ef-iverksett',
+        gruppe: 'EF',
         proxyPath: '/familie-ef-iverksett/api',
         proxyUrl: proxyUrls.enslig_iverksett,
     },
@@ -103,6 +112,7 @@ export const serviceConfig: IService[] = [
         cluster: 'gcp',
         displayName: 'BAKS mottak',
         id: 'familie-baks-mottak',
+        gruppe: 'BAKS',
         proxyPath: '/familie-baks-mottak/api',
         proxyUrl: proxyUrls.baks_mottak,
     },
