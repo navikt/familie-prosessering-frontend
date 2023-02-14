@@ -1,29 +1,28 @@
-import { Alert, Button, Heading } from '@navikt/ds-react';
+import { Alert, Button, Heading, Loader } from '@navikt/ds-react';
 import { RessursStatus } from '@navikt/familie-typer';
 import React from 'react';
-import { NavigateFunction } from 'react-router';
 import { useNavigate } from 'react-router-dom';
-import { IOppfølgingstask, IService } from '../../typer/service';
+import { IOppfølgingstask, IService, IServiceGruppe } from '../../typer/service';
 import { useServiceContext } from '../ServiceContext';
-import ServiceIkon from './ServiceIkon';
 import TaskerTilOppfølging from './TaskerTilOppfølging';
 
 const Services: React.FunctionComponent = () => {
-    const { services, taskerTilOppfølging } = useServiceContext();
-    const navigate = useNavigate();
+    const { services } = useServiceContext();
 
     switch (services.status) {
         case RessursStatus.SUKSESS:
             return (
-                <div className={'services'}>
-                    {services.data.map((service: IService) => (
-                        <Service
-                            key={service.id}
-                            service={service}
-                            navigate={navigate}
-                            taskerTilOppfølging={taskerTilOppfølging[service.id]}
-                        />
-                    ))}
+                <div className={'service-wrapper'}>
+                    {Object.keys(IServiceGruppe).map((serviceGruppe) => {
+                        return (
+                            <ServiceGruppe
+                                gruppe={serviceGruppe}
+                                servicer={services.data.filter(
+                                    (service) => service.gruppe === serviceGruppe
+                                )}
+                            />
+                        );
+                    })}
                 </div>
             );
         case RessursStatus.HENTER:
@@ -39,31 +38,65 @@ const Services: React.FunctionComponent = () => {
     }
 };
 
+const gruppeTilTekst: Record<string, string> = {
+    EF: 'Alene med barn',
+    FELLES: 'Fellestjenester',
+    BAKS: 'Barnetrygd og kontantstøtte',
+};
+
+const ServiceGruppe: React.FC<{
+    servicer: IService[];
+    gruppe: string;
+}> = ({ servicer, gruppe }) => {
+    const { taskerTilOppfølging } = useServiceContext();
+    return (
+        <div className={'service-gruppe'}>
+            <Heading size={'large'} className={'service-gruppe-header'}>
+                {gruppeTilTekst[gruppe]}
+            </Heading>
+            <div className={'services'}>
+                {servicer.map((service: IService) => (
+                    <Service
+                        key={service.id}
+                        service={service}
+                        taskerTilOppfølging={taskerTilOppfølging[service.id]}
+                    />
+                ))}
+            </div>
+        </div>
+    );
+};
+
 const Service: React.FC<{
     service: IService;
-    navigate: NavigateFunction;
     taskerTilOppfølging?: IOppfølgingstask;
-}> = ({ service, navigate, taskerTilOppfølging }) => {
+}> = ({ service, taskerTilOppfølging }) => {
+    const navigate = useNavigate();
     return (
         <div key={service.id} className={'services__service'}>
-            <ServiceIkon heigth={150} width={150} />
             <Heading size={'medium'}>{service.displayName}</Heading>
-            {taskerTilOppfølging && (
+            {taskerTilOppfølging ? (
                 <TaskerTilOppfølging taskerTilOppfølging={taskerTilOppfølging} />
+            ) : (
+                <Loader size={'large'} />
             )}
+
             <div className={'services__service--actions'}>
                 <Button
                     onClick={() => {
                         navigate(`/service/${service.id}`);
                     }}
+                    size={'medium'}
                     variant={'secondary'}
                 >
                     Alle tasker
                 </Button>
+
                 <Button
                     onClick={() => {
                         navigate(`/service/${service.id}/gruppert`);
                     }}
+                    size={'medium'}
                     variant={'secondary'}
                 >
                     Gruppert

@@ -15,13 +15,13 @@ export const TaskerTilOppfølging: React.FC<TaskerTilOppfølgingProps> = ({
     const Ikon = utledIkonType(taskerTilOppfølging);
 
     return (
-        <>
+        <div className={'varsel-wrapper'}>
             <Button
                 ref={iconRef}
                 key={taskerTilOppfølging.serviceId}
                 variant={'tertiary'}
                 onClick={() => settÅpen(!åpen)}
-                icon={<Ikon />}
+                icon={<Ikon width={'2.5rem'} height={'2.5rem'} />}
             />
             <Popover
                 open={åpen}
@@ -31,7 +31,7 @@ export const TaskerTilOppfølging: React.FC<TaskerTilOppfølgingProps> = ({
             >
                 <Popover.Content>{utledTekst(taskerTilOppfølging)}</Popover.Content>
             </Popover>
-        </>
+        </div>
     );
 };
 

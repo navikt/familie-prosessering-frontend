@@ -1,15 +1,39 @@
+.service-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.service-gruppe:not(:last-child) {
+    border-right: 1px solid @a-gray-400;
+}
+
+.service-gruppe-header {
+    text-align: center;
+    margin-top: 1rem;
+}
+
 .services {
     display: flex;
     flex-wrap: wrap;
-    padding: 1rem;
+    margin: 0 1rem;
+    flex-direction: column;
+    width: 25rem;
 
+    &__service:not(:last-child) {
+        border-bottom: 1px solid @a-gray-400;
+    }
     &__service {
         text-align: center;
-        margin-right: 7rem;
-        margin-bottom: 2rem;
+        padding: 1rem 1rem 1rem 1rem;
 
         &--actions {
             display: flex;
+            justify-content: center;
+            column-gap: 0.5rem;
         }
     }
+}
+
+.varsel-wrapper {
+    margin: 1rem 0;
 }

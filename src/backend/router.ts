@@ -22,6 +22,7 @@ export default (
                     return {
                         displayName: service.displayName,
                         id: service.id,
+                        gruppe: service.gruppe,
                         proxyPath: service.proxyPath,
                     };
                 }),
