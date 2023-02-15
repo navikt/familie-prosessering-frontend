@@ -26,6 +26,9 @@ spec:
       enabled: true
       replyURLs:
         - 'https://familie-prosessering.intern.nav.no/auth/openid/callback'
+      claims:
+        groups:
+          - id: "87190cf3-b278-457d-8ab7-1a5c55a9edd7" # teamfamilie
   accessPolicy:
     outbound:
       rules:

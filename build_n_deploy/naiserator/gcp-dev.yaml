@@ -25,6 +25,7 @@ spec:
     application:
       enabled: true
       tentant: trygdeetaten.no
+      allowAllUsers: true
       replyURLs:
         - 'https://familie-prosessering.dev.intern.nav.no/auth/openid/callback'
   accessPolicy:
