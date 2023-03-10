@@ -33,7 +33,7 @@ jobs:
           docker build --tag ${IMAGE} .
           docker push ${IMAGE}
   deploy-dev:
-    name: Deploy to NAIS
+    name: Deploy to Dev
     needs: build
     runs-on: ubuntu-latest
     steps:
@@ -44,7 +44,7 @@ jobs:
           CLUSTER: dev-gcp
           RESOURCE: build_n_deploy/naiserator/gcp-dev.yaml
   deploy:
-    name: Deploy to NAIS
+    name: Deploy to Prod
     needs: build
     runs-on: ubuntu-latest
     steps:
