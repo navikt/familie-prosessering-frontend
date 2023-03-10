@@ -20,14 +20,14 @@ spec:
     max: 1
     cpuThresholdPercentage: 50
   ingresses:
-    - "https://familie-prosessering.dev.intern.nav.no"
+    - "https://familie-prosessering.intern.dev.nav.no"
   azure:
     application:
       enabled: true
       tentant: trygdeetaten.no
       allowAllUsers: true
       replyURLs:
-        - 'https://familie-prosessering.dev.intern.nav.no/auth/openid/callback'
+        - 'https://familie-prosessering.intern.dev.nav.no/auth/openid/callback'
   accessPolicy:
     outbound:
       rules:
