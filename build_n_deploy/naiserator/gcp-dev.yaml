@@ -50,5 +50,5 @@ spec:
     - secret: familie
     - secret: prosessering
   env:
-    - name: host
+    - name: HOST
       value: "familie-prosessering"
