@@ -49,3 +49,6 @@ spec:
   envFrom:
     - secret: familie
     - secret: prosessering
+  env:
+    - name: host
+      value: "familie-prosessering"
