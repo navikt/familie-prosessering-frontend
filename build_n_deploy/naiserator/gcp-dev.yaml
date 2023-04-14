@@ -52,5 +52,3 @@ spec:
   env:
     - name: HOST
       value: "familie-prosessering"
-    - name: ENV
-      value: "dev"
