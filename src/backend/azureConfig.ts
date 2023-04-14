@@ -1,4 +1,4 @@
-import { logError } from '@navikt/familie-logging';
+import { logError, logInfo } from '@navikt/familie-logging';
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -14,6 +14,7 @@ const konfigurerAzure = () => {
         logError(`Mangler påkrevd miljøvariabel 'HOST'`);
         process.exit(1);
     }
+    logInfo(`Kjører opp miljø: ${process.env.ENV}`);
 
     switch (process.env.ENV) {
         case 'local':
