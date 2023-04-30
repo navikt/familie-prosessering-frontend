@@ -63,7 +63,7 @@
     "react-router-dom": "^6.10.0",
     "request": "^2.88.2",
     "request-promise": "^4.2.6",
-    "snyk": "^1.1140.0",
+    "snyk": "^1.1150.0",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
