@@ -1,3 +1,4 @@
+import { logError, logInfo } from '@navikt/familie-logging';
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -8,7 +9,13 @@ const settAzureAdPropsFraEnv = () => {
 };
 
 const konfigurerAzure = () => {
-    const host = 'familie-prosessering';
+    const host = process.env.HOST; // Enten familie-prosessering, dp-prosessering eller lokal
+    if (!host) {
+        logError(`Mangler påkrevd miljøvariabel 'HOST'`);
+        process.exit(1);
+    }
+    logInfo(`Kjører opp miljø: ${process.env.ENV}`);
+
     switch (process.env.ENV) {
         case 'local':
             process.env.AAD_LOGOUT_REDIRECT_URL = `https://login.microsoftonline.com/navq.onmicrosoft.com/oauth2/logout?post_logout_redirect_uri=http:\\\\localhost:8000`;

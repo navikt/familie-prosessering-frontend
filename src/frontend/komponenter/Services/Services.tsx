@@ -42,12 +42,16 @@ const gruppeTilTekst: Record<string, string> = {
     EF: 'Alene med barn',
     FELLES: 'Fellestjenester',
     BAKS: 'Barnetrygd og kontantstøtte',
+    DP: 'Dagpenger',
 };
 
 const ServiceGruppe: React.FC<{
     servicer: IService[];
     gruppe: string;
 }> = ({ servicer, gruppe }) => {
+    if (servicer.length === 0) {
+        return null;
+    }
     const { taskerTilOppfølging } = useServiceContext();
     return (
         <div className={'service-gruppe'}>

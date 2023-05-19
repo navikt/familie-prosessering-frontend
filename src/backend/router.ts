@@ -8,6 +8,7 @@ import WebpackDevMiddleware from 'webpack-dev-middleware';
 export default (
     authClient: Client,
     router: Router,
+    servicer: IService[],
     middleware?: WebpackDevMiddleware.API<Request, Response>
 ) => {
     router.get('/version', (req, res) => {
@@ -18,7 +19,7 @@ export default (
     router.get('/services', (req, res) => {
         res.status(200)
             .send({
-                data: serviceConfig.map((service: IService) => {
+                data: servicer.map((service: IService) => {
                     return {
                         displayName: service.displayName,
                         id: service.id,

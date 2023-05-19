@@ -27,19 +27,26 @@ const env = Environment();
 export const oboConfig = (service: IService): IApi => {
     return {
         clientId: service.id,
-        scopes: service.scope ? [service.scope] : [utledScope(service.id, service.cluster)],
+        scopes: service.scope
+            ? [service.scope]
+            : [utledScope(service.id, service.cluster, service.teamname)],
     };
 };
 
 const cookieSecret = process.env.SESSION_SECRET;
+const host = process.env.HOST; // Enten familie-prosessering, dp-prosessering eller lokal
 if (!cookieSecret) {
     logError(`Mangler påkrevd miljøvariabel 'SESSION_SECRET'`);
     process.exit(1);
 }
+if (!host) {
+    logError(`Mangler påkrevd miljøvariabel 'HOST'`);
+    process.exit(1);
+}
 export const sessionConfig: ISessionKonfigurasjon = {
     cookieSecret: cookieSecret,
-    navn: 'familie-prosessering',
-    secureCookie: process.env.ENV === 'local' ? false : true,
+    navn: host,
+    secureCookie: process.env.ENV !== 'local',
 };
 
 export const buildPath = env.buildPath;

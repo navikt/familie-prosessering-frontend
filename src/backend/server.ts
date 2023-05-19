@@ -20,6 +20,11 @@ loglevel.setDefaultLevel(loglevel.levels.INFO);
 
 const port = 8000;
 
+function utledAktuelleServicer(): IService[] {
+    const team = process.env.HOST === 'dp-prosessering' ? 'teamdagpenger' : 'teamfamilie';
+    return serviceConfig.filter((service: IService) => service.teamname === team);
+}
+
 backend(sessionConfig).then(({ app, azureAuthClient, router }: IApp) => {
     let middleware;
 
@@ -36,7 +41,9 @@ backend(sessionConfig).then(({ app, azureAuthClient, router }: IApp) => {
         app.use('/assets', express.static(path.resolve(process.cwd(), 'frontend_production/')));
     }
 
-    serviceConfig.map((service: IService) => {
+    const servicer = utledAktuelleServicer();
+
+    servicer.map((service: IService) => {
         app.use(
             service.proxyPath,
             ensureAuthenticated(azureAuthClient, true),
@@ -48,7 +55,7 @@ backend(sessionConfig).then(({ app, azureAuthClient, router }: IApp) => {
     // Sett opp bodyParser og router etter proxy. Spesielt viktig med tanke på større payloads som blir parset av bodyParser
     app.use(bodyParser.json({ limit: '200mb' }));
     app.use(bodyParser.urlencoded({ limit: '200mb', extended: true }));
-    app.use('/', setupRouter(azureAuthClient, router, middleware));
+    app.use('/', setupRouter(azureAuthClient, router, servicer, middleware));
 
     app.listen(port, '0.0.0.0', () => {
         loglevel.info(
