@@ -36,6 +36,7 @@ Bruk override_scope for å sette scope manuelt for den applikasjonen du vil kjø
     SESSION_SECRET='<any string of length 32>'
     OVERRIDE_SCOPE=api://.../.default
     ENV=local
+    HOST=familie-prosessering
 ```
 
 For å bygge prodversjon kjør `yarn build`. Prodversjonen vil ikke kjøre lokalt med mindre det gjøres en del endringer i forbindelse med uthenting av environment variabler og URLer for uthenting av informasjon.
