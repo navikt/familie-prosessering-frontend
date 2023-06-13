@@ -19,7 +19,6 @@ if (process.env.ENV === 'local') {
         tilbake: 'http://localhost:8030',
         klage: 'http://localhost:8094',
         kontantstøtte_sak: 'http://localhost:8083',
-        barnetrygd_migrering: 'http://localhost:8098',
         baks_mottak: 'http://localhost:8090',
         dp_iverksett: 'http://localhost:8080',
     };
@@ -32,7 +31,6 @@ if (process.env.ENV === 'local') {
         kontantstøtte_sak: `http://familie-ks-sak`,
         tilbake: `http://familie-tilbake`,
         klage: `http://familie-klage`,
-        barnetrygd_migrering: `http://familie-ba-migrering`,
         baks_mottak: `http://familie-baks-mottak`,
         dp_iverksett: 'http://dp-iverksett',
     };
@@ -67,15 +65,6 @@ export const serviceConfig: IService[] = [
         gruppe: 'BAKS',
         proxyPath: '/familie-ks-sak/api',
         proxyUrl: proxyUrls.kontantstøtte_sak,
-        teamname: 'teamfamilie',
-    },
-    {
-        cluster: 'gcp',
-        displayName: 'Barnetrygd migrering',
-        id: 'familie-ba-migrering',
-        gruppe: 'BAKS',
-        proxyPath: '/familie-ba-migrering/api',
-        proxyUrl: proxyUrls.barnetrygd_migrering,
         teamname: 'teamfamilie',
     },
     {

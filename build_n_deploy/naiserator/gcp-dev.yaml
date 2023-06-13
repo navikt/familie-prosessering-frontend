@@ -36,7 +36,6 @@ spec:
         - application: familie-tilbake
         - application: familie-klage
         - application: familie-ef-mottak
-        - application: familie-ba-migrering
         - application: familie-ba-sak
         - application: familie-ks-sak
         - application: familie-baks-mottak
