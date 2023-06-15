@@ -21,6 +21,7 @@ if (process.env.ENV === 'local') {
         kontantstøtte_sak: 'http://localhost:8083',
         baks_mottak: 'http://localhost:8090',
         dp_iverksett: 'http://localhost:8080',
+        tiltakspenger_iverksett: 'http://localhost:8080',
     };
 } else {
     proxyUrls = {
@@ -33,6 +34,7 @@ if (process.env.ENV === 'local') {
         klage: `http://familie-klage`,
         baks_mottak: `http://familie-baks-mottak`,
         dp_iverksett: 'http://dp-iverksett',
+        tiltakspenger_iverksett: 'http://tiltakspenger-iverksett',
     };
 }
 
@@ -130,4 +132,14 @@ export const serviceConfig: IService[] = [
         proxyUrl: proxyUrls.dp_iverksett,
         teamname: 'teamdagpenger',
     },
+    {
+        cluster: 'gcp',
+        displayName: 'Tiltakspenger Iverksett',
+        id: 'tiltakspenger-iverksett',
+        gruppe: 'DP',
+        proxyPath: '/tiltakspenger-iverksett/api',
+        proxyUrl: proxyUrls.tiltakspenger_iverksett,
+        teamname: 'teamdagpenger',
+    },
+
 ];
