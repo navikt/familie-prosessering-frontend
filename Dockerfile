@@ -1,6 +1,8 @@
-FROM navikt/node-express:14-alpine
+FROM cgr.dev/chainguard/node:18
+
+WORKDIR /app/server
 
 ADD ./ /var/server/
 
 EXPOSE 8000
-CMD ["yarn", "start"]
+CMD ["/usr/bin/npm", "run", "start"]
