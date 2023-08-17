@@ -1,4 +1,4 @@
-FROM cgr.dev/chainguard/node:18
+FROM gcr.io/distroless/nodejs:18
 
 WORKDIR /app/server
 
@@ -9,6 +9,6 @@ ADD frontend_production ./frontend_production
 ADD node_modules ./node_modules
 ADD package.json .
 
-
+ENV NODE_ENV production
 EXPOSE 8000
-CMD ["/usr/bin/npm", "run", "start"]
+CMD ["--es-module-specifier-resolution=node", "node_dist/server.js"]
