@@ -1,0 +1,54 @@
+name: Build and deploy dp-prosessering to prod
+
+on:
+  workflow_dispatch:
+
+env:
+  IMAGE: ghcr.io/${{ github.repository }}:${{ github.sha }}
+
+jobs:
+  build:
+    name: Build and push Docker container
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+          cache: yarn
+          registry-url: "https://npm.pkg.github.com"
+      - name: Yarn install
+        run: yarn --prefer-offline --frozen-lockfile
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
+      - name: Yarn build
+        run: yarn build
+      - name: Build and publish Docker image
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo ${GITHUB_TOKEN} | docker login ghcr.io --username ${GITHUB_REPOSITORY} --password-stdin
+          docker build --tag ${IMAGE} .
+          docker push ${IMAGE}
+  deploy-dev:
+    name: Deploy to Dev - Dagpenger
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: nais/deploy/actions/deploy@v1
+        env:
+          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+          CLUSTER: dev-gcp
+          RESOURCE: build_n_deploy/naiserator/gcp-dev-dagpenger.yaml
+  deploy-dagpenger:
+    name: Deploy to Prod - Dagpenger
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: nais/deploy/actions/deploy@v1
+        env:
+          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY_DAGPENGER }}
+          CLUSTER: dev-gcp
+          RESOURCE: build_n_deploy/naiserator/gcp-prod-dagpenger.yaml
