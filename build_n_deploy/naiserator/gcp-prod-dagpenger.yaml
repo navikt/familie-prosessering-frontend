@@ -24,18 +24,14 @@ spec:
   azure:
     application:
       enabled: true
-      tentant: trygdeetaten.no
-      allowAllUsers: true
       replyURLs:
         - 'https://dp-prosessering.intern.nav.no/auth/openid/callback'
   accessPolicy:
     outbound:
       rules:
         - application: dp-iverksett
-        - application: tiltakspenger-iverksett
   resources:
     limits:
-      cpu: 2000m
       memory: 1024Mi
     requests:
       memory: 512Mi
