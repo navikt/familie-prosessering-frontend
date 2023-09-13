@@ -3,13 +3,15 @@ name: Build and deploy dp-prosessering to prod
 on:
   workflow_dispatch:
 
-env:
-  IMAGE: ghcr.io/${{ github.repository }}:${{ github.sha }}
-
 jobs:
   build:
     name: Build and push Docker container
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    outputs:
+      image: ${{ steps.docker-build-push.outputs.image }}
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
@@ -23,13 +25,13 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
       - name: Yarn build
         run: yarn build
-      - name: Build and publish Docker image
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          echo ${GITHUB_TOKEN} | docker login ghcr.io --username ${GITHUB_REPOSITORY} --password-stdin
-          docker build --tag ${IMAGE} .
-          docker push ${IMAGE}
+      - name: Build and publish Docker image to GAR
+        uses: nais/docker-build-push@v0
+        id: docker-build-push
+        with:
+          team: teamdagpenger
+          identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
+          project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
   deploy-dev:
     name: Deploy to Dev - Dagpenger
     needs: build
@@ -41,6 +43,7 @@ jobs:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY_DAGPENGER }}
           CLUSTER: dev-gcp
           RESOURCE: build_n_deploy/naiserator/gcp-dev-dagpenger.yaml
+          VAR: image=${{ needs.build.outputs.image }}
   deploy-dagpenger:
     name: Deploy to Prod - Dagpenger
     needs: build
@@ -52,3 +55,4 @@ jobs:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY_DAGPENGER }}
           CLUSTER: prod-gcp
           RESOURCE: build_n_deploy/naiserator/gcp-prod-dagpenger.yaml
+          VAR: image=${{ needs.build.outputs.image }}
