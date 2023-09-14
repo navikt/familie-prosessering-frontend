@@ -40,15 +40,12 @@ const KommenteringModal: FC<IProps> = ({ settÅpen, task, åpen }) => {
         <Modal
             className={'kommentering'}
             open={åpen}
-            closeButton={true}
             onClose={() => {
                 settÅpen(!åpen);
             }}
+            header={{ heading: 'Kommenter' }}
         >
-            <Modal.Content>
-                <Heading size={'medium'}>Kommenter</Heading>
-
-                <br />
+            <Modal.Body>
                 <BodyShort>
                     Legg til kommentar og velge hvis task skal bli manuelloppfølgt
                 </BodyShort>
@@ -83,7 +80,7 @@ const KommenteringModal: FC<IProps> = ({ settÅpen, task, åpen }) => {
                     {feilMelding && <Alert variant={'error'}>{feilMelding}</Alert>}
                     <Button className={'taskpanel__vislogg'}>Kommenter</Button>
                 </form>
-            </Modal.Content>
+            </Modal.Body>
         </Modal>
     );
 };

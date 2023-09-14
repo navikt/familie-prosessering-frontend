@@ -18,15 +18,12 @@ const AvvikshåndteringModal: FC<IProps> = ({ settÅpen, task, åpen }) => {
         <Modal
             className={'avvikshåndtering'}
             open={åpen}
-            closeButton={true}
             onClose={() => {
                 settÅpen(!åpen);
             }}
+            header={{ heading: 'Avvikshåndter' }}
         >
-            <Modal.Content>
-                <Heading size={'medium'}>Avvikshåndter</Heading>
-
-                <br />
+            <Modal.Body>
                 <BodyShort>Husk at avvikshåndterte tasks aldri vil bli saksbehandlet.</BodyShort>
                 <br />
 
@@ -69,7 +66,7 @@ const AvvikshåndteringModal: FC<IProps> = ({ settÅpen, task, åpen }) => {
                     <br />
                     <Button className={'taskpanel__vislogg'}>Avvikshåndter task</Button>
                 </form>
-            </Modal.Content>
+            </Modal.Body>
         </Modal>
     );
 };
