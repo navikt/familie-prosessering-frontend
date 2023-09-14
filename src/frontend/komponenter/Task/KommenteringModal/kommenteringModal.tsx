@@ -35,14 +35,11 @@ const KommenteringModal: FC<IProps> = ({ settÅpen, task, åpen }) => {
             onError
         );
     };
-
     return (
         <Modal
             className={'kommentering'}
             open={åpen}
-            onClose={() => {
-                settÅpen(!åpen);
-            }}
+            onClose={() => settÅpen(false)}
             header={{ heading: 'Kommenter' }}
         >
             <Modal.Body>
