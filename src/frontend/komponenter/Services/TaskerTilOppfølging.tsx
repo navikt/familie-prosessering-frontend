@@ -1,7 +1,13 @@
 import { Button, Popover } from '@navikt/ds-react';
 import React, { useRef, useState } from 'react';
 import { IOppfølgingstask } from '../../typer/service';
-import { WarningColored, SuccessColored, ErrorColored, InformationColored } from '@navikt/ds-icons';
+import { AIconDanger, AIconSuccess, AIconWarning, AIconInfo } from '@navikt/ds-tokens/dist/tokens';
+import {
+    ExclamationmarkTriangleFillIcon,
+    CheckmarkCircleFillIcon,
+    XMarkOctagonFillIcon,
+    InformationSquareFillIcon,
+} from '@navikt/aksel-icons';
 
 export interface TaskerTilOppfølgingProps {
     taskerTilOppfølging: IOppfølgingstask;
@@ -12,7 +18,7 @@ export const TaskerTilOppfølging: React.FC<TaskerTilOppfølgingProps> = ({
 }) => {
     const iconRef = useRef(null);
     const [åpen, settÅpen] = useState(false);
-    const Ikon = utledIkonType(taskerTilOppfølging);
+    const IkonType = utledIkonType(taskerTilOppfølging);
 
     return (
         <div className={'varsel-wrapper'}>
@@ -21,7 +27,13 @@ export const TaskerTilOppfølging: React.FC<TaskerTilOppfølgingProps> = ({
                 key={taskerTilOppfølging.serviceId}
                 variant={'tertiary'}
                 onClick={() => settÅpen(!åpen)}
-                icon={<Ikon width={'2.5rem'} height={'2.5rem'} />}
+                icon={
+                    <IkonType.ikon
+                        width={'2.5rem'}
+                        height={'2.5rem'}
+                        style={{ color: IkonType.farge }}
+                    />
+                }
             />
             <Popover
                 open={åpen}
@@ -37,16 +49,16 @@ export const TaskerTilOppfølging: React.FC<TaskerTilOppfølgingProps> = ({
 
 const utledIkonType = (taskerTilOppfølging: IOppfølgingstask) => {
     if (!taskerTilOppfølging.harMottattSvar) {
-        return WarningColored;
+        return { ikon: ExclamationmarkTriangleFillIcon, farge: AIconWarning };
     } else if (
         taskerTilOppfølging.harMottattSvar &&
         taskerTilOppfølging.antallTilOppfølging === 0
     ) {
-        return SuccessColored;
+        return { ikon: CheckmarkCircleFillIcon, farge: AIconSuccess };
     } else if (taskerTilOppfølging.harMottattSvar && taskerTilOppfølging.antallTilOppfølging > 0) {
-        return ErrorColored;
+        return { ikon: XMarkOctagonFillIcon, farge: AIconDanger };
     } else {
-        return InformationColored;
+        return { ikon: InformationSquareFillIcon, farge: AIconInfo };
     }
 };
 
