@@ -1,6 +1,7 @@
 import { IApi, ISessionKonfigurasjon } from '@navikt/familie-backend';
 import { logError } from '@navikt/familie-logging';
 import { IService, utledScope } from './serviceConfig.js';
+import { teamconfig } from './teamconfig';
 
 // Miljøvariabler
 const Environment = () => {
@@ -34,13 +35,9 @@ export const oboConfig = (service: IService): IApi => {
 };
 
 const cookieSecret = process.env.SESSION_SECRET;
-const host = process.env.HOST; // Enten familie-prosessering, dp-prosessering eller lokal
+const host = teamconfig.host;
 if (!cookieSecret) {
     logError(`Mangler påkrevd miljøvariabel 'SESSION_SECRET'`);
-    process.exit(1);
-}
-if (!host) {
-    logError(`Mangler påkrevd miljøvariabel 'HOST'`);
     process.exit(1);
 }
 export const sessionConfig: ISessionKonfigurasjon = {

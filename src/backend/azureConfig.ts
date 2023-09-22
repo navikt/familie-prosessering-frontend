@@ -1,6 +1,5 @@
-import { logError, logInfo } from '@navikt/familie-logging';
-import dotenv from 'dotenv';
-dotenv.config();
+import { logInfo } from '@navikt/familie-logging';
+import { teamconfig } from './teamconfig';
 
 const settAzureAdPropsFraEnv = () => {
     process.env.AAD_DISCOVERY_URL = process.env.AZURE_APP_WELL_KNOWN_URL;
@@ -9,11 +8,7 @@ const settAzureAdPropsFraEnv = () => {
 };
 
 const konfigurerAzure = () => {
-    const host = process.env.HOST; // Enten familie-prosessering, dp-prosessering eller lokal
-    if (!host) {
-        logError(`Mangler påkrevd miljøvariabel 'HOST'`);
-        process.exit(1);
-    }
+    const host = teamconfig.host;
     logInfo(`Kjører opp miljø: ${process.env.ENV}`);
 
     switch (process.env.ENV) {

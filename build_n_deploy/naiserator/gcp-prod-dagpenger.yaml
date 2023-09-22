@@ -37,6 +37,3 @@ spec:
       memory: 512Mi
   envFrom:
     - secret: dp-prosessering
-  env:
-    - name: HOST
-      value: "dp-prosessering"

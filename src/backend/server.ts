@@ -1,5 +1,5 @@
 import './azureConfig.js';
-import backend, { IApp, ensureAuthenticated } from '@navikt/familie-backend';
+import backend, { ensureAuthenticated, IApp } from '@navikt/familie-backend';
 import bodyParser from 'body-parser';
 import express from 'express';
 import loglevel from 'loglevel';
@@ -15,15 +15,11 @@ import { sessionConfig } from './config.js';
 
 // @ts-ignore
 import config from '../build_n_deploy/webpack/webpack.dev.js';
+import { teamconfig } from './teamconfig';
 
 loglevel.setDefaultLevel(loglevel.levels.INFO);
 
 const port = 8000;
-
-function utledAktuelleServicer(): IService[] {
-    const team = process.env.HOST === 'dp-prosessering' ? 'teamdagpenger' : 'teamfamilie';
-    return serviceConfig.filter((service: IService) => service.teamname === team);
-}
 
 backend(sessionConfig).then(({ app, azureAuthClient, router }: IApp) => {
     let middleware;
@@ -41,7 +37,7 @@ backend(sessionConfig).then(({ app, azureAuthClient, router }: IApp) => {
         app.use('/assets', express.static(path.resolve(process.cwd(), 'frontend_production/')));
     }
 
-    const servicer = utledAktuelleServicer();
+    const servicer = serviceConfig[teamconfig.team];
 
     servicer.map((service: IService) => {
         app.use(
