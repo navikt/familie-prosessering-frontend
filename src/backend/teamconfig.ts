@@ -11,7 +11,7 @@ interface Teamconfig {
 const config: { [key in Team]: Teamconfig } = {
     teamfamilie: { team: 'teamfamilie', host: 'familie-prosessering' },
     teamdagpenger: { team: 'teamdagpenger', host: 'dp-prosessering' },
-    tilleggsstonader: { team: 'tilleggsstonader', host: 'tilleggsstonader-prosessering}' },
+    tilleggsstonader: { team: 'tilleggsstonader', host: 'tilleggsstonader-prosessering' },
 };
 
 const getTeamconfig = (): Teamconfig => {
