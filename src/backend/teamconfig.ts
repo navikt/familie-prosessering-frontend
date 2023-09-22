@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-export type Team = 'teamfamilie' | 'tilleggstonader' | 'teamdagpenger';
+export type Team = 'teamfamilie' | 'tilleggsstonader' | 'teamdagpenger';
 
 interface Teamconfig {
     host: string;
@@ -13,7 +13,7 @@ interface Teamconfig {
 const config: { [key in Team]: Teamconfig } = {
     teamfamilie: { team: 'teamfamilie', host: 'familie-prosessering' },
     teamdagpenger: { team: 'teamdagpenger', host: 'dp-prosessering' },
-    tilleggstonader: { team: 'tilleggstonader', host: 'tilleggstonader-prosesserin}' },
+    tilleggsstonader: { team: 'tilleggsstonader', host: 'tilleggsstonader-prosessering}' },
 };
 
 const team = envVar('NAIS_NAMESPACE') as Team;
@@ -22,7 +22,7 @@ const getTeamconfig = (): Teamconfig => {
     switch (team) {
         case 'teamfamilie':
         case 'teamdagpenger':
-        case 'tilleggstonader':
+        case 'tilleggsstonader':
             return config[team];
         default:
             throw Error(`Har ikke config for team=${team}`);

@@ -22,7 +22,7 @@ let proxyUrls: {
     baks_mottak: string;
     dp_iverksett: string;
     tiltakspenger_iverksett: string;
-    tilleggstonader_sak: string;
+    tilleggsstonader_sak: string;
 };
 if (process.env.ENV === 'local') {
     proxyUrls = {
@@ -36,7 +36,7 @@ if (process.env.ENV === 'local') {
         baks_mottak: 'http://localhost:8090',
         dp_iverksett: 'http://localhost:8080',
         tiltakspenger_iverksett: 'http://localhost:8080',
-        tilleggstonader_sak: 'http://localhost:8101',
+        tilleggsstonader_sak: 'http://localhost:8101',
     };
 } else {
     proxyUrls = {
@@ -50,7 +50,7 @@ if (process.env.ENV === 'local') {
         baks_mottak: `http://familie-baks-mottak`,
         dp_iverksett: 'http://dp-iverksett',
         tiltakspenger_iverksett: 'http://tiltakspenger-iverksett',
-        tilleggstonader_sak: 'http://tilleggstonader-sak',
+        tilleggsstonader_sak: 'http://tilleggsstonader-sak',
     };
 }
 
@@ -157,15 +157,15 @@ export const serviceConfig: { [key in Team]: IService[] } = {
             teamname: 'teamdagpenger',
         },
     ],
-    tilleggstonader: [
+    tilleggsstonader: [
         {
             cluster: 'gcp',
             displayName: 'Sak',
-            id: 'tilleggstonader-sak',
+            id: 'tilleggsstonader-sak',
             gruppe: 'FELLES',
-            proxyPath: '/tilleggstonader-sak/api',
-            proxyUrl: proxyUrls.tilleggstonader_sak,
-            teamname: 'tilleggstonader',
+            proxyPath: '/tilleggsstonader-sak/api',
+            proxyUrl: proxyUrls.tilleggsstonader_sak,
+            teamname: 'tilleggsstonader',
         },
     ],
 };

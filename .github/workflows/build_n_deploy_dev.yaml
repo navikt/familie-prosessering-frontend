@@ -57,7 +57,7 @@ jobs:
           RESOURCE: build_n_deploy/naiserator/gcp-dev-dagpenger.yaml
           VAR: image=${{ needs.build.outputs.image }}
 
-  deploy-tilleggstonader:
+  deploy-tilleggsstonader:
     name: Deploy to dev - tilleggsstonader
     needs: build
     runs-on: ubuntu-latest
