@@ -1,5 +1,6 @@
-import { envVar } from '@navikt/familie-backend';
+import dotenv from 'dotenv';
 
+dotenv.config();
 export type Team = 'teamfamilie' | 'tilleggsstonader' | 'teamdagpenger';
 
 interface Teamconfig {
@@ -14,7 +15,7 @@ const config: { [key in Team]: Teamconfig } = {
 };
 
 const getTeamconfig = (): Teamconfig => {
-    const team = envVar('NAIS_NAMESPACE') as Team;
+    const team = process.env.NAIS_NAMESPACE as Team;
     switch (team) {
         case 'teamfamilie':
         case 'teamdagpenger':
