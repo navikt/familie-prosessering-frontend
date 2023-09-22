@@ -39,3 +39,6 @@ spec:
       memory: 512Mi
   envFrom:
     - secret: dp-prosessering
+  env:
+    - name: ENV
+      value: dev

@@ -17,6 +17,7 @@ const konfigurerAzure = () => {
             process.env.AAD_REDIRECT_URL = 'http://localhost:8000/auth/openid/callback';
             process.env.AAD_DISCOVERY_URL = `https://login.microsoftonline.com/navq.onmicrosoft.com/v2.0/.well-known/openid-configuration`;
             process.env.GRAPH_API = 'https://graph.microsoft.com/v1.0/me';
+            settAzureAdPropsFraEnv();
             break;
         case 'dev':
             process.env.AAD_LOGOUT_REDIRECT_URL = `https://login.microsoftonline.com/navq.onmicrosoft.com/oauth2/logout?post_logout_redirect_uri=https:\\\\${host}.intern.dev.nav.no`;
@@ -31,7 +32,7 @@ const konfigurerAzure = () => {
             settAzureAdPropsFraEnv();
             break;
         default:
-            break;
+            throw Error(`Har ikke config for ${process.env.ENV}`);
     }
 };
 

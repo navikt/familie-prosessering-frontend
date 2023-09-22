@@ -26,6 +26,9 @@ spec:
       enabled: true
       replyURLs:
         - 'https://tilleggsstonader-prosessering.intern.nav.no/auth/openid/callback'
+      claims:
+        groups:
+          - id: "9f2c914f-9619-41a2-bea6-d62910514c8a" # Team Tilleggsstønader - Utviklere # tilgang ti prosessering
   accessPolicy:
     outbound:
       rules:
@@ -37,3 +40,6 @@ spec:
       memory: 512Mi
   envFrom:
     - secret: prosessering
+  env:
+    - name: ENV
+      value: prod

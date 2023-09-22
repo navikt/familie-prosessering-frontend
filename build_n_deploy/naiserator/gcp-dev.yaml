@@ -46,3 +46,6 @@ spec:
   envFrom:
     - secret: familie
     - secret: prosessering
+  env:
+    - name: ENV
+      value: dev
