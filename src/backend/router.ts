@@ -2,7 +2,7 @@ import { Client, ensureAuthenticated } from '@navikt/familie-backend';
 import { Request, Response, Router } from 'express';
 import path from 'path';
 import { buildPath } from './config.js';
-import { IService, serviceConfig } from './serviceConfig.js';
+import { IService } from './serviceConfig.js';
 import WebpackDevMiddleware from 'webpack-dev-middleware';
 
 export default (

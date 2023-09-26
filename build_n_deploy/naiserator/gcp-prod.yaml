@@ -44,9 +44,9 @@ spec:
       memory: 1024Mi
     requests:
       memory: 512Mi
-  env:
-    - name: HOST
-      value: "familie-prosessering"
   envFrom:
     - secret: familie
     - secret: prosessering
+  env:
+    - name: ENV
+      value: prod

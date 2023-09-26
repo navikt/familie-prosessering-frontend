@@ -40,5 +40,5 @@ spec:
   envFrom:
     - secret: dp-prosessering
   env:
-    - name: HOST
-      value: "dp-prosessering"
+    - name: ENV
+      value: dev

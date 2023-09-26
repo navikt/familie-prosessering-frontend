@@ -2,12 +2,12 @@ apiVersion: nais.io/v1alpha1
 kind: Application
 metadata:
   name: dp-prosessering
-  namespace: teamdagpenger
+  namespace: tilleggsstonader
   labels:
-    team: teamdagpenger
+    team: tilleggsstonader
 spec:
   image: {{ image }}
-  team: teamdagpenger
+  team: tilleggsstonader
   port: 8000
   liveness:
     path: /isAlive
@@ -20,23 +20,27 @@ spec:
     max: 1
     cpuThresholdPercentage: 50
   ingresses:
-    - "https://dp-prosessering.intern.nav.no"
+    - "https://tilleggsstonader-prosessering.intern.nav.no"
   azure:
     application:
       enabled: true
       replyURLs:
-        - 'https://dp-prosessering.intern.nav.no/auth/openid/callback'
+        - 'https://tilleggsstonader-prosessering.intern.nav.no/auth/openid/callback'
+      claims:
+        groups:
+          - id: "9f2c914f-9619-41a2-bea6-d62910514c8a" # Team Tilleggsstønader - Utviklere # tilgang ti prosessering
   accessPolicy:
     outbound:
       rules:
-        - application: dp-iverksett
+        - application: tilleggsstonader-sak
+        - application: tilleggsstonader-soknad-api
   resources:
     limits:
       memory: 1024Mi
     requests:
       memory: 512Mi
   envFrom:
-    - secret: dp-prosessering
+    - secret: prosessering
   env:
     - name: ENV
       value: prod

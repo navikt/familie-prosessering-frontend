@@ -1,6 +1,5 @@
-import { logError, logInfo } from '@navikt/familie-logging';
-import dotenv from 'dotenv';
-dotenv.config();
+import { logInfo } from '@navikt/familie-logging';
+import { teamconfig } from './teamconfig';
 
 const settAzureAdPropsFraEnv = () => {
     process.env.AAD_DISCOVERY_URL = process.env.AZURE_APP_WELL_KNOWN_URL;
@@ -9,11 +8,7 @@ const settAzureAdPropsFraEnv = () => {
 };
 
 const konfigurerAzure = () => {
-    const host = process.env.HOST; // Enten familie-prosessering, dp-prosessering eller lokal
-    if (!host) {
-        logError(`Mangler påkrevd miljøvariabel 'HOST'`);
-        process.exit(1);
-    }
+    const host = teamconfig.host;
     logInfo(`Kjører opp miljø: ${process.env.ENV}`);
 
     switch (process.env.ENV) {
@@ -22,6 +17,7 @@ const konfigurerAzure = () => {
             process.env.AAD_REDIRECT_URL = 'http://localhost:8000/auth/openid/callback';
             process.env.AAD_DISCOVERY_URL = `https://login.microsoftonline.com/navq.onmicrosoft.com/v2.0/.well-known/openid-configuration`;
             process.env.GRAPH_API = 'https://graph.microsoft.com/v1.0/me';
+            settAzureAdPropsFraEnv();
             break;
         case 'dev':
             process.env.AAD_LOGOUT_REDIRECT_URL = `https://login.microsoftonline.com/navq.onmicrosoft.com/oauth2/logout?post_logout_redirect_uri=https:\\\\${host}.intern.dev.nav.no`;
@@ -36,7 +32,7 @@ const konfigurerAzure = () => {
             settAzureAdPropsFraEnv();
             break;
         default:
-            break;
+            throw Error(`Har ikke config for ${process.env.ENV}`);
     }
 };
 

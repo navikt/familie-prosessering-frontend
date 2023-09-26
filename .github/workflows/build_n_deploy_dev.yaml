@@ -43,6 +43,7 @@ jobs:
           CLUSTER: dev-gcp
           RESOURCE: build_n_deploy/naiserator/gcp-dev.yaml
           VAR: image=${{ needs.build.outputs.image }}
+
   deploy-dagpenger:
     name: Deploy to dev - dagpenger
     needs: build
@@ -54,4 +55,17 @@ jobs:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY_DAGPENGER }}
           CLUSTER: dev-gcp
           RESOURCE: build_n_deploy/naiserator/gcp-dev-dagpenger.yaml
+          VAR: image=${{ needs.build.outputs.image }}
+
+  deploy-tilleggsstonader:
+    name: Deploy to dev - tilleggsstonader
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: nais/deploy/actions/deploy@v1
+        env:
+          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY_TILLEGGSSTONADER }}
+          CLUSTER: dev-gcp
+          RESOURCE: build_n_deploy/naiserator/gcp-dev-tilleggsstonader.yaml
           VAR: image=${{ needs.build.outputs.image }}
