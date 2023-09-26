@@ -23,6 +23,7 @@ interface ProxyUrls {
     dp_iverksett: string;
     tiltakspenger_iverksett: string;
     tilleggsstonader_sak: string;
+    tilleggsstonader_søknad: string;
 }
 
 let proxyUrls: ProxyUrls;
@@ -40,6 +41,7 @@ if (process.env.ENV === 'local') {
         dp_iverksett: 'http://localhost:8080',
         tiltakspenger_iverksett: 'http://localhost:8080',
         tilleggsstonader_sak: 'http://localhost:8101',
+        tilleggsstonader_søknad: 'http://localhost:8001',
     };
 } else {
     proxyUrls = {
@@ -54,6 +56,7 @@ if (process.env.ENV === 'local') {
         dp_iverksett: 'http://dp-iverksett',
         tiltakspenger_iverksett: 'http://tiltakspenger-iverksett',
         tilleggsstonader_sak: 'http://tilleggsstonader-sak',
+        tilleggsstonader_søknad: 'http://tilleggsstonader-soknad-api',
     };
 }
 
@@ -168,6 +171,15 @@ export const serviceConfig: { [key in Team]: IService[] } = {
             gruppe: 'FELLES',
             proxyPath: '/tilleggsstonader-sak/api',
             proxyUrl: proxyUrls.tilleggsstonader_sak,
+            teamname: 'tilleggsstonader',
+        },
+        {
+            cluster: 'gcp',
+            displayName: 'Søknad',
+            id: 'tilleggsstonader-soknad-api',
+            gruppe: 'FELLES',
+            proxyPath: '/tilleggsstonader-soknad/api',
+            proxyUrl: proxyUrls.tilleggsstonader_søknad,
             teamname: 'tilleggsstonader',
         },
     ],
