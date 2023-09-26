@@ -11,7 +11,7 @@ export interface IService {
     proxyUrl: string;
 }
 
-let proxyUrls: {
+interface ProxyUrls {
     barnetrygd_sak: string;
     enslig_mottak: string;
     enslig_sak: string;
@@ -23,7 +23,10 @@ let proxyUrls: {
     dp_iverksett: string;
     tiltakspenger_iverksett: string;
     tilleggsstonader_sak: string;
-};
+}
+
+let proxyUrls: ProxyUrls;
+
 if (process.env.ENV === 'local') {
     proxyUrls = {
         barnetrygd_sak: 'http://localhost:8089',
