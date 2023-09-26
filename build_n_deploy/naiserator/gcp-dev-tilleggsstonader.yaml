@@ -30,6 +30,7 @@ spec:
     outbound:
       rules:
         - application: tilleggsstonader-sak
+        - application: tilleggsstonader-soknad-api
   resources:
     limits:
       memory: 1024Mi
