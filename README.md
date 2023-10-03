@@ -31,8 +31,8 @@ secret kan hentes fra cluster med `kubectl -n teamfamilie get secret azuread-fam
 
 Bruk override_scope for å sette scope manuelt for den applikasjonen du vil kjøre mot lokalt
 ```
-    CLIENT_ID='<application_id from aad app>'
-    CLIENT_SECRET='<KEY from aad app>'
+    AZURE_APP_CLIENT_ID='<application_id from aad app>'
+    AZURE_APP_CLIENT_SECRET='<KEY from aad app>'
     SESSION_SECRET='<any string of length 32>'
     OVERRIDE_SCOPE=api://.../.default
     ENV=local
