@@ -33,6 +33,13 @@ export const hentTasks = (
     });
 };
 
+export const hentTask = (valgtService: IService, taskId: number): Promise<Ressurs<ITask>> => {
+    return axiosRequest({
+        method: 'GET',
+        url: `${valgtService.proxyPath}/task/${taskId}`,
+    });
+};
+
 export const hentTasksSomErFerdigNåMenFeiletFør = (
     valgtService: IService
 ): Promise<Ressurs<ITaskResponse>> => {

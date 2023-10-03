@@ -2,15 +2,22 @@ import { byggTomRessurs, Ressurs, RessursStatus } from '@navikt/familie-typer';
 import constate from 'constate';
 import { useEffect, useState } from 'react';
 import { Location, useLocation } from 'react-router';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import {
     avvikshåndterTask,
+    hentTask,
     hentTasks,
     hentTasksSomErFerdigNåMenFeiletFør,
     kommenterTask,
     rekjørTask,
 } from '../api/task';
-import { IAvvikshåndteringDTO, IKommentarDTO, ITaskResponse, taskStatus } from '../typer/task';
+import {
+    IAvvikshåndteringDTO,
+    IKommentarDTO,
+    ITask,
+    ITaskResponse,
+    taskStatus,
+} from '../typer/task';
 import { useServiceContext } from './ServiceContext';
 
 const getQueryParamStatusFilter = (location: Location): taskStatus => {
@@ -21,6 +28,11 @@ const getQueryParamStatusFilter = (location: Location): taskStatus => {
 const getQueryParamSide = (location: Location): number => {
     const queryParamSideAsString = new URLSearchParams(location.search).get('side');
     return queryParamSideAsString ? parseInt(queryParamSideAsString, 10) : 0;
+};
+
+const getParamTaskId = (): number | undefined => {
+    const { taskId } = useParams();
+    return taskId ? parseInt(taskId, 10) : undefined;
 };
 
 const getQueryParamTaskType = (location: Location): string => {
@@ -39,12 +51,24 @@ const [TaskProvider, useTaskContext] = constate(() => {
     );
     const [side, settSide] = useState<number>(getQueryParamSide(location));
     const [type, settTypeFilter] = useState<string>(getQueryParamTaskType(location));
+    const [taskId, settTaskId] = useState<number | undefined>(getParamTaskId());
+    const [task, settTask] = useState<Ressurs<ITask>>(byggTomRessurs());
 
     const hentEllerOppdaterTasks = () => {
+        console.log('Valgt service', valgtService);
+        console.log('Valgt taskId', taskId);
         if (valgtService) {
-            hentTasks(valgtService, statusFilter, side, type).then((res) => settTasks(res));
+            if (taskId) {
+                hentTask(valgtService, taskId).then(settTask);
+            } else {
+                hentTasks(valgtService, statusFilter, side, type).then(settTasks);
+            }
         }
     };
+
+    useEffect(() => {
+        hentEllerOppdaterTasks();
+    }, [taskId]);
 
     useEffect(() => {
         hentEllerOppdaterTasks();
@@ -116,6 +140,8 @@ const [TaskProvider, useTaskContext] = constate(() => {
         tasks,
         side,
         settSide,
+        settTaskId,
+        task,
         statusFilter,
         settStatusFilter,
         type,

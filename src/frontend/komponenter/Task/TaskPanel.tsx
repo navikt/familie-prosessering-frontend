@@ -2,7 +2,9 @@ import { BodyShort, Button, Heading, Label, Link, Panel } from '@navikt/ds-react
 import classNames from 'classnames';
 import * as moment from 'moment';
 import React, { FC, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ITask, taskStatusTekster, taskTypeTekster } from '../../typer/task';
+import { useServiceContext } from '../ServiceContext';
 import { useTaskContext } from '../TaskProvider';
 import AvvikshåndteringModal from './AvvikshåndteringModal/AvvikshåndteringModal';
 import KommenteringModal from './KommenteringModal/kommenteringModal';
@@ -19,6 +21,7 @@ const getSistKjørt = (task: ITask) =>
 
 const TaskPanel: FC<IProps> = ({ task }) => {
     const { rekjørTasks } = useTaskContext();
+    const { valgtService } = useServiceContext();
     const [visAvvikshåndteringModal, settVisAvvikshåndteringModal] = useState(false);
     const [visKommenteringModal, settVisKommenteringModal] = useState(false);
     const [visLogg, settVisLogg] = useState(false);
@@ -27,6 +30,7 @@ const TaskPanel: FC<IProps> = ({ task }) => {
     const kibanaInfoLenke = `https://logs.adeo.no/app/kibana#/discover/48543ce0-877e-11e9-b511-6967c3e45603?_g=(refreshInterval:(pause:!t,value:0),time:(from:'${task.opprettetTidspunkt}',mode:relative,to:now))&_a=(columns:!(message,envclass,environment,level,application,host),filters:!(('$state':(store:appState),meta:(alias:!n,disabled:!f,index:'logstash-apps-*',key:team,negate:!f,params:(query:teamfamilie,type:phrase),type:phrase,value:teamfamilie),query:(match:(team:(query:teamfamilie,type:phrase)))),('$state':(store:appState),meta:(alias:!n,disabled:!f,index:'96e648c0-980a-11e9-830a-e17bbd64b4db',key:level,negate:!f,params:(query:Info,type:phrase),type:phrase,value:Info),query:(match:(level:(query:Info,type:phrase))))),index:'96e648c0-980a-11e9-830a-e17bbd64b4db',interval:auto,query:(language:lucene,query:"${task.metadata.callId}"),sort:!('@timestamp',desc))`;
 
     const sistKjørt = getSistKjørt(task);
+    const navigate = useNavigate();
 
     return (
         <Panel className={'taskpanel'} border={true}>
@@ -99,17 +103,24 @@ const TaskPanel: FC<IProps> = ({ task }) => {
                     children={moment(task.opprettetTidspunkt).format('DD.MM.YYYY HH:mm')}
                 />
             </div>
-
-            <Button
-                className={'taskpanel__vislogg'}
-                variant={'secondary'}
-                onClick={(event) => {
-                    settVisLogg(!visLogg);
-                    event.preventDefault();
-                }}
-            >
-                {`${visLogg ? 'Skjul' : 'Vis'} logg (${task.antallLogger})`}
-            </Button>
+            <div className={'taskpanel__vislogg taskpanel__gruppert'}>
+                <Button
+                    className={'taskpanel__tilTask'}
+                    variant={'secondary'}
+                    onClick={() => navigate(`/service/${valgtService?.id}/task/${task.id}`)}
+                >
+                    Se task
+                </Button>
+                <Button
+                    variant={'secondary'}
+                    onClick={(event) => {
+                        settVisLogg(!visLogg);
+                        event.preventDefault();
+                    }}
+                >
+                    {`${visLogg ? 'Skjul' : 'Vis'} logg (${task.antallLogger})`}
+                </Button>
+            </div>
 
             <div className={classNames('taskpanel__logg', visLogg ? '' : 'skjul')}>
                 <TaskLogg taskId={task.id} visLogg={visLogg} />
