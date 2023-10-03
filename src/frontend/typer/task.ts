@@ -4,7 +4,7 @@ export enum avvikstyper {
     DUPLIKAT = 'DUPLIKAT',
 }
 
-export enum taskStatus {
+export enum TaskStatus {
     AVVIKSHÅNDTERT = 'AVVIKSHÅNDTERT',
     BEHANDLER = 'BEHANDLER',
     FEILET = 'FEILET',
@@ -56,7 +56,7 @@ export const taskTypeTekster: ITaskTypeTekster = {
 };
 
 type ITaskStatusTekster = {
-    [key in taskStatus]: string;
+    [key in TaskStatus]: string;
 };
 
 export const taskStatusTekster: ITaskStatusTekster = {
@@ -81,7 +81,7 @@ export interface ITask {
     };
     opprettetTidspunkt: string;
     payload: string;
-    status: taskStatus;
+    status: TaskStatus;
     triggerTid: string;
     taskStepType: taskTyper;
     antallLogger?: number;
@@ -114,3 +114,19 @@ export interface IKommentarDTO {
     settTilManuellOppfølging: boolean;
     kommentar: string;
 }
+
+export enum Fagsystem {
+    ALLE = 'ALLE',
+    BA = 'BA',
+    EF = 'EF',
+    KONT = 'KONT',
+    UKJENT = 'UKJENT',
+}
+
+export const stringTilFagsystem: Record<string, Fagsystem> = {
+    ALLE: Fagsystem.ALLE,
+    BA: Fagsystem.BA,
+    EF: Fagsystem.EF,
+    KONT: Fagsystem.KONT,
+    UKJENT: Fagsystem.UKJENT,
+};

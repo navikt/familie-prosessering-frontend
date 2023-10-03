@@ -42,6 +42,14 @@ Bruk override_scope for å sette scope manuelt for den applikasjonen du vil kjø
 
 For å bygge prodversjon kjør `yarn build`. Prodversjonen vil ikke kjøre lokalt med mindre det gjøres en del endringer i forbindelse med uthenting av environment variabler og URLer for uthenting av informasjon.
 
+### Kjøre lokalt mot preprod
+
+Støtter foreløpig kun tilbakekreving:
+```
+ENV=lokalt-mot-preprod
+OVERRIDE_SCOPE=api://dev-gcp.teamfamilie.familie-tilbake/.default
+```
+
 ---
 
 # Bygg og deploy

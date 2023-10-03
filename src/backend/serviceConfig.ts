@@ -43,6 +43,21 @@ if (process.env.ENV === 'local') {
         tilleggsstonader_sak: 'http://localhost:8101',
         tilleggsstonader_søknad: 'http://localhost:8001',
     };
+} else if (process.env.ENV === 'lokalt-mot-preprod') {
+    proxyUrls = {
+        barnetrygd_sak: `https://familie-ba-sak.intern.dev.nav.no`, // familie-prosessering-lokalt må legges til under inbound access policy i app-dev-gcp.yaml
+        enslig_mottak: `https://familie-ef-mottak.intern.dev.nav.no`, // familie-prosessering-lokalt må legges til under inbound access policy i app-dev-gcp.yaml
+        enslig_sak: `https://familie-ef-sak.intern.dev.nav.no`, // familie-prosessering-lokalt må legges til under inbound access policy i app-dev-gcp.yaml
+        enslig_iverksett: `https://familie-ef-iverksett.intern.dev.nav.no`, // familie-prosessering-lokalt må legges til under inbound access policy i app-dev-gcp.yaml
+        kontantstøtte_sak: `https://familie-ks-sak.intern.dev.nav.no`, // familie-prosessering-lokalt må legges til under inbound access policy i app-dev-gcp.yaml
+        tilbake: 'https://familie-tilbake.intern.dev.nav.no',
+        klage: `https://familie-klage.intern.dev.nav.no`, // familie-prosessering-lokalt må legges til under inbound access policy i app-dev-gcp.yaml
+        baks_mottak: `https://familie-baks-mottak.intern.dev.nav.no`, // familie-prosessering-lokalt må legges til under inbound access policy i app-dev-gcp.yaml
+        dp_iverksett: 'https://dp-iverksett.intern.dev.nav.no', // familie-prosessering-lokalt må legges til under inbound access policy i app-dev-gcp.yaml
+        tiltakspenger_iverksett: 'https://tiltakspenger-iverksett.intern.dev.nav.no', // familie-prosessering-lokalt må legges til under inbound access policy i app-dev-gcp.yaml
+        tilleggsstonader_sak: 'https://tilleggsstonader-sak.intern.dev.nav.no', // familie-prosessering-lokalt må legges til under inbound access policy i app-dev-gcp.yaml
+        tilleggsstonader_søknad: 'https://tilleggsstonader-soknad-api.intern.dev.nav.no', // familie-prosessering-lokalt må legges til under inbound access policy i app-dev-gcp.yaml
+    };
 } else {
     proxyUrls = {
         barnetrygd_sak: `http://familie-ba-sak`,
@@ -61,10 +76,16 @@ if (process.env.ENV === 'local') {
 }
 
 export const utledScope = (appId: string, cluster: 'gcp' | 'fss', team: Team) => {
-    if (process.env.ENV === 'local' && process.env.OVERRIDE_SCOPE) {
+    if (
+        (process.env.ENV === 'local' || process.env.ENV === 'lokalt-mot-preprod') &&
+        process.env.OVERRIDE_SCOPE
+    ) {
         return process.env.OVERRIDE_SCOPE;
     }
-    const env = process.env.ENV === 'local' ? 'dev' : process.env.ENV;
+    const env =
+        process.env.ENV === 'local' || process.env.ENV === 'lokalt-mot-preprod'
+            ? 'dev'
+            : process.env.ENV;
     return `api://${env}-${cluster}.${team}.${appId}/.default`;
 };
 
