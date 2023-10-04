@@ -54,6 +54,10 @@ const [TaskProvider, useTaskContext] = constate(() => {
     };
 
     useEffect(() => {
+        settFagsystemFilter(Fagsystem.ALLE);
+    }, [valgtService]);
+
+    useEffect(() => {
         hentEllerOppdaterTasks();
     }, [valgtService, statusFilter, side, type]);
 
