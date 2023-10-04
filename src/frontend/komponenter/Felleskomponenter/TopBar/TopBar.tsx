@@ -1,5 +1,6 @@
-import { Button, Checkbox, Heading, Select } from '@navikt/ds-react';
+import { Button, Checkbox, Heading, Search, Select } from '@navikt/ds-react';
 import React, { FC, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { taskStatus, taskStatusTekster } from '../../../typer/task';
 import { useServiceContext } from '../../ServiceContext';
 import { useTaskContext } from '../../TaskProvider';
@@ -14,6 +15,7 @@ const TopBar: FC = () => {
     } = useTaskContext();
     const { valgtService } = useServiceContext();
     const [visFeilaMenFerdig, setVisFeilaMenFerdig] = useState(false);
+    const navigate = useNavigate();
 
     return (
         <div className={'topbar'}>
@@ -44,19 +46,29 @@ const TopBar: FC = () => {
                     Vis de som feila, men nå er ferdige
                 </Checkbox>
             )}
-            <Select
-                onChange={(event) => settStatusFilter(event.target.value as taskStatus)}
-                value={statusFilter}
-                label={'Vis saker med status'}
-            >
-                {Object.values(taskStatus).map((status: taskStatus) => {
-                    return (
-                        <option key={status} value={status}>
-                            {taskStatusTekster[status]}
-                        </option>
-                    );
-                })}
-            </Select>
+            <div className={'søk'}>
+                <Select
+                    onChange={(event) => settStatusFilter(event.target.value as taskStatus)}
+                    value={statusFilter}
+                    label={'Status'}
+                >
+                    {Object.values(taskStatus).map((status: taskStatus) => {
+                        return (
+                            <option key={status} value={status}>
+                                {taskStatusTekster[status]}
+                            </option>
+                        );
+                    })}
+                </Select>
+                <Search
+                    label="Søk på callId"
+                    variant="secondary"
+                    hideLabel={false}
+                    onSearchClick={(verdi) => {
+                        navigate(`/service/${valgtService?.id}/tasker-med-call-id/${verdi}`);
+                    }}
+                />
+            </div>
         </div>
     );
 };

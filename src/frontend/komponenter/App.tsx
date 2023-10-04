@@ -8,6 +8,7 @@ import Dekoratør from './Felleskomponenter/Dekoratør/Dekoratør';
 import GruppertTasks from './GruppertTasks/GruppertTasks';
 import { ServiceProvider } from './ServiceContext';
 import Services from './Services/Services';
+import TaskMedCallId from './Task/TaskMedCallId';
 import TaskMedId from './Task/TaskMedId';
 import Tasks from './Task/Tasks';
 import { TaskProvider } from './TaskProvider';
@@ -59,6 +60,14 @@ const App: React.FunctionComponent = () => {
                             element={
                                 <TaskProvider>
                                     <TaskMedId />
+                                </TaskProvider>
+                            }
+                        />
+                        <Route
+                            path="service/:service/tasker-med-call-id/:callId"
+                            element={
+                                <TaskProvider>
+                                    <TaskMedCallId />
                                 </TaskProvider>
                             }
                         />

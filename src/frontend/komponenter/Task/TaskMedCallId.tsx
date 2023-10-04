@@ -5,28 +5,29 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useServiceContext } from '../ServiceContext';
 import { useTaskContext } from '../TaskProvider';
+import TaskListe from './TaskListe';
 import TaskPanel from './TaskPanel';
 
 const TaskMedId: React.FC = () => {
-    const { settTaskId, task } = useTaskContext();
+    const { settCallId, tasks } = useTaskContext();
     const { valgtService } = useServiceContext();
-    const { taskId } = useParams();
+    const { callId } = useParams();
     useEffect(() => {
-        settTaskId(taskId ? parseInt(taskId, 10) : undefined);
+        settCallId(callId);
         // Fjern taskId når man går ut av dette skjermbildet
         return () => {
-            settTaskId(undefined);
+            settCallId(undefined);
         };
     }, []);
 
-    switch (task.status) {
+    switch (tasks.status) {
         case RessursStatus.SUKSESS:
             return (
                 <div style={{ margin: '0 2em' }}>
                     <Heading size={'large'}>
-                        {valgtService ? valgtService.displayName : ''} - TaskId: {task.data.id}
+                        {valgtService ? valgtService.displayName : ''} - CallId: {callId}
                     </Heading>
-                    <TaskPanel task={task.data} />
+                    <TaskListe tasks={tasks.data.tasks} />
                 </div>
             );
         case RessursStatus.HENTER:
@@ -34,13 +35,13 @@ const TaskMedId: React.FC = () => {
         case RessursStatus.IKKE_TILGANG:
             return (
                 <Alert variant={'warning'}>
-                    Ikke tilgang til tasker: {task.frontendFeilmelding}
+                    Ikke tilgang til tasker: {tasks.frontendFeilmelding}
                 </Alert>
             );
         case RessursStatus.FEILET:
             return (
                 <Alert variant={'error'}>
-                    Innhenting av tasker feilet: {task.frontendFeilmelding}
+                    Innhenting av tasker feilet: {tasks.frontendFeilmelding}
                 </Alert>
             );
         default:
