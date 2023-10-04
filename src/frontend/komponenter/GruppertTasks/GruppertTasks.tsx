@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import * as moment from 'moment';
 import React, { FC } from 'react';
 import { NavLink, useParams, useSearchParams } from 'react-router-dom';
-import { ITask, taskStatus } from '../../typer/task';
+import { ITask, TaskStatus } from '../../typer/task';
 import Paginering from '../Felleskomponenter/Paginering/Paginering';
 import TopBar from '../Felleskomponenter/TopBar/TopBar';
 import TaskListe from '../Task/TaskListe';
@@ -53,7 +53,7 @@ const GruppertTasks: FC = () => {
                                     const displayCallId = sistKjørtTask.metadata.callId;
 
                                     const finnesDetFeiledeTasker = tasker.find(
-                                        (task) => task.status === taskStatus.FEILET
+                                        (task) => task.status === TaskStatus.FEILET
                                     );
                                     const to = `/service/${service}/gruppert?statusFilter=${statusFilter}&callId=${displayCallId}`;
 

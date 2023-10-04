@@ -5,7 +5,7 @@ import { teamconfig } from './teamconfig';
 
 // Miljøvariabler
 const Environment = () => {
-    if (process.env.ENV === 'local') {
+    if (process.env.ENV === 'local' || process.env.ENV === 'lokalt-mot-preprod') {
         return {
             buildPath: 'frontend_development',
             namespace: 'local',
@@ -43,7 +43,7 @@ if (!cookieSecret) {
 export const sessionConfig: ISessionKonfigurasjon = {
     cookieSecret: cookieSecret,
     navn: host,
-    secureCookie: process.env.ENV !== 'local',
+    secureCookie: process.env.ENV !== 'local' && process.env.ENV !== 'lokalt-mot-preprod',
 };
 
 export const buildPath = env.buildPath;

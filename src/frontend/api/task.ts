@@ -4,7 +4,7 @@ import {
     ITask,
     ITaskResponse,
     ITaskLogg,
-    taskStatus,
+    TaskStatus,
     IKommentarDTO,
 } from '../typer/task';
 import { axiosRequest } from './axios';
@@ -12,12 +12,12 @@ import { Ressurs } from '@navikt/familie-typer';
 
 export const hentTasks = (
     valgtService: IService,
-    statusFilter: taskStatus,
+    statusFilter: TaskStatus,
     side: number,
     type: string
 ): Promise<Ressurs<ITaskResponse>> => {
     const params: any =
-        statusFilter !== taskStatus.ALLE
+        statusFilter !== TaskStatus.ALLE
             ? {
                   status: statusFilter,
                   page: side,
@@ -68,7 +68,7 @@ export const hentTaskLogg = (valgtService: IService, id: number): Promise<Ressur
 
 export const rekjørTask = (
     valgtService: IService,
-    statusFilter: taskStatus,
+    statusFilter: TaskStatus,
     taskId?: number
 ): Promise<Ressurs<ITask[]>> => {
     if (taskId) {

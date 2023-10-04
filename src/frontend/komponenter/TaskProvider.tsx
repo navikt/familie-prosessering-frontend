@@ -13,17 +13,18 @@ import {
     rekjørTask,
 } from '../api/task';
 import {
+    Fagsystem,
     IAvvikshåndteringDTO,
     IKommentarDTO,
-    ITask,
     ITaskResponse,
-    taskStatus,
+    TaskStatus,
+    ITask,
 } from '../typer/task';
 import { useServiceContext } from './ServiceContext';
 
-const getQueryParamStatusFilter = (location: Location): taskStatus => {
-    const status = new URLSearchParams(location.search).get('statusFilter') as taskStatus;
-    return status || taskStatus.FEILET;
+const getQueryParamStatusFilter = (location: Location): TaskStatus => {
+    const status = new URLSearchParams(location.search).get('statusFilter') as TaskStatus;
+    return status || TaskStatus.FEILET;
 };
 
 const getQueryParamSide = (location: Location): number => {
@@ -47,9 +48,10 @@ const [TaskProvider, useTaskContext] = constate(() => {
     const location = useLocation();
 
     const [tasks, settTasks] = useState<Ressurs<ITaskResponse>>(byggTomRessurs());
-    const [statusFilter, settStatusFilter] = useState<taskStatus>(
+    const [statusFilter, settStatusFilter] = useState<TaskStatus>(
         getQueryParamStatusFilter(location)
     );
+    const [fagsystemFilter, settFagsystemFilter] = useState<Fagsystem>(Fagsystem.ALLE);
     const [side, settSide] = useState<number>(getQueryParamSide(location));
     const [type, settTypeFilter] = useState<string>(getQueryParamTaskType(location));
     const [taskId, settTaskId] = useState<number | undefined>(getParamTaskId());
@@ -57,7 +59,6 @@ const [TaskProvider, useTaskContext] = constate(() => {
     const [task, settTask] = useState<Ressurs<ITask>>(byggTomRessurs());
 
     const hentEllerOppdaterTasks = () => {
-        console.log(taskId, callId);
         if (valgtService) {
             if (taskId) {
                 hentTask(valgtService, taskId).then(settTask);
@@ -68,6 +69,10 @@ const [TaskProvider, useTaskContext] = constate(() => {
             }
         }
     };
+
+    useEffect(() => {
+        settFagsystemFilter(Fagsystem.ALLE);
+    }, [valgtService]);
 
     useEffect(() => {
         hentEllerOppdaterTasks();
@@ -91,8 +96,8 @@ const [TaskProvider, useTaskContext] = constate(() => {
             valgtService &&
             statusFilter &&
             (!rekjørAlleTasks ||
-                statusFilter === taskStatus.MANUELL_OPPFØLGING ||
-                statusFilter === taskStatus.FEILET)
+                statusFilter === TaskStatus.MANUELL_OPPFØLGING ||
+                statusFilter === TaskStatus.FEILET)
         ) {
             rekjørTask(valgtService, statusFilter, id).then((response) => {
                 if (response.status === RessursStatus.SUKSESS) {
@@ -151,6 +156,8 @@ const [TaskProvider, useTaskContext] = constate(() => {
         leggTilKommentar,
         tasksSomErFerdigNåMenFeiletFør,
         hentEllerOppdaterTasks,
+        fagsystemFilter,
+        settFagsystemFilter,
     };
 });
 
