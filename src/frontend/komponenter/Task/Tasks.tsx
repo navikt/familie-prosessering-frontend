@@ -5,6 +5,7 @@ import Paginering from '../Felleskomponenter/Paginering/Paginering';
 import TaskListe from './TaskListe';
 import TopBar from '../Felleskomponenter/TopBar/TopBar';
 import { useTaskContext } from '../TaskProvider';
+import TaskFiltrering from './TaskFiltrering';
 
 const Tasks: React.FunctionComponent = () => {
     const { tasks } = useTaskContext();
@@ -12,10 +13,9 @@ const Tasks: React.FunctionComponent = () => {
     switch (tasks.status) {
         case RessursStatus.SUKSESS:
             return (
-                <div className={'tasks'}>
+                <div className={'component-container'}>
                     <TopBar />
-
-                    <br />
+                    <TaskFiltrering tasks={tasks.data.tasks} />
                     <Paginering />
                     <TaskListe tasks={tasks.data.tasks} />
                 </div>

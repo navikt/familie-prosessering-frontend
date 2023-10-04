@@ -10,12 +10,18 @@ import {
     kommenterTask,
     rekjørTask,
 } from '../api/task';
-import { IAvvikshåndteringDTO, IKommentarDTO, ITaskResponse, taskStatus } from '../typer/task';
+import {
+    Fagsystem,
+    IAvvikshåndteringDTO,
+    IKommentarDTO,
+    ITaskResponse,
+    TaskStatus,
+} from '../typer/task';
 import { useServiceContext } from './ServiceContext';
 
-const getQueryParamStatusFilter = (location: Location): taskStatus => {
-    const status = new URLSearchParams(location.search).get('statusFilter') as taskStatus;
-    return status || taskStatus.FEILET;
+const getQueryParamStatusFilter = (location: Location): TaskStatus => {
+    const status = new URLSearchParams(location.search).get('statusFilter') as TaskStatus;
+    return status || TaskStatus.FEILET;
 };
 
 const getQueryParamSide = (location: Location): number => {
@@ -34,9 +40,10 @@ const [TaskProvider, useTaskContext] = constate(() => {
     const location = useLocation();
 
     const [tasks, settTasks] = useState<Ressurs<ITaskResponse>>(byggTomRessurs());
-    const [statusFilter, settStatusFilter] = useState<taskStatus>(
+    const [statusFilter, settStatusFilter] = useState<TaskStatus>(
         getQueryParamStatusFilter(location)
     );
+    const [fagsystemFilter, settFagsystemFilter] = useState<Fagsystem>(Fagsystem.ALLE);
     const [side, settSide] = useState<number>(getQueryParamSide(location));
     const [type, settTypeFilter] = useState<string>(getQueryParamTaskType(location));
 
@@ -45,6 +52,10 @@ const [TaskProvider, useTaskContext] = constate(() => {
             hentTasks(valgtService, statusFilter, side, type).then((res) => settTasks(res));
         }
     };
+
+    useEffect(() => {
+        settFagsystemFilter(Fagsystem.ALLE);
+    }, [valgtService]);
 
     useEffect(() => {
         hentEllerOppdaterTasks();
@@ -68,8 +79,8 @@ const [TaskProvider, useTaskContext] = constate(() => {
             valgtService &&
             statusFilter &&
             (!rekjørAlleTasks ||
-                statusFilter === taskStatus.MANUELL_OPPFØLGING ||
-                statusFilter === taskStatus.FEILET)
+                statusFilter === TaskStatus.MANUELL_OPPFØLGING ||
+                statusFilter === TaskStatus.FEILET)
         ) {
             rekjørTask(valgtService, statusFilter, id).then((response) => {
                 if (response.status === RessursStatus.SUKSESS) {
@@ -125,6 +136,8 @@ const [TaskProvider, useTaskContext] = constate(() => {
         leggTilKommentar,
         tasksSomErFerdigNåMenFeiletFør,
         hentEllerOppdaterTasks,
+        fagsystemFilter,
+        settFagsystemFilter,
     };
 });
 

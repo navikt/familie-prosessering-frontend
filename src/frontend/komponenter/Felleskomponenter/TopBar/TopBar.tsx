@@ -1,6 +1,6 @@
 import { Button, Checkbox, Heading, Select } from '@navikt/ds-react';
 import React, { FC, useState } from 'react';
-import { taskStatus, taskStatusTekster } from '../../../typer/task';
+import { TaskStatus, taskStatusTekster } from '../../../typer/task';
 import { useServiceContext } from '../../ServiceContext';
 import { useTaskContext } from '../../TaskProvider';
 
@@ -21,14 +21,14 @@ const TopBar: FC = () => {
                 Tasks for {valgtService ? valgtService.displayName : ''}
             </Heading>
 
-            {(statusFilter === taskStatus.FEILET ||
-                statusFilter === taskStatus.MANUELL_OPPFØLGING) && (
+            {(statusFilter === TaskStatus.FEILET ||
+                statusFilter === TaskStatus.MANUELL_OPPFØLGING) && (
                 <Button size={'small'} variant={'secondary'} onClick={() => rekjørTasks()}>
                     Rekjør alle tasks
                 </Button>
             )}
 
-            {statusFilter === taskStatus.FERDIG && (
+            {statusFilter === TaskStatus.FERDIG && (
                 <Checkbox
                     id={'feila-men-ferdig-checkbox'}
                     checked={visFeilaMenFerdig}
@@ -45,11 +45,11 @@ const TopBar: FC = () => {
                 </Checkbox>
             )}
             <Select
-                onChange={(event) => settStatusFilter(event.target.value as taskStatus)}
+                onChange={(event) => settStatusFilter(event.target.value as TaskStatus)}
                 value={statusFilter}
                 label={'Vis saker med status'}
             >
-                {Object.values(taskStatus).map((status: taskStatus) => {
+                {Object.values(TaskStatus).map((status: TaskStatus) => {
                     return (
                         <option key={status} value={status}>
                             {taskStatusTekster[status]}
