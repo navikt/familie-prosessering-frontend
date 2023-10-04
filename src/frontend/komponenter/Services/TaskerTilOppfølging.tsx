@@ -1,24 +1,43 @@
 import { Button, Popover } from '@navikt/ds-react';
 import React, { useRef, useState } from 'react';
-import { IOppfølgingstask } from '../../typer/service';
+import { IAntallFeiletOgManuellOppfølging, IOppfølgingstask } from '../../typer/service';
 import { AIconDanger, AIconSuccess, AIconWarning, AIconInfo } from '@navikt/ds-tokens/dist/tokens';
 import {
     ExclamationmarkTriangleFillIcon,
     CheckmarkCircleFillIcon,
     XMarkOctagonFillIcon,
     InformationSquareFillIcon,
+    BucketMopFillIcon,
 } from '@navikt/aksel-icons';
 
 export interface TaskerTilOppfølgingProps {
     taskerTilOppfølging: IOppfølgingstask;
+    taskerFeiletOgManuellOppfølging: IAntallFeiletOgManuellOppfølging[] | undefined;
 }
 
 export const TaskerTilOppfølging: React.FC<TaskerTilOppfølgingProps> = ({
     taskerTilOppfølging,
+    taskerFeiletOgManuellOppfølging,
 }) => {
     const iconRef = useRef(null);
     const [åpen, settÅpen] = useState(false);
-    const IkonType = utledIkonType(taskerTilOppfølging);
+    const objektMedDataOmAntallTasksFeiletOgTilManuellOppfølging =
+        taskerFeiletOgManuellOppfølging?.find(
+            (task) => task.serviceId === taskerTilOppfølging.serviceId
+        );
+
+    const harFeiletTasks =
+        objektMedDataOmAntallTasksFeiletOgTilManuellOppfølging?.harMottattSvar &&
+        objektMedDataOmAntallTasksFeiletOgTilManuellOppfølging?.antallFeilet > 0;
+    const harTasksTilManuellOppfølging =
+        objektMedDataOmAntallTasksFeiletOgTilManuellOppfølging?.harMottattSvar &&
+        objektMedDataOmAntallTasksFeiletOgTilManuellOppfølging?.antallManuellOppfølging > 0;
+
+    const IkonType = utledIkonType(
+        taskerTilOppfølging,
+        harFeiletTasks,
+        harTasksTilManuellOppfølging
+    );
 
     return (
         <div className={'varsel-wrapper'}>
@@ -47,7 +66,11 @@ export const TaskerTilOppfølging: React.FC<TaskerTilOppfølgingProps> = ({
     );
 };
 
-const utledIkonType = (taskerTilOppfølging: IOppfølgingstask) => {
+const utledIkonType = (
+    taskerTilOppfølging: IOppfølgingstask,
+    harFeiletTasks?: boolean,
+    harTasksTilManuellOppfølging?: boolean
+) => {
     if (!taskerTilOppfølging.harMottattSvar) {
         return { ikon: ExclamationmarkTriangleFillIcon, farge: AIconWarning };
     } else if (
@@ -55,6 +78,12 @@ const utledIkonType = (taskerTilOppfølging: IOppfølgingstask) => {
         taskerTilOppfølging.antallTilOppfølging === 0
     ) {
         return { ikon: CheckmarkCircleFillIcon, farge: AIconSuccess };
+    } else if (
+        taskerTilOppfølging.harMottattSvar &&
+        !harFeiletTasks &&
+        harTasksTilManuellOppfølging
+    ) {
+        return { ikon: BucketMopFillIcon, farge: AIconWarning };
     } else if (taskerTilOppfølging.harMottattSvar && taskerTilOppfølging.antallTilOppfølging > 0) {
         return { ikon: XMarkOctagonFillIcon, farge: AIconDanger };
     } else {

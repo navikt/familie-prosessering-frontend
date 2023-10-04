@@ -2,8 +2,12 @@ import { byggTomRessurs, Ressurs, RessursStatus } from '@navikt/familie-typer';
 import constate from 'constate';
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router';
-import { hentServices, hentTaskerTilOppfølgingForService } from '../api/service';
-import { IOppfølgingstask, IService } from '../typer/service';
+import {
+    hentServices,
+    hentTaskerSomHarFeilerEllerErTilManuellOppføling,
+    hentTaskerTilOppfølgingForService,
+} from '../api/service';
+import { IAntallFeiletOgManuellOppfølging, IOppfølgingstask, IService } from '../typer/service';
 
 const getServiceId = (pathname: string) => {
     return pathname.split('/')[2];
@@ -16,6 +20,9 @@ const [ServiceProvider, useServiceContext] = constate(() => {
     const [taskerTilOppfølging, settTaskerTilOppfølging] = useState<{
         [key: string]: IOppfølgingstask;
     }>({});
+    const [taskerFeiletOgManuellOppfølging, settTaskerFeiletOgManuellOppfølging] = useState<
+        IAntallFeiletOgManuellOppfølging[]
+    >([]);
 
     const oppdaterValgtService = (response: Ressurs<IService[]>, path: string) => {
         if (response.status === RessursStatus.SUKSESS) {
@@ -46,9 +53,20 @@ const [ServiceProvider, useServiceContext] = constate(() => {
         oppdaterValgtService(services, pathname);
     }, [pathname]);
 
+    useEffect(() => {
+        if (services.status === RessursStatus.SUKSESS) {
+            services.data.map((service) => {
+                hentTaskerSomHarFeilerEllerErTilManuellOppføling(service).then((response) => {
+                    settTaskerFeiletOgManuellOppfølging((prevState) => [...prevState, response]);
+                });
+            });
+        }
+    }, [services]);
+
     return {
         services,
         taskerTilOppfølging,
+        taskerFeiletOgManuellOppfølging,
         valgtService,
         settValgtService,
     };
