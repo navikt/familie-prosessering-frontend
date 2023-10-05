@@ -8,7 +8,7 @@ import { useTaskContext } from '../TaskProvider';
 import TaskListe from './TaskListe';
 import TaskPanel from './TaskPanel';
 
-const TaskMedId: React.FC = () => {
+const TasksMedCallId: React.FC = () => {
     const { settCallId, tasks } = useTaskContext();
     const { valgtService } = useServiceContext();
     const { callId } = useParams();
@@ -48,4 +48,4 @@ const TaskMedId: React.FC = () => {
             return <div />;
     }
 };
-export default TaskMedId;
+export default TasksMedCallId;
