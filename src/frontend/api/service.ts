@@ -1,5 +1,9 @@
 import { Ressurs, RessursStatus } from '@navikt/familie-typer';
-import { IAntallFeiletOgManuellOppfølging, IOppfølgingstask, IService } from '../typer/service';
+import {
+    AntallTaskerMedStatusFeiletOgManuellOppfølging,
+    IOppfølgingstask,
+    IService,
+} from '../typer/service';
 import { axiosRequest } from './axios';
 
 export const hentServices = (): Promise<Ressurs<IService[]>> => {
@@ -34,21 +38,21 @@ export const hentTaskerTilOppfølgingForService = (service: IService): Promise<I
         });
 };
 
-const ukjentVerdiForTaskerSomHarFeilerEllerErTilManuellOppføling = (service: IService) => ({
+const ukjentVerdiForTaskerSomHarFeiletEllerErTilManuellOppfølging = (service: IService) => ({
     serviceId: service.id,
     harMottattSvar: false,
     antallFeilet: 0,
     antallManuellOppfølging: 0,
 });
 
-export const hentTaskerSomHarFeilerEllerErTilManuellOppføling = async (
+export const hentTaskerSomHarFeiletEllerErTilManuellOppfølging = async (
     service: IService
-): Promise<IAntallFeiletOgManuellOppfølging> => {
-    return axiosRequest<IAntallFeiletOgManuellOppfølging>({
+): Promise<AntallTaskerMedStatusFeiletOgManuellOppfølging> => {
+    return axiosRequest<AntallTaskerMedStatusFeiletOgManuellOppfølging>({
         method: 'GET',
         url: `${service.proxyPath}/task/antall-feilet-og-manuell-oppfolging`,
     })
-        .then((response: Ressurs<IAntallFeiletOgManuellOppfølging>) => {
+        .then((response: Ressurs<AntallTaskerMedStatusFeiletOgManuellOppfølging>) => {
             return response.status === RessursStatus.SUKSESS
                 ? {
                       serviceId: service.id,
@@ -56,9 +60,9 @@ export const hentTaskerSomHarFeilerEllerErTilManuellOppføling = async (
                       antallFeilet: response.data.antallFeilet,
                       antallManuellOppfølging: response.data.antallManuellOppfølging,
                   }
-                : ukjentVerdiForTaskerSomHarFeilerEllerErTilManuellOppføling(service);
+                : ukjentVerdiForTaskerSomHarFeiletEllerErTilManuellOppfølging(service);
         })
         .catch(() => {
-            return ukjentVerdiForTaskerSomHarFeilerEllerErTilManuellOppføling(service);
+            return ukjentVerdiForTaskerSomHarFeiletEllerErTilManuellOppfølging(service);
         });
 };

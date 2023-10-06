@@ -3,13 +3,14 @@ import { RessursStatus } from '@navikt/familie-typer';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
-    IAntallFeiletOgManuellOppfølging,
+    AntallTaskerMedStatusFeiletOgManuellOppfølging,
     IOppfølgingstask,
     IService,
     IServiceGruppe,
 } from '../../typer/service';
 import { useServiceContext } from '../ServiceContext';
 import TaskerTilOppfølging from './TaskerTilOppfølging';
+import { useHentTaskerSomHarFeiletEllerErTilManuellOppfølging } from '../../hooks/useHentTaskerSomHarFeiletEllerErTilManuellOppfølging';
 
 const Services: React.FunctionComponent = () => {
     const { services } = useServiceContext();
@@ -57,7 +58,9 @@ const ServiceGruppe: React.FC<{
     if (servicer.length === 0) {
         return null;
     }
-    const { taskerTilOppfølging, taskerFeiletOgManuellOppfølging } = useServiceContext();
+    const { taskerTilOppfølging } = useServiceContext();
+    const { taskerFeiletOgManuellOppfølging } =
+        useHentTaskerSomHarFeiletEllerErTilManuellOppfølging(servicer);
     return (
         <div className={'service-gruppe'}>
             <Heading size={'large'} className={'service-gruppe-header'}>
@@ -68,8 +71,11 @@ const ServiceGruppe: React.FC<{
                     <Service
                         key={service.id}
                         service={service}
+                        servicer={servicer}
                         taskerTilOppfølging={taskerTilOppfølging[service.id]}
-                        taskerFeiletOgManuellOppfølging={taskerFeiletOgManuellOppfølging}
+                        taskerFeiletOgManuellOppfølging={
+                            taskerFeiletOgManuellOppfølging[service.id]
+                        }
                     />
                 ))}
             </div>
@@ -80,8 +86,9 @@ const ServiceGruppe: React.FC<{
 const Service: React.FC<{
     service: IService;
     taskerTilOppfølging?: IOppfølgingstask;
-    taskerFeiletOgManuellOppfølging?: IAntallFeiletOgManuellOppfølging[];
-}> = ({ service, taskerTilOppfølging, taskerFeiletOgManuellOppfølging }) => {
+    servicer: IService[];
+    taskerFeiletOgManuellOppfølging?: AntallTaskerMedStatusFeiletOgManuellOppfølging;
+}> = ({ service, taskerTilOppfølging, servicer, taskerFeiletOgManuellOppfølging }) => {
     const navigate = useNavigate();
     return (
         <div key={service.id} className={'services__service'}>
@@ -89,6 +96,8 @@ const Service: React.FC<{
             {taskerTilOppfølging ? (
                 <TaskerTilOppfølging
                     taskerTilOppfølging={taskerTilOppfølging}
+                    service={service}
+                    servicer={servicer}
                     taskerFeiletOgManuellOppfølging={taskerFeiletOgManuellOppfølging}
                 />
             ) : (

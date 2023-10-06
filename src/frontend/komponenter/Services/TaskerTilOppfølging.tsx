@@ -1,6 +1,10 @@
 import { Button, Popover } from '@navikt/ds-react';
 import React, { useRef, useState } from 'react';
-import { IAntallFeiletOgManuellOppfølging, IOppfølgingstask } from '../../typer/service';
+import {
+    AntallTaskerMedStatusFeiletOgManuellOppfølging,
+    IOppfølgingstask,
+    IService,
+} from '../../typer/service';
 import { AIconDanger, AIconSuccess, AIconWarning, AIconInfo } from '@navikt/ds-tokens/dist/tokens';
 import {
     ExclamationmarkTriangleFillIcon,
@@ -12,7 +16,9 @@ import {
 
 export interface TaskerTilOppfølgingProps {
     taskerTilOppfølging: IOppfølgingstask;
-    taskerFeiletOgManuellOppfølging: IAntallFeiletOgManuellOppfølging[] | undefined;
+    service: IService;
+    servicer: IService[];
+    taskerFeiletOgManuellOppfølging: AntallTaskerMedStatusFeiletOgManuellOppfølging | undefined;
 }
 
 export const TaskerTilOppfølging: React.FC<TaskerTilOppfølgingProps> = ({
@@ -21,23 +27,21 @@ export const TaskerTilOppfølging: React.FC<TaskerTilOppfølgingProps> = ({
 }) => {
     const iconRef = useRef(null);
     const [åpen, settÅpen] = useState(false);
-    const objektMedDataOmAntallTasksFeiletOgTilManuellOppfølging =
-        taskerFeiletOgManuellOppfølging?.find(
-            (task) => task.serviceId === taskerTilOppfølging.serviceId
-        );
 
     const harFeiletTasks =
-        objektMedDataOmAntallTasksFeiletOgTilManuellOppfølging?.harMottattSvar &&
-        objektMedDataOmAntallTasksFeiletOgTilManuellOppfølging?.antallFeilet > 0;
+        taskerFeiletOgManuellOppfølging?.harMottattSvar &&
+        taskerFeiletOgManuellOppfølging?.antallManuellOppfølging > 0;
     const harTasksTilManuellOppfølging =
-        objektMedDataOmAntallTasksFeiletOgTilManuellOppfølging?.harMottattSvar &&
-        objektMedDataOmAntallTasksFeiletOgTilManuellOppfølging?.antallManuellOppfølging > 0;
+        taskerFeiletOgManuellOppfølging?.harMottattSvar &&
+        taskerFeiletOgManuellOppfølging?.antallFeilet > 0;
 
     const IkonType = utledIkonType(
         taskerTilOppfølging,
         harFeiletTasks,
         harTasksTilManuellOppfølging
     );
+
+    console.log('taskerFeiletOgManuellOppfølging', taskerFeiletOgManuellOppfølging);
 
     return (
         <div className={'varsel-wrapper'}>

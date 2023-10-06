@@ -18,7 +18,7 @@ export interface IOppfølgingstask {
     antallTilOppfølging: number;
 }
 
-export interface IAntallFeiletOgManuellOppfølging {
+export interface AntallTaskerMedStatusFeiletOgManuellOppfølging {
     serviceId: string;
     harMottattSvar: boolean;
     antallFeilet: number;
