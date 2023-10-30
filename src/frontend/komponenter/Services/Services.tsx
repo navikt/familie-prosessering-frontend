@@ -4,13 +4,11 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
     AntallTaskerMedStatusFeiletOgManuellOppfølging,
-    IOppfølgingstask,
     IService,
     IServiceGruppe,
 } from '../../typer/service';
 import { useServiceContext } from '../ServiceContext';
 import TaskerTilOppfølging from './TaskerTilOppfølging';
-import { useHentTaskerSomHarFeiletEllerErTilManuellOppfølging } from '../../hooks/useHentTaskerSomHarFeiletEllerErTilManuellOppfølging';
 
 const Services: React.FunctionComponent = () => {
     const { services } = useServiceContext();
@@ -58,9 +56,7 @@ const ServiceGruppe: React.FC<{
     if (servicer.length === 0) {
         return null;
     }
-    const { taskerTilOppfølging } = useServiceContext();
-    const { taskerFeiletOgManuellOppfølging } =
-        useHentTaskerSomHarFeiletEllerErTilManuellOppfølging(servicer);
+    const { taskerFeiletOgTilManuellOppfølging } = useServiceContext();
     return (
         <div className={'service-gruppe'}>
             <Heading size={'large'} className={'service-gruppe-header'}>
@@ -72,9 +68,8 @@ const ServiceGruppe: React.FC<{
                         key={service.id}
                         service={service}
                         servicer={servicer}
-                        taskerTilOppfølging={taskerTilOppfølging[service.id]}
                         taskerFeiletOgManuellOppfølging={
-                            taskerFeiletOgManuellOppfølging[service.id]
+                            taskerFeiletOgTilManuellOppfølging[service.id]
                         }
                     />
                 ))}
@@ -85,17 +80,15 @@ const ServiceGruppe: React.FC<{
 
 const Service: React.FC<{
     service: IService;
-    taskerTilOppfølging?: IOppfølgingstask;
     servicer: IService[];
-    taskerFeiletOgManuellOppfølging?: AntallTaskerMedStatusFeiletOgManuellOppfølging;
-}> = ({ service, taskerTilOppfølging, servicer, taskerFeiletOgManuellOppfølging }) => {
+    taskerFeiletOgManuellOppfølging: AntallTaskerMedStatusFeiletOgManuellOppfølging;
+}> = ({ service, servicer, taskerFeiletOgManuellOppfølging }) => {
     const navigate = useNavigate();
     return (
         <div key={service.id} className={'services__service'}>
             <Heading size={'medium'}>{service.displayName}</Heading>
-            {taskerTilOppfølging ? (
+            {taskerFeiletOgManuellOppfølging ? (
                 <TaskerTilOppfølging
-                    taskerTilOppfølging={taskerTilOppfølging}
                     service={service}
                     servicer={servicer}
                     taskerFeiletOgManuellOppfølging={taskerFeiletOgManuellOppfølging}
