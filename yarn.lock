@@ -257,10 +257,10 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
-"@navikt/aksel-icons@^5.5.0":
-  version "5.5.0"
-  resolved "https://npm.pkg.github.com/download/@navikt/aksel-icons/5.5.0/b382aa387897f3f4850fbc16c3b95d6a57b7ef38#b382aa387897f3f4850fbc16c3b95d6a57b7ef38"
-  integrity sha512-KKq28Ed4lYwnrESIyyOxnBGr7ef1RqTPZoLAJE1YXNGHfVMN/TEZCoZQlPialhZK8g36ngNgvtsZeEm5oCxoxQ==
+"@navikt/aksel-icons@^5.5.0", "@navikt/aksel-icons@^5.9.2":
+  version "5.9.2"
+  resolved "https://npm.pkg.github.com/download/@navikt/aksel-icons/5.9.2/482bb83a2bc6b4e954700e278c28614c108117e3#482bb83a2bc6b4e954700e278c28614c108117e3"
+  integrity sha512-5XQI4wzZAlB6CoHDXZrjUqMx+7iUiOPoqFY3H9kT/NwfCdmUSPUFfmiPZHzpV7OzS4S61Joo1GhZ31ZZSIuz3Q==
 
 "@navikt/ds-css@^5.5.0":
   version "5.5.0"
