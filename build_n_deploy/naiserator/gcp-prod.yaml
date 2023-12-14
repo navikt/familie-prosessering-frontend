@@ -7,7 +7,6 @@ metadata:
     team: teamfamilie
 spec:
   image: {{ image }}
-  team: teamfamilie
   port: 8000
   liveness:
     path: /isAlive

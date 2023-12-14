@@ -7,7 +7,6 @@ metadata:
     team: teamfamilie
 spec:
   image: {{ image }}
-  team: teamfamilie
   port: 8000
   liveness:
     path: /isAlive
@@ -23,7 +22,7 @@ spec:
   azure:
     application:
       enabled: true
-      tentant: trygdeetaten.no
+      tenant: trygdeetaten.no
       allowAllUsers: true
       replyURLs:
         - 'https://familie-prosessering.intern.dev.nav.no/auth/openid/callback'
