@@ -1,5 +1,9 @@
 import { Ressurs, RessursStatus } from '@navikt/familie-typer';
-import { AntallTaskerMedStatusFeiletOgManuellOppfølging, IService } from '../typer/service';
+import {
+    AntallTaskerMedStatusFeiletOgManuellOppfølging,
+    IOppfølgingstask,
+    IService,
+} from '../typer/service';
 import { axiosRequest } from './axios';
 
 export const hentServices = (): Promise<Ressurs<IService[]>> => {
@@ -23,15 +27,31 @@ export const hentTaskerSomHarFeiletEllerErTilManuellOppfølging = async (
         method: 'GET',
         url: `${service.proxyPath}/task/antall-feilet-og-manuell-oppfolging`,
     })
-        .then((response: Ressurs<AntallTaskerMedStatusFeiletOgManuellOppfølging>) => {
-            return response.status === RessursStatus.SUKSESS
-                ? {
-                      serviceId: service.id,
-                      harMottattSvar: true,
-                      antallFeilet: response.data.antallFeilet,
-                      antallManuellOppfølging: response.data.antallManuellOppfølging,
-                  }
-                : ukjentVerdiForTaskerSomHarFeiletEllerErTilManuellOppfølging(service);
+        .then(async (response: Ressurs<AntallTaskerMedStatusFeiletOgManuellOppfølging>) => {
+            if (response.status === RessursStatus.SUKSESS) {
+                return {
+                    serviceId: service.id,
+                    harMottattSvar: true,
+                    antallFeilet: response.data.antallFeilet,
+                    antallManuellOppfølging: response.data.antallManuellOppfølging,
+                };
+            } else {
+                const gammelRespons = await axiosRequest<IOppfølgingstask>({
+                    method: 'GET',
+                    url: `${service.proxyPath}/task/antall-til-oppfolging`,
+                });
+
+                if (gammelRespons.status === RessursStatus.SUKSESS) {
+                    return {
+                        serviceId: service.id,
+                        harMottattSvar: true,
+                        antallFeilet: gammelRespons.data.antallTilOppfølging,
+                        antallManuellOppfølging: 0,
+                    };
+                }
+            }
+
+            return ukjentVerdiForTaskerSomHarFeiletEllerErTilManuellOppfølging(service);
         })
         .catch(() => {
             return ukjentVerdiForTaskerSomHarFeiletEllerErTilManuellOppfølging(service);
