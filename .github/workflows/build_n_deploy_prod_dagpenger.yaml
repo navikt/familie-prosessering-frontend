@@ -37,6 +37,8 @@ jobs:
     name: Deploy to Dev - Dagpenger
     needs: build
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
     steps:
       - uses: actions/checkout@v4
       - uses: nais/deploy/actions/deploy@v2
@@ -49,6 +51,8 @@ jobs:
     name: Deploy to Prod - Dagpenger
     needs: build
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
     steps:
       - uses: actions/checkout@v4
       - uses: nais/deploy/actions/deploy@v2
