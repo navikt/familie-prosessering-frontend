@@ -293,10 +293,10 @@
     date-fns "^2.30.0"
     react-day-picker "8.3.4"
 
-"@navikt/ds-tokens@^5.12.2", "@navikt/ds-tokens@^5.5.0":
-  version "5.12.2"
-  resolved "https://npm.pkg.github.com/download/@navikt/ds-tokens/5.12.2/7dcf11f88302c13d03443eb05a153d9ff1fee9f0#7dcf11f88302c13d03443eb05a153d9ff1fee9f0"
-  integrity sha512-5ee7Bu+5rUsozE+7h8EcW1Q5voY1UKTEIPJ24MAlr+nYfj+AQDFTu8PVWiVlhPKI2b0lDfn3ReZTbRQ+kvPbvQ==
+"@navikt/ds-tokens@^5.12.2", "@navikt/ds-tokens@^5.12.4":
+  version "5.12.4"
+  resolved "https://npm.pkg.github.com/download/@navikt/ds-tokens/5.12.4/b92a797ba1af3c318f7f0817357da4a239a990df#b92a797ba1af3c318f7f0817357da4a239a990df"
+  integrity sha512-OmNnJ6Co0Ji+RQQVtkgtgYsF6bjtLXZU+nQtVdwBcyX1jrGgoqrkiZxxjEvPX5jmZAPNNp2DIkYMvHc2WHwlCw==
 
 "@navikt/familie-backend@^10.0.11":
   version "10.0.11"
