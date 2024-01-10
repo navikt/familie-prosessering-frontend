@@ -12,8 +12,8 @@ jobs:
     outputs:
       image: ${{ steps.docker-build-push.outputs.image }}
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: '18'
           cache: yarn
@@ -25,6 +25,7 @@ jobs:
       - name: Yarn build
         run: yarn build
       - name: Build and publish Docker image to GAR
+        if: ${{ github.actor != 'dependabot[bot]' }}
         uses: nais/docker-build-push@v0
         id: docker-build-push
         with:
@@ -33,11 +34,14 @@ jobs:
           project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
   deploy-familie:
     name: Deploy to dev - familie
+    if: ${{ github.actor != 'dependabot[bot]' }}
     needs: build
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
     steps:
-      - uses: actions/checkout@v3
-      - uses: nais/deploy/actions/deploy@v1
+      - uses: actions/checkout@v4
+      - uses: nais/deploy/actions/deploy@v2
         env:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: dev-gcp
@@ -46,11 +50,14 @@ jobs:
 
   deploy-dagpenger:
     name: Deploy to dev - dagpenger
+    if: ${{ github.actor != 'dependabot[bot]' }}
     needs: build
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
     steps:
-      - uses: actions/checkout@v3
-      - uses: nais/deploy/actions/deploy@v1
+      - uses: actions/checkout@v4
+      - uses: nais/deploy/actions/deploy@v2
         env:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY_DAGPENGER }}
           CLUSTER: dev-gcp
@@ -59,11 +66,14 @@ jobs:
 
   deploy-tilleggsstonader:
     name: Deploy to dev - tilleggsstonader
+    if: ${{ github.actor != 'dependabot[bot]' }}
     needs: build
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
     steps:
-      - uses: actions/checkout@v3
-      - uses: nais/deploy/actions/deploy@v1
+      - uses: actions/checkout@v4
+      - uses: nais/deploy/actions/deploy@v2
         env:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY_TILLEGGSSTONADER }}
           CLUSTER: dev-gcp

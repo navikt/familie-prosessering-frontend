@@ -7,7 +7,6 @@ metadata:
     team: tilleggsstonader
 spec:
   image: {{ image }}
-  team: tilleggsstonader
   port: 8000
   liveness:
     path: /isAlive

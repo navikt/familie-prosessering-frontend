@@ -53,7 +53,7 @@ OVERRIDE_SCOPE=api://dev-gcp.teamfamilie.familie-tilbake/.default
 ---
 
 # Bygg og deploy
-Appen bygges på github actions. Alle commits til feature brancher går automatisk til gcp-dev og commits til master går direkte til gcp-prod.
+Appen bygges på github actions. Alle commits til feature brancher går automatisk til gcp-dev og commits til main går direkte til gcp-prod.
 Hemmeligheter for appen ligger i etcd i kubernetes.
 
 # Henvendelser
