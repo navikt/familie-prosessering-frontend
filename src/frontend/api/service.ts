@@ -36,7 +36,7 @@ export const hentTaskerSomHarFeiletEllerErTilManuellOppfølging = async (
                     antallManuellOppfølging: response.data.antallManuellOppfølging,
                 };
             } else {
-                const gammelRespons = await axiosRequest<IOppfølgingstask>({
+                const gammelRespons = await axiosRequest<number>({
                     method: 'GET',
                     url: `${service.proxyPath}/task/antall-til-oppfolging`,
                 });
@@ -45,7 +45,7 @@ export const hentTaskerSomHarFeiletEllerErTilManuellOppfølging = async (
                     return {
                         serviceId: service.id,
                         harMottattSvar: true,
-                        antallFeilet: gammelRespons.data.antallTilOppfølging,
+                        antallFeilet: gammelRespons.data,
                         antallManuellOppfølging: 0,
                     };
                 }
