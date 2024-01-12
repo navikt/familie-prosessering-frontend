@@ -2,7 +2,11 @@ import { Alert, Button, Heading, Loader } from '@navikt/ds-react';
 import { RessursStatus } from '@navikt/familie-typer';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { IOppfølgingstask, IService, IServiceGruppe } from '../../typer/service';
+import {
+    AntallTaskerMedStatusFeiletOgManuellOppfølging,
+    IService,
+    IServiceGruppe,
+} from '../../typer/service';
 import { useServiceContext } from '../ServiceContext';
 import TaskerTilOppfølging from './TaskerTilOppfølging';
 
@@ -52,7 +56,7 @@ const ServiceGruppe: React.FC<{
     if (servicer.length === 0) {
         return null;
     }
-    const { taskerTilOppfølging } = useServiceContext();
+    const { taskerFeiletOgTilManuellOppfølging } = useServiceContext();
     return (
         <div className={'service-gruppe'}>
             <Heading size={'large'} className={'service-gruppe-header'}>
@@ -63,7 +67,10 @@ const ServiceGruppe: React.FC<{
                     <Service
                         key={service.id}
                         service={service}
-                        taskerTilOppfølging={taskerTilOppfølging[service.id]}
+                        servicer={servicer}
+                        taskerFeiletOgManuellOppfølging={
+                            taskerFeiletOgTilManuellOppfølging[service.id]
+                        }
                     />
                 ))}
             </div>
@@ -73,14 +80,19 @@ const ServiceGruppe: React.FC<{
 
 const Service: React.FC<{
     service: IService;
-    taskerTilOppfølging?: IOppfølgingstask;
-}> = ({ service, taskerTilOppfølging }) => {
+    servicer: IService[];
+    taskerFeiletOgManuellOppfølging: AntallTaskerMedStatusFeiletOgManuellOppfølging;
+}> = ({ service, servicer, taskerFeiletOgManuellOppfølging }) => {
     const navigate = useNavigate();
     return (
         <div key={service.id} className={'services__service'}>
             <Heading size={'medium'}>{service.displayName}</Heading>
-            {taskerTilOppfølging ? (
-                <TaskerTilOppfølging taskerTilOppfølging={taskerTilOppfølging} />
+            {taskerFeiletOgManuellOppfølging ? (
+                <TaskerTilOppfølging
+                    service={service}
+                    servicer={servicer}
+                    taskerFeiletOgManuellOppfølging={taskerFeiletOgManuellOppfølging}
+                />
             ) : (
                 <Loader size={'large'} />
             )}

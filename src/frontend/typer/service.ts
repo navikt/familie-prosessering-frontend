@@ -17,3 +17,10 @@ export interface IOppfølgingstask {
     harMottattSvar: boolean;
     antallTilOppfølging: number;
 }
+
+export interface AntallTaskerMedStatusFeiletOgManuellOppfølging {
+    serviceId: string;
+    harMottattSvar: boolean;
+    antallFeilet: number;
+    antallManuellOppfølging: number;
+}
