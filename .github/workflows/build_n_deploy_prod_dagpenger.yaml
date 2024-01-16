@@ -39,11 +39,11 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       id-token: write
+      contents: read
     steps:
       - uses: actions/checkout@v4
       - uses: nais/deploy/actions/deploy@v2
         env:
-          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY_DAGPENGER }}
           CLUSTER: dev-gcp
           RESOURCE: build_n_deploy/naiserator/gcp-dev-dagpenger.yaml
           VAR: image=${{ needs.build.outputs.image }}
@@ -53,11 +53,11 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       id-token: write
+      contents: read
     steps:
       - uses: actions/checkout@v4
       - uses: nais/deploy/actions/deploy@v2
         env:
-          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY_DAGPENGER }}
           CLUSTER: prod-gcp
           RESOURCE: build_n_deploy/naiserator/gcp-prod-dagpenger.yaml
           VAR: image=${{ needs.build.outputs.image }}
