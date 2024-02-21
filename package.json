@@ -12,8 +12,6 @@
     "start:dev": "tsc && NODE_ENV=development node --es-module-specifier-resolution=node  --trace-deprecation node_dist/server.js",
     "build": "yarn build:prod",
     "build:prod": "tsc & webpack --config ./build_n_deploy/webpack/webpack.prod.js",
-    "snyk-protect": "snyk protect",
-    "prepare": "yarn run snyk-protect",
     "postinstall": "husky install"
   },
   "lint-staged": {
@@ -55,7 +53,6 @@
     "react-modal": "^3.16.1",
     "react-router": "^6.22.1",
     "react-router-dom": "^6.22.1",
-    "snyk": "^1.1280.0",
     "uuid": "^9.0.1"
   },
   "devDependencies": {
@@ -90,7 +87,6 @@
     "webpack-hot-middleware": "2.26.1",
     "webpack-merge": "^5.10.0"
   },
-  "snyk": true,
 
   "resolutions": {
     "source-map": "^0.8.0-beta.0"
