@@ -7,16 +7,6 @@
   "plugins": ["@typescript-eslint", "prettier", "react-hooks"],
   "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended", "plugin:prettier/recommended"],
   "rules": {
-//    "import/extensions": [
-//      "off",
-//      "ignorePackages",
-//      {
-//        "js": "never",
-//        "jsx": "never",
-//        "ts": "never",
-//        "tsx": "never"
-//      }
-//    ],
     "@typescript-eslint/ban-ts-ignore": "off",
     "@typescript-eslint/ban-ts-comment": "off",
     "prettier/prettier": "warn",
