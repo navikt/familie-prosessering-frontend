@@ -41,10 +41,10 @@ const TaskFiltrering: React.FunctionComponent<Props> = ({ tasks }) => {
                 <Radio key={'alle'} value={'ALLE'}>
                     ALLE
                 </Radio>
-                {fagsystemer.map((fagsystem) => {
+                {fagsystemer.map((fs) => {
                     return (
-                        <Radio key={fagsystem} value={fagsystem}>
-                            {fagsystem}
+                        <Radio key={fs} value={fs}>
+                            {fs}
                         </Radio>
                     );
                 })}

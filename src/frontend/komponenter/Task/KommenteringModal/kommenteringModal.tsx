@@ -1,4 +1,4 @@
-import { Alert, BodyShort, Button, Checkbox, Heading, Modal, Textarea } from '@navikt/ds-react';
+import { Alert, BodyShort, Button, Checkbox, Modal, Textarea } from '@navikt/ds-react';
 import React, { FC, useState } from 'react';
 import { ITask } from '../../../typer/task';
 import { useTaskContext } from '../../TaskProvider';

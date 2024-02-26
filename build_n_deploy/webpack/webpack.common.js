@@ -13,11 +13,6 @@ const common = {
     module: {
         rules: [
             {
-                test: /\.(ts|tsx)$/,
-                loader: 'tslint-loader',
-                enforce: 'pre',
-            },
-            {
                 test: /\.m?js$/,
                 resolve: {
                     fullySpecified: false, // Fikser at man ikke kan gjøre import uten filextension fra moduler med type: module i package.json

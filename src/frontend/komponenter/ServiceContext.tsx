@@ -29,6 +29,7 @@ const [ServiceProvider, useServiceContext] = constate(() => {
             settServices(response);
             oppdaterValgtService(response, pathname);
         });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
@@ -45,6 +46,7 @@ const [ServiceProvider, useServiceContext] = constate(() => {
 
     useEffect(() => {
         oppdaterValgtService(services, pathname);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [pathname]);
 
     return {

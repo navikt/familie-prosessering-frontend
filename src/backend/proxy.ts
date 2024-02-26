@@ -7,6 +7,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { oboConfig } from './config.js';
 import { IService } from './serviceConfig.js';
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const restream = (proxyReq: ClientRequest, req: IncomingMessage, _res: ServerResponse) => {
     const requestBody = (req as Request).body;
     if (requestBody) {
@@ -22,6 +23,7 @@ export const doProxy = (service: IService) => {
         changeOrigin: true,
         logLevel: 'info',
         onProxyReq: restream,
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         pathRewrite: (path: string, _req: Request) => {
             const newPath = path.replace(service.proxyPath, '');
             return `/api${newPath}`;

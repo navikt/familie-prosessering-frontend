@@ -11,7 +11,7 @@ import { useServiceContext } from '../ServiceContext';
 import TaskerTilOppfølging from './TaskerTilOppfølging';
 
 const Services: React.FunctionComponent = () => {
-    const { services } = useServiceContext();
+    const { services, taskerFeiletOgTilManuellOppfølging } = useServiceContext();
 
     switch (services.status) {
         case RessursStatus.SUKSESS:
@@ -20,10 +20,14 @@ const Services: React.FunctionComponent = () => {
                     {Object.keys(IServiceGruppe).map((serviceGruppe) => {
                         return (
                             <ServiceGruppe
+                                key={serviceGruppe}
                                 gruppe={serviceGruppe}
                                 servicer={services.data.filter(
                                     (service) => service.gruppe === serviceGruppe
                                 )}
+                                taskerFeiletOgTilManuellOppfølging={
+                                    taskerFeiletOgTilManuellOppfølging
+                                }
                             />
                         );
                     })}
@@ -52,11 +56,14 @@ const gruppeTilTekst: Record<string, string> = {
 const ServiceGruppe: React.FC<{
     servicer: IService[];
     gruppe: string;
-}> = ({ servicer, gruppe }) => {
+    taskerFeiletOgTilManuellOppfølging: Record<
+        string,
+        AntallTaskerMedStatusFeiletOgManuellOppfølging
+    >;
+}> = ({ servicer, gruppe, taskerFeiletOgTilManuellOppfølging }) => {
     if (servicer.length === 0) {
-        return null;
+        return undefined;
     }
-    const { taskerFeiletOgTilManuellOppfølging } = useServiceContext();
     return (
         <div className={'service-gruppe'}>
             <Heading size={'large'} className={'service-gruppe-header'}>

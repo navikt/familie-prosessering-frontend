@@ -44,7 +44,7 @@ For å bygge prodversjon kjør `yarn build`. Prodversjonen vil ikke kjøre lokal
 
 ### Kjøre lokalt mot preprod
 
-Støtter foreløpig kun tilbakekreving:
+Støtter foreløpig kun tilbakekreving/ef-sak:
 ```
 ENV=lokalt-mot-preprod
 OVERRIDE_SCOPE=api://dev-gcp.teamfamilie.familie-tilbake/.default

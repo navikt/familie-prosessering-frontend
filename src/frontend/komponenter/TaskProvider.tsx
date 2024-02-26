@@ -32,7 +32,7 @@ const getQueryParamSide = (location: Location): number => {
     return queryParamSideAsString ? parseInt(queryParamSideAsString, 10) : 0;
 };
 
-const getParamTaskId = (): number | undefined => {
+const useGetParamTaskId = (): number | undefined => {
     const { taskId } = useParams();
     return taskId ? parseInt(taskId, 10) : undefined;
 };
@@ -54,7 +54,7 @@ const [TaskProvider, useTaskContext] = constate(() => {
     const [fagsystemFilter, settFagsystemFilter] = useState<Fagsystem>(Fagsystem.ALLE);
     const [side, settSide] = useState<number>(getQueryParamSide(location));
     const [type, settTypeFilter] = useState<string>(getQueryParamTaskType(location));
-    const [taskId, settTaskId] = useState<number | undefined>(getParamTaskId());
+    const [taskId, settTaskId] = useState<number | undefined>(useGetParamTaskId());
     const [callId, settCallId] = useState<string | undefined>();
     const [task, settTask] = useState<Ressurs<ITask>>(byggTomRessurs());
 
@@ -76,6 +76,7 @@ const [TaskProvider, useTaskContext] = constate(() => {
 
     useEffect(() => {
         hentEllerOppdaterTasks();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [valgtService, statusFilter, side, type, taskId, callId]);
 
     useEffect(() => {
@@ -88,6 +89,7 @@ const [TaskProvider, useTaskContext] = constate(() => {
                 `${location.pathname}?statusFilter=${statusFilter}&side=${side}&taskType=${type}`
             );
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [statusFilter, side, type, history]);
 
     const rekjørTasks = (id?: number) => {

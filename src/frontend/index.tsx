@@ -9,7 +9,7 @@ import './index.less';
 const rootElement = document.getElementById('app');
 const root = createRoot(rootElement!);
 
-const renderApp = (Component: React.ComponentType<{}>): void => {
+const renderApp = (Component: React.ComponentType): void => {
     root.render(
         <AppContainer>
             <Component />
@@ -21,7 +21,6 @@ renderApp(App);
 
 if (module.hot) {
     module.hot.accept('./komponenter/App', () => {
-        const NewApp = require('./komponenter/App').default;
-        renderApp(NewApp);
+        renderApp(App);
     });
 }
