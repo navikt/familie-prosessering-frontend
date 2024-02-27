@@ -27,6 +27,7 @@ backend(sessionConfig).then(({ app, azureAuthClient, router }: IApp) => {
     if (process.env.NODE_ENV === 'development') {
         const compiler = webpack(config);
         middleware = webpackDevMiddleware(compiler, {
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
             publicPath: config.output.publicPath,
         });
 

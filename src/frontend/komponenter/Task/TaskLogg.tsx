@@ -41,6 +41,7 @@ const TaskLogg: React.FC<{ taskId: number; visLogg: boolean }> = ({ taskId, visL
         if (visLogg && taskLogg.status === RessursStatus.IKKE_HENTET) {
             hentLogg();
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [taskId, visLogg]);
 
     if (taskLogg.status === RessursStatus.SUKSESS) {

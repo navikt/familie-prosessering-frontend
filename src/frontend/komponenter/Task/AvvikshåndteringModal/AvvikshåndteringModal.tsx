@@ -1,4 +1,4 @@
-import { BodyShort, Button, Heading, Modal, Select, Textarea } from '@navikt/ds-react';
+import { BodyShort, Button, Modal, Select, Textarea } from '@navikt/ds-react';
 import React, { FC, useState } from 'react';
 import { avvikstyper, ITask } from '../../../typer/task';
 import { useTaskContext } from '../../TaskProvider';

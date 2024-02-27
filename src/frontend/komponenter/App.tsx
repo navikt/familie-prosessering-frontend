@@ -1,5 +1,4 @@
 import '@navikt/ds-css';
-import { Modal } from '@navikt/ds-react';
 import { ISaksbehandler } from '@navikt/familie-typer';
 import * as React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
@@ -12,10 +11,6 @@ import TasksMedCallId from './Task/TasksMedCallId';
 import TaskMedId from './Task/TaskMedId';
 import Tasks from './Task/Tasks';
 import { TaskProvider } from './TaskProvider';
-
-if (Modal.setAppElement) {
-    Modal.setAppElement(document.getElementById('modal-a11y-wrapper'));
-}
 
 const App: React.FunctionComponent = () => {
     const [innloggetSaksbehandler, settInnloggetSaksbehandler] = React.useState<ISaksbehandler>();

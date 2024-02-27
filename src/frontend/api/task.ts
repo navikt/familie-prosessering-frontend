@@ -16,6 +16,7 @@ export const hentTasks = (
     side: number,
     type: string
 ): Promise<Ressurs<ITaskResponse>> => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const params: any =
         statusFilter !== TaskStatus.ALLE
             ? {

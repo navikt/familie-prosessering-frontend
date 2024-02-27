@@ -1,9 +1,5 @@
 import { Ressurs, RessursStatus } from '@navikt/familie-typer';
-import {
-    AntallTaskerMedStatusFeiletOgManuellOppfølging,
-    IOppfølgingstask,
-    IService,
-} from '../typer/service';
+import { AntallTaskerMedStatusFeiletOgManuellOppfølging, IService } from '../typer/service';
 import { axiosRequest } from './axios';
 
 export const hentServices = (): Promise<Ressurs<IService[]>> => {

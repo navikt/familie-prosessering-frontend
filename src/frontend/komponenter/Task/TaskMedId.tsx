@@ -1,7 +1,6 @@
 import { Alert, Heading } from '@navikt/ds-react';
 import { RessursStatus } from '@navikt/familie-typer';
-import * as React from 'react';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useServiceContext } from '../ServiceContext';
 import { useTaskContext } from '../TaskProvider';
@@ -17,7 +16,7 @@ const TaskMedId: React.FC = () => {
         return () => {
             settTaskId(undefined);
         };
-    }, []);
+    }, [settTaskId, taskId]);
 
     switch (task.status) {
         case RessursStatus.SUKSESS:
