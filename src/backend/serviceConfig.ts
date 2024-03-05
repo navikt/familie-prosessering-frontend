@@ -21,7 +21,6 @@ interface ProxyUrls {
     kontantstøtte_sak: string;
     baks_mottak: string;
     dp_iverksett: string;
-    tiltakspenger_iverksett: string;
     tilleggsstonader_sak: string;
     tilleggsstonader_søknad: string;
 }
@@ -39,7 +38,6 @@ if (process.env.ENV === 'local') {
         kontantstøtte_sak: 'http://localhost:8083',
         baks_mottak: 'http://localhost:8090',
         dp_iverksett: 'http://localhost:8080',
-        tiltakspenger_iverksett: 'http://localhost:8080',
         tilleggsstonader_sak: 'http://localhost:8101',
         tilleggsstonader_søknad: 'http://localhost:8001',
     };
@@ -54,7 +52,6 @@ if (process.env.ENV === 'local') {
         klage: `https://familie-klage.intern.dev.nav.no`, // familie-prosessering-lokalt må legges til under inbound access policy i app-dev-gcp.yaml
         baks_mottak: `https://familie-baks-mottak.intern.dev.nav.no`, // familie-prosessering-lokalt må legges til under inbound access policy i app-dev-gcp.yaml
         dp_iverksett: 'https://dp-iverksett.intern.dev.nav.no', // familie-prosessering-lokalt må legges til under inbound access policy i app-dev-gcp.yaml
-        tiltakspenger_iverksett: 'https://tiltakspenger-iverksett.intern.dev.nav.no', // familie-prosessering-lokalt må legges til under inbound access policy i app-dev-gcp.yaml
         tilleggsstonader_sak: 'https://tilleggsstonader-sak.intern.dev.nav.no', // familie-prosessering-lokalt må legges til under inbound access policy i app-dev-gcp.yaml
         tilleggsstonader_søknad: 'https://tilleggsstonader-soknad-api.intern.dev.nav.no', // familie-prosessering-lokalt må legges til under inbound access policy i app-dev-gcp.yaml
     };
@@ -69,7 +66,6 @@ if (process.env.ENV === 'local') {
         klage: `http://familie-klage`,
         baks_mottak: `http://familie-baks-mottak`,
         dp_iverksett: 'http://dp-iverksett',
-        tiltakspenger_iverksett: 'http://tiltakspenger-iverksett',
         tilleggsstonader_sak: 'http://tilleggsstonader-sak',
         tilleggsstonader_søknad: 'http://tilleggsstonader-soknad-api',
     };
@@ -172,15 +168,6 @@ export const serviceConfig: { [key in Team]: IService[] } = {
             gruppe: 'DP',
             proxyPath: '/dp-iverksett/api',
             proxyUrl: proxyUrls.dp_iverksett,
-            teamname: 'teamdagpenger',
-        },
-        {
-            cluster: 'gcp',
-            displayName: 'Tiltakspenger Iverksett',
-            id: 'tiltakspenger-iverksett',
-            gruppe: 'DP',
-            proxyPath: '/tiltakspenger-iverksett/api',
-            proxyUrl: proxyUrls.tiltakspenger_iverksett,
             teamname: 'teamdagpenger',
         },
     ],
