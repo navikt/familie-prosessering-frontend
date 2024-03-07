@@ -30,7 +30,6 @@ spec:
     outbound:
       rules:
         - application: dp-iverksett
-        - application: tiltakspenger-iverksett
   resources:
     limits:
       memory: 1024Mi
