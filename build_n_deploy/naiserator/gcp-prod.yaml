@@ -40,9 +40,10 @@ spec:
         - application: familie-baks-mottak
   resources:
     limits:
-      memory: 1024Mi
-    requests:
       memory: 512Mi
+    requests:
+      memory: 256Mi
+      cpu: 20m
   envFrom:
     - secret: familie
     - secret: prosessering
