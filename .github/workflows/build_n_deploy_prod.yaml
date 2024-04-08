@@ -35,8 +35,8 @@ jobs:
           team: teamfamilie
           identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
           project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
-  deploy-dev:
-    name: Deploy to Dev
+  deploy-dev-teamfamilie:
+    name: Deploy to Dev teamfamilie
     needs: build
     runs-on: ubuntu-latest
     permissions:
@@ -49,8 +49,24 @@ jobs:
           CLUSTER: dev-gcp
           RESOURCE: build_n_deploy/naiserator/gcp-dev.yaml
           VAR: image=${{ needs.build.outputs.image }}
-  deploy:
-    name: Deploy to Prod
+
+  deploy-dev-tilleggesstonader:
+    name: Deploy to Dev tilleggsstonader
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: nais/deploy/actions/deploy@v2
+        env:
+          CLUSTER: dev-gcp
+          RESOURCE: build_n_deploy/naiserator/gcp-dev-tilleggsstonader.yaml
+          VAR: image=${{ needs.build.outputs.image }}
+
+  deploy-teamfamilie:
+    name: Deploy to Prod teamfamilie
     needs: build
     runs-on: ubuntu-latest
     permissions:
@@ -62,4 +78,19 @@ jobs:
         env:
           CLUSTER: prod-gcp
           RESOURCE: build_n_deploy/naiserator/gcp-prod.yaml
+          VAR: image=${{ needs.build.outputs.image }}
+
+  deploy-tilleggsstonader:
+    name: Deploy to Prod tilleggsstonader
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: nais/deploy/actions/deploy@v2
+        env:
+          CLUSTER: prod-gcp
+          RESOURCE: build_n_deploy/naiserator/gcp-prod-tilleggsstonader.yaml
           VAR: image=${{ needs.build.outputs.image }}

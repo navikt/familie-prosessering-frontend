@@ -1,7 +1,7 @@
 apiVersion: nais.io/v1alpha1
 kind: Application
 metadata:
-  name: dp-prosessering
+  name: tilleggsstonader-prosessering
   namespace: tilleggsstonader
   labels:
     team: tilleggsstonader
