@@ -11,4 +11,4 @@ ADD package.json .
 
 #ENV NODE_ENV production
 #EXPOSE 8000
-CMD ["--es-module-specifier-resolution=node", "node_dist/server.js"]
+CMD ["--import=node_/,--es-module-specifier-resolution=node", "node_dist/server.js"]

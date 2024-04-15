@@ -7,9 +7,10 @@
   "author": "Henning Håkonsen",
   "license": "MIT",
   "scripts": {
-    "start": "NODE_ENV=production node --es-module-specifier-resolution=node node_dist/server.js",
+    "start": "yarn set-node-options NODE_ENV=production node node_dist/server.js",
     "start:mock": "NODE_ENV=development node dev-server/mock-server.js",
-    "start:dev": "tsc && NODE_ENV=development node --es-module-specifier-resolution=node  --trace-deprecation node_dist/server.js",
+    "start:dev": "tsc && yarn set-node-options NODE_ENV=development node --trace-deprecation node_dist/server.js",
+    "set-node-options": "NODE_OPTIONS='--import=./node_dist/registerESMLoader.js --es-module-specifier-resolution=node'",
     "build": "yarn lint && yarn build:prod",
     "build:prod": "tsc & webpack --config ./build_n_deploy/webpack/webpack.prod.js",
     "postinstall": "husky install",
@@ -61,6 +62,7 @@
   "devDependencies": {
     "@babel/preset-react": "^7.24.1",
     "@eslint/js": "^8.57.0",
+    "@types/node": "^20.11.16",
     "@types/webpack-dev-middleware": "^5.3.0",
     "@types/webpack-env": "^1.18.4",
     "@types/webpack-hot-middleware": "^2.25.9",
@@ -86,6 +88,7 @@
     "style-loader": "^3.3.4",
     "svg-inline-loader": "^0.8.2",
     "ts-loader": "^9.5.1",
+    "ts-node": "^10.9.1",
     "typescript-eslint": "^7.5.0",
     "typescript": "^5.4.4",
     "webpack": "^5.91.0",
