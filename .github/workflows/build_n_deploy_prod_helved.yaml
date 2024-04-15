@@ -1,4 +1,4 @@
-name: Build and deploy dp-prosessering to prod
+name: Build and deploy utsjekk-prosessering to prod
 
 on:
   workflow_dispatch:
@@ -30,11 +30,11 @@ jobs:
         uses: nais/docker-build-push@v0
         id: docker-build-push
         with:
-          team: teamdagpenger
+          team: helved
           identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
           project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
   deploy-dev:
-    name: Deploy to Dev - Dagpenger
+    name: Deploy to Dev - Helved
     needs: build
     runs-on: ubuntu-latest
     permissions:
@@ -45,10 +45,10 @@ jobs:
       - uses: nais/deploy/actions/deploy@v2
         env:
           CLUSTER: dev-gcp
-          RESOURCE: build_n_deploy/naiserator/gcp-dev-dagpenger.yaml
+          RESOURCE: build_n_deploy/naiserator/gcp-dev-helved.yaml
           VAR: image=${{ needs.build.outputs.image }}
-  deploy-dagpenger:
-    name: Deploy to Prod - Dagpenger
+  deploy-helved:
+    name: Deploy to Prod - Helved
     needs: build
     runs-on: ubuntu-latest
     permissions:
@@ -59,5 +59,5 @@ jobs:
       - uses: nais/deploy/actions/deploy@v2
         env:
           CLUSTER: prod-gcp
-          RESOURCE: build_n_deploy/naiserator/gcp-prod-dagpenger.yaml
+          RESOURCE: build_n_deploy/naiserator/gcp-prod-helved.yaml
           VAR: image=${{ needs.build.outputs.image }}
