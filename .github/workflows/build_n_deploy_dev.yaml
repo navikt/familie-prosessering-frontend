@@ -48,8 +48,8 @@ jobs:
           RESOURCE: build_n_deploy/naiserator/gcp-dev.yaml
           VAR: image=${{ needs.build.outputs.image }}
 
-  deploy-dagpenger:
-    name: Deploy to dev - dagpenger
+  deploy-helved:
+    name: Deploy to dev - helved
     if: ${{ github.actor != 'dependabot[bot]' }}
     needs: build
     runs-on: ubuntu-latest
@@ -61,7 +61,7 @@ jobs:
       - uses: nais/deploy/actions/deploy@v2
         env:
           CLUSTER: dev-gcp
-          RESOURCE: build_n_deploy/naiserator/gcp-dev-dagpenger.yaml
+          RESOURCE: build_n_deploy/naiserator/gcp-dev-helved.yaml
           VAR: image=${{ needs.build.outputs.image }}
 
   deploy-tilleggsstonader:

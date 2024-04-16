@@ -1,10 +1,10 @@
 apiVersion: nais.io/v1alpha1
 kind: Application
 metadata:
-  name: dp-prosessering
-  namespace: teamdagpenger
+  name: utsjekk-prosessering
+  namespace: helved
   labels:
-    team: teamdagpenger
+    team: helved
 spec:
   image: {{ image }}
   port: 8000
@@ -19,16 +19,16 @@ spec:
     max: 1
     cpuThresholdPercentage: 50
   ingresses:
-    - "https://dp-prosessering.intern.nav.no"
+    - "https://utsjekk-prosessering.intern.nav.no"
   azure:
     application:
       enabled: true
       replyURLs:
-        - 'https://dp-prosessering.intern.nav.no/auth/openid/callback'
+        - 'https://utsjekk-prosessering.intern.nav.no/auth/openid/callback'
   accessPolicy:
     outbound:
       rules:
-        - application: dp-iverksett
+        - application: utsjekk
   resources:
     limits:
       memory: 512Mi
@@ -36,7 +36,7 @@ spec:
       memory: 256Mi
       cpu: 20m
   envFrom:
-    - secret: dp-prosessering
+    - secret: utsjekk-prosessering
   env:
     - name: ENV
       value: prod
