@@ -21,7 +21,6 @@ loglevel.setDefaultLevel(loglevel.levels.INFO);
 
 const port = 8000;
 
-loglevel.info(process.env.NODE_ENV);
 backend(sessionConfig).then(({ app, azureAuthClient, router }: IApp) => {
     let middleware;
 
