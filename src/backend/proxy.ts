@@ -19,14 +19,14 @@ const restream = (proxyReq: ClientRequest, req: IncomingMessage, _res: ServerRes
 };
 
 export const doProxy = (service: IService) => {
-    return createProxyMiddleware(service.proxyPath, {
+    return createProxyMiddleware({
         changeOrigin: true,
-        logLevel: 'info',
-        onProxyReq: restream,
+        on: {
+            proxyReq: restream,
+        },
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         pathRewrite: (path: string, _req: Request) => {
-            const newPath = path.replace(service.proxyPath, '');
-            return `/api${newPath}`;
+            return `/api${path}`;
         },
         secure: true,
         target: `${service.proxyUrl}`,
