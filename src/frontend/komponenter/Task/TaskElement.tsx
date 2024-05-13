@@ -12,7 +12,9 @@ const TaskElement: React.FC<IProps> = ({ innhold, label }) => {
             <Label as="p" size={'small'}>
                 {label}:&nbsp;
             </Label>
-            <BodyShort size={'small'}>{innhold}</BodyShort>
+            <BodyShort size={'small'} className="taskelement--innhold">
+                {innhold}
+            </BodyShort>
         </div>
     );
 };
