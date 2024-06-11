@@ -23,6 +23,7 @@ interface ProxyUrls {
     utsjekk: string;
     tilleggsstonader_sak: string;
     tilleggsstonader_søknad: string;
+    tilleggsstonader_klage: string;
 }
 
 let proxyUrls: ProxyUrls;
@@ -40,6 +41,7 @@ if (process.env.ENV === 'local') {
         utsjekk: 'http://localhost:8080',
         tilleggsstonader_sak: 'http://localhost:8101',
         tilleggsstonader_søknad: 'http://localhost:8001',
+        tilleggsstonader_klage: 'http://localhost:8090',
     };
 } else if (process.env.ENV === 'lokalt-mot-preprod') {
     proxyUrls = {
@@ -54,6 +56,7 @@ if (process.env.ENV === 'local') {
         utsjekk: 'https://utsjekk.intern.dev.nav.no', // familie-prosessering-lokalt må legges til under inbound access policy i app-dev-gcp.yaml
         tilleggsstonader_sak: 'https://tilleggsstonader-sak.intern.dev.nav.no', // familie-prosessering-lokalt må legges til under inbound access policy i app-dev-gcp.yaml
         tilleggsstonader_søknad: 'https://tilleggsstonader-soknad-api.intern.dev.nav.no', // familie-prosessering-lokalt må legges til under inbound access policy i app-dev-gcp.yaml
+        tilleggsstonader_klage: 'https://tilleggsstonader-klage.intern.dev.nav.no', // familie-prosessering-lokalt må legges til under inbound access policy i app-dev-gcp.yaml
     };
 } else {
     proxyUrls = {
@@ -68,6 +71,7 @@ if (process.env.ENV === 'local') {
         utsjekk: 'http://utsjekk',
         tilleggsstonader_sak: 'http://tilleggsstonader-sak',
         tilleggsstonader_søknad: 'http://tilleggsstonader-soknad-api',
+        tilleggsstonader_klage: 'http://tilleggsstonader-klage',
     };
 }
 
@@ -188,6 +192,15 @@ export const serviceConfig: { [key in Team]: IService[] } = {
             gruppe: 'FELLES',
             proxyPath: '/tilleggsstonader-soknad/api',
             proxyUrl: proxyUrls.tilleggsstonader_søknad,
+            teamname: 'tilleggsstonader',
+        },
+        {
+            cluster: 'gcp',
+            displayName: 'Klage',
+            id: 'tilleggsstonader-klage',
+            gruppe: 'FELLES',
+            proxyPath: '/tilleggsstonader-klage/api',
+            proxyUrl: proxyUrls.tilleggsstonader_klage,
             teamname: 'tilleggsstonader',
         },
     ],
