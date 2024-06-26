@@ -10,7 +10,6 @@ const config = mergeWithCustomize({
     mode: 'development',
     entry: {
         'familie-prosessering': [
-            'babel-polyfill',
             'react-hot-loader/patch',
             'webpack-hot-middleware/client?reload=true',
         ],

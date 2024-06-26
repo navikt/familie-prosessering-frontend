@@ -11,9 +11,6 @@ const config = mergeWithCustomize({
     'module.rules': 'append',
 })(common, {
     mode: 'production',
-    entry: {
-        'familie-prosessering': ['babel-polyfill'],
-    },
     output: {
         path: path.resolve(process.cwd(), 'frontend_production/'),
         filename: '[name].[contenthash].js',
