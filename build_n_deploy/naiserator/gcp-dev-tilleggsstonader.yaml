@@ -30,6 +30,7 @@ spec:
       rules:
         - application: tilleggsstonader-sak
         - application: tilleggsstonader-soknad-api
+        - application: tilleggsstonader-klage
   resources:
     limits:
       memory: 512Mi

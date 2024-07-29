@@ -25,6 +25,9 @@ spec:
       enabled: true
       replyURLs:
         - 'https://utsjekk-prosessering.intern.nav.no/auth/openid/callback'
+      claims:
+        groups:
+          - id: "97140b9a-07c5-414c-beeb-69824d04c044" # Dagpenger-Prosessering-Admin - tilgang for utviklere i Hel Ved
   accessPolicy:
     outbound:
       rules:
