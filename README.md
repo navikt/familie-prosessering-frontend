@@ -16,7 +16,7 @@ Ting du må gjøre for å få frontend til å snakke med din backend:
 * Starte dev-server `yarn start:dev`
 * Åpne `http://localhost:8000` i nettleseren din
 
-For at lokal-secret skal fungere må applikasjonen du skal nå (mottak, sak, iverksett..?) ha følgende i sin `azure-ad-app-lokal.yaml`:
+For at lokal-secret skal fungere må applikasjonen du skal nå (mottak, sak, iverksett) ha følgende i sin `azure-ad-app-lokal.yaml`:
 ```
 spec:
   preAuthorizedApplications:
@@ -27,7 +27,9 @@ spec:
 ```
 
 Appen krever en del environment variabler og legges til i .env fila i root på prosjektet.
-secret kan hentes fra cluster med `kubectl -n teamfamilie get secret azuread-familie-prosessering-lokal -o json | jq '.data | map_values(@base64d)'`
+Secrets kan bli lagt inn automatisk dersom man kjører `sh hent-og-lagre-miljøvariabler.sh`. Scriptet krever at du har `jq`, er pålogget naisdevice og er logget inn på google `gcloud auth login`
+
+Secrets kan også hentes selv fra cluster med `kubectl -n teamfamilie get secret azuread-familie-prosessering-lokal -o json | jq '.data | map_values(@base64d)'`
 
 Bruk override_scope for å sette scope manuelt for den applikasjonen du vil kjøre mot lokalt
 ```
