@@ -45,7 +45,7 @@ const TaskPanel: FC<IProps> = ({ task }) => {
                 åpen={visKommenteringModal}
             />
             <div className={classNames('taskpanel__status', task.status)}>
-                <Label as="p" children={taskStatusTekster[task.status]} />
+                <Label as="p">{taskStatusTekster[task.status]}</Label>
             </div>
             <Button
                 size={'small'}
@@ -77,31 +77,32 @@ const TaskPanel: FC<IProps> = ({ task }) => {
             </div>
 
             <div className={'taskpanel__lenker'}>
-                <Link href={kibanaErrorLenke} children={'Kibana error'} />
-                <Link href={kibanaInfoLenke} children={'Kibana info'} />
+                <Link href={kibanaErrorLenke}>Kibana error</Link>
+                <Link href={kibanaInfoLenke}>Kibana info</Link>
                 <Link
                     href={''}
                     onClick={(event) => {
                         settVisAvvikshåndteringModal(!visAvvikshåndteringModal);
                         event.preventDefault();
                     }}
-                    children={'Avvikshåndter'}
-                />
+                >
+                    Avvikshåndter
+                </Link>
                 <Link
                     href={''}
                     onClick={(event) => {
                         settVisKommenteringModal(!visKommenteringModal);
                         event.preventDefault();
                     }}
-                    children={'Kommenter'}
-                />
+                >
+                    Kommenter
+                </Link>
             </div>
 
             <div className={'taskpanel__metadata'}>
-                <BodyShort
-                    size={'small'}
-                    children={moment(task.opprettetTidspunkt).format('DD.MM.YYYY HH:mm')}
-                />
+                <BodyShort size={'small'}>
+                    {moment(task.opprettetTidspunkt).format('DD.MM.YYYY HH:mm')}
+                </BodyShort>
             </div>
             <div className={'taskpanel__vislogg taskpanel__gruppert'}>
                 <Button

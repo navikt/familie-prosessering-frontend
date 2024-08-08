@@ -21,20 +21,18 @@ const Tasks: React.FunctionComponent = () => {
                 </div>
             );
         case RessursStatus.HENTER:
-            return <Alert children={`Laster tasker`} variant={'info'} />;
+            return <Alert variant={'info'}>Laster tasker</Alert>;
         case RessursStatus.IKKE_TILGANG:
             return (
-                <Alert
-                    children={`Ikke tilgang til tasker: ${tasks.frontendFeilmelding}`}
-                    variant={'warning'}
-                />
+                <Alert variant={'warning'}>
+                    Ikke tilgang til tasker: ${tasks.frontendFeilmelding}
+                </Alert>
             );
         case RessursStatus.FEILET:
             return (
-                <Alert
-                    children={`Innhenting av tasker feilet: ${tasks.frontendFeilmelding}`}
-                    variant={'error'}
-                />
+                <Alert variant={'error'}>
+                    Innhenting av tasker feilet: ${tasks.frontendFeilmelding}
+                </Alert>
             );
         default:
             return <div />;

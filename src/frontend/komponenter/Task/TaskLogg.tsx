@@ -20,7 +20,7 @@ const hentStackTrace = (melding?: string) => {
         } else {
             return 'Ingen stack trace';
         }
-    } catch (error) {
+    } catch {
         return melding ? melding : undefined;
     }
 };
@@ -60,7 +60,7 @@ const TaskLogg: React.FC<{ taskId: number; visLogg: boolean }> = ({ taskId, visL
                     </div>
 
                     {stackTrace && (
-                        <pre className={'taskpanel__logg--item-melding'} children={stackTrace} />
+                        <pre className={'taskpanel__logg--item-melding'}>{stackTrace}</pre>
                     )}
                 </div>
             );
