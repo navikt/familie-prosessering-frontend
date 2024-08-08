@@ -13,7 +13,7 @@ import setupRouter from './router.js';
 import { IService, serviceConfig } from './serviceConfig.js';
 import { sessionConfig } from './config.js';
 
-// @ts-ignore
+// @ts-expect-error spesialimport
 import config from '../build_n_deploy/webpack/webpack.dev.js';
 import { teamconfig } from './teamconfig';
 
@@ -27,12 +27,10 @@ backend(sessionConfig).then(({ app, azureAuthClient, router }: IApp) => {
     if (process.env.NODE_ENV === 'development') {
         const compiler = webpack(config);
         middleware = webpackDevMiddleware(compiler, {
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
             publicPath: config.output.publicPath,
         });
 
         app.use(middleware);
-        // @ts-ignore
         app.use(webpackHotMiddleware(compiler));
     } else {
         app.use('/assets', express.static(path.resolve(process.cwd(), 'frontend_production/')));
