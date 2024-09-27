@@ -36,6 +36,7 @@ spec:
         - application: familie-ef-mottak
         - application: familie-ba-sak
         - application: familie-ks-sak
+        - application: familie-ks-barnehagelister
         - application: familie-baks-mottak
   resources:
     limits:
