@@ -9,7 +9,6 @@ export enum IServiceGruppe {
     FELLES = 'FELLES',
     EF = 'EF',
     BAKS = 'BAKS',
-    HELVED = 'HELVED',
 }
 
 export interface IOppfølgingstask {
