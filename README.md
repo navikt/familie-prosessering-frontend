@@ -39,7 +39,7 @@ Bruk override_scope for å sette scope manuelt for den applikasjonen du vil kjø
     OVERRIDE_SCOPE=api://.../.default
     ENV=local
     HOST=familie-prosessering
-    NAIS_NAMESPACE=<teamfamilie | helved | tilleggsstonader>
+    NAIS_NAMESPACE=<teamfamilie | tilleggsstonader>
 ```
 
 For å bygge prodversjon kjør `yarn build`. Prodversjonen vil ikke kjøre lokalt med mindre det gjøres en del endringer i forbindelse med uthenting av environment variabler og URLer for uthenting av informasjon.

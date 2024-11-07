@@ -7,7 +7,7 @@ export interface IService {
     displayName: string;
     proxyPath: string;
     id: string;
-    gruppe: 'EF' | 'BAKS' | 'FELLES' | 'HELVED';
+    gruppe: 'EF' | 'BAKS' | 'FELLES';
     proxyUrl: string;
 }
 
@@ -21,7 +21,6 @@ interface ProxyUrls {
     kontantstøtte_sak: string;
     barnehagelister_api: string;
     baks_mottak: string;
-    utsjekk: string;
     tilleggsstonader_sak: string;
     tilleggsstonader_søknad: string;
     tilleggsstonader_klage: string;
@@ -40,7 +39,6 @@ if (process.env.ENV === 'local') {
         kontantstøtte_sak: 'http://localhost:8083',
         barnehagelister_api: 'http://localhost:8096',
         baks_mottak: 'http://localhost:8090',
-        utsjekk: 'http://localhost:8080',
         tilleggsstonader_sak: 'http://localhost:8101',
         tilleggsstonader_søknad: 'http://localhost:8001',
         tilleggsstonader_klage: 'http://localhost:8090',
@@ -56,7 +54,6 @@ if (process.env.ENV === 'local') {
         tilbake: 'https://familie-tilbake.intern.dev.nav.no',
         klage: `https://familie-klage.intern.dev.nav.no`, // familie-prosessering-lokalt må legges til under inbound access policy i app-dev-gcp.yaml
         baks_mottak: `https://familie-baks-mottak.intern.dev.nav.no`, // familie-prosessering-lokalt må legges til under inbound access policy i app-dev-gcp.yaml
-        utsjekk: 'https://utsjekk.intern.dev.nav.no', // familie-prosessering-lokalt må legges til under inbound access policy i app-dev-gcp.yaml
         tilleggsstonader_sak: 'https://tilleggsstonader-sak.intern.dev.nav.no', // familie-prosessering-lokalt må legges til under inbound access policy i app-dev-gcp.yaml
         tilleggsstonader_søknad: 'https://tilleggsstonader-soknad-api.intern.dev.nav.no', // familie-prosessering-lokalt må legges til under inbound access policy i app-dev-gcp.yaml
         tilleggsstonader_klage: 'https://tilleggsstonader-klage.intern.dev.nav.no', // familie-prosessering-lokalt må legges til under inbound access policy i app-dev-gcp.yaml
@@ -72,7 +69,6 @@ if (process.env.ENV === 'local') {
         tilbake: `http://familie-tilbake`,
         klage: `http://familie-klage`,
         baks_mottak: `http://familie-baks-mottak`,
-        utsjekk: 'http://utsjekk',
         tilleggsstonader_sak: 'http://tilleggsstonader-sak',
         tilleggsstonader_søknad: 'http://tilleggsstonader-soknad-api',
         tilleggsstonader_klage: 'http://tilleggsstonader-klage',
@@ -175,17 +171,6 @@ export const serviceConfig: { [key in Team]: IService[] } = {
             proxyPath: '/familie-ks-barnehagelister/api',
             proxyUrl: proxyUrls.barnehagelister_api,
             teamname: 'teamfamilie',
-        },
-    ],
-    helved: [
-        {
-            cluster: 'gcp',
-            displayName: 'Utsjekk',
-            id: 'utsjekk',
-            gruppe: 'HELVED',
-            proxyPath: '/utsjekk/api',
-            proxyUrl: proxyUrls.utsjekk,
-            teamname: 'helved',
         },
     ],
     tilleggsstonader: [
