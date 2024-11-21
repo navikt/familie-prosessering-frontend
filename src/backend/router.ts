@@ -34,21 +34,29 @@ export default (
 
     // APP
     if (process.env.NODE_ENV === 'development' && middleware) {
-        router.get('*', ensureAuthenticated(authClient, false), (req: Request, res: Response) => {
-            if (middleware.context.outputFileSystem.readFileSync) {
-                res.writeHead(200, { 'Content-Type': 'text/html' });
-                res.write(
-                    middleware.context.outputFileSystem.readFileSync(
-                        path.resolve(middleware.context.compiler.outputPath, `index.html`)
-                    )
-                );
-                res.end();
+        router.get(
+            '*global',
+            ensureAuthenticated(authClient, false),
+            (req: Request, res: Response) => {
+                if (middleware.context.outputFileSystem.readFileSync) {
+                    res.writeHead(200, { 'Content-Type': 'text/html' });
+                    res.write(
+                        middleware.context.outputFileSystem.readFileSync(
+                            path.resolve(middleware.context.compiler.outputPath, `index.html`)
+                        )
+                    );
+                    res.end();
+                }
             }
-        });
+        );
     } else {
-        router.get('*', ensureAuthenticated(authClient, false), (req: Request, res: Response) => {
-            res.sendFile('index.html', { root: path.resolve(process.cwd(), buildPath) });
-        });
+        router.get(
+            '*global',
+            ensureAuthenticated(authClient, false),
+            (req: Request, res: Response) => {
+                res.sendFile('index.html', { root: path.resolve(process.cwd(), buildPath) });
+            }
+        );
     }
 
     return router;
