@@ -1,6 +1,6 @@
 import path from 'path';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
-import TypeScriptTypeChecker from 'fork-ts-checker-webpack-plugin';
+import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 
 const common = {
     entry: {
@@ -16,14 +16,6 @@ const common = {
                 test: /\.m?js$/,
                 resolve: {
                     fullySpecified: false, // Fikser at man ikke kan gjøre import uten filextension fra moduler med type: module i package.json
-                },
-            },
-            {
-                test: /\.(js|ts|tsx)$/,
-                loader: 'ts-loader',
-                exclude: /node_modules/,
-                options: {
-                    transpileOnly: true,
                 },
             },
             {
@@ -67,7 +59,15 @@ const common = {
             alwaysWriteToDisk: true,
             favicon: path.join(process.cwd(), '/src/frontend/favicon.ico'),
         }),
-        new TypeScriptTypeChecker(),
+        new ForkTsCheckerWebpackPlugin({
+            async: true,
+            typescript: {
+                diagnosticOptions: {
+                    semantic: true,
+                    syntactic: true,
+                },
+            },
+        }),
     ],
 };
 

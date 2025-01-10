@@ -2,6 +2,7 @@ import path from 'path';
 import webpack from 'webpack';
 import { mergeWithCustomize } from 'webpack-merge';
 import common from './webpack.common';
+import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
 
 const config = mergeWithCustomize({
     'entry.familie-prosessering': 'prepend',
@@ -9,10 +10,7 @@ const config = mergeWithCustomize({
 })(common, {
     mode: 'development',
     entry: {
-        'familie-prosessering': [
-            'react-hot-loader/patch',
-            'webpack-hot-middleware/client?reload=true',
-        ],
+        'familie-prosessering': ['webpack-hot-middleware/client?reload=true'],
     },
     output: {
         path: path.resolve(process.cwd(), 'frontend_development/'),
@@ -25,15 +23,18 @@ const config = mergeWithCustomize({
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': JSON.stringify('development'),
         }),
+        new ReactRefreshWebpackPlugin(),
         new webpack.HotModuleReplacementPlugin(),
     ],
     module: {
         rules: [
-            // would only land a "hot-patch" to react-dom
             {
-                test: /\.(js|ts)$/,
-                include: /node_modules\/react-dom/,
-                use: ['react-hot-loader/webpack'],
+                test: /\.(jsx|tsx|ts|js)?$/,
+                exclude: /node_modules/,
+                loader: 'babel-loader',
+                options: {
+                    plugins: ['react-refresh/babel'],
+                },
             },
         ],
     },

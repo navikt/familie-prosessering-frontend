@@ -29,6 +29,15 @@ const config = mergeWithCustomize({
         minimizer: [new TerserPlugin(), new CssMinimizerWebpackPlugin()],
         emitOnErrors: false,
     },
+    module: {
+        rules: [
+            {
+                test: /\.(jsx|tsx|ts|js)?$/,
+                exclude: /node_modules/,
+                loader: 'babel-loader',
+            },
+        ],
+    },
 });
 
 export default config;
