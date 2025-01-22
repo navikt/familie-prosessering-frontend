@@ -63,3 +63,19 @@ jobs:
           CLUSTER: dev-gcp
           RESOURCE: build_n_deploy/naiserator/gcp-dev-tilleggsstonader.yaml
           VAR: image=${{ needs.build.outputs.image }}
+
+  deploy-tilbakekreving:
+    name: Deploy to dev - tilbakekreving
+    if: ${{ github.event.pull_request.user.login != 'dependabot[bot]' }}
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: nais/deploy/actions/deploy@v2
+        env:
+          CLUSTER: dev-gcp
+          RESOURCE: build_n_deploy/naiserator/gcp-dev-tilbake.yaml
+          VAR: image=${{ needs.build.outputs.image }}
