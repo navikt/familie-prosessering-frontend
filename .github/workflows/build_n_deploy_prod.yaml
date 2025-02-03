@@ -94,3 +94,18 @@ jobs:
           CLUSTER: prod-gcp
           RESOURCE: build_n_deploy/naiserator/gcp-prod-tilleggsstonader.yaml
           VAR: image=${{ needs.build.outputs.image }}
+
+  deploy-tilbakekreving:
+    name: Deploy to Prod - tilbakekreving
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: nais/deploy/actions/deploy@v2
+        env:
+          CLUSTER: prod-gcp
+          RESOURCE: build_n_deploy/naiserator/gcp-prod-tilbake.yaml
+          VAR: image=${{ needs.build.outputs.image }}
