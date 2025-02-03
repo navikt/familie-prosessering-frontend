@@ -17,6 +17,7 @@ interface ProxyUrls {
     enslig_sak: string;
     enslig_iverksett: string;
     tilbakekreving: string;
+    familie_tilbake: string;
     klage: string;
     kontantstøtte_sak: string;
     barnehagelister_api: string;
@@ -35,6 +36,7 @@ if (process.env.ENV === 'local') {
         enslig_sak: 'http://localhost:8093',
         enslig_iverksett: 'http://localhost:8094',
         tilbakekreving: 'http://localhost:8030',
+        familie_tilbake: 'http://localhost:8030',
         klage: 'http://localhost:8094',
         kontantstøtte_sak: 'http://localhost:8083',
         barnehagelister_api: 'http://localhost:8096',
@@ -52,6 +54,7 @@ if (process.env.ENV === 'local') {
         kontantstøtte_sak: `https://familie-ks-sak.intern.dev.nav.no`, // familie-prosessering-lokalt må legges til under inbound access policy i app-dev-gcp.yaml
         barnehagelister_api: 'https://familie-ks-barnehagelister.intern.dev.nav.no', // familie-prosessering-lokalt må legges til under inbound access policy i app-dev-gcp.yaml
         tilbakekreving: 'https://tilbakekreving-backend.intern.dev.nav.no',
+        familie_tilbake: 'https://tilbakekreving-backend.intern.dev.nav.no',
         klage: `https://familie-klage.intern.dev.nav.no`, // familie-prosessering-lokalt må legges til under inbound access policy i app-dev-gcp.yaml
         baks_mottak: `https://familie-baks-mottak.intern.dev.nav.no`, // familie-prosessering-lokalt må legges til under inbound access policy i app-dev-gcp.yaml
         tilleggsstonader_sak: 'https://tilleggsstonader-sak.intern.dev.nav.no', // familie-prosessering-lokalt må legges til under inbound access policy i app-dev-gcp.yaml
@@ -67,6 +70,7 @@ if (process.env.ENV === 'local') {
         kontantstøtte_sak: `http://familie-ks-sak`,
         barnehagelister_api: 'http://familie-ks-barnehagelister',
         tilbakekreving: `http://tilbakekreving-backend`,
+        familie_tilbake: `http://familie-tilbake`,
         klage: `http://familie-klage`,
         baks_mottak: `http://familie-baks-mottak`,
         tilleggsstonader_sak: 'http://tilleggsstonader-sak',
@@ -161,6 +165,15 @@ export const serviceConfig: { [key in Team]: IService[] } = {
             gruppe: 'BAKS',
             proxyPath: '/familie-ks-barnehagelister/api',
             proxyUrl: proxyUrls.barnehagelister_api,
+            teamname: 'teamfamilie',
+        },
+        {
+            cluster: 'gcp',
+            displayName: 'Tilbakekreving',
+            id: 'familie-tilbake',
+            gruppe: 'FELLES',
+            proxyPath: '/familie-tilbake/api',
+            proxyUrl: proxyUrls.familie_tilbake,
             teamname: 'teamfamilie',
         },
     ],
