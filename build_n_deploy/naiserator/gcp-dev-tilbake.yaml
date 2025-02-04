@@ -1,0 +1,42 @@
+apiVersion: nais.io/v1alpha1
+kind: Application
+metadata:
+  name: tilbakekreving-prosessering
+  namespace: tilbake
+  labels:
+    team: tilbake
+spec:
+  image: {{ image }}
+  port: 8000
+  liveness:
+    path: /isAlive
+    initialDelay: 5
+  readiness:
+    path: /isReady
+    initialDelay: 5
+  replicas:
+    min: 1
+    max: 1
+  ingresses:
+    - "https://tilbakekreving-prosessering.intern.dev.nav.no"
+  azure:
+    application:
+      enabled: true
+      allowAllUsers: true
+      replyURLs:
+        - 'https://tilbakekreving-prosessering.intern.dev.nav.no/auth/openid/callback'
+  accessPolicy:
+    outbound:
+      rules:
+        - application: tilbakekreving-backend
+  resources:
+    limits:
+      memory: 512Mi
+    requests:
+      memory: 256Mi
+      cpu: 20m
+  envFrom:
+    - secret: tilbakekreving-prosessering
+  env:
+    - name: ENV
+      value: dev
