@@ -1,7 +1,7 @@
 apiVersion: nais.io/v1alpha1
 kind: Application
 metadata:
-  name: tilbake-prosessering
+  name: tilbakekreving-prosessering
   namespace: tilbake
   labels:
     team: tilbake
@@ -19,12 +19,12 @@ spec:
     max: 1
     cpuThresholdPercentage: 50
   ingresses:
-    - "https://tilbake-prosessering.intern.nav.no"
+    - "https://tilbakekreving-prosessering.intern.nav.no"
   azure:
     application:
       enabled: true
       replyURLs:
-        - 'https://tilbake-prosessering.intern.nav.no/auth/openid/callback'
+        - 'https://tilbakekreving-prosessering.intern.nav.no/auth/openid/callback'
       claims:
         groups:
           - id: "87190cf3-b278-457d-8ab7-1a5c55a9edd7" # teamfamilie (Bør kanskje byttes ut etterhvert?)
