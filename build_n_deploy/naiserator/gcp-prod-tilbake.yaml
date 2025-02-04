@@ -39,7 +39,7 @@ spec:
       memory: 256Mi
       cpu: 20m
   envFrom:
-    - secret: prosessering
+    - secret: tilbakekreving-prosessering
   env:
     - name: ENV
       value: prod
