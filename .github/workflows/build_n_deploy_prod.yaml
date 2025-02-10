@@ -33,8 +33,6 @@ jobs:
         id: docker-build-push
         with:
           team: teamfamilie
-          identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
-          project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
   deploy-dev-teamfamilie:
     name: Deploy to Dev teamfamilie
     needs: build
