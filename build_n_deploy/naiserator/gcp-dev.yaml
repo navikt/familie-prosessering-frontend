@@ -31,7 +31,6 @@ spec:
       rules:
         - application: familie-ef-sak
         - application: familie-ef-iverksett
-        - application: familie-tilbake
         - application: familie-klage
         - application: familie-ef-mottak
         - application: familie-ba-sak
