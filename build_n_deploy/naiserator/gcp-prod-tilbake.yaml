@@ -27,7 +27,7 @@ spec:
         - 'https://tilbakekreving-prosessering.intern.nav.no/auth/openid/callback'
       claims:
         groups:
-          - id: "87190cf3-b278-457d-8ab7-1a5c55a9edd7" # teamfamilie (Bør kanskje byttes ut etterhvert?)
+          - id: "d88d7d83-d22a-4627-8318-a569a6290a92" # nais-team-tilbake
   accessPolicy:
     outbound:
       rules:
