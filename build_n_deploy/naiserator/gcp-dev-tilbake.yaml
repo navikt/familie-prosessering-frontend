@@ -22,6 +22,7 @@ spec:
     - "https://tilbakekreving-prosessering.intern.dev.nav.no"
   azure:
     application:
+      tenant: nav.no
       enabled: true
       replyURLs:
         - 'https://tilbakekreving-prosessering.intern.dev.nav.no/auth/openid/callback'
