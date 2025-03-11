@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { TaskStatus, taskStatusTekster } from '../../../typer/task';
 import { useServiceContext } from '../../ServiceContext';
 import { useTaskContext } from '../../TaskProvider';
+import { ArrowCirclepathIcon } from '@navikt/aksel-icons';
 
 const TopBar: FC = () => {
     const {
@@ -28,7 +29,15 @@ const TopBar: FC = () => {
 
             {(statusFilter === TaskStatus.FEILET ||
                 statusFilter === TaskStatus.MANUELL_OPPFØLGING) && (
-                <Button size={'small'} variant={'secondary'} onClick={() => rekjørTasks()}>
+                <Button
+                    icon={<ArrowCirclepathIcon fontSize="1.5rem" />}
+                    style={{
+                        display: 'flex',
+                        alignSelf: 'flex-end',
+                    }}
+                    variant={'secondary'}
+                    onClick={() => rekjørTasks()}
+                >
                     Rekjør alle tasks
                 </Button>
             )}
@@ -54,6 +63,7 @@ const TopBar: FC = () => {
                     onChange={(event) => settStatusFilter(event.target.value as TaskStatus)}
                     value={statusFilter}
                     label={'Status'}
+                    style={{ width: '12rem' }}
                 >
                     {Object.values(TaskStatus).map((status: TaskStatus) => {
                         return (
@@ -67,9 +77,7 @@ const TopBar: FC = () => {
                     onChange={(event) => settTypeFilter(event.target.value)}
                     value={type}
                     label={'Type'}
-                    style={{
-                        width: '22rem',
-                    }}
+                    style={{ width: '12rem' }}
                 >
                     <option key={'alle'} value={''}>
                         Alle
