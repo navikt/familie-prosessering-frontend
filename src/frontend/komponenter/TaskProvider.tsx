@@ -5,6 +5,7 @@ import { Location, useLocation } from 'react-router';
 import { useNavigate, useParams } from 'react-router-dom';
 import {
     avvikshåndterTask,
+    hentAlleTasktyper,
     hentTask,
     hentTasks,
     hentTasksMedCallId,
@@ -54,6 +55,7 @@ const [TaskProvider, useTaskContext] = constate(() => {
     const [fagsystemFilter, settFagsystemFilter] = useState<Fagsystem>(Fagsystem.ALLE);
     const [side, settSide] = useState<number>(getQueryParamSide(location));
     const [type, settTypeFilter] = useState<string>(getQueryParamTaskType(location));
+    const [typer, settTyper] = useState<string[]>([]);
     const [taskId, settTaskId] = useState<number | undefined>(useGetParamTaskId());
     const [callId, settCallId] = useState<string | undefined>();
     const [task, settTask] = useState<Ressurs<ITask>>(byggTomRessurs());
@@ -72,6 +74,16 @@ const [TaskProvider, useTaskContext] = constate(() => {
 
     useEffect(() => {
         settFagsystemFilter(Fagsystem.ALLE);
+    }, [valgtService]);
+
+    useEffect(() => {
+        if (valgtService !== undefined) {
+            hentAlleTasktyper(valgtService).then((response) => {
+                if (response.status === RessursStatus.SUKSESS) {
+                    settTyper(response.data);
+                }
+            });
+        }
     }, [valgtService]);
 
     useEffect(() => {
@@ -160,6 +172,7 @@ const [TaskProvider, useTaskContext] = constate(() => {
         hentEllerOppdaterTasks,
         fagsystemFilter,
         settFagsystemFilter,
+        typer,
     };
 });
 

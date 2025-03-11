@@ -12,6 +12,9 @@ const TopBar: FC = () => {
         settStatusFilter,
         tasksSomErFerdigNåMenFeiletFør,
         hentEllerOppdaterTasks,
+        type,
+        typer,
+        settTypeFilter,
     } = useTaskContext();
     const { valgtService } = useServiceContext();
     const [visFeilaMenFerdig, setVisFeilaMenFerdig] = useState(false);
@@ -56,6 +59,26 @@ const TopBar: FC = () => {
                         return (
                             <option key={status} value={status}>
                                 {taskStatusTekster[status]}
+                            </option>
+                        );
+                    })}
+                </Select>
+                <Select
+                    onChange={(event) => settTypeFilter(event.target.value)}
+                    value={type}
+                    label={'Type'}
+                    style={{
+                        width: '22rem',
+                    }}
+                >
+                    <option key={'alle'} value={''}>
+                        Alle
+                    </option>
+
+                    {typer.map((type: string) => {
+                        return (
+                            <option key={type} value={type}>
+                                {type}
                             </option>
                         );
                     })}
