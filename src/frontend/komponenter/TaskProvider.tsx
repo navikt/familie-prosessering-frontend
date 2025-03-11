@@ -113,7 +113,7 @@ const [TaskProvider, useTaskContext] = constate(() => {
                 statusFilter === TaskStatus.MANUELL_OPPFØLGING ||
                 statusFilter === TaskStatus.FEILET)
         ) {
-            rekjørTask(valgtService, statusFilter, id).then((response) => {
+            rekjørTask(valgtService, statusFilter, type, id).then((response) => {
                 if (response.status === RessursStatus.SUKSESS) {
                     hentEllerOppdaterTasks();
                 }
