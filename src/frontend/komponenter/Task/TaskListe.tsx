@@ -10,7 +10,7 @@ interface IProps {
 }
 
 const TaskListe: React.FC<IProps> = ({ tasks }) => {
-    const { statusFilter, type, fagsystemFilter } = useTaskContext();
+    const { statusFilter, typeFilter, fagsystemFilter } = useTaskContext();
 
     const skalViseTask = (task: ITask): boolean => {
         switch (fagsystemFilter) {
@@ -39,7 +39,7 @@ const TaskListe: React.FC<IProps> = ({ tasks }) => {
     ) : (
         <Alert variant={'info'}>
             Ingen tasker med status {statusFilter}
-            {type ? ` av type {type}` : ''}
+            {typeFilter ? ` av type ${typeFilter}` : ''}
         </Alert>
     );
 };

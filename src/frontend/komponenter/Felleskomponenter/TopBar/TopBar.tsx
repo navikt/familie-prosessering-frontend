@@ -13,7 +13,7 @@ const TopBar: FC = () => {
         settStatusFilter,
         tasksSomErFerdigNåMenFeiletFør,
         hentEllerOppdaterTasks,
-        type,
+        typeFilter,
         typer,
         settTypeFilter,
     } = useTaskContext();
@@ -75,7 +75,7 @@ const TopBar: FC = () => {
                 </Select>
                 <Select
                     onChange={(event) => settTypeFilter(event.target.value)}
-                    value={type}
+                    value={typeFilter}
                     label={'Type'}
                     style={{ width: '12rem' }}
                 >
