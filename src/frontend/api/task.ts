@@ -77,6 +77,7 @@ export const hentTaskLogg = (valgtService: IService, id: number): Promise<Ressur
 export const rekjørTask = (
     valgtService: IService,
     statusFilter: TaskStatus,
+    typeFilter: string,
     taskId?: number
 ): Promise<Ressurs<ITask[]>> => {
     if (taskId) {
@@ -88,6 +89,7 @@ export const rekjørTask = (
         return axiosRequest({
             headers: {
                 status: statusFilter,
+                type: typeFilter,
             },
             method: 'PUT',
             url: `${valgtService.proxyPath}/task/rekjorAlle`,
