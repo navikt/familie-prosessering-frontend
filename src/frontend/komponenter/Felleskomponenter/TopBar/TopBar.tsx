@@ -38,7 +38,7 @@ const TopBar: FC = () => {
                     variant={'secondary'}
                     onClick={() => rekjørTasks()}
                 >
-                    Rekjør alle tasks
+                    Rekjør tasks
                 </Button>
             )}
 
