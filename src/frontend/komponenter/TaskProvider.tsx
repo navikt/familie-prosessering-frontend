@@ -54,7 +54,7 @@ const [TaskProvider, useTaskContext] = constate(() => {
     );
     const [fagsystemFilter, settFagsystemFilter] = useState<Fagsystem>(Fagsystem.ALLE);
     const [side, settSide] = useState<number>(getQueryParamSide(location));
-    const [type, settTypeFilter] = useState<string>(getQueryParamTaskType(location));
+    const [typeFilter, settTypeFilter] = useState<string>(getQueryParamTaskType(location));
     const [typer, settTyper] = useState<string[]>([]);
     const [taskId, settTaskId] = useState<number | undefined>(useGetParamTaskId());
     const [callId, settCallId] = useState<string | undefined>();
@@ -67,7 +67,7 @@ const [TaskProvider, useTaskContext] = constate(() => {
             } else if (callId) {
                 hentTasksMedCallId(valgtService, callId).then(settTasks);
             } else {
-                hentTasks(valgtService, statusFilter, side, type).then(settTasks);
+                hentTasks(valgtService, statusFilter, side, typeFilter).then(settTasks);
             }
         }
     };
@@ -89,20 +89,20 @@ const [TaskProvider, useTaskContext] = constate(() => {
     useEffect(() => {
         hentEllerOppdaterTasks();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [valgtService, statusFilter, side, type, taskId, callId]);
+    }, [valgtService, statusFilter, side, typeFilter, taskId, callId]);
 
     useEffect(() => {
         if (
             getQueryParamStatusFilter(location) !== statusFilter ||
             getQueryParamSide(location) !== side ||
-            getQueryParamTaskType(location) !== type
+            getQueryParamTaskType(location) !== typeFilter
         ) {
             navigate(
-                `${location.pathname}?statusFilter=${statusFilter}&side=${side}&taskType=${type}`
+                `${location.pathname}?statusFilter=${statusFilter}&side=${side}&taskType=${typeFilter}`
             );
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [statusFilter, side, type, history]);
+    }, [statusFilter, side, typeFilter, history]);
 
     const rekjørTasks = (id?: number) => {
         const rekjørAlleTasks = id === undefined || id === null;
@@ -113,7 +113,7 @@ const [TaskProvider, useTaskContext] = constate(() => {
                 statusFilter === TaskStatus.MANUELL_OPPFØLGING ||
                 statusFilter === TaskStatus.FEILET)
         ) {
-            rekjørTask(valgtService, statusFilter, id).then((response) => {
+            rekjørTask(valgtService, statusFilter, typeFilter, id).then((response) => {
                 if (response.status === RessursStatus.SUKSESS) {
                     hentEllerOppdaterTasks();
                 }
@@ -163,7 +163,7 @@ const [TaskProvider, useTaskContext] = constate(() => {
         task,
         statusFilter,
         settStatusFilter,
-        type,
+        typeFilter,
         settTypeFilter,
         rekjørTasks,
         avvikshåndter,
