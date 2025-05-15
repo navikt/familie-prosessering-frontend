@@ -2,7 +2,7 @@ const app = require('./mock-routes');
 const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
-const config = require('../.nais/webpack/webpack.dev.js');
+const config = require('../.nais/webpack/webpack.dev');
 const path = require('path');
 
 const port = 8000;
