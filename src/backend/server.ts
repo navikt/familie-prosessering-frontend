@@ -14,7 +14,7 @@ import { IService, serviceConfig } from './serviceConfig.js';
 import { sessionConfig } from './config.js';
 
 // @ts-expect-error spesialimport
-import config from '../build_n_deploy/webpack/webpack.dev.js';
+import config from '../.nais/webpack/webpack.dev.js';
 import { teamconfig } from './teamconfig';
 
 loglevel.setDefaultLevel(loglevel.levels.INFO);
