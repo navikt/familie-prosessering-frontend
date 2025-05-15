@@ -43,7 +43,7 @@ jobs:
       - uses: nais/deploy/actions/deploy@655191e618af58744d594ab4226aeac78dc739ec # ratchet:nais/deploy/actions/deploy@v2
         env:
           CLUSTER: dev-gcp
-          RESOURCE: build_n_deploy/naiserator/gcp-dev.yaml
+          RESOURCE: .nais/app-dev.yaml
           VAR: image=${{ needs.build.outputs.image }}
 
   deploy-tilleggsstonader:
@@ -59,7 +59,7 @@ jobs:
       - uses: nais/deploy/actions/deploy@655191e618af58744d594ab4226aeac78dc739ec # ratchet:nais/deploy/actions/deploy@v2
         env:
           CLUSTER: dev-gcp
-          RESOURCE: build_n_deploy/naiserator/gcp-dev-tilleggsstonader.yaml
+          RESOURCE: .nais/app-dev-tilleggsstonader.yaml
           VAR: image=${{ needs.build.outputs.image }}
 
   deploy-tilbakekreving:
@@ -75,5 +75,5 @@ jobs:
       - uses: nais/deploy/actions/deploy@655191e618af58744d594ab4226aeac78dc739ec # ratchet:nais/deploy/actions/deploy@v2
         env:
           CLUSTER: dev-gcp
-          RESOURCE: build_n_deploy/naiserator/gcp-dev-tilbake.yaml
+          RESOURCE: .nais/app-dev-tilbake.yaml
           VAR: image=${{ needs.build.outputs.image }}
