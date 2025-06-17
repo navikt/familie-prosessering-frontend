@@ -10,6 +10,7 @@ import AvvikshåndteringModal from './AvvikshåndteringModal/AvvikshåndteringMo
 import KommenteringModal from './KommenteringModal/kommenteringModal';
 import TaskElement from './TaskElement';
 import TaskLogg from './TaskLogg';
+import { erProd } from '../../utils/miljø';
 
 interface IProps {
     task: ITask;
@@ -28,6 +29,12 @@ const TaskPanel: FC<IProps> = ({ task }) => {
 
     const kibanaErrorLenke = `https://logs.adeo.no/app/kibana#/discover/48543ce0-877e-11e9-b511-6967c3e45603?_g=(refreshInterval:(pause:!t,value:0),time:(from:'${task.opprettetTidspunkt}',mode:relative,to:now))&_a=(columns:!(message,envclass,environment,level,application,host),filters:!(('$state':(store:appState),meta:(alias:!n,disabled:!f,index:'logstash-apps-*',key:team,negate:!f,params:(query:teamfamilie,type:phrase),type:phrase,value:teamfamilie),query:(match:(team:(query:teamfamilie,type:phrase)))),('$state':(store:appState),meta:(alias:!n,disabled:!f,index:'96e648c0-980a-11e9-830a-e17bbd64b4db',key:level,negate:!f,params:(query:Error,type:phrase),type:phrase,value:Error),query:(match:(level:(query:Error,type:phrase))))),index:'96e648c0-980a-11e9-830a-e17bbd64b4db',interval:auto,query:(language:lucene,query:"${task.metadata.callId}"),sort:!('@timestamp',desc))`;
     const kibanaInfoLenke = `https://logs.adeo.no/app/kibana#/discover/48543ce0-877e-11e9-b511-6967c3e45603?_g=(refreshInterval:(pause:!t,value:0),time:(from:'${task.opprettetTidspunkt}',mode:relative,to:now))&_a=(columns:!(message,envclass,environment,level,application,host),filters:!(('$state':(store:appState),meta:(alias:!n,disabled:!f,index:'logstash-apps-*',key:team,negate:!f,params:(query:teamfamilie,type:phrase),type:phrase,value:teamfamilie),query:(match:(team:(query:teamfamilie,type:phrase)))),('$state':(store:appState),meta:(alias:!n,disabled:!f,index:'96e648c0-980a-11e9-830a-e17bbd64b4db',key:level,negate:!f,params:(query:Info,type:phrase),type:phrase,value:Info),query:(match:(level:(query:Info,type:phrase))))),index:'96e648c0-980a-11e9-830a-e17bbd64b4db',interval:auto,query:(language:lucene,query:"${task.metadata.callId}"),sort:!('@timestamp',desc))`;
+
+    const grafanaCluster = erProd() ? 'PD969E40991D5C4A8' : 'P7BE696147D279490';
+    const grafanaLenke = `https://grafana.nav.cloud.nais.io/d/221170ed-1c38-41bc-a581-d90a322caf2d/team-familie-task-logs?from=${new Date(task.opprettetTidspunkt).getTime()}Z&to=now&timezone=Europe%2FOslo&var-cluster=${grafanaCluster}&var-app=$__all&var-level=$__all&var-Filters=service_name%7C%21%3D%7Cnais-ingress&var-Filters=k8s_container_name%7C%21%3D%7Ccloudsql-proxy&var-Filters=k8s_container_name%7C%21%3D%7Csecure-logs-fluentbit&var-Filters=service_name%7C%21%3D%7Ckube-events&var-Filters=callId%7C%3D%7C${task.callId}`;
+
+    const teamLogsCluster = erProd() ? 'prod-160d' : 'dev-ae07';
+    const teamLogsLenke = `https://console.cloud.google.com/logs/query;query=jsonPayload.callId%3D%22${task.callId}%22;startTime=${new Date(task.opprettetTidspunkt).toISOString()};?project=teamfamilie-${teamLogsCluster}`;
 
     const sistKjørt = getSistKjørt(task);
     const navigate = useNavigate();
@@ -79,6 +86,12 @@ const TaskPanel: FC<IProps> = ({ task }) => {
             <div className={'taskpanel__lenker'}>
                 <Link href={kibanaErrorLenke}>Kibana error</Link>
                 <Link href={kibanaInfoLenke}>Kibana info</Link>
+                <Link href={grafanaLenke} target={'_blank'}>
+                    Grafana
+                </Link>
+                <Link href={teamLogsLenke} target={'_blank'}>
+                    Team Logs
+                </Link>
                 <Link
                     href={''}
                     onClick={(event) => {
