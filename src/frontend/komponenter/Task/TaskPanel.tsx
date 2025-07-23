@@ -20,9 +20,41 @@ interface IProps {
 const getSistKjørt = (task: ITask) =>
     task.sistKjørt ? moment(task.sistKjørt).format('DD.MM.YYYY HH:mm') : 'Venter på første kjøring';
 
+const tjenesteUrlConfig = {
+    'familie-ba-sak': {
+        behandling: {
+            prod: 'https://familie-ba-sak.intern.nav.no/internal/redirect/behandling/',
+            dev: 'https://familie-ba-sak.intern.dev.nav.no/internal/redirect/behandling/',
+        },
+        fagsak: {
+            prod: 'https://barnetrygd.intern.nav.no/fagsak/',
+            dev: 'https://barnetrygd.ansatt.dev.nav.no/fagsak/',
+        },
+    },
+    'familie-ks-sak': {
+        behandling: {
+            prod: 'https://familie-ks-sak.intern.nav.no/api/forvaltning/redirect/behandling/',
+            dev: 'https://familie-ks-sak.intern.dev.nav.no/api/forvaltning/redirect/behandling/',
+        },
+        fagsak: {
+            prod: 'https://kontantstotte.intern.nav.no/fagsak/',
+            dev: 'https://kontantstotte.ansatt.dev.nav.no/fagsak/',
+        },
+    },
+};
+
+const hentLenkeTilBehandling = (
+    tjeneste: keyof typeof tjenesteUrlConfig,
+    behandlingsId: string
+): string => `${tjenesteUrlConfig[tjeneste].behandling[erProd() ? 'prod' : 'dev']}${behandlingsId}`;
+
+const hentLenkeTilFagsak = (tjeneste: keyof typeof tjenesteUrlConfig, fagsakId: string): string =>
+    `${tjenesteUrlConfig[tjeneste].fagsak[erProd() ? 'prod' : 'dev']}${fagsakId}`;
+
 const TaskPanel: FC<IProps> = ({ task }) => {
     const { rekjørTasks } = useTaskContext();
     const { valgtService } = useServiceContext();
+
     const [visAvvikshåndteringModal, settVisAvvikshåndteringModal] = useState(false);
     const [visKommenteringModal, settVisKommenteringModal] = useState(false);
     const [visLogg, settVisLogg] = useState(false);
@@ -38,6 +70,9 @@ const TaskPanel: FC<IProps> = ({ task }) => {
 
     const sistKjørt = getSistKjørt(task);
     const navigate = useNavigate();
+
+    const tjeneste = valgtService?.id;
+    const tjenesteStøtterLenke = tjeneste === 'familie-ba-sak' || tjeneste === 'familie-ks-sak';
 
     return (
         <Panel className={'taskpanel'} border={true}>
@@ -71,9 +106,34 @@ const TaskPanel: FC<IProps> = ({ task }) => {
                         : task.taskStepType}
                 </Heading>
                 <div className={'taskpanel__innhold--elementer'}>
-                    {Object.keys(task.metadata).map((key: string) => {
-                        return <TaskElement key={key} label={key} innhold={task.metadata[key]} />;
+                    {Object.entries(task.metadata).map(([key, value]) => {
+                        let lenke: string | null = null;
+
+                        if (tjenesteStøtterLenke) {
+                            if (key === 'behandlingsId') {
+                                lenke = hentLenkeTilBehandling(tjeneste, value);
+                            } else if (key === 'fagsakId') {
+                                lenke = hentLenkeTilFagsak(tjeneste, value);
+                            }
+                        }
+
+                        return (
+                            <TaskElement
+                                key={key}
+                                label={key}
+                                innhold={
+                                    lenke ? (
+                                        <a href={lenke} target="_blank" rel="noopener noreferrer">
+                                            {value}
+                                        </a>
+                                    ) : (
+                                        value
+                                    )
+                                }
+                            />
+                        );
                     })}
+
                     <TaskElement label={'Sist kjørt'} innhold={sistKjørt} />
                     <TaskElement
                         label={'Triggertid'}
