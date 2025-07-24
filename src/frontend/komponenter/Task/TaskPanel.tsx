@@ -110,7 +110,7 @@ const TaskPanel: FC<IProps> = ({ task }) => {
                         let lenke: string | null = null;
 
                         if (tjenesteStøtterLenke) {
-                            if (key === 'behandlingsId') {
+                            if (key === 'behandlingsId' || key === 'behandlingId') {
                                 lenke = hentLenkeTilBehandling(tjeneste, value);
                             } else if (key === 'fagsakId') {
                                 lenke = hentLenkeTilFagsak(tjeneste, value);
