@@ -15,6 +15,7 @@ interface ProxyUrls {
     barnetrygd_sak: string;
     enslig_mottak: string;
     enslig_sak: string;
+    enslig_personhendelse: string;
     enslig_iverksett: string;
     tilbakekreving: string;
     klage: string;
@@ -33,6 +34,7 @@ if (process.env.ENV === 'local') {
         barnetrygd_sak: 'http://localhost:8089',
         enslig_mottak: 'http://localhost:8092',
         enslig_sak: 'http://localhost:8093',
+        enslig_personhendelse: 'http://localhost:8081',
         enslig_iverksett: 'http://localhost:8094',
         tilbakekreving: 'http://localhost:8030',
         klage: 'http://localhost:8094',
@@ -48,6 +50,7 @@ if (process.env.ENV === 'local') {
         barnetrygd_sak: `https://familie-ba-sak.intern.dev.nav.no`, // familie-prosessering-lokalt må legges til under inbound access policy i app-dev-gcp.yaml
         enslig_mottak: `https://familie-ef-mottak.intern.dev.nav.no`, // familie-prosessering-lokalt må legges til under inbound access policy i app-dev-gcp.yaml
         enslig_sak: `https://familie-ef-sak.intern.dev.nav.no`, // familie-prosessering-lokalt må legges til under inbound access policy i app-dev-gcp.yaml
+        enslig_personhendelse: `https://familie-ef-personhendelse.intern.dev.nav.no`, // familie-prosessering-lokalt må legges til under inbound access policy i app-dev-gcp.yaml
         enslig_iverksett: `https://familie-ef-iverksett.intern.dev.nav.no`, // familie-prosessering-lokalt må legges til under inbound access policy i app-dev-gcp.yaml
         kontantstøtte_sak: `https://familie-ks-sak.intern.dev.nav.no`, // familie-prosessering-lokalt må legges til under inbound access policy i app-dev-gcp.yaml
         barnehagelister_api: 'https://familie-ks-barnehagelister.intern.dev.nav.no', // familie-prosessering-lokalt må legges til under inbound access policy i app-dev-gcp.yaml
@@ -63,6 +66,7 @@ if (process.env.ENV === 'local') {
         barnetrygd_sak: `http://familie-ba-sak`,
         enslig_mottak: `http://familie-ef-mottak`,
         enslig_sak: `http://familie-ef-sak`,
+        enslig_personhendelse: `http://familie-ef-personhendelse`,
         enslig_iverksett: `http://familie-ef-iverksett`,
         kontantstøtte_sak: `http://familie-ks-sak`,
         barnehagelister_api: 'http://familie-ks-barnehagelister',
@@ -134,6 +138,15 @@ export const serviceConfig: { [key in Team]: IService[] } = {
             gruppe: 'EF',
             proxyPath: '/familie-ef-sak/api',
             proxyUrl: proxyUrls.enslig_sak,
+            teamname: 'teamfamilie',
+        },
+        {
+            cluster: 'gcp',
+            displayName: 'EF personhendelse',
+            id: 'familie-ef-personhendelse',
+            gruppe: 'EF',
+            proxyPath: '/familie-ef-personhendelse/api',
+            proxyUrl: proxyUrls.enslig_personhendelse,
             teamname: 'teamfamilie',
         },
         {
