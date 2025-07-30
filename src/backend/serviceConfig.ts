@@ -34,7 +34,7 @@ if (process.env.ENV === 'local') {
         barnetrygd_sak: 'http://localhost:8089',
         enslig_mottak: 'http://localhost:8092',
         enslig_sak: 'http://localhost:8093',
-        enslig_personhendelse: 'http://localhost:8081', //TODO sjekk om denne er riktig
+        enslig_personhendelse: 'http://localhost:8081',
         enslig_iverksett: 'http://localhost:8094',
         tilbakekreving: 'http://localhost:8030',
         klage: 'http://localhost:8094',
