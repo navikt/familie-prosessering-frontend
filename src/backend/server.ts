@@ -26,6 +26,11 @@ backend(sessionConfig).then(({ app, azureAuthClient, router }: IApp) => {
 
     if (process.env.NODE_ENV === 'development') {
         const compiler = webpack(config);
+
+        if (!compiler) {
+            throw new Error('Webpack compiler kunne ikke opprettes, mangler verdi.');
+        }
+
         middleware = webpackDevMiddleware(compiler, {
             publicPath: config.output.publicPath,
         });
