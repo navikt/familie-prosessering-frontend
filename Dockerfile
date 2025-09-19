@@ -9,6 +9,6 @@ ADD frontend_production ./frontend_production
 ADD node_modules ./node_modules
 ADD package.json .
 
-ENV NODE_ENV production
+ENV NODE_ENV=production
 
 CMD ["--import=./node_dist/registerESMLoader.js","--es-module-specifier-resolution=node", "node_dist/server.js"]
