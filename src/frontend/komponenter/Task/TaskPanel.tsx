@@ -59,8 +59,8 @@ const TaskPanel: FC<IProps> = ({ task }) => {
     const [visKommenteringModal, settVisKommenteringModal] = useState(false);
     const [visLogg, settVisLogg] = useState(false);
 
-    const kibanaErrorLenke = `https://logs.az.nav.no/app/data-explorer/discover#?_g=(time:(from:'${task.opprettetTidspunkt}',to:now))&_q=(filters:!((query:(match_phrase:(team:teamfamilie))),(query:(match_phrase:(x_callId:'${task.metadata.callId}'))),(query:(match_phrase:(level:Error)))),query:(language:kuery,query:''))`;
-    const kibanaInfoLenke = `https://logs.az.nav.no/app/data-explorer/discover#?_g=(time:(from:'${task.opprettetTidspunkt}',to:now))&_q=(filters:!((query:(match_phrase:(team:teamfamilie))),(query:(match_phrase:(x_callId:'${task.metadata.callId}')))),query:(language:kuery,query:''))`;
+    const openSearchErrorLenke = `https://logs.az.nav.no/app/data-explorer/discover#?_g=(time:(from:'${task.opprettetTidspunkt}',to:now))&_q=(filters:!((query:(match_phrase:(team:teamfamilie))),(query:(match_phrase:(x_callId:'${task.metadata.callId}'))),(query:(match_phrase:(level:Error)))),query:(language:kuery,query:''))`;
+    const openSearchInfoLenke = `https://logs.az.nav.no/app/data-explorer/discover#?_g=(time:(from:'${task.opprettetTidspunkt}',to:now))&_q=(filters:!((query:(match_phrase:(team:teamfamilie))),(query:(match_phrase:(x_callId:'${task.metadata.callId}')))),query:(language:kuery,query:''))`;
 
     const grafanaCluster = erProd() ? 'PD969E40991D5C4A8' : 'P7BE696147D279490';
     const grafanaLenke = `https://grafana.nav.cloud.nais.io/d/221170ed-1c38-41bc-a581-d90a322caf2d/team-familie-task-logs?from=${new Date(task.opprettetTidspunkt).getTime()}Z&to=now&timezone=Europe%2FOslo&var-cluster=${grafanaCluster}&var-app=$__all&var-level=$__all&var-Filters=service_name%7C%21%3D%7Cnais-ingress&var-Filters=k8s_container_name%7C%21%3D%7Ccloudsql-proxy&var-Filters=k8s_container_name%7C%21%3D%7Csecure-logs-fluentbit&var-Filters=service_name%7C%21%3D%7Ckube-events&var-Filters=callId%7C%3D%7C${task.callId}`;
@@ -144,8 +144,8 @@ const TaskPanel: FC<IProps> = ({ task }) => {
             </div>
 
             <div className={'taskpanel__lenker'}>
-                <Link href={kibanaErrorLenke}>Kibana error</Link>
-                <Link href={kibanaInfoLenke}>Kibana info</Link>
+                <Link href={openSearchErrorLenke}>Error logs</Link>
+                <Link href={openSearchInfoLenke}>Info logs</Link>
                 <Link href={grafanaLenke} target={'_blank'}>
                     Grafana
                 </Link>
