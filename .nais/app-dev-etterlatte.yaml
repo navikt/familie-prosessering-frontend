@@ -35,6 +35,8 @@ spec:
     requests:
       memory: 256Mi
       cpu: 20m
+  envFrom:
+    - secret: etterlatte-prosessering
   env:
     - name: ENV
       value: dev
