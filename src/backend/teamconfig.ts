@@ -11,7 +11,7 @@ interface Teamconfig {
 const config: { [key in Team]: Teamconfig } = {
     teamfamilie: { team: 'teamfamilie', host: 'familie-prosessering' },
     tilleggsstonader: { team: 'tilleggsstonader', host: 'tilleggsstonader-prosessering' },
-    etterlatte: { team: 'etterlatte', host: 'etterlatte-prossering' },
+    etterlatte: { team: 'etterlatte', host: 'etterlatte-prosessering' },
 };
 
 const getTeamconfig = (): Teamconfig => {
