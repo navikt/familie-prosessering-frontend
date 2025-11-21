@@ -211,7 +211,7 @@ export const serviceConfig: { [key in Team]: IService[] } = {
             cluster: 'gcp',
             displayName: 'Etterlatte',
             id: 'gjenlevende-bs-sak',
-            gruppe: 'ETTERLATTE',
+            gruppe: 'FELLES',
             proxyPath: '/etterlatte/api',
             proxyUrl: proxyUrls.gjenlevende_sak,
             teamname: 'etterlatte',
