@@ -24,6 +24,7 @@ interface ProxyUrls {
     tilleggsstonader_sak: string;
     tilleggsstonader_søknad: string;
     tilleggsstonader_klage: string;
+    gjenlevende_sak: string;
 }
 
 let proxyUrls: ProxyUrls;
@@ -42,6 +43,7 @@ if (process.env.ENV === 'local') {
         tilleggsstonader_sak: 'http://localhost:8101',
         tilleggsstonader_søknad: 'http://localhost:8001',
         tilleggsstonader_klage: 'http://localhost:8090',
+        gjenlevende_sak: 'http://localhost:8030',
     };
 } else if (process.env.ENV === 'lokalt-mot-preprod') {
     proxyUrls = {
@@ -57,6 +59,7 @@ if (process.env.ENV === 'local') {
         tilleggsstonader_sak: 'https://tilleggsstonader-sak.intern.dev.nav.no', // familie-prosessering-lokalt må legges til under inbound access policy i app-dev-gcp.yaml
         tilleggsstonader_søknad: 'https://tilleggsstonader-soknad-api.intern.dev.nav.no', // familie-prosessering-lokalt må legges til under inbound access policy i app-dev-gcp.yaml
         tilleggsstonader_klage: 'https://tilleggsstonader-klage.intern.dev.nav.no', // familie-prosessering-lokalt må legges til under inbound access policy i app-dev-gcp.yaml
+        gjenlevende_sak: 'https://gjenlevende-bs-sak.intern.dev.nav.no', // familie-prosessering-lokalt må legges til under inbound access policy i app-dev-gcp.yaml
     };
 } else {
     proxyUrls = {
@@ -72,6 +75,7 @@ if (process.env.ENV === 'local') {
         tilleggsstonader_sak: 'http://tilleggsstonader-sak',
         tilleggsstonader_søknad: 'http://tilleggsstonader-soknad-api',
         tilleggsstonader_klage: 'http://tilleggsstonader-klage',
+        gjenlevende_sak: `http://gjenlevende-bs-sak`,
     };
 }
 
@@ -200,6 +204,17 @@ export const serviceConfig: { [key in Team]: IService[] } = {
             proxyPath: '/tilleggsstonader-klage/api',
             proxyUrl: proxyUrls.tilleggsstonader_klage,
             teamname: 'tilleggsstonader',
+        },
+    ],
+    etterlatte: [
+        {
+            cluster: 'gcp',
+            displayName: 'Etterlatte',
+            id: 'gjenlevende-bs-sak',
+            gruppe: 'FELLES',
+            proxyPath: '/etterlatte/api',
+            proxyUrl: proxyUrls.gjenlevende_sak,
+            teamname: 'etterlatte',
         },
     ],
 };

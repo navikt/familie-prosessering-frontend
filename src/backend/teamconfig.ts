@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 
 dotenv.config();
-export type Team = 'teamfamilie' | 'tilleggsstonader';
+export type Team = 'teamfamilie' | 'tilleggsstonader' | 'etterlatte';
 
 interface Teamconfig {
     host: string;
@@ -11,12 +11,14 @@ interface Teamconfig {
 const config: { [key in Team]: Teamconfig } = {
     teamfamilie: { team: 'teamfamilie', host: 'familie-prosessering' },
     tilleggsstonader: { team: 'tilleggsstonader', host: 'tilleggsstonader-prosessering' },
+    etterlatte: { team: 'etterlatte', host: 'etterlatte-prossering' },
 };
 
 const getTeamconfig = (): Teamconfig => {
     const team = process.env.NAIS_NAMESPACE as Team;
     switch (team) {
         case 'teamfamilie':
+        case 'etterlatte':
         case 'tilleggsstonader':
             return config[team];
         default:

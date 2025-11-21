@@ -1,0 +1,45 @@
+apiVersion: nais.io/v1alpha1
+kind: Application
+metadata:
+  name: etterlatte-prosessering
+  namespace: etterlatte
+  labels:
+    team: etterlatte
+spec:
+  image: {{ image }}
+  port: 8000
+  liveness:
+    path: /isAlive
+    initialDelay: 5
+  readiness:
+    path: /isReady
+    initialDelay: 5
+  replicas:
+    min: 1
+    max: 1
+    cpuThresholdPercentage: 50
+  ingresses:
+    - "https://etterlatte-prosessering.intern.dev.nav.no"
+  azure:
+    application:
+      enabled: true
+      replyURLs:
+        - 'https://etterlatte-prosessering.intern.dev.nav.no/auth/openid/callback'
+      claims:
+        groups:
+          - id: "5357fbfa-de25-4d23-86a6-f67caf8ddd63" # nais-team-gjenlevende
+  accessPolicy:
+    outbound:
+      rules:
+        - application: etterlatte-bs-sak
+  resources:
+    limits:
+      memory: 512Mi
+    requests:
+      memory: 256Mi
+      cpu: 20m
+  envFrom:
+    - secret: etterlatte-prosessering
+  env:
+    - name: ENV
+      value: dev
