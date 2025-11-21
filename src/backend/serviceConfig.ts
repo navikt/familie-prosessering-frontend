@@ -7,7 +7,7 @@ export interface IService {
     displayName: string;
     proxyPath: string;
     id: string;
-    gruppe: 'EF' | 'BAKS' | 'FELLES';
+    gruppe: 'EF' | 'BAKS' | 'FELLES' | 'ETTERLATTE';
     proxyUrl: string;
 }
 
@@ -250,6 +250,15 @@ export const serviceConfig: { [key in Team]: IService[] } = {
             gruppe: 'EF',
             proxyPath: '/familie-ef-iverksett/api',
             proxyUrl: proxyUrls.enslig_iverksett,
+            teamname: 'teamfamilie',
+        },
+        {
+            cluster: 'gcp',
+            displayName: 'Klage',
+            id: 'familie-klage',
+            gruppe: 'FELLES',
+            proxyPath: '/familie-klage/api',
+            proxyUrl: proxyUrls.klage,
             teamname: 'teamfamilie',
         },
     ],
