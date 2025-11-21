@@ -25,9 +25,6 @@ spec:
       enabled: true
       replyURLs:
         - 'https://etterlatte-prosessering.intern.dev.nav.no/auth/openid/callback'
-      claims:
-        groups:
-          - id: "5357fbfa-de25-4d23-86a6-f67caf8ddd63" # nais-team-gjenlevende
   accessPolicy:
     outbound:
       rules:
@@ -39,7 +36,7 @@ spec:
       memory: 256Mi
       cpu: 20m
   envFrom:
-    - secret: etterlatte-prosessering
+    - secret: prosessering
   env:
     - name: ENV
       value: dev
