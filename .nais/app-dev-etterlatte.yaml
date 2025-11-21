@@ -35,8 +35,6 @@ spec:
     requests:
       memory: 256Mi
       cpu: 20m
-  envFrom:
-    - secret: prosessering
   env:
     - name: ENV
       value: dev
