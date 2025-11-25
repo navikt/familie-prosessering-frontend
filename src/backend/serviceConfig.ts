@@ -182,7 +182,7 @@ export const serviceConfig: { [key in Team]: IService[] } = {
             cluster: 'gcp',
             displayName: 'Sak',
             id: 'tilleggsstonader-sak',
-            gruppe: 'FELLES',
+            gruppe: 'ETTERLATTE',
             proxyPath: '/tilleggsstonader-sak/api',
             proxyUrl: proxyUrls.tilleggsstonader_sak,
             teamname: 'tilleggsstonader',

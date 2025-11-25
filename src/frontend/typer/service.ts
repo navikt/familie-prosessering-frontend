@@ -9,6 +9,7 @@ export enum IServiceGruppe {
     FELLES = 'FELLES',
     EF = 'EF',
     BAKS = 'BAKS',
+    ETTERLATTE = 'ETTERLATTE',
 }
 
 export interface IOppfølgingstask {
