@@ -43,7 +43,7 @@ if (process.env.ENV === 'local') {
         tilleggsstonader_sak: 'http://localhost:8101',
         tilleggsstonader_søknad: 'http://localhost:8001',
         tilleggsstonader_klage: 'http://localhost:8090',
-        gjenlevende_sak: 'http://localhost:8030',
+        gjenlevende_sak: 'http://localhost:8033',
     };
 } else if (process.env.ENV === 'lokalt-mot-preprod') {
     proxyUrls = {
