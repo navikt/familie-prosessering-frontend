@@ -65,7 +65,7 @@ if (process.env.ENV === 'local') {
     proxyUrls = {
         barnetrygd_sak: `http://familie-ba-sak`,
         enslig_mottak: `http://familie-ef-mottak`,
-        enslig_sak: `http://familie-ef-sak`,
+        enslig_sak: `http://familie-ef-sak.teamfamilie`,
         enslig_personhendelse: `http://familie-ef-personhendelse`,
         enslig_iverksett: `http://familie-ef-iverksett`,
         kontantstøtte_sak: `http://familie-ks-sak`,
