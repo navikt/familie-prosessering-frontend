@@ -29,6 +29,11 @@ spec:
     outbound:
       rules:
         - application: gjenlevende-bs-sak
+        - application: familie-ef-sak
+        - application: familie-ef-personhendelse
+        - application: familie-ef-iverksett
+        - application: familie-klage
+        - application: familie-ef-mottak
   resources:
     limits:
       memory: 512Mi
