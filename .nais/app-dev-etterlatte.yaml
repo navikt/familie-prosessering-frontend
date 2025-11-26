@@ -30,10 +30,15 @@ spec:
       rules:
         - application: gjenlevende-bs-sak
         - application: familie-ef-sak
+          namespace: teamfamilie
         - application: familie-ef-personhendelse
+          namespace: teamfamilie
         - application: familie-ef-iverksett
+          namespace: teamfamilie
         - application: familie-klage
+          namespace: teamfamilie
         - application: familie-ef-mottak
+          namespace: teamfamilie
   resources:
     limits:
       memory: 512Mi
