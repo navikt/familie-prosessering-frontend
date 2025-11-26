@@ -74,7 +74,7 @@ if (process.env.ENV === 'local') {
         baks_mottak: `http://familie-baks-mottak`,
         tilleggsstonader_sak: 'http://tilleggsstonader-sak',
         tilleggsstonader_søknad: 'http://tilleggsstonader-soknad-api',
-        tilleggsstonader_klage: 'http://tilleggsstonader-klage',
+        tilleggsstonader_klage: 'http://tilleggsstonader-klage.teamfamilie',
         gjenlevende_sak: `http://gjenlevende-bs-sak`,
     };
 }
