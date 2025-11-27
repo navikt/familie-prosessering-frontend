@@ -62,6 +62,22 @@ jobs:
           RESOURCE: .nais/app-dev-tilleggsstonader.yaml
           VAR: image=${{ needs.build.outputs.image }}
 
+  deploy-tilbakekreving:
+    name: Deploy to dev - tilbakekreving
+    if: ${{ github.event.pull_request.user.login != 'dependabot[bot]' }}
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # ratchet:actions/checkout@v4
+      - uses: nais/deploy/actions/deploy@5652af6ee2d906a70651b9282998926a390ff532 # ratchet:nais/deploy/actions/deploy@v2
+        env:
+          CLUSTER: dev-gcp
+          RESOURCE: .nais/app-dev-tilbake.yaml
+          VAR: image=${{ needs.build.outputs.image }}
+
   deploy-etterlatte:
     name: Deploy to dev - etterlatte
     if: ${{ github.event.pull_request.user.login != 'dependabot[bot]' }}
