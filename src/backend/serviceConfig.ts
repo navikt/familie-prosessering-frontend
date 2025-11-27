@@ -7,7 +7,7 @@ export interface IService {
     displayName: string;
     proxyPath: string;
     id: string;
-    gruppe: 'EF' | 'BAKS' | 'FELLES';
+    gruppe: 'EF' | 'BAKS' | 'FELLES' | 'ETTERLATTE';
     proxyUrl: string;
 }
 
@@ -25,6 +25,7 @@ interface ProxyUrls {
     tilleggsstonader_sak: string;
     tilleggsstonader_søknad: string;
     tilleggsstonader_klage: string;
+    gjenlevende_sak: string;
 }
 
 let proxyUrls: ProxyUrls;
@@ -44,6 +45,7 @@ if (process.env.ENV === 'local') {
         tilleggsstonader_sak: 'http://localhost:8101',
         tilleggsstonader_søknad: 'http://localhost:8001',
         tilleggsstonader_klage: 'http://localhost:8090',
+        gjenlevende_sak: 'http://localhost:8033',
     };
 } else if (process.env.ENV === 'lokalt-mot-preprod') {
     proxyUrls = {
@@ -60,22 +62,24 @@ if (process.env.ENV === 'local') {
         tilleggsstonader_sak: 'https://tilleggsstonader-sak.intern.dev.nav.no', // familie-prosessering-lokalt må legges til under inbound access policy i app-dev-gcp.yaml
         tilleggsstonader_søknad: 'https://tilleggsstonader-soknad-api.intern.dev.nav.no', // familie-prosessering-lokalt må legges til under inbound access policy i app-dev-gcp.yaml
         tilleggsstonader_klage: 'https://tilleggsstonader-klage.intern.dev.nav.no', // familie-prosessering-lokalt må legges til under inbound access policy i app-dev-gcp.yaml
+        gjenlevende_sak: 'https://gjenlevende-bs-sak.intern.dev.nav.no', // familie-prosessering-lokalt må legges til under inbound access policy i app-dev-gcp.yaml
     };
 } else {
     proxyUrls = {
         barnetrygd_sak: `http://familie-ba-sak`,
-        enslig_mottak: `http://familie-ef-mottak`,
-        enslig_sak: `http://familie-ef-sak`,
-        enslig_personhendelse: `http://familie-ef-personhendelse`,
-        enslig_iverksett: `http://familie-ef-iverksett`,
+        enslig_mottak: `http://familie-ef-mottak.teamfamilie`,
+        enslig_sak: `http://familie-ef-sak.teamfamilie`,
+        enslig_personhendelse: `http://familie-ef-personhendelse.teamfamilie`,
+        enslig_iverksett: `http://familie-ef-iverksett.teamfamilie`,
         kontantstøtte_sak: `http://familie-ks-sak`,
         barnehagelister_api: 'http://familie-ks-barnehagelister',
         tilbakekreving: `http://tilbakekreving-backend`,
-        klage: `http://familie-klage`,
+        klage: `http://familie-klage.teamfamilie`,
         baks_mottak: `http://familie-baks-mottak`,
         tilleggsstonader_sak: 'http://tilleggsstonader-sak',
         tilleggsstonader_søknad: 'http://tilleggsstonader-soknad-api',
         tilleggsstonader_klage: 'http://tilleggsstonader-klage',
+        gjenlevende_sak: `http://gjenlevende-bs-sak`,
     };
 }
 
@@ -215,6 +219,62 @@ export const serviceConfig: { [key in Team]: IService[] } = {
             proxyPath: '/tilbakekreving/api',
             proxyUrl: proxyUrls.tilbakekreving,
             teamname: 'tilbake',
+        },
+    ],
+    etterlatte: [
+        {
+            cluster: 'gcp',
+            displayName: 'Gjenlevende sak',
+            id: 'gjenlevende-bs-sak',
+            gruppe: 'ETTERLATTE',
+            proxyPath: '/etterlatte/api',
+            proxyUrl: proxyUrls.gjenlevende_sak,
+            teamname: 'etterlatte',
+        },
+        {
+            cluster: 'gcp',
+            displayName: 'EF mottak',
+            id: 'familie-ef-mottak',
+            gruppe: 'EF',
+            proxyPath: '/familie-ef-mottak/api',
+            proxyUrl: proxyUrls.enslig_mottak,
+            teamname: 'teamfamilie',
+        },
+        {
+            cluster: 'gcp',
+            displayName: 'EF sak',
+            id: 'familie-ef-sak',
+            gruppe: 'EF',
+            proxyPath: '/familie-ef-sak/api',
+            proxyUrl: proxyUrls.enslig_sak,
+            teamname: 'teamfamilie',
+        },
+        {
+            cluster: 'gcp',
+            displayName: 'EF personhendelse',
+            id: 'familie-ef-personhendelse',
+            gruppe: 'EF',
+            proxyPath: '/familie-ef-personhendelse/api',
+            proxyUrl: proxyUrls.enslig_personhendelse,
+            teamname: 'teamfamilie',
+        },
+        {
+            cluster: 'gcp',
+            displayName: 'EF iverksett',
+            id: 'familie-ef-iverksett',
+            gruppe: 'EF',
+            proxyPath: '/familie-ef-iverksett/api',
+            proxyUrl: proxyUrls.enslig_iverksett,
+            teamname: 'teamfamilie',
+        },
+        {
+            cluster: 'gcp',
+            displayName: 'Klage',
+            id: 'familie-klage',
+            gruppe: 'FELLES',
+            proxyPath: '/familie-klage/api',
+            proxyUrl: proxyUrls.klage,
+            teamname: 'teamfamilie',
         },
     ],
 };

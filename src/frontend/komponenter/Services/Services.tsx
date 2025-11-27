@@ -50,6 +50,7 @@ const gruppeTilTekst: Record<string, string> = {
     EF: 'Alene med barn',
     FELLES: 'Fellestjenester',
     BAKS: 'Barnetrygd og kontantstøtte',
+    ETTERLATTE: 'Etterlatte',
 };
 
 const ServiceGruppe: React.FC<{
