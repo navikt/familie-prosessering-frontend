@@ -74,11 +74,11 @@ if (process.env.ENV === 'local') {
         kontantstøtte_sak: `http://familie-ks-sak`,
         barnehagelister_api: 'http://familie-ks-barnehagelister',
         tilbakekreving: `http://tilbakekreving-backend`,
-        klage: `http://familie-klage`,
+        klage: `http://familie-klage.teamfamilie`,
         baks_mottak: `http://familie-baks-mottak`,
         tilleggsstonader_sak: 'http://tilleggsstonader-sak',
         tilleggsstonader_søknad: 'http://tilleggsstonader-soknad-api',
-        tilleggsstonader_klage: 'http://tilleggsstonader-klage.teamfamilie',
+        tilleggsstonader_klage: 'http://tilleggsstonader-klage',
         gjenlevende_sak: `http://gjenlevende-bs-sak`,
     };
 }
