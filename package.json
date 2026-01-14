@@ -4,7 +4,7 @@
   "type": "module",
   "main": "node_dist/server.js",
   "repository": "https://github.com/navikt/familie-prosessering.git",
-  "author": "Henning Håkonsen",
+  "author": "Team BAKS",
   "license": "MIT",
   "scripts": {
     "start": "yarn set-node-options NODE_ENV=production node node_dist/server.js",
