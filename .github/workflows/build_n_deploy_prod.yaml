@@ -23,7 +23,7 @@ jobs:
           cache: yarn
           registry-url: "https://npm.pkg.github.com"
       - name: Yarn install
-        run: yarn --prefer-offline --frozen-lockfile
+        run: yarn --prefer-offline --frozen-lockfile --ignore-scripts
         env:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
       - name: Yarn build
