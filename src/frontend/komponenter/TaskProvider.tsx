@@ -17,9 +17,9 @@ import {
     Fagsystem,
     IAvvikshåndteringDTO,
     IKommentarDTO,
+    ITask,
     ITaskResponse,
     TaskStatus,
-    ITask,
 } from '../typer/task';
 import { useServiceContext } from './ServiceContext';
 
@@ -48,6 +48,7 @@ const [TaskProvider, useTaskContext] = constate(() => {
     const navigate = useNavigate();
     const location = useLocation();
 
+    const [henterTasks, setHenterTasks] = useState<boolean>(false);
     const [tasks, settTasks] = useState<Ressurs<ITaskResponse>>(byggTomRessurs());
     const [statusFilter, settStatusFilter] = useState<TaskStatus>(
         getQueryParamStatusFilter(location)
@@ -62,12 +63,19 @@ const [TaskProvider, useTaskContext] = constate(() => {
 
     const hentEllerOppdaterTasks = () => {
         if (valgtService) {
+            setHenterTasks(true);
             if (taskId) {
-                hentTask(valgtService, taskId).then(settTask);
+                hentTask(valgtService, taskId)
+                    .then(settTask)
+                    .finally(() => setHenterTasks(false));
             } else if (callId) {
-                hentTasksMedCallId(valgtService, callId).then(settTasks);
+                hentTasksMedCallId(valgtService, callId)
+                    .then(settTasks)
+                    .finally(() => setHenterTasks(false));
             } else {
-                hentTasks(valgtService, statusFilter, side, typeFilter).then(settTasks);
+                hentTasks(valgtService, statusFilter, side, typeFilter)
+                    .then(settTasks)
+                    .finally(() => setHenterTasks(false));
             }
         }
     };
@@ -88,7 +96,6 @@ const [TaskProvider, useTaskContext] = constate(() => {
 
     useEffect(() => {
         hentEllerOppdaterTasks();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [valgtService, statusFilter, side, typeFilter, taskId, callId]);
 
     useEffect(() => {
@@ -101,7 +108,6 @@ const [TaskProvider, useTaskContext] = constate(() => {
                 `${location.pathname}?statusFilter=${statusFilter}&side=${side}&taskType=${typeFilter}`
             );
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [statusFilter, side, typeFilter, history]);
 
     const rekjørTasks = (id?: number) => {
@@ -173,6 +179,7 @@ const [TaskProvider, useTaskContext] = constate(() => {
         fagsystemFilter,
         settFagsystemFilter,
         typer,
+        henterTasks,
     };
 });
 
