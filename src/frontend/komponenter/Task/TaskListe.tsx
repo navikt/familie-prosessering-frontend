@@ -1,4 +1,4 @@
-import { Alert, BodyShort } from '@navikt/ds-react';
+import { Alert, BodyShort, HStack, Loader, VStack } from '@navikt/ds-react';
 import * as moment from 'moment';
 import * as React from 'react';
 import { Fagsystem, ITask, stringTilFagsystem } from '../../typer/task';
@@ -10,7 +10,7 @@ interface IProps {
 }
 
 const TaskListe: React.FC<IProps> = ({ tasks }) => {
-    const { statusFilter, typeFilter, fagsystemFilter } = useTaskContext();
+    const { statusFilter, typeFilter, fagsystemFilter, henterTasks } = useTaskContext();
 
     const skalViseTask = (task: ITask): boolean => {
         switch (fagsystemFilter) {
@@ -24,6 +24,17 @@ const TaskListe: React.FC<IProps> = ({ tasks }) => {
                 return stringTilFagsystem[task.metadata.fagsystem] === fagsystemFilter;
         }
     };
+
+    if (henterTasks) {
+        return (
+            <HStack justify="center">
+                <VStack gap="4">
+                    <Loader size="3xlarge" title="Henter tasker" />
+                    <BodyShort>Henter tasker...</BodyShort>
+                </VStack>
+            </HStack>
+        );
+    }
 
     return tasks.length > 0 ? (
         <React.Fragment>
