@@ -17,9 +17,9 @@ import {
     Fagsystem,
     IAvvikshåndteringDTO,
     IKommentarDTO,
+    ITask,
     ITaskResponse,
     TaskStatus,
-    ITask,
 } from '../typer/task';
 import { useServiceContext } from './ServiceContext';
 
@@ -96,7 +96,6 @@ const [TaskProvider, useTaskContext] = constate(() => {
 
     useEffect(() => {
         hentEllerOppdaterTasks();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [valgtService, statusFilter, side, typeFilter, taskId, callId]);
 
     useEffect(() => {
@@ -109,7 +108,6 @@ const [TaskProvider, useTaskContext] = constate(() => {
                 `${location.pathname}?statusFilter=${statusFilter}&side=${side}&taskType=${typeFilter}`
             );
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [statusFilter, side, typeFilter, history]);
 
     const rekjørTasks = (id?: number) => {
