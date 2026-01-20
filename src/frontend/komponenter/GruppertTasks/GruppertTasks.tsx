@@ -31,7 +31,7 @@ const GruppertTasks: FC = () => {
                   return {
                       ...gruppert,
                       [task.metadata.callId]: [...gruppeTasks, task].sort((a, b) =>
-                          moment(b.opprettetTidspunkt).diff(moment(a.opprettetTidspunkt))
+                          moment(b.sistKjørt).diff(moment(a.sistKjørt))
                       ),
                   };
               }, {})

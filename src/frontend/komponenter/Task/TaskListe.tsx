@@ -30,7 +30,7 @@ const TaskListe: React.FC<IProps> = ({ tasks }) => {
             <BodyShort>Viser {tasks.length} tasker</BodyShort>
 
             {tasks
-                .sort((a, b) => moment(b.opprettetTidspunkt).diff(a.opprettetTidspunkt))
+                .sort((a, b) => moment(b.sistKjørt).diff(a.sistKjørt))
                 .filter((task) => skalViseTask(task))
                 .map((task) => {
                     return <TaskPanel key={task.id} task={task} />;
