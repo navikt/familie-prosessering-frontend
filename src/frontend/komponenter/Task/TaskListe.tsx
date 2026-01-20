@@ -49,7 +49,7 @@ const TaskListe: React.FC<IProps> = ({ tasks }) => {
         </React.Fragment>
     ) : (
         <Alert variant={'info'}>
-            Ingen tasker med status {statusFilter}
+            Ingen tasker {statusFilter !== 'ALLE' ? `med status ${statusFilter}` : ''}
             {typeFilter ? ` av type ${typeFilter}` : ''}
         </Alert>
     );
