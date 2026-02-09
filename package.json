@@ -27,7 +27,7 @@
     "@navikt/aksel-icons": "7.39.1",
     "@navikt/ds-css": "7.39.1",
     "@navikt/ds-react": "7.39.1",
-    "@navikt/ds-tokens": "7.39.1",
+    "@navikt/ds-tokens": "8.2.2",
     "@navikt/familie-backend": "10.1.19",
     "@navikt/familie-logging": "7.0.7",
     "@navikt/familie-typer": "8.0.5",
