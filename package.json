@@ -32,7 +32,7 @@
     "@navikt/familie-logging": "7.0.7",
     "@navikt/familie-typer": "8.0.5",
     "autoprefixer": "10.4.27",
-    "axios": "1.13.5",
+    "axios": "1.15.0",
     "babel-loader": "10.0.0",
     "body-parser": "2.2.2",
     "classnames": "2.5.1",
