@@ -41,6 +41,8 @@ Bruk override_scope for å sette scope manuelt for den applikasjonen du vil kjø
     HOST=familie-prosessering
     NAIS_NAMESPACE=<teamfamilie | tilleggsstonader>
 ```
+Appen må hente issuer fra samme sted som prosessering frontend. Ofte betyr dette at AZURE_APP_WELL_KNOWN_URL må peke mot samme issuer som prosessering-frontend. AKA. AAD_DISCOVERY_URL
+
 
 For å bygge prodversjon kjør `yarn build`. Prodversjonen vil ikke kjøre lokalt med mindre det gjøres en del endringer i forbindelse med uthenting av environment variabler og URLer for uthenting av informasjon.
 
