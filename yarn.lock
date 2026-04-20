@@ -1285,10 +1285,10 @@
   resolved "https://registry.yarnpkg.com/@leichtgewicht/ip-codec/-/ip-codec-2.0.5.tgz#4fc56c15c580b9adb7dc3c333a134e540b44bfb1"
   integrity sha512-Vo+PSpZG2/fmgmiNzYK9qWRh8h/CHrwD0mo1h1DzL4yzHNSfWYujGTYsWGreD000gcgmZ7K4Ys6Tx9TxtsKdDw==
 
-"@navikt/aksel-icons@7.39.1":
-  version "7.39.1"
-  resolved "https://npm.pkg.github.com/download/@navikt/aksel-icons/7.39.1/07c4f141221b98e918a1b033cfd6448042ec619c#07c4f141221b98e918a1b033cfd6448042ec619c"
-  integrity sha512-cMu+gBb1/vJ+YbnYtFZAGeJTvPcy4pBa2OLHGcaU9PsoZJett7CmYsWVt7zodo6BD8h8Ne2ZkokFSP+aHCBoLA==
+"@navikt/aksel-icons@8.9.1":
+  version "8.9.1"
+  resolved "https://npm.pkg.github.com/download/@navikt/aksel-icons/8.9.1/ff1f10cabbda2ee7f6baa457cadcabb13adc64cc#ff1f10cabbda2ee7f6baa457cadcabb13adc64cc"
+  integrity sha512-yjeyQPBHvaeRs5BMRRgzwo1cMC/249f4rkxmeIX2CjZDjJvqDycJphqrddjQKUmBcf6XVfv0nx6dcqnf0Z8obQ==
 
 "@navikt/aksel-icons@^7.39.1":
   version "7.40.0"
