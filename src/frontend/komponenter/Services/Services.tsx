@@ -7,8 +7,24 @@ import {
     IService,
     IServiceGruppe,
 } from '../../typer/service';
+import { TaskStatus } from '../../typer/task';
 import { useServiceContext } from '../ServiceContext';
 import TaskerTilOppfølging from './TaskerTilOppfølging';
+
+const utledStatusFilter = (
+    taskerFeiletOgManuellOppfølging: AntallTaskerMedStatusFeiletOgManuellOppfølging | undefined
+): TaskStatus => {
+    if (!taskerFeiletOgManuellOppfølging?.harMottattSvar) {
+        return TaskStatus.FEILET;
+    }
+    if (taskerFeiletOgManuellOppfølging.antallFeilet > 0) {
+        return TaskStatus.FEILET;
+    }
+    if (taskerFeiletOgManuellOppfølging.antallManuellOppfølging > 0) {
+        return TaskStatus.MANUELL_OPPFØLGING;
+    }
+    return TaskStatus.FERDIG;
+};
 
 const Services: React.FunctionComponent = () => {
     const { services, taskerFeiletOgTilManuellOppfølging } = useServiceContext();
@@ -107,7 +123,8 @@ const Service: React.FC<{
             <div className={'services__service--actions'}>
                 <Button
                     onClick={() => {
-                        navigate(`/service/${service.id}`);
+                        const statusFilter = utledStatusFilter(taskerFeiletOgManuellOppfølging);
+                        navigate(`/service/${service.id}?statusFilter=${statusFilter}`);
                     }}
                     size={'medium'}
                     variant={'secondary'}
@@ -117,7 +134,8 @@ const Service: React.FC<{
 
                 <Button
                     onClick={() => {
-                        navigate(`/service/${service.id}/gruppert`);
+                        const statusFilter = utledStatusFilter(taskerFeiletOgManuellOppfølging);
+                        navigate(`/service/${service.id}/gruppert?statusFilter=${statusFilter}`);
                     }}
                     size={'medium'}
                     variant={'secondary'}
