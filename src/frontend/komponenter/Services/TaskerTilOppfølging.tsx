@@ -1,7 +1,7 @@
 import { Button, Popover } from '@navikt/ds-react';
 import React, { useRef, useState } from 'react';
 import { AntallTaskerMedStatusFeiletOgManuellOppfølging, IService } from '../../typer/service';
-import { AIconDanger, AIconSuccess, AIconWarning, AIconInfo } from '@navikt/ds-tokens/dist/tokens';
+import { TextDanger, TextSuccess, TextWarning, TextInfo } from '@navikt/ds-tokens/dist/tokens';
 import {
     ExclamationmarkTriangleFillIcon,
     CheckmarkCircleFillIcon,
@@ -63,15 +63,15 @@ const utledIkonType = (
         harMottattSvar && (harFeiletTasker || harTaskerTilManuellOppfølging);
 
     if (!harMottattSvar) {
-        return { ikon: ExclamationmarkTriangleFillIcon, farge: AIconWarning };
+        return { ikon: ExclamationmarkTriangleFillIcon, farge: TextWarning };
     } else if (harMottattSvar && !harTaskerTilOppfølging) {
-        return { ikon: CheckmarkCircleFillIcon, farge: AIconSuccess };
+        return { ikon: CheckmarkCircleFillIcon, farge: TextSuccess };
     } else if (harMottattSvar && !harFeiletTasker && harTaskerTilManuellOppfølging) {
-        return { ikon: BucketMopFillIcon, farge: AIconWarning };
+        return { ikon: BucketMopFillIcon, farge: TextWarning };
     } else if (harMottattSvar && harTaskerTilOppfølging) {
-        return { ikon: XMarkOctagonFillIcon, farge: AIconDanger };
+        return { ikon: XMarkOctagonFillIcon, farge: TextDanger };
     } else {
-        return { ikon: InformationSquareFillIcon, farge: AIconInfo };
+        return { ikon: InformationSquareFillIcon, farge: TextInfo };
     }
 };
 

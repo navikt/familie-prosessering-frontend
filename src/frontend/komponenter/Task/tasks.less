@@ -22,11 +22,11 @@
         justify-content: center;
 
         &.FERDIG {
-            background-color: @a-green-400;
+            background-color: @ax-success-500;
         }
 
         &.FEILET {
-            background-color: @a-red-400;
+            background-color: @ax-danger-500;
         }
     }
 
@@ -37,7 +37,7 @@
     &__innhold {
         grid-area: 1 e("/") 2 e("/") 3 e("/") 2;
         padding: 1rem;
-        border-left: 1px solid @a-gray-400;
+        border-left: 1px solid @ax-neutral-500;
         width: 100%;
 
         &--elementer {
@@ -52,7 +52,7 @@
 
     &__lenker {
         grid-area: 1 e("/") 3;
-        border-right: 1px solid @a-gray-400;
+        border-right: 1px solid @ax-neutral-500;
         padding: 1rem;
         display: flex;
         flex-direction: column;
@@ -73,7 +73,7 @@
     }
 
     &__logg {
-        border-top: 1px solid @a-gray-600;
+        border-top: 1px solid @ax-neutral-700;
         grid-area: 3 e("/") 5 e("/") 3 e("/") 1;
         height: auto;
         padding: 1rem;
@@ -86,7 +86,7 @@
             white-space: pre-wrap;
 
             &-metadata {
-                border-right: 1px solid @a-gray-600;
+                border-right: 1px solid @ax-neutral-700;
                 padding: 0 1.5rem 1.5rem 0;
             }
 

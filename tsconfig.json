@@ -14,8 +14,10 @@
         "skipLibCheck": true,
         "esModuleInterop": true,
         "outDir": "node_dist",
+        "rootDir": "./src/backend",
         "baseUrl": "./src/backend",
         "isolatedModules": true,
+        "ignoreDeprecations": "6.0"
     },
     "include": ["./src/backend"],
     "exclude": ["./src/frontend"],
