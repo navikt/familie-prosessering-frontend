@@ -2,7 +2,7 @@ const app = require('./mock-routes');
 const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
-const config = require('../.nais/webpack/webpack.dev');
+const config = require('../.nais/webpack/webpack.dev').default;
 const path = require('path');
 
 const port = 8000;
@@ -16,11 +16,11 @@ const middleware = webpackDevMiddleware(compiler, {
 app.use(middleware);
 app.use(webpackHotMiddleware(compiler));
 
-app.get('/*', (req, res) => {
+app.get('/{*splat}', (req, res) => {
     res.writeHead(200, { 'Content-Type': 'text/html' });
     res.write(
-        middleware.fileSystem.readFileSync(
-            path.join(__dirname, '/../frontend_development/index.html')
+        middleware.context.outputFileSystem.readFileSync(
+            path.join(process.cwd(), 'frontend_development/index.html')
         )
     );
     res.end();
