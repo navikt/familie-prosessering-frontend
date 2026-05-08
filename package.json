@@ -32,7 +32,7 @@
     "@navikt/familie-logging": "7.0.7",
     "@navikt/familie-typer": "8.0.5",
     "autoprefixer": "10.5.0",
-    "axios": "1.15.2",
+    "axios": "1.16.0",
     "babel-loader": "10.1.1",
     "body-parser": "2.2.2",
     "classnames": "2.5.1",
@@ -50,7 +50,7 @@
   },
   "devDependencies": {
     "@babel/core": "7.29.0",
-    "@babel/preset-env": "7.29.2",
+    "@babel/preset-env": "7.29.3",
     "@babel/preset-react": "7.28.5",
     "@babel/preset-typescript": "7.28.5",
     "@pmmmwh/react-refresh-webpack-plugin": "0.6.2",
