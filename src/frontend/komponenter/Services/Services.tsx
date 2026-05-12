@@ -107,12 +107,9 @@ const ServiceGruppe: React.FC<{
         (sum, status) => sum + status.antallManuellOppfølging,
         0
     );
-    const antallOk = tasksMedStatus.filter(
-        (status) =>
-            status.harMottattSvar &&
-            status.antallFeilet === 0 &&
-            status.antallManuellOppfølging === 0
-    ).length;
+    const antallKreverOppfolging = antallFeilet + antallManuell;
+    const harSvarFraAlle =
+        tasksMedStatus.length === servicer.length && tasksMedStatus.every((s) => s.harMottattSvar);
 
     return (
         <section className={'domenekort'} aria-labelledby={`gruppe-${gruppe}`}>
@@ -122,14 +119,17 @@ const ServiceGruppe: React.FC<{
                     {gruppeTittel[gruppe]}
                 </h2>
                 <div className={'domenekort__meta'}>
-                    <span>
-                        <span className={'domenekort__prikk domenekort__prikk--feil'} />
-                        {antallFeilet + antallManuell} krever oppfølging
-                    </span>
-                    <span>
-                        <span className={'domenekort__prikk domenekort__prikk--ok'} />
-                        {antallOk} ok
-                    </span>
+                    {antallKreverOppfolging > 0 ? (
+                        <span>
+                            <span className={'domenekort__prikk domenekort__prikk--feil'} />
+                            {antallKreverOppfolging} krever oppfølging
+                        </span>
+                    ) : harSvarFraAlle ? (
+                        <span>
+                            <span className={'domenekort__prikk domenekort__prikk--ok'} />
+                            Alt ok
+                        </span>
+                    ) : null}
                 </div>
             </header>
 
