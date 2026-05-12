@@ -1,7 +1,7 @@
 import path from 'path';
 import webpack from 'webpack';
 import { mergeWithCustomize } from 'webpack-merge';
-import common from './webpack.common';
+import common from './webpack.common.js';
 import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
 
 const config = mergeWithCustomize({

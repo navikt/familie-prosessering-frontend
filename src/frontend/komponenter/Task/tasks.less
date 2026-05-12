@@ -1,8 +1,10 @@
 .component-container {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 1.25rem;
     padding: 2rem;
+    max-width: 90rem;
+    margin: 0 auto;
 }
 
 .tasks {
@@ -10,40 +12,47 @@
 }
 
 .taskpanel {
-    margin: 1rem 0;
+    margin: 0;
     padding: 0;
     display: grid;
-    grid-template-columns: 10rem 1fr 10rem 12rem;
+    grid-template-columns: 8rem 1fr 12rem 11rem;
+    background-color: var(--ax-bg-default);
+    border-radius: var(--ax-radius-8);
+    overflow: hidden;
 
     &__status {
         grid-area: 1 e("/") 1;
         display: flex;
         align-items: center;
         justify-content: center;
+        color: var(--ax-text-neutral-contrast);
 
         &.FERDIG {
-            background-color: @a-green-400;
+            background-color: @ax-success-500;
         }
 
         &.FEILET {
-            background-color: @a-red-400;
+            background-color: @ax-danger-500;
         }
     }
 
     &__rekjør {
         grid-area: 2 e("/") 1;
+        align-self: end;
+        justify-self: center;
+        margin: 0 0 1rem;
     }
 
     &__innhold {
         grid-area: 1 e("/") 2 e("/") 3 e("/") 2;
-        padding: 1rem;
-        border-left: 1px solid @a-gray-400;
+        padding: 1.25rem 1.5rem;
+        border-left: 1px solid var(--ax-border-neutral-subtle);
         width: 100%;
 
         &--elementer {
             column-count: 2;
-            width: 90%;
-            
+            width: 100%;
+
             @media (max-width: 1200px) {
                 column-count: 1;
             }
@@ -52,31 +61,35 @@
 
     &__lenker {
         grid-area: 1 e("/") 3;
-        border-right: 1px solid @a-gray-400;
-        padding: 1rem;
+        border-left: 1px solid var(--ax-border-neutral-subtle);
+        padding: 1.25rem 1.5rem;
         display: flex;
         flex-direction: column;
+        gap: 0.25rem;
     }
 
     &__metadata {
         grid-area: 1 e("/") 4;
-        padding: 1rem;
+        border-left: 1px solid var(--ax-border-neutral-subtle);
+        padding: 1.25rem 1.5rem 0.5rem;
     }
 
     &__vislogg {
         grid-area: 2 e("/") 4;
+        padding: 0 1.5rem 1.25rem;
     }
 
     &__gruppert {
         display: flex;
         flex-flow: column;
+        gap: 0.5rem;
     }
 
     &__logg {
-        border-top: 1px solid @a-gray-600;
+        border-top: 1px solid var(--ax-border-neutral-subtle);
         grid-area: 3 e("/") 5 e("/") 3 e("/") 1;
         height: auto;
-        padding: 1rem;
+        padding: 1.25rem 1.5rem;
 
         &--item {
             display: grid;
@@ -86,7 +99,7 @@
             white-space: pre-wrap;
 
             &-metadata {
-                border-right: 1px solid @a-gray-600;
+                border-right: 1px solid var(--ax-border-neutral-subtle);
                 padding: 0 1.5rem 1.5rem 0;
             }
 
@@ -112,6 +125,8 @@
 
 .taskelement {
     display: flex;
+    margin-bottom: 0.25rem;
+
     &--innhold {
         word-break: break-word;
     }

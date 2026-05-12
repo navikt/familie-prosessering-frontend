@@ -1,7 +1,7 @@
 import { Button, Popover } from '@navikt/ds-react';
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { AntallTaskerMedStatusFeiletOgManuellOppfølging, IService } from '../../typer/service';
-import { AIconDanger, AIconSuccess, AIconWarning, AIconInfo } from '@navikt/ds-tokens/dist/tokens';
+import { Danger500, Success500, Warning500, Info500 } from '@navikt/ds-tokens/dist/tokens';
 import {
     ExclamationmarkTriangleFillIcon,
     CheckmarkCircleFillIcon,
@@ -19,7 +19,7 @@ export interface TaskerTilOppfølgingProps {
 export const TaskerTilOppfølging: React.FC<TaskerTilOppfølgingProps> = ({
     taskerFeiletOgManuellOppfølging,
 }) => {
-    const iconRef = useRef(null);
+    const [ankerElement, settAnkerElement] = useState<HTMLButtonElement | null>(null);
     const [åpen, settÅpen] = useState(false);
 
     const IkonType = utledIkonType(taskerFeiletOgManuellOppfølging);
@@ -27,14 +27,14 @@ export const TaskerTilOppfølging: React.FC<TaskerTilOppfølgingProps> = ({
     return (
         <div className={'varsel-wrapper'}>
             <Button
-                ref={iconRef}
+                ref={settAnkerElement}
                 key={taskerFeiletOgManuellOppfølging.serviceId}
                 variant={'tertiary'}
                 onClick={() => settÅpen(!åpen)}
                 icon={
                     <IkonType.ikon
-                        width={'2.5rem'}
-                        height={'2.5rem'}
+                        width={'2rem'}
+                        height={'2rem'}
                         style={{ color: IkonType.farge }}
                     />
                 }
@@ -42,7 +42,7 @@ export const TaskerTilOppfølging: React.FC<TaskerTilOppfølgingProps> = ({
             <Popover
                 open={åpen}
                 onClose={() => settÅpen(!åpen)}
-                anchorEl={iconRef.current}
+                anchorEl={ankerElement}
                 placement="bottom"
             >
                 <Popover.Content>{utledTekst(taskerFeiletOgManuellOppfølging)}</Popover.Content>
@@ -63,15 +63,15 @@ const utledIkonType = (
         harMottattSvar && (harFeiletTasker || harTaskerTilManuellOppfølging);
 
     if (!harMottattSvar) {
-        return { ikon: ExclamationmarkTriangleFillIcon, farge: AIconWarning };
+        return { ikon: ExclamationmarkTriangleFillIcon, farge: Warning500 };
     } else if (harMottattSvar && !harTaskerTilOppfølging) {
-        return { ikon: CheckmarkCircleFillIcon, farge: AIconSuccess };
+        return { ikon: CheckmarkCircleFillIcon, farge: Success500 };
     } else if (harMottattSvar && !harFeiletTasker && harTaskerTilManuellOppfølging) {
-        return { ikon: BucketMopFillIcon, farge: AIconWarning };
+        return { ikon: BucketMopFillIcon, farge: Warning500 };
     } else if (harMottattSvar && harTaskerTilOppfølging) {
-        return { ikon: XMarkOctagonFillIcon, farge: AIconDanger };
+        return { ikon: XMarkOctagonFillIcon, farge: Danger500 };
     } else {
-        return { ikon: InformationSquareFillIcon, farge: AIconInfo };
+        return { ikon: InformationSquareFillIcon, farge: Info500 };
     }
 };
 

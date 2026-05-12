@@ -1,22 +1,25 @@
+html,
+body,
+#app {
+    height: 100%;
+    margin: 0;
+}
+
+#app {
+    display: flex;
+    flex-direction: column;
+}
+
 .container {
-    background-color: #f6f6f6;
-    height: calc(100% - 4rem);
+    background-color: var(--ax-bg-neutral-soft);
+    flex: 1;
+    min-height: 0;
     overflow-y: auto;
     overflow-x: hidden;
 }
 
 .vr {
-    border-left: 1px solid @a-gray-600;
+    border-left: 1px solid @ax-neutral-700;
     height: 1.5rem;
     margin: 0 2rem;
-}
-
-button {
-    background: none;
-    color: inherit;
-    border: none;
-    padding: 0;
-    font: inherit;
-    cursor: pointer;
-    outline: inherit;
 }

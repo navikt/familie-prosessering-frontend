@@ -15,7 +15,7 @@ import { sessionConfig } from './config.js';
 
 // @ts-expect-error spesialimport
 import config from '../.nais/webpack/webpack.dev.js';
-import { teamconfig } from './teamconfig';
+import { teamconfig } from './teamconfig.js';
 
 loglevel.setDefaultLevel(loglevel.levels.INFO);
 
