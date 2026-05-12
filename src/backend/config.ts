@@ -1,7 +1,7 @@
 import { IApi, ISessionKonfigurasjon } from '@navikt/familie-backend';
 import { logError } from '@navikt/familie-logging';
 import { IService, utledScope } from './serviceConfig.js';
-import { teamconfig } from './teamconfig';
+import { teamconfig } from './teamconfig.js';
 
 // Miljøvariabler
 const Environment = () => {

@@ -1,5 +1,5 @@
 import { logInfo } from '@navikt/familie-logging';
-import { teamconfig } from './teamconfig';
+import { teamconfig } from './teamconfig.js';
 
 const settAzureAdPropsFraEnv = () => {
     process.env.AAD_DISCOVERY_URL =

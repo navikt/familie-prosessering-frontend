@@ -1,4 +1,4 @@
-import { Team } from './teamconfig';
+import { Team } from './teamconfig.js';
 
 export interface IService {
     scope?: string;

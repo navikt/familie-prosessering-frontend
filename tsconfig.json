@@ -1,11 +1,11 @@
 {
     "compilerOptions": {
         "target": "es6",
-        "module": "es6",
+        "module": "nodenext",
         "lib": ["dom", "esnext", "es6"],
         "allowSyntheticDefaultImports": true,
         "noImplicitAny": true,
-        "moduleResolution": "node",
+        "moduleResolution": "nodenext",
         "sourceMap": true,
         "strictFunctionTypes": true,
         "strictPropertyInitialization": true,
@@ -15,9 +15,7 @@
         "esModuleInterop": true,
         "outDir": "node_dist",
         "rootDir": "./src/backend",
-        "baseUrl": "./src/backend",
-        "isolatedModules": true,
-        "ignoreDeprecations": "6.0"
+        "isolatedModules": true
     },
     "include": ["./src/backend"],
     "exclude": ["./src/frontend"],
