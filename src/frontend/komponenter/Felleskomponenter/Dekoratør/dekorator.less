@@ -1,0 +1,32 @@
+.brodsmuler {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.875rem;
+    margin-left: 1.5rem;
+
+    &__lenke {
+        color: rgba(255, 255, 255, 0.7);
+        text-decoration: none;
+        padding: 0.25rem 0;
+        border-radius: 2px;
+
+        &:hover {
+            color: #fff;
+            text-decoration: underline;
+        }
+    }
+
+    &__skille {
+        opacity: 0.5;
+    }
+
+    &__naa {
+        color: #fff;
+    }
+
+    @media (max-width: 720px) {
+        display: none;
+    }
+}

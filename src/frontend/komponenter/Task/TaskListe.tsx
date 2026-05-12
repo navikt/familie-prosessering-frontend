@@ -3,14 +3,16 @@ import * as moment from 'moment';
 import * as React from 'react';
 import { Fagsystem, ITask, stringTilFagsystem } from '../../typer/task';
 import { useTaskContext } from '../TaskProvider';
+import Paginering from '../Felleskomponenter/Paginering/Paginering';
 import TaskPanel from './TaskPanel';
 
 interface IProps {
     tasks: ITask[];
+    visPaginering?: boolean;
 }
 
-const TaskListe: React.FC<IProps> = ({ tasks }) => {
-    const { statusFilter, typeFilter, fagsystemFilter, henterTasks } = useTaskContext();
+const TaskListe: React.FC<IProps> = ({ tasks, visPaginering = true }) => {
+    const { statusFilter, typeFilter, fagsystemFilter, henterTasks, side } = useTaskContext();
 
     const skalViseTask = (task: ITask): boolean => {
         switch (fagsystemFilter) {
@@ -36,22 +38,35 @@ const TaskListe: React.FC<IProps> = ({ tasks }) => {
         );
     }
 
-    return tasks.length > 0 ? (
-        <React.Fragment>
-            <BodyShort>Viser {tasks.length} tasker</BodyShort>
+    if (tasks.length === 0) {
+        return (
+            <Alert variant={'info'}>
+                Ingen tasker {statusFilter !== 'ALLE' ? `med status ${statusFilter}` : ''}
+                {typeFilter ? ` av type ${typeFilter}` : ''}
+            </Alert>
+        );
+    }
 
-            {tasks
-                .sort((a, b) => moment(b.sistKjørt).diff(a.sistKjørt))
-                .filter((task) => skalViseTask(task))
-                .map((task) => {
-                    return <TaskPanel key={task.id} task={task} />;
-                })}
-        </React.Fragment>
-    ) : (
-        <Alert variant={'info'}>
-            Ingen tasker {statusFilter !== 'ALLE' ? `med status ${statusFilter}` : ''}
-            {typeFilter ? ` av type ${typeFilter}` : ''}
-        </Alert>
+    const sorterte = [...tasks]
+        .sort((a, b) => moment(b.sistKjørt).diff(a.sistKjørt))
+        .filter((task) => skalViseTask(task));
+
+    return (
+        <>
+            <div className={'liste-header'}>
+                <div className={'liste-header__venstre'}>
+                    <strong className={'liste-header__antall'}>
+                        Viser {sorterte.length} task{sorterte.length === 1 ? '' : 's'}
+                    </strong>
+                    {visPaginering && <span className={'liste-header__side'}>Side {side + 1}</span>}
+                </div>
+                {visPaginering && <Paginering />}
+            </div>
+
+            {sorterte.map((task) => (
+                <TaskPanel key={task.id} task={task} />
+            ))}
+        </>
     );
 };
 

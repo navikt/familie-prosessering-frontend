@@ -40,10 +40,9 @@ const GruppertTasks: FC = () => {
     switch (tasks.status) {
         case RessursStatus.SUKSESS:
             return (
-                <div className={'gruppert-tasks'}>
+                <div className={'side gruppert-tasks'}>
                     <TopBar />
 
-                    <br />
                     <div className={'gruppert-tasks__container'}>
                         <div className={'gruppert-tasks__container--venstremeny'}>
                             <div className={'venstremeny'}>

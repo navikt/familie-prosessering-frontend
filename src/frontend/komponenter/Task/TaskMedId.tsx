@@ -1,7 +1,7 @@
-import { Alert, Heading } from '@navikt/ds-react';
+import { Alert } from '@navikt/ds-react';
 import { RessursStatus } from '@navikt/familie-typer';
 import React, { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useServiceContext } from '../ServiceContext';
 import { useTaskContext } from '../TaskProvider';
 import TaskPanel from './TaskPanel';
@@ -9,10 +9,11 @@ import TaskPanel from './TaskPanel';
 const TaskMedId: React.FC = () => {
     const { settTaskId, task } = useTaskContext();
     const { valgtService } = useServiceContext();
-    const { taskId } = useParams();
+    const { taskId, service } = useParams();
+    const navigate = useNavigate();
+
     useEffect(() => {
         settTaskId(taskId ? parseInt(taskId, 10) : undefined);
-        // Fjern taskId når man går ut av dette skjermbildet
         return () => {
             settTaskId(undefined);
         };
@@ -21,11 +22,48 @@ const TaskMedId: React.FC = () => {
     switch (task.status) {
         case RessursStatus.SUKSESS:
             return (
-                <div style={{ margin: '0 2em' }}>
-                    <Heading size={'large'}>
-                        {valgtService ? valgtService.displayName : ''} - TaskId: {task.data.id}
-                    </Heading>
-                    <TaskPanel task={task.data} />
+                <div className={'side'}>
+                    <button
+                        className={'tilbake-lenke'}
+                        onClick={() => navigate(`/service/${service}`)}
+                    >
+                        <svg
+                            width="16"
+                            height="16"
+                            viewBox="0 0 16 16"
+                            fill="none"
+                            aria-hidden="true"
+                        >
+                            <path
+                                d="M10 4l-4 4 4 4"
+                                stroke="currentColor"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                            />
+                        </svg>
+                        Tilbake til task-liste
+                    </button>
+
+                    <header className={'side-header'}>
+                        <div>
+                            <div className={'detalj-tittel'}>
+                                <h1
+                                    className={
+                                        'navds-heading navds-heading--large side-header__tittel'
+                                    }
+                                >
+                                    {valgtService ? valgtService.displayName : ''}
+                                </h1>
+                                <span className={'detalj-tittel__id'}>TaskId: {task.data.id}</span>
+                            </div>
+                            <p className={'side-header__ingress'}>
+                                Detaljer, lenker og full feillogg.
+                            </p>
+                        </div>
+                    </header>
+
+                    <TaskPanel task={task.data} visLoggSomStandard={true} visSeTaskKnapp={false} />
                 </div>
             );
         case RessursStatus.HENTER:

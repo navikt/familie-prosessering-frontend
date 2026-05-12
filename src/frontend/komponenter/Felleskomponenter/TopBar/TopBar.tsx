@@ -1,10 +1,10 @@
-import { Button, Checkbox, Heading, Search, Select } from '@navikt/ds-react';
+import { Button, Checkbox, Search, Select } from '@navikt/ds-react';
+import { ArrowCirclepathIcon } from '@navikt/aksel-icons';
 import React, { FC, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { TaskStatus, taskStatusTekster } from '../../../typer/task';
 import { useServiceContext } from '../../ServiceContext';
 import { useTaskContext } from '../../TaskProvider';
-import { ArrowCirclepathIcon } from '@navikt/aksel-icons';
 
 const TopBar: FC = () => {
     const {
@@ -21,26 +21,79 @@ const TopBar: FC = () => {
     const [visFeilaMenFerdig, setVisFeilaMenFerdig] = useState(false);
     const navigate = useNavigate();
 
-    return (
-        <div className={'topbar'}>
-            <Heading size={'large'}>
-                Tasks for {valgtService ? valgtService.displayName : ''}
-            </Heading>
+    const kanRekjøreAlle =
+        statusFilter === TaskStatus.FEILET || statusFilter === TaskStatus.MANUELL_OPPFØLGING;
 
-            {(statusFilter === TaskStatus.FEILET ||
-                statusFilter === TaskStatus.MANUELL_OPPFØLGING) && (
-                <Button
-                    icon={<ArrowCirclepathIcon fontSize="1.5rem" />}
-                    style={{
-                        display: 'flex',
-                        alignSelf: 'flex-end',
-                    }}
-                    variant={'secondary'}
-                    onClick={() => rekjørTasks()}
+    return (
+        <>
+            <button className={'tilbake-lenke'} onClick={() => navigate('/')}>
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                    <path
+                        d="M10 4l-4 4 4 4"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                    />
+                </svg>
+                Tilbake til oversikt
+            </button>
+
+            <header className={'side-header'}>
+                <div>
+                    <h1 className={'navds-heading navds-heading--large side-header__tittel'}>
+                        Tasks for {valgtService ? valgtService.displayName : ''}
+                    </h1>
+                    <p className={'side-header__ingress'}>
+                        Kjør, inspiser og feilsøk tasks i tjenesten.
+                    </p>
+                </div>
+                {kanRekjøreAlle && (
+                    <Button
+                        icon={<ArrowCirclepathIcon fontSize="1.25rem" aria-hidden="true" />}
+                        variant={'primary'}
+                        onClick={() => rekjørTasks()}
+                    >
+                        Rekjør alle tasks
+                    </Button>
+                )}
+            </header>
+
+            <div className={'filterbar'}>
+                <Select
+                    onChange={(event) => settStatusFilter(event.target.value as TaskStatus)}
+                    value={statusFilter}
+                    label={'Status'}
                 >
-                    Rekjør tasks
-                </Button>
-            )}
+                    {Object.values(TaskStatus).map((status: TaskStatus) => (
+                        <option key={status} value={status}>
+                            {taskStatusTekster[status]}
+                        </option>
+                    ))}
+                </Select>
+                <Select
+                    onChange={(event) => settTypeFilter(event.target.value)}
+                    value={typeFilter}
+                    label={'Type'}
+                >
+                    <option key={'alle'} value={''}>
+                        Alle
+                    </option>
+                    {typer.map((type: string) => (
+                        <option key={type} value={type}>
+                            {type}
+                        </option>
+                    ))}
+                </Select>
+                <Search
+                    label="Søk på callId"
+                    variant="secondary"
+                    hideLabel={false}
+                    onSearchClick={(verdi) => {
+                        navigate(`/service/${valgtService?.id}/tasker-med-call-id/${verdi}`);
+                    }}
+                />
+            </div>
 
             {statusFilter === TaskStatus.FERDIG && (
                 <Checkbox
@@ -58,49 +111,7 @@ const TopBar: FC = () => {
                     Vis de som feila, men nå er ferdige
                 </Checkbox>
             )}
-            <div className={'søk'}>
-                <Select
-                    onChange={(event) => settStatusFilter(event.target.value as TaskStatus)}
-                    value={statusFilter}
-                    label={'Status'}
-                    style={{ width: '12rem' }}
-                >
-                    {Object.values(TaskStatus).map((status: TaskStatus) => {
-                        return (
-                            <option key={status} value={status}>
-                                {taskStatusTekster[status]}
-                            </option>
-                        );
-                    })}
-                </Select>
-                <Select
-                    onChange={(event) => settTypeFilter(event.target.value)}
-                    value={typeFilter}
-                    label={'Type'}
-                    style={{ width: '12rem' }}
-                >
-                    <option key={'alle'} value={''}>
-                        Alle
-                    </option>
-
-                    {typer.map((type: string) => {
-                        return (
-                            <option key={type} value={type}>
-                                {type}
-                            </option>
-                        );
-                    })}
-                </Select>
-                <Search
-                    label="Søk på callId"
-                    variant="secondary"
-                    hideLabel={false}
-                    onSearchClick={(verdi) => {
-                        navigate(`/service/${valgtService?.id}/tasker-med-call-id/${verdi}`);
-                    }}
-                />
-            </div>
-        </div>
+        </>
     );
 };
 

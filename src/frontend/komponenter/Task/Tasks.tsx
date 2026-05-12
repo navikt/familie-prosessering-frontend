@@ -1,7 +1,6 @@
 import { Alert } from '@navikt/ds-react';
 import * as React from 'react';
 import { RessursStatus } from '@navikt/familie-typer';
-import Paginering from '../Felleskomponenter/Paginering/Paginering';
 import TaskListe from './TaskListe';
 import TopBar from '../Felleskomponenter/TopBar/TopBar';
 import { useTaskContext } from '../TaskProvider';
@@ -13,10 +12,9 @@ const Tasks: React.FunctionComponent = () => {
     switch (tasks.status) {
         case RessursStatus.SUKSESS:
             return (
-                <div className={'component-container'}>
+                <div className={'side'}>
                     <TopBar />
                     <TaskFiltrering tasks={tasks.data.tasks} />
-                    <Paginering />
                     <TaskListe tasks={tasks.data.tasks} />
                 </div>
             );

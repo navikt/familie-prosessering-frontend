@@ -1,22 +1,24 @@
-import { BodyShort, Button, Heading, Label, Link, Panel } from '@navikt/ds-react';
+import { Button, Link } from '@navikt/ds-react';
 import classNames from 'classnames';
 import * as moment from 'moment';
 import React, { FC, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ITask, taskStatusTekster, taskTypeTekster } from '../../typer/task';
+import { ArrowCirclepathIcon } from '@navikt/aksel-icons';
+import { ITask, TaskStatus, taskStatusTekster, taskTypeTekster } from '../../typer/task';
 import { useServiceContext } from '../ServiceContext';
 import { useTaskContext } from '../TaskProvider';
 import AvvikshåndteringModal from './AvvikshåndteringModal/AvvikshåndteringModal';
 import KommenteringModal from './KommenteringModal/kommenteringModal';
-import TaskElement from './TaskElement';
+import KopierKnapp from '../Felleskomponenter/KopierKnapp/KopierKnapp';
 import TaskLogg from './TaskLogg';
 import { erProd } from '../../utils/miljø';
 
 interface IProps {
     task: ITask;
+    visLoggSomStandard?: boolean;
+    visSeTaskKnapp?: boolean;
 }
 
-// Kan bruke sistKjørt når man gått over helt til v2 av tasks
 const getSistKjørt = (task: ITask) =>
     task.sistKjørt ? moment(task.sistKjørt).format('DD.MM.YYYY HH:mm') : 'Venter på første kjøring';
 
@@ -51,13 +53,30 @@ const hentLenkeTilBehandling = (
 const hentLenkeTilFagsak = (tjeneste: keyof typeof tjenesteUrlConfig, fagsakId: string): string =>
     `${tjenesteUrlConfig[tjeneste].fagsak[erProd() ? 'prod' : 'dev']}${fagsakId}`;
 
-const TaskPanel: FC<IProps> = ({ task }) => {
+const verdiSkalKopieres = (key: string): boolean =>
+    ['callId', 'fnr', 'søkersFødselsnummer', 'søkersFnr', 'journalpostId'].some((k) =>
+        key.toLowerCase().includes(k.toLowerCase())
+    );
+
+const eksternLenkeIkon = (
+    <svg viewBox="0 0 12 12" fill="none" aria-hidden="true">
+        <path
+            d="M5 2H2v8h8V7M7 2h3v3M5 7l5-5"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+        />
+    </svg>
+);
+
+const TaskPanel: FC<IProps> = ({ task, visLoggSomStandard = false, visSeTaskKnapp = true }) => {
     const { rekjørTasks } = useTaskContext();
     const { valgtService } = useServiceContext();
 
     const [visAvvikshåndteringModal, settVisAvvikshåndteringModal] = useState(false);
     const [visKommenteringModal, settVisKommenteringModal] = useState(false);
-    const [visLogg, settVisLogg] = useState(false);
+    const [visLogg, settVisLogg] = useState(visLoggSomStandard);
 
     const openSearchErrorLenke = `https://logs.az.nav.no/app/data-explorer/discover#?_g=(time:(from:'${task.opprettetTidspunkt}',to:now))&_q=(filters:!((query:(match_phrase:(team:teamfamilie))),(query:(match_phrase:(x_callId:'${task.metadata.callId}'))),(query:(match_phrase:(level:Error)))),query:(language:kuery,query:''))`;
     const openSearchInfoLenke = `https://logs.az.nav.no/app/data-explorer/discover#?_g=(time:(from:'${task.opprettetTidspunkt}',to:now))&_q=(filters:!((query:(match_phrase:(team:teamfamilie))),(query:(match_phrase:(x_callId:'${task.metadata.callId}')))),query:(language:kuery,query:''))`;
@@ -74,8 +93,19 @@ const TaskPanel: FC<IProps> = ({ task }) => {
     const tjeneste = valgtService?.id;
     const tjenesteStøtterLenke = tjeneste === 'familie-ba-sak' || tjeneste === 'familie-ks-sak';
 
+    const taskNavn = taskTypeTekster[task.taskStepType]
+        ? taskTypeTekster[task.taskStepType]
+        : task.taskStepType;
+    const erFeilet = task.status === TaskStatus.FEILET;
+    const erFerdig = task.status === TaskStatus.FERDIG;
+    const railModifier = erFeilet
+        ? 'taskkort__rail--feil'
+        : erFerdig
+          ? 'taskkort__rail--ok'
+          : 'taskkort__rail--noytral';
+
     return (
-        <Panel className={'taskpanel'} border={true}>
+        <article className={'taskkort'}>
             <AvvikshåndteringModal
                 settÅpen={settVisAvvikshåndteringModal}
                 task={task}
@@ -86,120 +116,179 @@ const TaskPanel: FC<IProps> = ({ task }) => {
                 task={task}
                 åpen={visKommenteringModal}
             />
-            <div className={classNames('taskpanel__status', task.status)}>
-                <Label as="p">{taskStatusTekster[task.status]}</Label>
-            </div>
-            <Button
-                size={'small'}
-                variant={'secondary'}
-                onClick={() => rekjørTasks(task.id)}
-                className={'taskpanel__rekjør'}
-            >
-                Rekjør
-            </Button>
 
-            <div className={'taskpanel__innhold'}>
-                <Heading size={'medium'}>
-                    #{task.id}:{' '}
-                    {taskTypeTekster[task.taskStepType]
-                        ? taskTypeTekster[task.taskStepType]
-                        : task.taskStepType}
-                </Heading>
-                <div className={'taskpanel__innhold--elementer'}>
-                    {Object.entries(task.metadata).map(([key, value]) => {
-                        let lenke: string | null = null;
-
-                        if (tjenesteStøtterLenke) {
-                            if (key === 'behandlingsId' || key === 'behandlingId') {
-                                lenke = hentLenkeTilBehandling(tjeneste, value);
-                            } else if (key === 'fagsakId') {
-                                lenke = hentLenkeTilFagsak(tjeneste, value);
-                            }
-                        }
-
-                        return (
-                            <TaskElement
-                                key={key}
-                                label={key}
-                                innhold={
-                                    lenke ? (
-                                        <a href={lenke} target="_blank" rel="noopener noreferrer">
-                                            {value}
-                                        </a>
-                                    ) : (
-                                        value
-                                    )
-                                }
+            <div className={'taskkort__topp'}>
+                <div className={classNames('taskkort__rail', railModifier)}>
+                    <svg
+                        className={'taskkort__rail-ikon'}
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        aria-hidden="true"
+                    >
+                        {erFeilet ? (
+                            <path
+                                d="M6 6l12 12M18 6L6 18"
+                                stroke="currentColor"
+                                strokeWidth="2.5"
+                                strokeLinecap="round"
                             />
-                        );
-                    })}
+                        ) : (
+                            <path
+                                d="M5 12l5 5 9-10"
+                                stroke="currentColor"
+                                strokeWidth="2.5"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                            />
+                        )}
+                    </svg>
+                    <span className={'taskkort__rail-label'}>{taskStatusTekster[task.status]}</span>
+                </div>
 
-                    <TaskElement label={'Sist kjørt'} innhold={sistKjørt} />
-                    <TaskElement
-                        label={'Triggertid'}
-                        innhold={moment(task.triggerTid).format('DD.MM.YYYY HH:mm')}
-                    />
-                    {task.kommentar && <TaskElement label={'Kommentar'} innhold={task.kommentar} />}
+                <div className={'taskkort__hoved'}>
+                    <div className={'taskkort__tittel'}>
+                        <span className={'taskkort__id'}>#{task.id}</span>
+                        <span className={'taskkort__navn'}>{taskNavn}</span>
+                    </div>
+                    <dl className={'kv-grid'}>
+                        {Object.entries(task.metadata).map(([key, value]) => {
+                            let lenke: string | null = null;
+                            if (tjenesteStøtterLenke) {
+                                if (key === 'behandlingsId' || key === 'behandlingId') {
+                                    lenke = hentLenkeTilBehandling(tjeneste, value);
+                                } else if (key === 'fagsakId') {
+                                    lenke = hentLenkeTilFagsak(tjeneste, value);
+                                }
+                            }
+
+                            return (
+                                <React.Fragment key={key}>
+                                    <dt>{key}</dt>
+                                    <dd>
+                                        {lenke ? (
+                                            <a
+                                                href={lenke}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                            >
+                                                {value}
+                                            </a>
+                                        ) : (
+                                            <span>{value}</span>
+                                        )}
+                                        {verdiSkalKopieres(key) && (
+                                            <KopierKnapp verdi={value} etikett={key} />
+                                        )}
+                                    </dd>
+                                </React.Fragment>
+                            );
+                        })}
+                        {task.kommentar && (
+                            <>
+                                <dt>kommentar</dt>
+                                <dd>
+                                    <span>{task.kommentar}</span>
+                                </dd>
+                            </>
+                        )}
+                    </dl>
+                </div>
+
+                <div className={'taskkort__tider'}>
+                    <dl className={'kv-grid'}>
+                        <dt>Sist kjørt</dt>
+                        <dd>
+                            <span>{sistKjørt}</span>
+                        </dd>
+                        <dt>Triggertid</dt>
+                        <dd>
+                            <span>{moment(task.triggerTid).format('DD.MM.YYYY HH:mm')}</span>
+                        </dd>
+                        <dt>Opprettet</dt>
+                        <dd>
+                            <span>
+                                {moment(task.opprettetTidspunkt).format('DD.MM.YYYY HH:mm')}
+                            </span>
+                        </dd>
+                    </dl>
+                </div>
+
+                <div className={'taskkort__lenker'}>
+                    <Link href={openSearchErrorLenke}>
+                        {eksternLenkeIkon}
+                        Error logs
+                    </Link>
+                    <Link href={openSearchInfoLenke}>
+                        {eksternLenkeIkon}
+                        Info logs
+                    </Link>
+                    <Link href={grafanaLenke} target={'_blank'}>
+                        {eksternLenkeIkon}
+                        Grafana
+                    </Link>
+                    <Link href={teamLogsLenke} target={'_blank'}>
+                        {eksternLenkeIkon}
+                        Team Logs
+                    </Link>
+                    <Link
+                        href={''}
+                        onClick={(event) => {
+                            settVisAvvikshåndteringModal(!visAvvikshåndteringModal);
+                            event.preventDefault();
+                        }}
+                    >
+                        {eksternLenkeIkon}
+                        Avvikshåndter
+                    </Link>
+                    <Link
+                        href={''}
+                        onClick={(event) => {
+                            settVisKommenteringModal(!visKommenteringModal);
+                            event.preventDefault();
+                        }}
+                    >
+                        {eksternLenkeIkon}
+                        Kommenter
+                    </Link>
+                </div>
+
+                <div className={'taskkort__handlinger'}>
+                    {visSeTaskKnapp && (
+                        <Button
+                            size={'small'}
+                            variant={'primary'}
+                            onClick={() => navigate(`/service/${valgtService?.id}/task/${task.id}`)}
+                        >
+                            Se task
+                        </Button>
+                    )}
+                    <Button
+                        size={'small'}
+                        variant={'secondary'}
+                        onClick={(event) => {
+                            settVisLogg(!visLogg);
+                            event.preventDefault();
+                        }}
+                    >
+                        {`${visLogg ? 'Skjul' : 'Vis'} logg${task.antallLogger ? ` (${task.antallLogger})` : ''}`}
+                    </Button>
+                    <Button
+                        size={'small'}
+                        variant={'secondary'}
+                        icon={<ArrowCirclepathIcon aria-hidden="true" />}
+                        onClick={() => rekjørTasks(task.id)}
+                    >
+                        Rekjør
+                    </Button>
                 </div>
             </div>
 
-            <div className={'taskpanel__lenker'}>
-                <Link href={openSearchErrorLenke}>Error logs</Link>
-                <Link href={openSearchInfoLenke}>Info logs</Link>
-                <Link href={grafanaLenke} target={'_blank'}>
-                    Grafana
-                </Link>
-                <Link href={teamLogsLenke} target={'_blank'}>
-                    Team Logs
-                </Link>
-                <Link
-                    href={''}
-                    onClick={(event) => {
-                        settVisAvvikshåndteringModal(!visAvvikshåndteringModal);
-                        event.preventDefault();
-                    }}
-                >
-                    Avvikshåndter
-                </Link>
-                <Link
-                    href={''}
-                    onClick={(event) => {
-                        settVisKommenteringModal(!visKommenteringModal);
-                        event.preventDefault();
-                    }}
-                >
-                    Kommenter
-                </Link>
-            </div>
-
-            <div className={'taskpanel__metadata'}>
-                <BodyShort size={'small'}>
-                    {moment(task.opprettetTidspunkt).format('DD.MM.YYYY HH:mm')}
-                </BodyShort>
-            </div>
-            <div className={'taskpanel__vislogg taskpanel__gruppert'}>
-                <Button
-                    className={'taskpanel__tilTask'}
-                    variant={'secondary'}
-                    onClick={() => navigate(`/service/${valgtService?.id}/task/${task.id}`)}
-                >
-                    Se task
-                </Button>
-                <Button
-                    variant={'secondary'}
-                    onClick={(event) => {
-                        settVisLogg(!visLogg);
-                        event.preventDefault();
-                    }}
-                >
-                    {`${visLogg ? 'Skjul' : 'Vis'} logg (${task.antallLogger})`}
-                </Button>
-            </div>
-
-            <div className={classNames('taskpanel__logg', visLogg ? '' : 'skjul')}>
-                <TaskLogg taskId={task.id} visLogg={visLogg} />
-            </div>
-        </Panel>
+            {visLogg && (
+                <div className={'taskkort__logg'}>
+                    <TaskLogg taskId={task.id} visLogg={visLogg} />
+                </div>
+            )}
+        </article>
     );
 };
 

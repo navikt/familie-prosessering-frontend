@@ -13,22 +13,125 @@ const lesMockFil = (filnavn) => {
     }
 };
 
-app.get('/familie-baks-mottak/api/task/v2', (req, res) => {
-    //res.status(500).send()
-    setTimeout(() => res.send(lesMockFil(`tasks-feilede2.json`)), delayMs);
-});
+const services = [
+    {
+        displayName: 'Klage',
+        id: 'familie-klage',
+        gruppe: 'FELLES',
+        proxyPath: '/familie-klage/api',
+    },
+    {
+        displayName: 'EF mottak',
+        id: 'familie-ef-mottak',
+        gruppe: 'EF',
+        proxyPath: '/familie-ef-mottak/api',
+    },
+    {
+        displayName: 'EF sak',
+        id: 'familie-ef-sak',
+        gruppe: 'EF',
+        proxyPath: '/familie-ef-sak/api',
+    },
+    {
+        displayName: 'EF iverksett',
+        id: 'familie-ef-iverksett',
+        gruppe: 'EF',
+        proxyPath: '/familie-ef-iverksett/api',
+    },
+    {
+        displayName: 'Barnetrygd sak',
+        id: 'familie-ba-sak',
+        gruppe: 'BAKS',
+        proxyPath: '/familie-ba-sak/api',
+    },
+    {
+        displayName: 'Kontantstøtte sak',
+        id: 'familie-ks-sak',
+        gruppe: 'BAKS',
+        proxyPath: '/familie-ks-sak/api',
+    },
+    {
+        displayName: 'BAKS mottak',
+        id: 'familie-baks-mottak',
+        gruppe: 'BAKS',
+        proxyPath: '/familie-baks-mottak/api',
+    },
+];
 
-app.get('/familie-baks-mottak/api/task/logg/:id', (req, res) => {
-    setTimeout(() => res.send(lesMockFil(`tasks-logg.json`)), delayMs);
-});
+const oppfolgingPerService = {
+    'familie-klage': { antallFeilet: 1, antallManuellOppfølging: 0 },
+    'familie-ef-mottak': { antallFeilet: 3, antallManuellOppfølging: 0 },
+    'familie-ef-sak': { antallFeilet: 2, antallManuellOppfølging: 0 },
+    'familie-ef-iverksett': { antallFeilet: 0, antallManuellOppfølging: 0 },
+    'familie-ba-sak': { antallFeilet: 4, antallManuellOppfølging: 0 },
+    'familie-ks-sak': { antallFeilet: 0, antallManuellOppfølging: 2 },
+    'familie-baks-mottak': { antallFeilet: 0, antallManuellOppfølging: 0 },
+};
 
-app.put('/familie-baks-mottak/api/task/rekjorAlle', (req, res) => {
-    res.send({
-        status: 'SUKSESS',
-        melding: 'Innhenting av data var vellykket',
-        data: {},
+const registrerTjeneste = (service) => {
+    const base = service.proxyPath;
+
+    app.get(`${base}/task/antall-feilet-og-manuell-oppfolging`, (req, res) => {
+        const oppf = oppfolgingPerService[service.id] || {
+            antallFeilet: 0,
+            antallManuellOppfølging: 0,
+        };
+        setTimeout(
+            () =>
+                res.send({
+                    status: 'SUKSESS',
+                    melding: 'OK',
+                    data: oppf,
+                }),
+            delayMs
+        );
     });
-});
+
+    app.get(`${base}/task/v2`, (req, res) => {
+        setTimeout(() => res.send(lesMockFil('tasks-feilede2.json')), delayMs);
+    });
+
+    app.get(`${base}/task/callId/:callId`, (req, res) => {
+        setTimeout(() => res.send(lesMockFil('tasks-feilede2.json')), delayMs);
+    });
+
+    app.get(`${base}/task/type/alle`, (req, res) => {
+        res.send({
+            status: 'SUKSESS',
+            melding: 'OK',
+            data: ['hentJournalpostIdFraJoarkTask', 'journalførSøknad', 'sendTilSak'],
+        });
+    });
+
+    app.get(`${base}/task/logg/:id`, (req, res) => {
+        setTimeout(() => res.send(lesMockFil('tasks-logg.json')), delayMs);
+    });
+
+    app.get(`${base}/task/:id`, (req, res) => {
+        const tasks = JSON.parse(lesMockFil('tasks-feilede2.json')).data.tasks;
+        const task =
+            tasks.find((t) => String(t.id) === String(req.params.id)) || tasks[0];
+        setTimeout(
+            () =>
+                res.send({
+                    status: 'SUKSESS',
+                    melding: 'OK',
+                    data: task,
+                }),
+            delayMs
+        );
+    });
+
+    app.put(`${base}/task/rekjorAlle`, (req, res) => {
+        res.send({ status: 'SUKSESS', melding: 'OK', data: {} });
+    });
+
+    app.put(`${base}/task/rekjor`, (req, res) => {
+        res.send({ status: 'SUKSESS', melding: 'OK', data: {} });
+    });
+};
+
+services.forEach(registrerTjeneste);
 
 app.get('/user/profile', (req, res) => {
     res.send({
@@ -38,13 +141,7 @@ app.get('/user/profile', (req, res) => {
 
 app.get('/services', (req, res) => {
     res.send({
-        data: [
-            {
-                displayName: 'BAKS mottak',
-                id: 'familie-baks-mottak',
-                proxyPath: '/familie-baks-mottak/api',
-            },
-        ],
+        data: services,
         status: 'SUKSESS',
     });
 });

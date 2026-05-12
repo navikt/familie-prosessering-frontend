@@ -23,15 +23,15 @@ const App: React.FunctionComponent = () => {
 
     return (
         <BrowserRouter>
-            <Dekoratør
-                innloggetSaksbehandler={innloggetSaksbehandler}
-                tittel={'Oppgavebehandling'}
-                onClick={() => {
-                    window.location.href = `${window.origin}/auth/logout`;
-                }}
-            />
-            <div className={'container'}>
-                <ServiceProvider>
+            <ServiceProvider>
+                <Dekoratør
+                    innloggetSaksbehandler={innloggetSaksbehandler}
+                    tittel={'Oppgavebehandling'}
+                    onClick={() => {
+                        window.location.href = `${window.origin}/auth/logout`;
+                    }}
+                />
+                <div className={'container'}>
                     <Routes>
                         <Route path={'/'} element={<Services />} />
                         <Route
@@ -67,8 +67,8 @@ const App: React.FunctionComponent = () => {
                             }
                         />
                     </Routes>
-                </ServiceProvider>
-            </div>
+                </div>
+            </ServiceProvider>
         </BrowserRouter>
     );
 };

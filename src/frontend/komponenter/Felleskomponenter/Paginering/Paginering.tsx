@@ -1,26 +1,22 @@
-import { BodyShort, Button, HStack, VStack } from '@navikt/ds-react';
 import React, { FC } from 'react';
 import { useTaskContext } from '../../TaskProvider';
 
 const Paginering: FC = () => {
     const { side, settSide } = useTaskContext();
     return (
-        <VStack gap="4">
-            <HStack gap="2">
-                <Button
-                    variant={'secondary'}
-                    onClick={() => settSide(side - 1)}
-                    size={'medium'}
-                    disabled={side <= 0}
-                >
-                    Forrige
-                </Button>
-                <Button variant={'secondary'} onClick={() => settSide(side + 1)} size={'medium'}>
-                    Neste
-                </Button>
-            </HStack>
-            <BodyShort>Side: {side}</BodyShort>
-        </VStack>
+        <div className={'paginering'} role={'group'} aria-label={'Paginering'}>
+            <button
+                className={'paginering__knapp'}
+                onClick={() => settSide(side - 1)}
+                disabled={side <= 0}
+            >
+                ‹ Forrige
+            </button>
+            <span className={'paginering__side'}>Side {side + 1}</span>
+            <button className={'paginering__knapp'} onClick={() => settSide(side + 1)}>
+                Neste ›
+            </button>
+        </div>
     );
 };
 

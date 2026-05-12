@@ -1,3 +1,5 @@
+@font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
 html,
 body,
 #app {
@@ -22,4 +24,173 @@ body,
     border-left: 1px solid @ax-neutral-700;
     height: 1.5rem;
     margin: 0 2rem;
+}
+
+/* ---------- Side-skall ---------- */
+.side {
+    max-width: 80rem;
+    margin: 0 auto;
+    padding: 2rem 2rem 5rem;
+}
+
+.side-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1.5rem;
+    margin-bottom: 1.75rem;
+
+    &__tittel {
+        margin: 0;
+    }
+
+    &__ingress {
+        margin: 0.25rem 0 0;
+        color: var(--ax-text-neutral-subtle);
+        font-size: 0.9375rem;
+    }
+
+    &__meta {
+        color: var(--ax-text-neutral-subtle);
+        font-size: 0.8125rem;
+        font-family: @font-mono;
+        white-space: nowrap;
+    }
+}
+
+/* ---------- Detalj-tittel (med id-tag) ---------- */
+.detalj-tittel {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.25rem;
+
+    &__id {
+        font-family: @font-mono;
+        background: var(--ax-bg-neutral-moderate);
+        color: var(--ax-text-neutral);
+        font-size: 0.8125rem;
+        padding: 0.1875rem 0.5rem;
+        border-radius: 4px;
+    }
+}
+
+/* ---------- Tilbake-lenke ---------- */
+.tilbake-lenke {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    background: none;
+    border: 0;
+    cursor: pointer;
+    color: var(--ax-text-accent);
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    padding: 0.25rem 0;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+/* ---------- Statuspill ---------- */
+.statuspill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    height: 1.5rem;
+    padding: 0 0.5rem 0 0.375rem;
+    border-radius: 999px;
+    font-size: 0.78125rem;
+    font-weight: 600;
+    line-height: 1;
+    white-space: nowrap;
+
+    &--feil {
+        background: var(--ax-bg-danger-soft);
+        color: var(--ax-text-danger);
+    }
+
+    &--ok {
+        background: var(--ax-bg-success-soft);
+        color: var(--ax-text-success);
+    }
+
+    &--manuell {
+        background: var(--ax-bg-warning-soft);
+        color: var(--ax-text-warning);
+    }
+
+    &--info {
+        background: var(--ax-bg-info-soft);
+        color: var(--ax-text-info);
+    }
+
+    &__ikon {
+        width: 0.875rem;
+        height: 0.875rem;
+        border-radius: 50%;
+        display: inline-grid;
+        place-items: center;
+        flex: 0 0 auto;
+        color: #fff;
+    }
+
+    &--feil &__ikon {
+        background: var(--ax-bg-danger-strong);
+    }
+
+    &--ok &__ikon {
+        background: var(--ax-bg-success-strong);
+    }
+
+    &--manuell &__ikon {
+        background: var(--ax-bg-warning-strong);
+    }
+
+    &--info &__ikon {
+        background: var(--ax-bg-info-strong);
+    }
+
+    & svg {
+        width: 0.5625rem;
+        height: 0.5625rem;
+    }
+}
+
+/* ---------- Kopier-knapp ---------- */
+.kopier-knapp {
+    background: transparent;
+    border: 1px solid var(--ax-border-neutral-subtle);
+    color: var(--ax-text-neutral-subtle);
+    width: 1.375rem;
+    height: 1.375rem;
+    border-radius: 4px;
+    display: inline-grid;
+    place-items: center;
+    cursor: pointer;
+    flex: 0 0 auto;
+    transition:
+        background 0.12s ease,
+        color 0.12s ease,
+        border-color 0.12s ease;
+
+    &:hover {
+        background: var(--ax-bg-accent-soft);
+        color: var(--ax-text-accent);
+        border-color: var(--ax-border-accent);
+    }
+
+    &.kopiert {
+        background: var(--ax-bg-success-soft);
+        color: var(--ax-text-success);
+        border-color: var(--ax-border-success);
+    }
+
+    & svg {
+        width: 0.75rem;
+        height: 0.75rem;
+    }
 }
