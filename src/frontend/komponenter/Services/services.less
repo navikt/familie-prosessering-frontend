@@ -1,30 +1,51 @@
 .service-wrapper {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 2rem;
+    max-width: 80rem;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem;
 }
 
-.service-gruppe:not(:last-child) {
-    border-right: 1px solid @ax-neutral-500;
+.service-gruppe {
+    background-color: var(--ax-bg-default);
+    border: 1px solid var(--ax-border-neutral-subtle);
+    border-radius: var(--ax-radius-12);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 2px 8px rgba(0, 0, 0, 0.04);
+    flex: 1 1 22rem;
+    max-width: 26rem;
+    overflow: hidden;
 }
 
 .service-gruppe-header {
     text-align: center;
-    margin-top: 1rem;
+    margin: 0;
+    padding: 1.5rem 1.5rem 1rem;
+    color: var(--ax-text-neutral);
 }
 
 .services {
     display: flex;
-    flex-wrap: wrap;
-    margin: 0 1rem;
     flex-direction: column;
-    width: 25rem;
 
     &__service:not(:last-child) {
-        border-bottom: 1px solid @ax-neutral-500;
+        border-bottom: 1px solid var(--ax-border-neutral-subtle);
     }
+
     &__service {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 1.25rem 1.5rem;
         text-align: center;
-        padding: 1rem 1rem 1rem 1rem;
+        transition: background-color 0.15s ease;
+
+        &:hover {
+            background-color: var(--ax-bg-neutral-soft);
+        }
 
         &--actions {
             display: flex;
@@ -35,5 +56,5 @@
 }
 
 .varsel-wrapper {
-    margin: 1rem 0;
+    margin: 0;
 }
