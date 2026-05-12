@@ -162,7 +162,6 @@
         flex-direction: column;
         gap: 0.625rem;
         min-width: 0;
-        overflow: hidden;
     }
 
     &__tittel {
@@ -183,13 +182,34 @@
         font-weight: 600;
         letter-spacing: -0.01em;
         color: var(--ax-text-neutral);
+        overflow-wrap: anywhere;
+        min-width: 0;
     }
 
     &__tider {
         padding: 1.125rem 1.375rem;
         border-left: 1px solid var(--ax-border-neutral-subtle);
         min-width: 0;
-        overflow: hidden;
+
+        /* Tidsstempler stables (label over verdi) i stedet for label|verdi
+           som tvinger lange datoer til å brekke midt i tallene. */
+        .kv-grid {
+            grid-template-columns: 1fr;
+            gap: 0.875rem;
+        }
+
+        .kv-grid dt {
+            color: var(--ax-text-neutral-subtle);
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        .kv-grid dd {
+            margin-top: -0.625rem;
+            white-space: nowrap;
+        }
     }
 
     &__lenker {
