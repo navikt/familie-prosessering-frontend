@@ -63,6 +63,22 @@
             cursor: not-allowed;
         }
     }
+
+    &--kompakt {
+        gap: 0.125rem;
+        padding: 0.125rem;
+    }
+
+    &--kompakt .paginering__knapp {
+        padding: 0.125rem 0.4375rem;
+        font-size: 0.875rem;
+        line-height: 1;
+    }
+
+    &--kompakt .paginering__side {
+        padding: 0 0.25rem;
+        font-size: 0.8125rem;
+    }
 }
 
 /* ---------- Task-kort ---------- */
@@ -127,6 +143,83 @@
         }
     }
 
+    /* ---------- Kompakt variant (gruppert-visningen) ----------
+       Tvinger samme stabling som container-query, men også når kolonnen er bred —
+       gruppert-visningen viser bare ett kort om gangen og leser bedre vertikalt. */
+    &--kompakt {
+        .taskkort__topp {
+            grid-template-columns: 4.5rem minmax(0, 1fr);
+        }
+
+        .taskkort__tider,
+        .taskkort__lenker,
+        .taskkort__handlinger {
+            grid-column: 1 / -1;
+            border-left: 0;
+            border-top: 1px solid var(--ax-border-neutral-subtle);
+        }
+
+        /* Tider tilbake til horisontalt inline (label verdi   label verdi) — det
+           er nok plass når kortet er fullbredde i hovedpanelet. */
+        .taskkort__tider .kv-grid {
+            grid-template-columns: max-content max-content max-content max-content;
+            gap: 0.5rem 1.25rem;
+            row-gap: 0.625rem;
+        }
+
+        .taskkort__tider .kv-grid dt {
+            color: var(--ax-text-neutral-subtle);
+            font-size: 0.8125rem;
+            font-weight: 500;
+            text-transform: none;
+            letter-spacing: 0;
+        }
+
+        .taskkort__tider .kv-grid dd {
+            margin-top: 0;
+            white-space: nowrap;
+        }
+
+        .taskkort__lenker {
+            flex-direction: row;
+            flex-wrap: wrap;
+            gap: 0.5rem 1.125rem;
+
+            a {
+                padding: 0.125rem 0;
+            }
+        }
+
+        .taskkort__handlinger {
+            flex-direction: row;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.5rem 0.75rem;
+
+            > * {
+                width: auto;
+                justify-content: center;
+            }
+        }
+
+        /* Opprettet-stempelet skyver knappene til høyre. */
+        .taskkort__opprettet-stempel {
+            margin-right: auto;
+            font-size: 0.8125rem;
+            color: var(--ax-text-neutral-subtle);
+            font-family: @font-mono;
+            white-space: nowrap;
+        }
+
+        .taskkort__rail {
+            padding: 0.875rem 0.5rem;
+        }
+
+        .taskkort__rail-label {
+            font-size: 0.6875rem;
+        }
+    }
+
     &__rail {
         display: flex;
         align-items: center;
@@ -146,6 +239,13 @@
         &--noytral {
             background: var(--ax-bg-neutral-moderate);
             color: var(--ax-text-neutral);
+        }
+
+        /* Dempet variant for FERDIG i gruppert-visning — routinemessig "ok" skal
+           ikke se feiringssterkt grønt ut, men fortsatt være tydelig grønn-koblet. */
+        &--ok-soft {
+            background: var(--ax-bg-success-soft);
+            color: var(--ax-text-success);
         }
     }
 

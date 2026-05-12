@@ -17,6 +17,7 @@ interface IProps {
     task: ITask;
     visLoggSomStandard?: boolean;
     visSeTaskKnapp?: boolean;
+    kompakt?: boolean;
 }
 
 const getSistKjørt = (task: ITask) =>
@@ -70,7 +71,12 @@ const eksternLenkeIkon = (
     </svg>
 );
 
-const TaskPanel: FC<IProps> = ({ task, visLoggSomStandard = false, visSeTaskKnapp = true }) => {
+const TaskPanel: FC<IProps> = ({
+    task,
+    visLoggSomStandard = false,
+    visSeTaskKnapp = true,
+    kompakt = false,
+}) => {
     const { rekjørTasks } = useTaskContext();
     const { valgtService } = useServiceContext();
 
@@ -101,11 +107,13 @@ const TaskPanel: FC<IProps> = ({ task, visLoggSomStandard = false, visSeTaskKnap
     const railModifier = erFeilet
         ? 'taskkort__rail--feil'
         : erFerdig
-          ? 'taskkort__rail--ok'
+          ? kompakt
+              ? 'taskkort__rail--ok-soft'
+              : 'taskkort__rail--ok'
           : 'taskkort__rail--noytral';
 
     return (
-        <article className={'taskkort'}>
+        <article className={classNames('taskkort', kompakt && 'taskkort--kompakt')}>
             <AvvikshåndteringModal
                 settÅpen={settVisAvvikshåndteringModal}
                 task={task}
@@ -128,38 +136,40 @@ const TaskPanel: FC<IProps> = ({ task, visLoggSomStandard = false, visSeTaskKnap
                         <span className={'taskkort__navn'}>{taskNavn}</span>
                     </div>
                     <dl className={'kv-grid'}>
-                        {Object.entries(task.metadata).map(([key, value]) => {
-                            let lenke: string | null = null;
-                            if (tjenesteStøtterLenke) {
-                                if (key === 'behandlingsId' || key === 'behandlingId') {
-                                    lenke = hentLenkeTilBehandling(tjeneste, value);
-                                } else if (key === 'fagsakId') {
-                                    lenke = hentLenkeTilFagsak(tjeneste, value);
+                        {Object.entries(task.metadata)
+                            .filter(([key]) => !kompakt || key !== 'callId')
+                            .map(([key, value]) => {
+                                let lenke: string | null = null;
+                                if (tjenesteStøtterLenke) {
+                                    if (key === 'behandlingsId' || key === 'behandlingId') {
+                                        lenke = hentLenkeTilBehandling(tjeneste, value);
+                                    } else if (key === 'fagsakId') {
+                                        lenke = hentLenkeTilFagsak(tjeneste, value);
+                                    }
                                 }
-                            }
 
-                            return (
-                                <React.Fragment key={key}>
-                                    <dt>{key}</dt>
-                                    <dd>
-                                        {lenke ? (
-                                            <a
-                                                href={lenke}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                            >
-                                                {value}
-                                            </a>
-                                        ) : (
-                                            <span>{value}</span>
-                                        )}
-                                        {verdiSkalKopieres(key) && (
-                                            <KopierKnapp verdi={value} etikett={key} />
-                                        )}
-                                    </dd>
-                                </React.Fragment>
-                            );
-                        })}
+                                return (
+                                    <React.Fragment key={key}>
+                                        <dt>{key}</dt>
+                                        <dd>
+                                            {lenke ? (
+                                                <a
+                                                    href={lenke}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                >
+                                                    {value}
+                                                </a>
+                                            ) : (
+                                                <span>{value}</span>
+                                            )}
+                                            {verdiSkalKopieres(key) && (
+                                                <KopierKnapp verdi={value} etikett={key} />
+                                            )}
+                                        </dd>
+                                    </React.Fragment>
+                                );
+                            })}
                         {task.kommentar && (
                             <>
                                 <dt>kommentar</dt>
@@ -230,14 +240,10 @@ const TaskPanel: FC<IProps> = ({ task, visLoggSomStandard = false, visSeTaskKnap
                 </div>
 
                 <div className={'taskkort__handlinger'}>
-                    {visSeTaskKnapp && (
-                        <Button
-                            size={'small'}
-                            variant={'primary'}
-                            onClick={() => navigate(`/service/${valgtService?.id}/task/${task.id}`)}
-                        >
-                            Se task
-                        </Button>
+                    {kompakt && (
+                        <span className={'taskkort__opprettet-stempel'}>
+                            Opprettet {moment(task.opprettetTidspunkt).format('DD.MM.YYYY HH:mm')}
+                        </span>
                     )}
                     <Button
                         size={'small'}
@@ -257,6 +263,15 @@ const TaskPanel: FC<IProps> = ({ task, visLoggSomStandard = false, visSeTaskKnap
                     >
                         Rekjør
                     </Button>
+                    {visSeTaskKnapp && (
+                        <Button
+                            size={'small'}
+                            variant={'primary'}
+                            onClick={() => navigate(`/service/${valgtService?.id}/task/${task.id}`)}
+                        >
+                            Se task
+                        </Button>
+                    )}
                 </div>
             </div>
 

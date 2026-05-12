@@ -9,9 +9,16 @@ import TaskPanel from './TaskPanel';
 interface IProps {
     tasks: ITask[];
     visPaginering?: boolean;
+    visListeHeader?: boolean;
+    kompakt?: boolean;
 }
 
-const TaskListe: React.FC<IProps> = ({ tasks, visPaginering = true }) => {
+const TaskListe: React.FC<IProps> = ({
+    tasks,
+    visPaginering = true,
+    visListeHeader = true,
+    kompakt = false,
+}) => {
     const { statusFilter, typeFilter, fagsystemFilter, henterTasks, side } = useTaskContext();
 
     const skalViseTask = (task: ITask): boolean => {
@@ -53,18 +60,22 @@ const TaskListe: React.FC<IProps> = ({ tasks, visPaginering = true }) => {
 
     return (
         <>
-            <div className={'liste-header'}>
-                <div className={'liste-header__venstre'}>
-                    <strong className={'liste-header__antall'}>
-                        Viser {sorterte.length} task{sorterte.length === 1 ? '' : 's'}
-                    </strong>
-                    {visPaginering && <span className={'liste-header__side'}>Side {side + 1}</span>}
+            {visListeHeader && (
+                <div className={'liste-header'}>
+                    <div className={'liste-header__venstre'}>
+                        <strong className={'liste-header__antall'}>
+                            Viser {sorterte.length} task{sorterte.length === 1 ? '' : 's'}
+                        </strong>
+                        {visPaginering && (
+                            <span className={'liste-header__side'}>Side {side + 1}</span>
+                        )}
+                    </div>
+                    {visPaginering && <Paginering />}
                 </div>
-                {visPaginering && <Paginering />}
-            </div>
+            )}
 
             {sorterte.map((task) => (
-                <TaskPanel key={task.id} task={task} />
+                <TaskPanel key={task.id} task={task} kompakt={kompakt} />
             ))}
         </>
     );

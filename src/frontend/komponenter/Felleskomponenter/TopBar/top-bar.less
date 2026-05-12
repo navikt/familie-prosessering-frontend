@@ -7,10 +7,15 @@
         0 0 0 1px rgba(20, 24, 28, 0.02);
     padding: 1.125rem 1.25rem;
     display: grid;
-    grid-template-columns: minmax(11rem, 1fr) minmax(11rem, 1fr) minmax(16rem, 2fr);
+    grid-template-columns: minmax(11rem, 1fr) minmax(11rem, 1fr) minmax(16rem, 2fr) auto;
     gap: 1rem;
     align-items: end;
     margin-bottom: 1rem;
+
+    .toggle-chip {
+        align-self: end;
+        margin-bottom: 0.125rem;
+    }
 
     @media (max-width: 800px) {
         grid-template-columns: 1fr;

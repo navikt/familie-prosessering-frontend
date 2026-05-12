@@ -1,4 +1,5 @@
-import { Button, Checkbox, Search, Select } from '@navikt/ds-react';
+import { Button, Search, Select } from '@navikt/ds-react';
+import classNames from 'classnames';
 import { ArrowCirclepathIcon } from '@navikt/aksel-icons';
 import React, { FC, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -93,24 +94,30 @@ const TopBar: FC = () => {
                         navigate(`/service/${valgtService?.id}/tasker-med-call-id/${verdi}`);
                     }}
                 />
+                {statusFilter === TaskStatus.FERDIG && (
+                    <label
+                        className={classNames('toggle-chip', visFeilaMenFerdig && 'aktiv')}
+                        htmlFor={'feila-men-ferdig-checkbox'}
+                    >
+                        <input
+                            id={'feila-men-ferdig-checkbox'}
+                            type={'checkbox'}
+                            checked={visFeilaMenFerdig}
+                            onChange={() => {
+                                const neste = !visFeilaMenFerdig;
+                                setVisFeilaMenFerdig(neste);
+                                if (neste) {
+                                    tasksSomErFerdigNåMenFeiletFør();
+                                } else {
+                                    hentEllerOppdaterTasks();
+                                }
+                            }}
+                        />
+                        <span className={'toggle-chip__bryter'} aria-hidden={'true'} />
+                        Vis feilede som nå er ferdige
+                    </label>
+                )}
             </div>
-
-            {statusFilter === TaskStatus.FERDIG && (
-                <Checkbox
-                    id={'feila-men-ferdig-checkbox'}
-                    checked={visFeilaMenFerdig}
-                    onChange={() => {
-                        setVisFeilaMenFerdig(!visFeilaMenFerdig);
-                        if (!visFeilaMenFerdig) {
-                            tasksSomErFerdigNåMenFeiletFør();
-                        } else {
-                            hentEllerOppdaterTasks();
-                        }
-                    }}
-                >
-                    Vis de som feila, men nå er ferdige
-                </Checkbox>
-            )}
         </>
     );
 };
