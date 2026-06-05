@@ -27,7 +27,7 @@ spec:
         - 'https://tilbakekreving-prosessering.intern.dev.nav.no/auth/openid/callback'
       claims:
         groups:
-          - id: "d88d7d83-d22a-4627-8318-a569a6290a92" # nais-team-tilbake
+          - id: "66573c1a-eabb-4bcd-95c3-5b5a140eacfe" # nais-team-tilbake
   accessPolicy:
     outbound:
       rules:
