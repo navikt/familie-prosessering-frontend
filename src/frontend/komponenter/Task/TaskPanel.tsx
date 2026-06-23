@@ -23,8 +23,8 @@ const getSistKjørt = (task: ITask) =>
 const tjenesteUrlConfig = {
     'familie-ba-sak': {
         behandling: {
-            prod: 'https://familie-ba-sak.intern.nav.no/internal/redirect/behandling/',
-            dev: 'https://familie-ba-sak.intern.dev.nav.no/internal/redirect/behandling/',
+            prod: 'https://familie-ba-sak.intern.nav.no/redirect/behandling/',
+            dev: 'https://familie-ba-sak.intern.dev.nav.no/redirect/behandling/',
         },
         fagsak: {
             prod: 'https://barnetrygd.intern.nav.no/fagsak/',
