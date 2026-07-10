@@ -1,13 +1,14 @@
 import './azureConfig.js';
 import backend, { ensureAuthenticated, IApp } from '@navikt/familie-backend';
 import bodyParser from 'body-parser';
-import express from 'express';
+import express, { NextFunction, Request, Response } from 'express';
 import loglevel from 'loglevel';
 import moment from 'moment';
 import path from 'path';
 import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
+import { logInfo } from '@navikt/familie-logging';
 import { attachToken, doProxy } from './proxy.js';
 import setupRouter from './router.js';
 import { IService, serviceConfig } from './serviceConfig.js';
@@ -56,6 +57,21 @@ backend(sessionConfig).then(({ app, azureAuthClient, router }: IApp) => {
     app.use(bodyParser.json({ limit: '200mb' }));
     app.use(bodyParser.urlencoded({ limit: '200mb', extended: true }));
     app.use('/', setupRouter(azureAuthClient, router, servicer, middleware));
+
+    // Error-handling middleware - må registreres etter alle andre routes
+    app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
+        if (res.headersSent) {
+            return _next(err);
+        }
+        if (
+            err.message?.includes('did not find expected authorization request details in session')
+        ) {
+            logInfo(
+                `OIDC-sesjon mangler ved callback - brukeren omdirigeres til login. Detaljer: ${err.message}`
+            );
+            res.redirect('/login');
+        }
+    });
 
     app.listen(port, '0.0.0.0', () => {
         loglevel.info(
