@@ -1,9 +1,8 @@
-name: Build
+name: Pull request
+
 on:
-  workflow_dispatch:
-  push:
-    branches-ignore:
-      - 'main'
+  pull_request:
+    types: [opened, synchronize, reopened]
 
 jobs:
   build:
