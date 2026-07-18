@@ -22,6 +22,9 @@ spec:
       destinations:
         - id: elastic
         - id: loki
+    autoInstrumentation:
+      enabled: true
+      runtime: nodejs
   ingresses:
     - "https://familie-prosessering.intern.dev.nav.no"
   azure:
