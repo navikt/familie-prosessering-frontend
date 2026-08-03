@@ -1422,10 +1422,10 @@
   resolved "https://registry.yarnpkg.com/@leichtgewicht/ip-codec/-/ip-codec-2.0.5.tgz#4fc56c15c580b9adb7dc3c333a134e540b44bfb1"
   integrity sha512-Vo+PSpZG2/fmgmiNzYK9qWRh8h/CHrwD0mo1h1DzL4yzHNSfWYujGTYsWGreD000gcgmZ7K4Ys6Tx9TxtsKdDw==
 
-"@nais/apm@0.4.0":
-  version "0.4.0"
-  resolved "https://npm.pkg.github.com/download/@nais/apm/0.4.0/dbd85fa3b83f3a4270a09962f7aedd5b7f304d8d#dbd85fa3b83f3a4270a09962f7aedd5b7f304d8d"
-  integrity sha512-wEmQDTUb60k8S3l1FUbcKIgV6WJvLkiMcq9feZUJkWa13PyqmJ9mh7TyncD0/W8092fXRr5FD0SVq0iZjvQCQg==
+"@nais/apm@0.5.0":
+  version "0.5.0"
+  resolved "https://npm.pkg.github.com/download/@nais/apm/0.5.0/ac5e148a1cbe1bf93bb19523c04c788d2bcf6c6d#ac5e148a1cbe1bf93bb19523c04c788d2bcf6c6d"
+  integrity sha512-fr/4zGi8Ds/btCyabyNaUqZ1zTyZ3J7J0hvXcA/cre4R8tNj7ylnNVHglSa8jGbl8lu1/lOb1stFco53zF2rNA==
   dependencies:
     "@grafana/faro-web-sdk" "^2.8.2"
     "@grafana/faro-web-tracing" "2.8.2"
