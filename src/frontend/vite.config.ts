@@ -12,7 +12,7 @@ export default defineConfig({
     },
     server: {
         hmr: {
-            port: 24679, // Ikke default-porten (24678), så HMR ikke kolliderer med andre familie-apper som kjører samtidig
+            port: 24679,
         },
         port: 8000,
     },
