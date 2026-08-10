@@ -1,9 +1,11 @@
 import { BodyShort, Button, Heading, Label, Link, Panel } from '@navikt/ds-react';
 import classNames from 'classnames';
-import * as moment from 'moment';
-import React, { FC, useState } from 'react';
+import moment from 'moment';
+import type { FC } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ITask, taskStatusTekster, taskTypeTekster } from '../../typer/task';
+import type { ITask } from '../../typer/task';
+import { taskStatusTekster, taskTypeTekster } from '../../typer/task';
 import { useServiceContext } from '../ServiceContext';
 import { useTaskContext } from '../TaskProvider';
 import AvvikshåndteringModal from './AvvikshåndteringModal/AvvikshåndteringModal';

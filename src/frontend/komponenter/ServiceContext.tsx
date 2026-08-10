@@ -1,9 +1,10 @@
-import { byggTomRessurs, Ressurs, RessursStatus } from '@navikt/familie-typer';
+import type { Ressurs } from '@navikt/familie-typer';
+import { byggTomRessurs, RessursStatus } from '@navikt/familie-typer';
 import constate from 'constate';
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router';
 import { hentServices, hentTaskerSomHarFeiletEllerErTilManuellOppfølging } from '../api/service';
-import { AntallTaskerMedStatusFeiletOgManuellOppfølging, IService } from '../typer/service';
+import type { AntallTaskerMedStatusFeiletOgManuellOppfølging, IService } from '../typer/service';
 
 const getServiceId = (pathname: string) => {
     return pathname.split('/')[2];

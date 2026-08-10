@@ -1,13 +1,13 @@
-const express = require('express');
-const path = require('path');
-const fs = require('fs');
+import express from 'express';
+import path from 'path';
+import fs from 'fs';
 
 const delayMs = 20;
 const app = express();
 
 const lesMockFil = (filnavn) => {
     try {
-        return fs.readFileSync(path.join(__dirname, '/mock/' + filnavn), 'UTF-8');
+        return fs.readFileSync(path.join(import.meta.dirname, '/mock/' + filnavn), 'UTF-8');
     } catch (err) {
         throw err;
     }
@@ -49,4 +49,4 @@ app.get('/services', (req, res) => {
     });
 });
 
-module.exports = app;
+export default app;

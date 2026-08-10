@@ -1,6 +1,8 @@
 import { BodyShort, Button, Modal, Select, Textarea } from '@navikt/ds-react';
-import React, { FC, useState } from 'react';
-import { avvikstyper, ITask } from '../../../typer/task';
+import type { FC } from 'react';
+import { useState } from 'react';
+import type { ITask } from '../../../typer/task';
+import { avvikstyper } from '../../../typer/task';
 import { useTaskContext } from '../../TaskProvider';
 
 interface IProps {

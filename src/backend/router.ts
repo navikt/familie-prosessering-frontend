@@ -1,10 +1,12 @@
-import { Client, ensureAuthenticated } from '@navikt/familie-backend';
-import { Request, Response, Router } from 'express';
+import type { Client } from '@navikt/familie-backend';
+import { ensureAuthenticated } from '@navikt/familie-backend';
+import type { Request, Response, Router } from 'express';
 import fs from 'fs';
 import path from 'path';
-import { buildPath } from './config.js';
-import { IService } from './serviceConfig.js';
-import WebpackDevMiddleware from 'webpack-dev-middleware';
+import type { ViteDevServer } from 'vite';
+import { frontendPath } from './config.js';
+import { erLokal } from './env.js';
+import type { IService } from './serviceConfig.js';
 
 const naisMetaTags = (): string => {
     const app = process.env.NAIS_APP_NAME ?? '';
@@ -22,18 +24,13 @@ const naisMetaTags = (): string => {
         .join('\n    ');
 };
 
-export default (
-    authClient: Client,
-    router: Router,
-    servicer: IService[],
-    middleware?: WebpackDevMiddleware.API<Request, Response>
-) => {
-    router.get('/version', (req, res) => {
+export default async (authClient: Client, router: Router, servicer: IService[]) => {
+    router.get('/version', (_req, res) => {
         res.status(200).send({ version: process.env.APP_VERSION }).end();
     });
 
     // SERVICES
-    router.get('/services', (req, res) => {
+    router.get('/services', (_req, res) => {
         res.status(200)
             .send({
                 data: servicer.map((service: IService) => {
@@ -55,36 +52,41 @@ export default (
         return html.replace('<head>', `<head>\n    ${tags}`);
     };
 
-    // APP
-    if (process.env.NODE_ENV === 'development' && middleware) {
-        router.get(
-            '*global',
-            ensureAuthenticated(authClient, false),
-            (req: Request, res: Response) => {
-                if (middleware.context.outputFileSystem.readFileSync) {
-                    const html = middleware.context.outputFileSystem
-                        .readFileSync(
-                            path.resolve(middleware.context.compiler.outputPath, `index.html`)
-                        )
-                        .toString();
-                    res.writeHead(200, { 'Content-Type': 'text/html' });
-                    res.write(injectMetaTags(html));
-                    res.end();
-                }
-            }
-        );
-    } else {
-        router.get(
-            '*global',
-            ensureAuthenticated(authClient, false),
-            (req: Request, res: Response) => {
-                const filePath = path.resolve(process.cwd(), buildPath, 'index.html');
-                const html = fs.readFileSync(filePath, 'utf-8');
-                res.setHeader('Content-Type', 'text/html');
-                res.send(injectMetaTags(html));
-            }
-        );
+    let viteDevServer: ViteDevServer | undefined = undefined;
+    if (erLokal()) {
+        const { createServer } = await import('vite');
+        viteDevServer = await createServer({
+            root: path.join(process.cwd(), frontendPath),
+            server: { middlewareMode: true },
+            appType: 'custom',
+        });
+
+        router.use(viteDevServer.middlewares);
     }
+
+    const htmlPath = path.join(process.cwd(), frontendPath, 'index.html');
+    let htmlInnholdProd: string | undefined;
+
+    // APP
+    router.get(
+        '*splat',
+        ensureAuthenticated(authClient, false),
+        async (req: Request, res: Response) => {
+            if (erLokal()) {
+                if (!viteDevServer) {
+                    throw new Error('ViteDevServer er ikke initialisert.');
+                }
+                const htmlInnhold = await fs.promises.readFile(htmlPath, 'utf-8');
+                const transformed = await viteDevServer.transformIndexHtml(req.url, htmlInnhold);
+                res.status(200).type('html').send(injectMetaTags(transformed));
+            } else {
+                if (!htmlInnholdProd) {
+                    htmlInnholdProd = injectMetaTags(await fs.promises.readFile(htmlPath, 'utf-8'));
+                }
+                res.status(200).type('html').send(htmlInnholdProd);
+            }
+        }
+    );
 
     return router;
 };

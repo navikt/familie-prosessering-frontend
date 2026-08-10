@@ -1,11 +1,12 @@
-import { Client, getOnBehalfOfAccessToken } from '@navikt/familie-backend';
+import type { Client } from '@navikt/familie-backend';
+import { getOnBehalfOfAccessToken } from '@navikt/familie-backend';
 import { logError, logWarn } from '@navikt/familie-logging';
-import { NextFunction, Request, Response } from 'express';
+import type { NextFunction, Request, Response } from 'express';
 import { ClientRequest, IncomingMessage, ServerResponse } from 'http';
 import { createProxyMiddleware } from 'http-proxy-middleware';
 import { v4 as uuidv4 } from 'uuid';
 import { oboConfig } from './config.js';
-import { IService } from './serviceConfig.js';
+import type { IService } from './serviceConfig.js';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const restream = (proxyReq: ClientRequest, req: IncomingMessage, _res: ServerResponse) => {

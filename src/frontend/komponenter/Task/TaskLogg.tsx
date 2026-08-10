@@ -1,9 +1,10 @@
 import { BodyShort, Label } from '@navikt/ds-react';
-import { byggTomRessurs, Ressurs, RessursStatus } from '@navikt/familie-typer';
-import * as moment from 'moment';
+import type { Ressurs } from '@navikt/familie-typer';
+import { byggTomRessurs, RessursStatus } from '@navikt/familie-typer';
+import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import { hentTaskLogg } from '../../api/task';
-import { ITaskLogg } from '../../typer/task';
+import type { ITaskLogg } from '../../typer/task';
 import { useServiceContext } from '../ServiceContext';
 
 const hentStackTrace = (melding?: string) => {

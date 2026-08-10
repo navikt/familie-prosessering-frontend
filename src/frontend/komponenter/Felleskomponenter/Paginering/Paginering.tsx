@@ -1,12 +1,12 @@
 import { BodyShort, Button, HStack, VStack } from '@navikt/ds-react';
-import React, { FC } from 'react';
+import type { FC } from 'react';
 import { useTaskContext } from '../../TaskProvider';
 
 const Paginering: FC = () => {
     const { side, settSide } = useTaskContext();
     return (
-        <VStack gap="4">
-            <HStack gap="2">
+        <VStack gap="space-16">
+            <HStack gap="space-8">
                 <Button
                     variant={'secondary'}
                     onClick={() => settSide(side - 1)}
