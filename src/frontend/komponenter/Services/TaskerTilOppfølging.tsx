@@ -1,7 +1,7 @@
 import { Button, Popover } from '@navikt/ds-react';
 import React, { useState } from 'react';
-import { AntallTaskerMedStatusFeiletOgManuellOppfølging, IService } from '../../typer/service';
-import { Danger500, Success500, Warning500, Info500 } from '@navikt/ds-tokens/dist/tokens';
+import type { AntallTaskerMedStatusFeiletOgManuellOppfølging, IService } from '../../typer/service';
+import { Danger500, Success500, Warning500, Info500 } from '@navikt/ds-tokens/js';
 import {
     ExclamationmarkTriangleFillIcon,
     CheckmarkCircleFillIcon,

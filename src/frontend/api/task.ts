@@ -1,14 +1,14 @@
-import { IService } from '../typer/service';
-import {
+import type { IService } from '../typer/service';
+import type {
     IAvvikshåndteringDTO,
     ITask,
     ITaskResponse,
     ITaskLogg,
-    TaskStatus,
     IKommentarDTO,
 } from '../typer/task';
+import { TaskStatus } from '../typer/task';
 import { axiosRequest } from './axios';
-import { Ressurs } from '@navikt/familie-typer';
+import type { Ressurs } from '@navikt/familie-typer';
 
 export const hentTasks = (
     valgtService: IService,

@@ -1,5 +1,7 @@
-import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
-import { Ressurs, RessursStatus, byggFeiletRessurs } from '@navikt/familie-typer';
+import type { AxiosRequestConfig, AxiosResponse } from 'axios';
+import axios, { AxiosError } from 'axios';
+import type { Ressurs } from '@navikt/familie-typer';
+import { RessursStatus, byggFeiletRessurs } from '@navikt/familie-typer';
 
 axios.defaults.baseURL = window.location.origin;
 export const preferredAxios = axios;
@@ -47,7 +49,7 @@ export const axiosRequest = async <T>(config: AxiosRequestConfig): Promise<Ressu
                 return typetRessurs;
             })
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            .catch((error: AxiosError) => {
+            .catch((_error: AxiosError) => {
                 return byggFeiletRessurs<T>('Ukjent api feil');
             })
     );

@@ -1,5 +1,5 @@
 import '@navikt/ds-css';
-import { ISaksbehandler } from '@navikt/familie-typer';
+import type { ISaksbehandler } from '@navikt/familie-typer';
 import * as React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { hentInnloggetBruker } from '../api/saksbehandler';

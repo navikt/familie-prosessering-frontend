@@ -1,5 +1,5 @@
 import { InternalHeader, Spacer } from '@navikt/ds-react';
-import { ISaksbehandler } from '@navikt/familie-typer';
+import type { ISaksbehandler } from '@navikt/familie-typer';
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 

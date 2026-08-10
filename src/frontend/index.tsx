@@ -1,8 +1,6 @@
-import * as React from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './komponenter/App';
 import { init } from '@nais/apm';
-import '@navikt/ds-tokens';
 
 import './index.less';
 

@@ -1,7 +1,8 @@
 import { Radio, RadioGroup } from '@navikt/ds-react';
 import * as React from 'react';
 import { useTaskContext } from '../TaskProvider';
-import { ITask, stringTilFagsystem } from '../../typer/task';
+import type { ITask } from '../../typer/task';
+import { stringTilFagsystem } from '../../typer/task';
 
 const utledFagsystem = (fagsystem: string | undefined) => {
     switch (fagsystem) {
