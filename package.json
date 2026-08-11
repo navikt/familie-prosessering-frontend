@@ -8,9 +8,8 @@
   "license": "MIT",
   "scripts": {
     "start": "NODE_ENV=production ENV=prod node dist_backend/server.js",
-    "start:mock": "NODE_ENV=development node dev-server/mock-server.js",
     "start:dev": "yarn build:backend && NODE_ENV=development node dist_backend/server.js",
-    "build": "yarn validate && yarn build:prod",
+    "build": "yarn build:prod",
     "build:prod": "NODE_ENV=production yarn build:backend && yarn build:frontend",
     "build:backend": "tsc -p src/backend/tsconfig.json",
     "build:frontend": "vite build src/frontend",
