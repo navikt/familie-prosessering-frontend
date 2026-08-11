@@ -1,7 +1,9 @@
-import { byggTomRessurs, Ressurs, RessursStatus } from '@navikt/familie-typer';
+import type { Ressurs } from '@navikt/familie-typer';
+import { byggTomRessurs, RessursStatus } from '@navikt/familie-typer';
 import constate from 'constate';
 import { useEffect, useState } from 'react';
-import { Location, useLocation } from 'react-router';
+import type { Location } from 'react-router';
+import { useLocation } from 'react-router';
 import { useNavigate, useParams } from 'react-router-dom';
 import {
     avvikshåndterTask,
@@ -13,14 +15,8 @@ import {
     kommenterTask,
     rekjørTask,
 } from '../api/task';
-import {
-    Fagsystem,
-    IAvvikshåndteringDTO,
-    IKommentarDTO,
-    ITask,
-    ITaskResponse,
-    TaskStatus,
-} from '../typer/task';
+import type { IAvvikshåndteringDTO, IKommentarDTO, ITask, ITaskResponse } from '../typer/task';
+import { Fagsystem, TaskStatus } from '../typer/task';
 import { useServiceContext } from './ServiceContext';
 
 const getQueryParamStatusFilter = (location: Location): TaskStatus => {
@@ -96,6 +92,7 @@ const [TaskProvider, useTaskContext] = constate(() => {
 
     useEffect(() => {
         hentEllerOppdaterTasks();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [valgtService, statusFilter, side, typeFilter, taskId, callId]);
 
     useEffect(() => {
@@ -108,6 +105,7 @@ const [TaskProvider, useTaskContext] = constate(() => {
                 `${location.pathname}?statusFilter=${statusFilter}&side=${side}&taskType=${typeFilter}`
             );
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [statusFilter, side, typeFilter, history]);
 
     const rekjørTasks = (id?: number) => {

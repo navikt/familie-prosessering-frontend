@@ -1,7 +1,8 @@
 import { Alert, BodyShort, HStack, Loader, VStack } from '@navikt/ds-react';
-import * as moment from 'moment';
+import moment from 'moment';
 import * as React from 'react';
-import { Fagsystem, ITask, stringTilFagsystem } from '../../typer/task';
+import type { ITask } from '../../typer/task';
+import { Fagsystem, stringTilFagsystem } from '../../typer/task';
 import { useTaskContext } from '../TaskProvider';
 import TaskPanel from './TaskPanel';
 
@@ -28,7 +29,7 @@ const TaskListe: React.FC<IProps> = ({ tasks }) => {
     if (henterTasks) {
         return (
             <HStack justify="center">
-                <VStack gap="4">
+                <VStack gap="space-16">
                     <Loader size="3xlarge" title="Henter tasker" />
                     <BodyShort>Henter tasker...</BodyShort>
                 </VStack>

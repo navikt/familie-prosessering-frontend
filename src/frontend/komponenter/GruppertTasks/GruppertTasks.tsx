@@ -1,10 +1,11 @@
 import { Alert, BodyShort } from '@navikt/ds-react';
 import { RessursStatus } from '@navikt/familie-typer';
 import classNames from 'classnames';
-import * as moment from 'moment';
-import React, { FC } from 'react';
+import moment from 'moment';
+import type { FC } from 'react';
 import { NavLink, useParams, useSearchParams } from 'react-router-dom';
-import { ITask, TaskStatus } from '../../typer/task';
+import type { ITask } from '../../typer/task';
+import { TaskStatus } from '../../typer/task';
 import Paginering from '../Felleskomponenter/Paginering/Paginering';
 import TopBar from '../Felleskomponenter/TopBar/TopBar';
 import TaskListe from '../Task/TaskListe';

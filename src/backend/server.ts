@@ -1,45 +1,31 @@
 import './azureConfig.js';
-import backend, { ensureAuthenticated, IApp } from '@navikt/familie-backend';
-import bodyParser from 'body-parser';
-import express, { NextFunction, Request, Response } from 'express';
+import type { IApp } from '@navikt/familie-backend';
+import backend, { ensureAuthenticated } from '@navikt/familie-backend';
+import type { NextFunction, Request, Response } from 'express';
+import express from 'express';
 import loglevel from 'loglevel';
 import moment from 'moment';
 import path from 'path';
-import webpack from 'webpack';
-import webpackDevMiddleware from 'webpack-dev-middleware';
-import webpackHotMiddleware from 'webpack-hot-middleware';
 import { logInfo } from '@navikt/familie-logging';
 import { attachToken, doProxy } from './proxy.js';
 import setupRouter from './router.js';
-import { IService, serviceConfig } from './serviceConfig.js';
-import { sessionConfig } from './config.js';
-
-// @ts-expect-error spesialimport
-import config from '../.nais/webpack/webpack.dev.js';
+import type { IService } from './serviceConfig.js';
+import { serviceConfig } from './serviceConfig.js';
+import { frontendPath, sessionConfig } from './config.js';
+import { erLokal } from './env.js';
 import { teamconfig } from './teamconfig.js';
 
 loglevel.setDefaultLevel(loglevel.levels.INFO);
 
 const port = 8000;
 
-backend(sessionConfig).then(({ app, azureAuthClient, router }: IApp) => {
-    let middleware;
-
-    if (process.env.NODE_ENV === 'development') {
-        const compiler = webpack(config);
-
-        if (!compiler) {
-            throw new Error('Webpack compiler kunne ikke opprettes, mangler verdi.');
-        }
-
-        middleware = webpackDevMiddleware(compiler, {
-            publicPath: config.output.publicPath,
-        });
-
-        app.use(middleware);
-        app.use(webpackHotMiddleware(compiler));
-    } else {
-        app.use('/assets', express.static(path.resolve(process.cwd(), 'frontend_production/')));
+backend(sessionConfig).then(async ({ app, azureAuthClient, router }: IApp) => {
+    if (!erLokal()) {
+        app.use('/assets', express.static(path.join(process.cwd(), frontendPath, 'assets')));
+        app.use(
+            '/favicon.ico',
+            express.static(path.join(process.cwd(), frontendPath, 'favicon.ico'))
+        );
     }
 
     const servicer = serviceConfig[teamconfig.team];
@@ -53,10 +39,10 @@ backend(sessionConfig).then(({ app, azureAuthClient, router }: IApp) => {
         );
     });
 
-    // Sett opp bodyParser og router etter proxy. Spesielt viktig med tanke på større payloads som blir parset av bodyParser
-    app.use(bodyParser.json({ limit: '200mb' }));
-    app.use(bodyParser.urlencoded({ limit: '200mb', extended: true }));
-    app.use('/', setupRouter(azureAuthClient, router, servicer, middleware));
+    // Sett opp parsing av request body og router etter proxy. Spesielt viktig med tanke på større payloads som blir parset
+    app.use(express.json({ limit: '200mb' }));
+    app.use(express.urlencoded({ limit: '200mb', extended: true }));
+    app.use('/', await setupRouter(azureAuthClient, router, servicer));
 
     // Error-handling middleware - må registreres etter alle andre routes
     app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
@@ -70,6 +56,9 @@ backend(sessionConfig).then(({ app, azureAuthClient, router }: IApp) => {
                 `OIDC-sesjon mangler ved callback - brukeren omdirigeres til login. Detaljer: ${err.message}`
             );
             res.redirect('/login');
+        } else {
+            loglevel.error(`Uhåndtert feil: ${err.message}`);
+            res.status(500).send('Intern feil');
         }
     });
 

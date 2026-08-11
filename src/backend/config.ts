@@ -1,24 +1,25 @@
-import { IApi, ISessionKonfigurasjon } from '@navikt/familie-backend';
+import type { IApi, ISessionKonfigurasjon } from '@navikt/familie-backend';
 import { logError } from '@navikt/familie-logging';
-import { IService, utledScope } from './serviceConfig.js';
+import type { IService } from './serviceConfig.js';
+import { utledScope } from './serviceConfig.js';
 import { teamconfig } from './teamconfig.js';
 
 // Miljøvariabler
 const Environment = () => {
     if (process.env.ENV === 'local' || process.env.ENV === 'lokalt-mot-preprod') {
         return {
-            buildPath: 'frontend_development',
+            frontendPath: 'src/frontend',
             namespace: 'local',
         };
     } else if (process.env.ENV === 'preprod') {
         return {
-            buildPath: 'frontend_production',
+            frontendPath: 'dist_frontend',
             namespace: 'preprod',
         };
     }
 
     return {
-        buildPath: 'frontend_production',
+        frontendPath: 'dist_frontend',
         namespace: 'production',
     };
 };
@@ -46,4 +47,4 @@ export const sessionConfig: ISessionKonfigurasjon = {
     secureCookie: process.env.ENV !== 'local' && process.env.ENV !== 'lokalt-mot-preprod',
 };
 
-export const buildPath = env.buildPath;
+export const frontendPath = env.frontendPath;

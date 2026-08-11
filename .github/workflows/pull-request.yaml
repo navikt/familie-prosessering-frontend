@@ -19,5 +19,7 @@ jobs:
         run: yarn --prefer-offline --frozen-lockfile --ignore-scripts
         env:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
+      - name: Yarn validate
+        run: yarn validate
       - name: Yarn build
         run: yarn build

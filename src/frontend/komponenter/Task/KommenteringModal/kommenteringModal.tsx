@@ -1,6 +1,7 @@
 import { Alert, BodyShort, Button, Checkbox, Modal, Textarea } from '@navikt/ds-react';
-import React, { FC, useState } from 'react';
-import { ITask } from '../../../typer/task';
+import type { FC } from 'react';
+import { useState } from 'react';
+import type { ITask } from '../../../typer/task';
 import { useTaskContext } from '../../TaskProvider';
 
 interface IProps {

@@ -1,5 +1,6 @@
 import { Button, Checkbox, Heading, Search, Select } from '@navikt/ds-react';
-import React, { FC, useState } from 'react';
+import type { FC } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { TaskStatus, taskStatusTekster } from '../../../typer/task';
 import { useServiceContext } from '../../ServiceContext';
