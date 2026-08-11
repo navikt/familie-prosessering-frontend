@@ -14,8 +14,12 @@ const hentStackTrace = (melding?: string) => {
 
     try {
         const json = JSON.parse(melding);
-        if (json.stackTrace) {
-            return json.stackTrace;
+
+        // Vi skal takle både å deserialisere stackTrace og stacktrace fra backend
+        const stackTrace = json.stackTrace ?? json.stacktrace;
+
+        if (stackTrace) {
+            return stackTrace;
         } else if (json.feilmelding) {
             return `${json.feilmelding} - Ingen stack trace`;
         } else {
