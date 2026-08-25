@@ -25,6 +25,9 @@ spec:
     autoInstrumentation:
       enabled: true
       runtime: nodejs
+  frontend:
+    generatedConfig:
+      mountPath: /app/dist_backend/nais.js
   ingresses:
     - "https://familie-prosessering.intern.nav.no"
   azure:
