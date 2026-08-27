@@ -1,10 +1,12 @@
 import { createRoot } from 'react-dom/client';
 import App from './komponenter/App';
-import { init } from '@nais/apm';
+import { initApm } from './apm';
 
 import './index.less';
 
-init(); // app name, version, environment and collector URL resolved from nais
+if (import.meta.env.MODE !== 'development') {
+    initApm();
+}
 
 const rootElement = document.getElementById('app');
 const root = createRoot(rootElement!);

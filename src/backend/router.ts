@@ -1,3 +1,4 @@
+import { renderNaisMetaTags } from '@nais/apm';
 import type { Client } from '@navikt/familie-backend';
 import { ensureAuthenticated } from '@navikt/familie-backend';
 import type { Request, Response, Router } from 'express';
@@ -7,22 +8,6 @@ import type { ViteDevServer } from 'vite';
 import { frontendPath } from './config.js';
 import { erLokal } from './env.js';
 import type { IService } from './serviceConfig.js';
-
-const naisMetaTags = (): string => {
-    const app = process.env.NAIS_APP_NAME ?? '';
-    const team = process.env.NAIS_NAMESPACE ?? process.env.NAIS_TEAM ?? '';
-    const cluster = process.env.NAIS_CLUSTER_NAME ?? '';
-    const telemetryUrl = process.env.NAIS_TELEMETRY_URL ?? '';
-    if (!app && !team) return '';
-    return [
-        app ? `<meta name="nais-app" content="${app}">` : '',
-        team ? `<meta name="nais-team" content="${team}">` : '',
-        cluster ? `<meta name="nais-cluster" content="${cluster}">` : '',
-        telemetryUrl ? `<meta name="nais-telemetry-url" content="${telemetryUrl}">` : '',
-    ]
-        .filter(Boolean)
-        .join('\n    ');
-};
 
 export default async (authClient: Client, router: Router, servicer: IService[]) => {
     router.get('/version', (_req, res) => {
@@ -45,12 +30,6 @@ export default async (authClient: Client, router: Router, servicer: IService[]) 
             })
             .end();
     });
-
-    const injectMetaTags = (html: string): string => {
-        const tags = naisMetaTags();
-        if (!tags) return html;
-        return html.replace('<head>', `<head>\n    ${tags}`);
-    };
 
     let viteDevServer: ViteDevServer | undefined = undefined;
     if (erLokal()) {
@@ -76,12 +55,19 @@ export default async (authClient: Client, router: Router, servicer: IService[]) 
                 if (!viteDevServer) {
                     throw new Error('ViteDevServer er ikke initialisert.');
                 }
-                const htmlInnhold = await fs.promises.readFile(htmlPath, 'utf-8');
+                const htmlInnhold = (await fs.promises.readFile(htmlPath, 'utf-8')).replace(
+                    '{{{NAIS_META_TAGS}}}',
+                    renderNaisMetaTags()
+                );
                 const transformed = await viteDevServer.transformIndexHtml(req.url, htmlInnhold);
-                res.status(200).type('html').send(injectMetaTags(transformed));
+                res.status(200).type('html').send(transformed);
             } else {
                 if (!htmlInnholdProd) {
-                    htmlInnholdProd = injectMetaTags(await fs.promises.readFile(htmlPath, 'utf-8'));
+                    const htmlInnhold = await fs.promises.readFile(htmlPath, 'utf-8');
+                    htmlInnholdProd = htmlInnhold.replace(
+                        '{{{NAIS_META_TAGS}}}',
+                        renderNaisMetaTags()
+                    );
                 }
                 res.status(200).type('html').send(htmlInnholdProd);
             }
