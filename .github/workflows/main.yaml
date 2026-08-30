@@ -1,143 +1,112 @@
+# Full pipeline on push to main. Build, test, and deploy to dev + prod
 name: Build and deploy app to dev and prod
-
 on:
+  workflow_dispatch:
   push:
     branches:
       - 'main'
+    paths-ignore:
+      - '**.md'
+      - '**.MD'
+      - '.github/**.yaml'
+      - '.gitignore'
+      - 'CODEOWNERS'
+      - 'LICENSE'
 
 jobs:
   build:
-    name: Build and push Docker container
-    runs-on: ubuntu-latest
+    name: Build
+    if: github.ref == 'refs/heads/main' # Only deploy to prod from main branch
     permissions:
-      packages: write
       contents: read
       id-token: write
-    outputs:
-      image: ${{ steps.docker-build-push.outputs.image }}
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # ratchet:actions/checkout@v4
-      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # ratchet:actions/setup-node@v4
-        with:
-          node-version: '24'
-          cache: yarn
-          registry-url: "https://npm.pkg.github.com"
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
-      - name: Yarn install
-        run: yarn --prefer-offline --frozen-lockfile --ignore-scripts
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
-      - name: Yarn validate
-        run: yarn validate
-      - name: Yarn build
-        run: yarn build
-      - name: Build and publish Docker image to GAR
-        uses: nais/docker-build-push@8e41f1f58749b9248e376c25d33bfbdd2b1163c0 # ratchet:nais/docker-build-push@v0
-        id: docker-build-push
-        with:
-          team: teamfamilie
+    uses: navikt/familie-baks-gha-workflows/.github/workflows/build-pnpm-app.yaml@main # ratchet:exclude
+    with:
+      node-version: '24'
+      build-image: true
+      push-image: true
+    secrets: inherit
   deploy-dev-teamfamilie:
     name: Deploy to Dev teamfamilie
-    needs: build
-    runs-on: ubuntu-latest
     permissions:
-      id-token: write
       contents: read
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # ratchet:actions/checkout@v4
-      - uses: nais/deploy/actions/deploy@2d18f050f07b6a007864c6a57070ed915d571beb # ratchet:nais/deploy/actions/deploy@v2
-        env:
-          CLUSTER: dev-gcp
-          RESOURCE: .nais/app-dev.yaml
-          VAR: image=${{ needs.build.outputs.image }}
-
-  deploy-dev-tilleggesstonader:
+      id-token: write
+    needs: [build]
+    uses: navikt/familie-baks-gha-workflows/.github/workflows/deploy.yaml@main # ratchet:exclude
+    with:
+      image: ${{ needs.build.outputs.image }}
+      cluster: dev-gcp
+      resource: .nais/app-dev.yaml
+    secrets: inherit
+  deploy-dev-tilleggsstonader:
     name: Deploy to Dev tilleggsstonader
-    needs: build
-    runs-on: ubuntu-latest
     permissions:
-      id-token: write
       contents: read
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # ratchet:actions/checkout@v4
-      - uses: nais/deploy/actions/deploy@2d18f050f07b6a007864c6a57070ed915d571beb # ratchet:nais/deploy/actions/deploy@v2
-        env:
-          CLUSTER: dev-gcp
-          RESOURCE: .nais/app-dev-tilleggsstonader.yaml
-          VAR: image=${{ needs.build.outputs.image }}
-
+      id-token: write
+    needs: [build]
+    uses: navikt/familie-baks-gha-workflows/.github/workflows/deploy.yaml@main # ratchet:exclude
+    with:
+      image: ${{ needs.build.outputs.image }}
+      cluster: dev-gcp
+      resource: .nais/app-dev-tilleggsstonader.yaml
+    secrets: inherit
   deploy-dev-tilbakekreving:
     name: Deploy to Dev tilbakekreving
-    needs: build
-    runs-on: ubuntu-latest
     permissions:
-      id-token: write
       contents: read
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # ratchet:actions/checkout@v4
-      - uses: nais/deploy/actions/deploy@2d18f050f07b6a007864c6a57070ed915d571beb # ratchet:nais/deploy/actions/deploy@v2
-        env:
-          CLUSTER: dev-gcp
-          RESOURCE: .nais/app-dev-tilbake.yaml
-          VAR: image=${{ needs.build.outputs.image }}
-
+      id-token: write
+    needs: [build]
+    uses: navikt/familie-baks-gha-workflows/.github/workflows/deploy.yaml@main # ratchet:exclude
+    with:
+      image: ${{ needs.build.outputs.image }}
+      cluster: dev-gcp
+      resource: .nais/app-dev-tilbake.yaml
+    secrets: inherit
   deploy-dev-etterlatte:
     name: Deploy to Dev etterlatte
-    needs: build
-    runs-on: ubuntu-latest
     permissions:
-      id-token: write
       contents: read
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # ratchet:actions/checkout@v4
-      - uses: nais/deploy/actions/deploy@2d18f050f07b6a007864c6a57070ed915d571beb # ratchet:nais/deploy/actions/deploy@v2
-        env:
-          CLUSTER: dev-gcp
-          RESOURCE: .nais/app-dev-etterlatte.yaml
-          VAR: image=${{ needs.build.outputs.image }}
-
-  deploy-teamfamilie:
+      id-token: write
+    needs: [build]
+    uses: navikt/familie-baks-gha-workflows/.github/workflows/deploy.yaml@main # ratchet:exclude
+    with:
+      image: ${{ needs.build.outputs.image }}
+      cluster: dev-gcp
+      resource: .nais/app-dev-etterlatte.yaml
+    secrets: inherit
+  deploy-prod-teamfamilie:
     name: Deploy to Prod teamfamilie
-    needs: build
-    runs-on: ubuntu-latest
     permissions:
-      id-token: write
       contents: read
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # ratchet:actions/checkout@v4
-      - uses: nais/deploy/actions/deploy@2d18f050f07b6a007864c6a57070ed915d571beb # ratchet:nais/deploy/actions/deploy@v2
-        env:
-          CLUSTER: prod-gcp
-          RESOURCE: .nais/app-prod.yaml
-          VAR: image=${{ needs.build.outputs.image }}
-
-  deploy-tilleggsstonader:
+      id-token: write
+    needs: [build]
+    uses: navikt/familie-baks-gha-workflows/.github/workflows/deploy.yaml@main # ratchet:exclude
+    with:
+      image: ${{ needs.build.outputs.image }}
+      cluster: prod-gcp
+      resource: .nais/app-prod.yaml
+    secrets: inherit
+  deploy-prod-tilleggsstonader:
     name: Deploy to Prod tilleggsstonader
-    needs: build
-    runs-on: ubuntu-latest
     permissions:
-      id-token: write
       contents: read
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # ratchet:actions/checkout@v4
-      - uses: nais/deploy/actions/deploy@2d18f050f07b6a007864c6a57070ed915d571beb # ratchet:nais/deploy/actions/deploy@v2
-        env:
-          CLUSTER: prod-gcp
-          RESOURCE: .nais/app-prod-tilleggsstonader.yaml
-          VAR: image=${{ needs.build.outputs.image }}
-
-  deploy-tilbakekreving:
-    name: Deploy to Prod - tilbakekreving
-    needs: build
-    runs-on: ubuntu-latest
+      id-token: write
+    needs: [build]
+    uses: navikt/familie-baks-gha-workflows/.github/workflows/deploy.yaml@main # ratchet:exclude
+    with:
+      image: ${{ needs.build.outputs.image }}
+      cluster: prod-gcp
+      resource: .nais/app-prod-tilleggsstonader.yaml
+    secrets: inherit
+  deploy-prod-tilbakekreving:
+    name: Deploy to Prod tilbakekreving
     permissions:
-      id-token: write
       contents: read
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # ratchet:actions/checkout@v4
-      - uses: nais/deploy/actions/deploy@2d18f050f07b6a007864c6a57070ed915d571beb # ratchet:nais/deploy/actions/deploy@v2
-        env:
-          CLUSTER: prod-gcp
-          RESOURCE: .nais/app-prod-tilbake.yaml
-          VAR: image=${{ needs.build.outputs.image }}
+      id-token: write
+    needs: [build]
+    uses: navikt/familie-baks-gha-workflows/.github/workflows/deploy.yaml@main # ratchet:exclude
+    with:
+      image: ${{ needs.build.outputs.image }}
+      cluster: prod-gcp
+      resource: .nais/app-prod-tilbake.yaml
+    secrets: inherit

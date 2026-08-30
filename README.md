@@ -12,8 +12,9 @@ Ting du må gjøre for å få frontend til å snakke med din backend:
 
 # Kom i gang med utvikling
 
-* Installere avhengigheter `yarn`
-* Starte dev-server `yarn start:dev`
+* Aktiver riktig pnpm-versjon med `corepack enable` (henter versjonen fra `packageManager` i package.json)
+* Installere avhengigheter `pnpm install`
+* Starte dev-server `pnpm start:dev`
 * Åpne `http://localhost:8000` i nettleseren din
 
 For at lokal-secret skal fungere må applikasjonen du skal nå (mottak, sak, iverksett) ha følgende i sin `azure-ad-app-lokal.yaml`:
@@ -44,7 +45,7 @@ Bruk override_scope for å sette scope manuelt for den applikasjonen du vil kjø
 Appen må hente issuer fra samme sted som prosessering frontend. Ofte betyr dette at AZURE_APP_WELL_KNOWN_URL må peke mot samme issuer som prosessering-frontend. AKA. AAD_DISCOVERY_URL
 
 
-For å bygge prodversjon kjør `yarn build`. Prodversjonen vil ikke kjøre lokalt med mindre det gjøres en del endringer i forbindelse med uthenting av environment variabler og URLer for uthenting av informasjon.
+For å bygge prodversjon kjør `pnpm build`. Prodversjonen vil ikke kjøre lokalt med mindre det gjøres en del endringer i forbindelse med uthenting av environment variabler og URLer for uthenting av informasjon.
 
 ### Kjøre lokalt mot preprod
 

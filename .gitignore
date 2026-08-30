@@ -3,7 +3,8 @@ dist_frontend
 dist_backend
 .DS_Store
 VERSION
-yarn-error.log
+pnpm-debug.log
 .env
 ci-tests/reports
 .idea
+secure.log
