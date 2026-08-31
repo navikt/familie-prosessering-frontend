@@ -1,5 +1,4 @@
 name: Manual deploy to dev
-
 on:
   workflow_dispatch:
     inputs:
@@ -12,61 +11,38 @@ on:
           - tilleggsstonader
           - tilbake
           - etterlatte
+      skip-tests:
+        description: 'Skip tests?'
+        default: false
+        type: boolean
+      skip-validation:
+        description: 'Skip validation? (typecheck, lint)'
+        default: false
+        type: boolean
 
 jobs:
   build:
-    name: Build and push Docker container
-    runs-on: ubuntu-latest
+    name: Build
     permissions:
-      packages: write
       contents: read
       id-token: write
-    outputs:
-      image: ${{ steps.docker-build-push.outputs.image }}
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # ratchet:actions/checkout@v4
-      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # ratchet:actions/setup-node@v4
-        with:
-          node-version: '24'
-          cache: yarn
-          registry-url: "https://npm.pkg.github.com"
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
-      - name: Yarn install
-        run: yarn --prefer-offline --frozen-lockfile --ignore-scripts
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
-      - name: Yarn validate
-        run: yarn validate
-      - name: Yarn build
-        run: yarn build
-      - name: Build and publish Docker image to GAR
-        uses: nais/docker-build-push@8e41f1f58749b9248e376c25d33bfbdd2b1163c0 # ratchet:nais/docker-build-push@v0
-        id: docker-build-push
-        with:
-          team: teamfamilie
-
+    uses: navikt/familie-baks-gha-workflows/.github/workflows/build-pnpm-app.yaml@main # ratchet:exclude
+    with:
+      node-version: '24'
+      build-image: true
+      push-image: true
+      skip-tests: ${{ inputs.skip-tests }}
+      skip-validation: ${{ inputs.skip-validation }}
+    secrets: inherit
   deploy:
     name: Deploy to dev - ${{ inputs.namespace }}
-    needs: build
-    runs-on: ubuntu-latest
     permissions:
-      id-token: write
       contents: read
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # ratchet:actions/checkout@v4
-      - name: Finn riktig .nais-fil for valgt namespace
-        id: resource
-        run: |
-          case "${{ inputs.namespace }}" in
-            teamfamilie) echo "path=.nais/app-dev.yaml" >> "$GITHUB_OUTPUT" ;;
-            tilleggsstonader) echo "path=.nais/app-dev-tilleggsstonader.yaml" >> "$GITHUB_OUTPUT" ;;
-            tilbake) echo "path=.nais/app-dev-tilbake.yaml" >> "$GITHUB_OUTPUT" ;;
-            etterlatte) echo "path=.nais/app-dev-etterlatte.yaml" >> "$GITHUB_OUTPUT" ;;
-            *) echo "Ukjent namespace: ${{ inputs.namespace }}"; exit 1 ;;
-          esac
-      - uses: nais/deploy/actions/deploy@2d18f050f07b6a007864c6a57070ed915d571beb # ratchet:nais/deploy/actions/deploy@v2
-        env:
-          CLUSTER: dev-gcp
-          RESOURCE: ${{ steps.resource.outputs.path }}
-          VAR: image=${{ needs.build.outputs.image }}
+      id-token: write
+    needs: [build]
+    uses: navikt/familie-baks-gha-workflows/.github/workflows/deploy.yaml@main # ratchet:exclude
+    with:
+      image: ${{ needs.build.outputs.image }}
+      cluster: dev-gcp
+      resource: ${{ inputs.namespace == 'teamfamilie' && '.nais/app-dev.yaml' || format('.nais/app-dev-{0}.yaml', inputs.namespace) }}
+    secrets: inherit

@@ -48,5 +48,7 @@ spec:
   envFrom:
     - secret: etterlatte-prosessering
   env:
+    - name: APP_VERSION
+      value: "{{ VERSION }}"
     - name: ENV
       value: dev

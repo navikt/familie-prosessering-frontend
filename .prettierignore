@@ -5,7 +5,7 @@
 *.yml
 *.md
 *.html
-yarn.lock
+pnpm-lock.yaml
 .husky/
 .env
 .gitignore
