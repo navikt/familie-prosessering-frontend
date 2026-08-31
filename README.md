@@ -28,9 +28,13 @@ spec:
 ```
 
 Appen krever en del environment variabler og legges til i .env fila i root på prosjektet.
-Secrets kan bli lagt inn automatisk dersom man kjører `sh hent-og-lagre-miljøvariabler.sh`. Scriptet krever at du har `jq`, er pålogget naisdevice og er logget inn på google `gcloud auth login`
+Secrets kan bli lagt inn automatisk dersom man kjører `sh hent-og-lagre-miljøvariabler.sh`. Scriptet bruker nais-cli og krever at du har `jq`, er pålogget naisdevice og har kjørt `nais login -y`.
 
-Secrets kan også hentes selv fra cluster med `kubectl -n teamfamilie get secret azuread-familie-prosessering-lokal -o json | jq '.data | map_values(@base64d)'`
+Secrets kan også hentes selv med [nais-cli](https://cli.nais.io) (samme pålogging som over). Uthenting av secret-verdier logges. `--reason` (minst 10 tegn) er valgfritt – utelater du flagget, blir du spurt om begrunnelse.
+Merk at `nais secret get` uten `--with-values` ikke finner plattform-secrets som denne.
+```
+nais secret get azuread-familie-prosessering-lokal -e dev-gcp -t teamfamilie --with-values --reason "Lokal utvikling av familie-prosessering"
+```
 
 Bruk override_scope for å sette scope manuelt for den applikasjonen du vil kjøre mot lokalt
 ```
@@ -59,7 +63,7 @@ OVERRIDE_SCOPE=api://dev-gcp.teamfamilie.familie-tilbake/.default
 
 # Bygg og deploy
 Appen bygges på github actions. Alle commits til feature brancher går automatisk til gcp-dev og commits til main går direkte til gcp-prod.
-Hemmeligheter for appen ligger i etcd i kubernetes.
+Hemmeligheter for appen ligger som secrets i Kubernetes. Azure-secretene lages av Nais og hentes med `nais secret get` (se over); egne secrets kan i tillegg administreres i [Nais Console](https://console.nais.io).
 
 # Henvendelser
 
