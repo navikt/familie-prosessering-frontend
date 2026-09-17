@@ -84,13 +84,15 @@ const TopBar: FC = () => {
                         Alle
                     </option>
 
-                    {typer.map((type: string) => {
-                        return (
-                            <option key={type} value={type}>
-                                {type}
-                            </option>
-                        );
-                    })}
+                    {[...typer]
+                        .sort((typeA, typeB) => typeA.localeCompare(typeB, 'nb'))
+                        .map((type: string) => {
+                            return (
+                                <option key={type} value={type}>
+                                    {type}
+                                </option>
+                            );
+                        })}
                 </Select>
                 <Search
                     label="Søk på callId"
