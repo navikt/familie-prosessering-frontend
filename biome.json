@@ -1,31 +1,32 @@
 {
-    "$schema": "https://biomejs.dev/schemas/2.5.14/schema.json",
-    "vcs": { "enabled": true, "clientKind": "git", "useIgnoreFile": true },
-    "files": {
-        "includes": ["src/**/*.{js,jsx,ts,tsx}"]
+    "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+    "vcs": {
+        "enabled": true,
+        "clientKind": "git",
+        "useIgnoreFile": true,
+        "defaultBranch": "main"
     },
     "formatter": {
-        "enabled": true,
-        "formatWithErrors": false,
         "indentStyle": "space",
         "indentWidth": 4,
-        "lineWidth": 100,
-        "lineEnding": "lf"
+        "lineWidth": 100
     },
     "linter": {
         "enabled": true,
         "rules": {
             "preset": "recommended",
+            "correctness": {
+                "useExhaustiveDependencies": "warn",
+                "useJsxKeyInIterable": "warn"
+            },
             "suspicious": {
-                "noArrayIndexKey": "off",
-                "useIterableCallbackReturn": "off"
+                "noDoubleEquals": "warn",
+                "noArrayIndexKey": "warn",
+                "useIterableCallbackReturn": "warn"
             },
             "style": {
                 "useImportType": "off",
-                "noNonNullAssertion": "off"
-            },
-            "performance": {
-                "noAccumulatingSpread": "off"
+                "noNonNullAssertion": "warn"
             }
         }
     },
@@ -42,5 +43,28 @@
             "bracketSpacing": true
         }
     },
-    "assist": { "enabled": false }
+    "html": {
+        "parser": {
+            "interpolation": true
+        }
+    },
+    "assist": {
+        "enabled": true,
+        "actions": {
+            "source": {
+                "organizeImports": "off"
+            }
+        }
+    },
+    "overrides": [
+        {
+            "includes": ["**/tsconfig*.json"],
+            "json": {
+                "parser": {
+                    "allowComments": true,
+                    "allowTrailingCommas": true
+                }
+            }
+        }
+    ]
 }
