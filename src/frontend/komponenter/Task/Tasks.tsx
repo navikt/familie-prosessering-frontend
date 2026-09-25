@@ -1,11 +1,11 @@
 import { Alert } from '@navikt/ds-react';
-import * as React from 'react';
 import { RessursStatus } from '@navikt/familie-typer';
+import * as React from 'react';
 import Paginering from '../Felleskomponenter/Paginering/Paginering';
-import TaskListe from './TaskListe';
 import TopBar from '../Felleskomponenter/TopBar/TopBar';
 import { useTaskContext } from '../TaskProvider';
 import TaskFiltrering from './TaskFiltrering';
+import TaskListe from './TaskListe';
 
 const Tasks: React.FunctionComponent = () => {
     const { tasks } = useTaskContext();

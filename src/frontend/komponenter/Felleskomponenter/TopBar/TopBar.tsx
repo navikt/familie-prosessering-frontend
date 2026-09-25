@@ -1,3 +1,4 @@
+import { ArrowCirclepathIcon } from '@navikt/aksel-icons';
 import { Button, Checkbox, Heading, Search, Select } from '@navikt/ds-react';
 import type { FC } from 'react';
 import { useState } from 'react';
@@ -5,7 +6,6 @@ import { useNavigate } from 'react-router-dom';
 import { TaskStatus, taskStatusTekster } from '../../../typer/task';
 import { useServiceContext } from '../../ServiceContext';
 import { useTaskContext } from '../../TaskProvider';
-import { ArrowCirclepathIcon } from '@navikt/aksel-icons';
 
 const TopBar: FC = () => {
     const {

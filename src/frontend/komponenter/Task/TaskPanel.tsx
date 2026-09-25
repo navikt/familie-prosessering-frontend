@@ -6,13 +6,13 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import type { ITask } from '../../typer/task';
 import { taskStatusTekster, taskTypeTekster } from '../../typer/task';
+import { erProd } from '../../utils/miljø';
 import { useServiceContext } from '../ServiceContext';
 import { useTaskContext } from '../TaskProvider';
 import AvvikshåndteringModal from './AvvikshåndteringModal/AvvikshåndteringModal';
 import KommenteringModal from './KommenteringModal/kommenteringModal';
 import TaskElement from './TaskElement';
 import TaskLogg from './TaskLogg';
-import { erProd } from '../../utils/miljø';
 
 interface IProps {
     task: ITask;

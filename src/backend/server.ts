@@ -1,18 +1,18 @@
 import './azureConfig.js';
+import path from 'node:path';
 import type { IApp } from '@navikt/familie-backend';
 import backend, { ensureAuthenticated } from '@navikt/familie-backend';
+import { logInfo } from '@navikt/familie-logging';
 import type { NextFunction, Request, Response } from 'express';
 import express from 'express';
 import loglevel from 'loglevel';
 import moment from 'moment';
-import path from 'node:path';
-import { logInfo } from '@navikt/familie-logging';
+import { frontendPath, sessionConfig } from './config.js';
+import { erLokal } from './env.js';
 import { attachToken, doProxy } from './proxy.js';
 import setupRouter from './router.js';
 import type { IService } from './serviceConfig.js';
 import { serviceConfig } from './serviceConfig.js';
-import { frontendPath, sessionConfig } from './config.js';
-import { erLokal } from './env.js';
 import { teamconfig } from './teamconfig.js';
 
 loglevel.setDefaultLevel(loglevel.levels.INFO);

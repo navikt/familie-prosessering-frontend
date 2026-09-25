@@ -1,14 +1,14 @@
+import {
+    BucketMopFillIcon,
+    CheckmarkCircleFillIcon,
+    ExclamationmarkTriangleFillIcon,
+    InformationSquareFillIcon,
+    XMarkOctagonFillIcon,
+} from '@navikt/aksel-icons';
 import { Button, Popover } from '@navikt/ds-react';
+import { Danger500, Info500, Success500, Warning500 } from '@navikt/ds-tokens/js';
 import React, { useState } from 'react';
 import type { AntallTaskerMedStatusFeiletOgManuellOppfølging, IService } from '../../typer/service';
-import { Danger500, Success500, Warning500, Info500 } from '@navikt/ds-tokens/js';
-import {
-    ExclamationmarkTriangleFillIcon,
-    CheckmarkCircleFillIcon,
-    XMarkOctagonFillIcon,
-    InformationSquareFillIcon,
-    BucketMopFillIcon,
-} from '@navikt/aksel-icons';
 
 export interface TaskerTilOppfølgingProps {
     service: IService;

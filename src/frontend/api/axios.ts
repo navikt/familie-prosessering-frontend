@@ -1,7 +1,7 @@
+import type { Ressurs } from '@navikt/familie-typer';
+import { byggFeiletRessurs, RessursStatus } from '@navikt/familie-typer';
 import type { AxiosRequestConfig, AxiosResponse } from 'axios';
 import axios, { AxiosError } from 'axios';
-import type { Ressurs } from '@navikt/familie-typer';
-import { RessursStatus, byggFeiletRessurs } from '@navikt/familie-typer';
 
 axios.defaults.baseURL = window.location.origin;
 export const preferredAxios = axios;

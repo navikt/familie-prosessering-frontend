@@ -26,8 +26,8 @@
         "check:fix": "biome check --write ."
     },
     "lint-staged": {
-        "src/**/*.{js,jsx,ts,tsx}": [
-            "biome check --write --error-on-warnings"
+        "src/**/*.{js,jsx,ts,tsx,css}": [
+            "biome check ."
         ]
     },
     "dependencies": {

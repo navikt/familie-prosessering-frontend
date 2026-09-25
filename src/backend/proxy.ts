@@ -1,8 +1,8 @@
+import { ClientRequest, IncomingMessage, ServerResponse } from 'node:http';
 import type { Client } from '@navikt/familie-backend';
 import { getOnBehalfOfAccessToken } from '@navikt/familie-backend';
 import { logError, logWarn } from '@navikt/familie-logging';
 import type { NextFunction, Request, Response } from 'express';
-import { ClientRequest, IncomingMessage, ServerResponse } from 'node:http';
 import { createProxyMiddleware } from 'http-proxy-middleware';
 import { v4 as uuidv4 } from 'uuid';
 import { oboConfig } from './config.js';

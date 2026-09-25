@@ -1,14 +1,14 @@
+import type { Ressurs } from '@navikt/familie-typer';
 import type { IService } from '../typer/service';
 import type {
     IAvvikshåndteringDTO,
-    ITask,
-    ITaskResponse,
-    ITaskLogg,
     IKommentarDTO,
+    ITask,
+    ITaskLogg,
+    ITaskResponse,
 } from '../typer/task';
 import { TaskStatus } from '../typer/task';
 import { axiosRequest } from './axios';
-import type { Ressurs } from '@navikt/familie-typer';
 
 export const hentTasks = (
     valgtService: IService,
