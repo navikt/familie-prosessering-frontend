@@ -2,8 +2,8 @@ import { renderNaisMetaTags } from '@nais/apm';
 import type { Client } from '@navikt/familie-backend';
 import { ensureAuthenticated } from '@navikt/familie-backend';
 import type { Request, Response, Router } from 'express';
-import fs from 'fs';
-import path from 'path';
+import fs from 'node:fs';
+import path from 'node:path';
 import type { ViteDevServer } from 'vite';
 import { frontendPath } from './config.js';
 import { erLokal } from './env.js';
@@ -31,7 +31,7 @@ export default async (authClient: Client, router: Router, servicer: IService[]) 
             .end();
     });
 
-    let viteDevServer: ViteDevServer | undefined = undefined;
+    let viteDevServer: ViteDevServer | undefined;
     if (erLokal()) {
         const { createServer } = await import('vite');
         viteDevServer = await createServer({

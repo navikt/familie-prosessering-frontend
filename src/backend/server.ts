@@ -5,7 +5,7 @@ import type { NextFunction, Request, Response } from 'express';
 import express from 'express';
 import loglevel from 'loglevel';
 import moment from 'moment';
-import path from 'path';
+import path from 'node:path';
 import { logInfo } from '@navikt/familie-logging';
 import { attachToken, doProxy } from './proxy.js';
 import setupRouter from './router.js';
