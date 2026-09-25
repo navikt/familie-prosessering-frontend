@@ -23,24 +23,14 @@
                 "noDoubleEquals": "warn",
                 "noArrayIndexKey": "warn",
                 "useIterableCallbackReturn": "warn"
-            },
-            "style": {
-                "useImportType": "off",
-                "noNonNullAssertion": "warn"
             }
         }
     },
     "javascript": {
         "formatter": {
-            "jsxQuoteStyle": "double",
-            "quoteProperties": "asNeeded",
             "trailingCommas": "es5",
-            "semicolons": "always",
             "arrowParentheses": "always",
-            "bracketSameLine": false,
-            "quoteStyle": "single",
-            "attributePosition": "auto",
-            "bracketSpacing": true
+            "quoteStyle": "single"
         }
     },
     "html": {
