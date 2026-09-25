@@ -7,12 +7,7 @@ const Paginering: FC = () => {
     return (
         <VStack gap="space-16">
             <HStack gap="space-8">
-                <Button
-                    variant={'secondary'}
-                    onClick={() => settSide(side - 1)}
-                    size={'medium'}
-                    disabled={side <= 0}
-                >
+                <Button variant={'secondary'} onClick={() => settSide(side - 1)} size={'medium'} disabled={side <= 0}>
                     Forrige
                 </Button>
                 <Button variant={'secondary'} onClick={() => settSide(side + 1)} size={'medium'}>

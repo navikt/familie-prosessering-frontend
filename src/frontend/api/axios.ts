@@ -31,8 +31,7 @@ export const axiosRequest = async <T>(config: AxiosRequestConfig): Promise<Ressu
                     break;
                 case RessursStatus.FEILET:
                     typetRessurs = {
-                        frontendFeilmelding:
-                            responsRessurs.frontendFeilmelding ?? 'En feil har oppstått!',
+                        frontendFeilmelding: responsRessurs.frontendFeilmelding ?? 'En feil har oppstått!',
                         status: RessursStatus.FEILET,
                     };
                     break;

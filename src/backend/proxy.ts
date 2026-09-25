@@ -45,8 +45,7 @@ export const attachToken = (authClient: Client, service: IService) => {
                     logWarn(`invalid_grant`);
                     _res.status(500).json({
                         status: 'IKKE_TILGANG',
-                        frontendFeilmelding:
-                            'Uventet feil. Det er mulig at du ikke har tilgang til applikasjonen.',
+                        frontendFeilmelding: 'Uventet feil. Det er mulig at du ikke har tilgang til applikasjonen.',
                     });
                 } else {
                     logError(`Uventet feil - getOnBehalfOfAccessToken`, e);

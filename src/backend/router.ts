@@ -47,32 +47,25 @@ export default async (authClient: Client, router: Router, servicer: IService[]) 
     let htmlInnholdProd: string | undefined;
 
     // APP
-    router.get(
-        '*splat',
-        ensureAuthenticated(authClient, false),
-        async (req: Request, res: Response) => {
-            if (erLokal()) {
-                if (!viteDevServer) {
-                    throw new Error('ViteDevServer er ikke initialisert.');
-                }
-                const htmlInnhold = (await fs.promises.readFile(htmlPath, 'utf-8')).replace(
-                    '{{{NAIS_META_TAGS}}}',
-                    renderNaisMetaTags()
-                );
-                const transformed = await viteDevServer.transformIndexHtml(req.url, htmlInnhold);
-                res.status(200).type('html').send(transformed);
-            } else {
-                if (!htmlInnholdProd) {
-                    const htmlInnhold = await fs.promises.readFile(htmlPath, 'utf-8');
-                    htmlInnholdProd = htmlInnhold.replace(
-                        '{{{NAIS_META_TAGS}}}',
-                        renderNaisMetaTags()
-                    );
-                }
-                res.status(200).type('html').send(htmlInnholdProd);
+    router.get('*splat', ensureAuthenticated(authClient, false), async (req: Request, res: Response) => {
+        if (erLokal()) {
+            if (!viteDevServer) {
+                throw new Error('ViteDevServer er ikke initialisert.');
             }
+            const htmlInnhold = (await fs.promises.readFile(htmlPath, 'utf-8')).replace(
+                '{{{NAIS_META_TAGS}}}',
+                renderNaisMetaTags()
+            );
+            const transformed = await viteDevServer.transformIndexHtml(req.url, htmlInnhold);
+            res.status(200).type('html').send(transformed);
+        } else {
+            if (!htmlInnholdProd) {
+                const htmlInnhold = await fs.promises.readFile(htmlPath, 'utf-8');
+                htmlInnholdProd = htmlInnhold.replace('{{{NAIS_META_TAGS}}}', renderNaisMetaTags());
+            }
+            res.status(200).type('html').send(htmlInnholdProd);
         }
-    );
+    });
 
     return router;
 };

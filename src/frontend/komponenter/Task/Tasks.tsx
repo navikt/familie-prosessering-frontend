@@ -23,17 +23,9 @@ const Tasks: React.FunctionComponent = () => {
         case RessursStatus.HENTER:
             return <Alert variant={'info'}>Laster tasker</Alert>;
         case RessursStatus.IKKE_TILGANG:
-            return (
-                <Alert variant={'warning'}>
-                    Ikke tilgang til tasker: ${tasks.frontendFeilmelding}
-                </Alert>
-            );
+            return <Alert variant={'warning'}>Ikke tilgang til tasker: ${tasks.frontendFeilmelding}</Alert>;
         case RessursStatus.FEILET:
-            return (
-                <Alert variant={'error'}>
-                    Innhenting av tasker feilet: ${tasks.frontendFeilmelding}
-                </Alert>
-            );
+            return <Alert variant={'error'}>Innhenting av tasker feilet: ${tasks.frontendFeilmelding}</Alert>;
         default:
             return <div />;
     }

@@ -1,12 +1,6 @@
 import type { Ressurs } from '@navikt/familie-typer';
 import type { IService } from '../typer/service';
-import type {
-    IAvvikshåndteringDTO,
-    IKommentarDTO,
-    ITask,
-    ITaskLogg,
-    ITaskResponse,
-} from '../typer/task';
+import type { IAvvikshåndteringDTO, IKommentarDTO, ITask, ITaskLogg, ITaskResponse } from '../typer/task';
 import { TaskStatus } from '../typer/task';
 import { axiosRequest } from './axios';
 
@@ -34,10 +28,7 @@ export const hentTasks = (
     });
 };
 
-export const hentTasksMedCallId = (
-    valgtService: IService,
-    callId: string
-): Promise<Ressurs<ITaskResponse>> => {
+export const hentTasksMedCallId = (valgtService: IService, callId: string): Promise<Ressurs<ITaskResponse>> => {
     return axiosRequest({
         method: 'GET',
         url: `${valgtService.proxyPath}/task/callId/${callId}`,
@@ -58,9 +49,7 @@ export const hentAlleTasktyper = (valgtService: IService): Promise<Ressurs<strin
     });
 };
 
-export const hentTasksSomErFerdigNåMenFeiletFør = (
-    valgtService: IService
-): Promise<Ressurs<ITaskResponse>> => {
+export const hentTasksSomErFerdigNåMenFeiletFør = (valgtService: IService): Promise<Ressurs<ITaskResponse>> => {
     return axiosRequest({
         method: 'GET',
         url: `${valgtService.proxyPath}/task/ferdigNaaFeiletFoer`,
@@ -111,10 +100,7 @@ export const avvikshåndterTask = (
     });
 };
 
-export const kommenterTask = (
-    valgtService: IService,
-    kommentarDTO: IKommentarDTO
-): Promise<Ressurs<string>> => {
+export const kommenterTask = (valgtService: IService, kommentarDTO: IKommentarDTO): Promise<Ressurs<string>> => {
     return axiosRequest({
         data: {
             settTilManuellOppfølging: kommentarDTO.settTilManuellOppfølging,

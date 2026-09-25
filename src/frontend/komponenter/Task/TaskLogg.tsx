@@ -65,9 +65,7 @@ const TaskLogg: React.FC<{ taskId: number; visLogg: boolean }> = ({ taskId, visL
                         <BodyShort size={'small'}>{logg.node}</BodyShort>
                     </div>
 
-                    {stackTrace && (
-                        <pre className={'taskpanel__logg--item-melding'}>{stackTrace}</pre>
-                    )}
+                    {stackTrace && <pre className={'taskpanel__logg--item-melding'}>{stackTrace}</pre>}
                 </div>
             );
         });

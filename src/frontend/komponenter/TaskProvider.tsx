@@ -46,9 +46,7 @@ const [TaskProvider, useTaskContext] = constate(() => {
 
     const [henterTasks, setHenterTasks] = useState<boolean>(false);
     const [tasks, settTasks] = useState<Ressurs<ITaskResponse>>(byggTomRessurs());
-    const [statusFilter, settStatusFilter] = useState<TaskStatus>(
-        getQueryParamStatusFilter(location)
-    );
+    const [statusFilter, settStatusFilter] = useState<TaskStatus>(getQueryParamStatusFilter(location));
     const [fagsystemFilter, settFagsystemFilter] = useState<Fagsystem>(Fagsystem.ALLE);
     const [side, settSide] = useState<number>(getQueryParamSide(location));
     const [typeFilter, settTypeFilter] = useState<string>(getQueryParamTaskType(location));
@@ -103,9 +101,7 @@ const [TaskProvider, useTaskContext] = constate(() => {
             getQueryParamSide(location) !== side ||
             getQueryParamTaskType(location) !== typeFilter
         ) {
-            navigate(
-                `${location.pathname}?statusFilter=${statusFilter}&side=${side}&taskType=${typeFilter}`
-            );
+            navigate(`${location.pathname}?statusFilter=${statusFilter}&side=${side}&taskType=${typeFilter}`);
         }
     }, [statusFilter, side, typeFilter, history]);
 
@@ -114,9 +110,7 @@ const [TaskProvider, useTaskContext] = constate(() => {
         if (
             valgtService &&
             statusFilter &&
-            (!rekjørAlleTasks ||
-                statusFilter === TaskStatus.MANUELL_OPPFØLGING ||
-                statusFilter === TaskStatus.FEILET)
+            (!rekjørAlleTasks || statusFilter === TaskStatus.MANUELL_OPPFØLGING || statusFilter === TaskStatus.FEILET)
         ) {
             rekjørTask(valgtService, statusFilter, typeFilter, id).then((response) => {
                 if (response.status === RessursStatus.SUKSESS) {

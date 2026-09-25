@@ -22,10 +22,7 @@ const port = 8000;
 backend(sessionConfig).then(async ({ app, azureAuthClient, router }: IApp) => {
     if (!erLokal()) {
         app.use('/assets', express.static(path.join(process.cwd(), frontendPath, 'assets')));
-        app.use(
-            '/favicon.ico',
-            express.static(path.join(process.cwd(), frontendPath, 'favicon.ico'))
-        );
+        app.use('/favicon.ico', express.static(path.join(process.cwd(), frontendPath, 'favicon.ico')));
     }
 
     const servicer = serviceConfig[teamconfig.team];
@@ -49,12 +46,8 @@ backend(sessionConfig).then(async ({ app, azureAuthClient, router }: IApp) => {
         if (res.headersSent) {
             return _next(err);
         }
-        if (
-            err.message?.includes('did not find expected authorization request details in session')
-        ) {
-            logInfo(
-                `OIDC-sesjon mangler ved callback - brukeren omdirigeres til login. Detaljer: ${err.message}`
-            );
+        if (err.message?.includes('did not find expected authorization request details in session')) {
+            logInfo(`OIDC-sesjon mangler ved callback - brukeren omdirigeres til login. Detaljer: ${err.message}`);
             res.redirect('/login');
         } else {
             loglevel.error(`Uhåndtert feil: ${err.message}`);
@@ -64,9 +57,7 @@ backend(sessionConfig).then(async ({ app, azureAuthClient, router }: IApp) => {
 
     app.listen(port, '0.0.0.0', () => {
         loglevel.info(
-            `${moment().toISOString(true)}: server startet på port ${port}. Build version: ${
-                process.env.APP_VERSION
-            }.`
+            `${moment().toISOString(true)}: server startet på port ${port}. Build version: ${process.env.APP_VERSION}.`
         );
     }).on('error', (err) => {
         loglevel.error(`${moment().toISOString(true)}: server startup failed - ${err}`);

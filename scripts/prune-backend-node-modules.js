@@ -15,9 +15,7 @@ const nodeModulesDir = path.join(distBackendDir, 'node_modules');
 
 async function main() {
     if (!existsSync(entryFile)) {
-        throw new Error(
-            `Fant ikke ${entryFile}. Kjør 'pnpm build:backend' (tsc) før dette scriptet.`
-        );
+        throw new Error(`Fant ikke ${entryFile}. Kjør 'pnpm build:backend' (tsc) før dette scriptet.`);
     }
 
     // vite importeres i backend-koden, men brukes kun som dev-server lokalt.

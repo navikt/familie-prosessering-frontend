@@ -14,9 +14,7 @@ const utledFagsystem = (fagsystem: string | undefined) => {
     }
 };
 
-const utledFagsystemer = (tasks: ITask[]) => [
-    ...new Set(tasks.map((task) => utledFagsystem(task.metadata.fagsystem))),
-];
+const utledFagsystemer = (tasks: ITask[]) => [...new Set(tasks.map((task) => utledFagsystem(task.metadata.fagsystem)))];
 
 interface Props {
     tasks: ITask[];

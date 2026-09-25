@@ -24,12 +24,9 @@ const TopBar: FC = () => {
 
     return (
         <div className={'topbar'}>
-            <Heading size={'large'}>
-                Tasks for {valgtService ? valgtService.displayName : ''}
-            </Heading>
+            <Heading size={'large'}>Tasks for {valgtService ? valgtService.displayName : ''}</Heading>
 
-            {(statusFilter === TaskStatus.FEILET ||
-                statusFilter === TaskStatus.MANUELL_OPPFØLGING) && (
+            {(statusFilter === TaskStatus.FEILET || statusFilter === TaskStatus.MANUELL_OPPFØLGING) && (
                 <Button
                     icon={<ArrowCirclepathIcon fontSize="1.5rem" />}
                     style={{

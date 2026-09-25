@@ -15,9 +15,7 @@ const Dekoratør: React.FC<IProps> = ({ innloggetSaksbehandler, onClick, tittel 
             {tittel}
         </InternalHeader.Title>
         <Spacer />
-        {innloggetSaksbehandler && (
-            <InternalHeader.User name={innloggetSaksbehandler.displayName} />
-        )}
+        {innloggetSaksbehandler && <InternalHeader.User name={innloggetSaksbehandler.displayName} />}
         <InternalHeader.Button onClick={onClick}>Logg ut</InternalHeader.Button>
     </InternalHeader>
 );
