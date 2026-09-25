@@ -1,6 +1,7 @@
 import { Alert, Heading } from '@navikt/ds-react';
 import { RessursStatus } from '@navikt/familie-typer';
-import React, { useEffect } from 'react';
+import type React from 'react';
+import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useServiceContext } from '../ServiceContext';
 import { useTaskContext } from '../TaskProvider';

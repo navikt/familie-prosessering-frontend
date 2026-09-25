@@ -1,5 +1,5 @@
 import { Radio, RadioGroup } from '@navikt/ds-react';
-import * as React from 'react';
+import type * as React from 'react';
 import type { ITask } from '../../typer/task';
 import { stringTilFagsystem } from '../../typer/task';
 import { useTaskContext } from '../TaskProvider';

@@ -7,7 +7,8 @@ import {
 } from '@navikt/aksel-icons';
 import { Button, Popover } from '@navikt/ds-react';
 import { Danger500, Info500, Success500, Warning500 } from '@navikt/ds-tokens/js';
-import React, { useState } from 'react';
+import type React from 'react';
+import { useState } from 'react';
 import type { AntallTaskerMedStatusFeiletOgManuellOppfølging, IService } from '../../typer/service';
 
 export interface TaskerTilOppfølgingProps {

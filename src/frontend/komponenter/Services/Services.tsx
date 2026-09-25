@@ -1,6 +1,6 @@
 import { Alert, Button, Heading, Loader } from '@navikt/ds-react';
 import { RessursStatus } from '@navikt/familie-typer';
-import React from 'react';
+import type React from 'react';
 import { useNavigate } from 'react-router-dom';
 import type { AntallTaskerMedStatusFeiletOgManuellOppfølging, IService } from '../../typer/service';
 import { IServiceGruppe } from '../../typer/service';

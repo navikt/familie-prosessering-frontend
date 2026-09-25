@@ -1,4 +1,4 @@
-import { ClientRequest, IncomingMessage, ServerResponse } from 'node:http';
+import type { ClientRequest, IncomingMessage, ServerResponse } from 'node:http';
 import type { Client } from '@navikt/familie-backend';
 import { getOnBehalfOfAccessToken } from '@navikt/familie-backend';
 import { logError, logWarn } from '@navikt/familie-logging';

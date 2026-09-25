@@ -1,6 +1,6 @@
 import { Alert } from '@navikt/ds-react';
 import { RessursStatus } from '@navikt/familie-typer';
-import * as React from 'react';
+import type * as React from 'react';
 import Paginering from '../Felleskomponenter/Paginering/Paginering';
 import TopBar from '../Felleskomponenter/TopBar/TopBar';
 import { useTaskContext } from '../TaskProvider';
