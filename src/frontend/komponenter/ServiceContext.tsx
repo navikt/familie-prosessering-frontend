@@ -25,12 +25,12 @@ const [ServiceProvider, useServiceContext] = constate(() => {
         }
     };
 
+    // biome-ignore lint/correctness/useExhaustiveDependencies: Fetch services once on mount.
     useEffect(() => {
         hentServices().then((response: Ressurs<IService[]>) => {
             settServices(response);
             oppdaterValgtService(response, pathname);
         });
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
@@ -45,9 +45,9 @@ const [ServiceProvider, useServiceContext] = constate(() => {
         }
     }, [services]);
 
+    // biome-ignore lint/correctness/useExhaustiveDependencies: Update the selection when the path changes.
     useEffect(() => {
         oppdaterValgtService(services, pathname);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [pathname]);
 
     return {
