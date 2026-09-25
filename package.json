@@ -17,9 +17,13 @@
     "test": "echo \"No test specified.\"",
     "prepare": "husky",
     "typecheck": "tsc --noEmit -p src/backend/tsconfig.json && tsc --noEmit -p src/frontend/tsconfig.json",
-    "lint": "biome check ./src",
-    "lint:fix": "biome check --write ./src",
-    "validate": "pnpm typecheck && pnpm lint"
+    "validate": "pnpm typecheck && pnpm lint",
+    "lint": "biome lint .",
+    "lint:fix": "biome lint --write .",
+    "format": "biome format .",
+    "format:fix": "biome format --write .",
+    "check": "biome check .",
+    "check:fix": "biome check --write ."
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx}": [
