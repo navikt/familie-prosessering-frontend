@@ -16,7 +16,7 @@ export const hentTasks = (
     side: number,
     type: string
 ): Promise<Ressurs<ITaskResponse>> => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    // biome-ignore lint/suspicious/noExplicitAny: existing request parameter shapes vary by filter
     const params: any =
         statusFilter !== TaskStatus.ALLE
             ? {

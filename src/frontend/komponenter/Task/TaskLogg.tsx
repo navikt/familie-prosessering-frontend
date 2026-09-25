@@ -42,11 +42,11 @@ const TaskLogg: React.FC<{ taskId: number; visLogg: boolean }> = ({ taskId, visL
         }
     };
 
+    // biome-ignore lint/correctness/useExhaustiveDependencies: Fetch the log when the task or visibility changes.
     useEffect(() => {
         if (visLogg && taskLogg.status === RessursStatus.IKKE_HENTET) {
             hentLogg();
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [taskId, visLogg]);
 
     if (taskLogg.status === RessursStatus.SUKSESS) {
