@@ -1,6 +1,7 @@
 import { Alert, Heading } from '@navikt/ds-react';
 import { RessursStatus } from '@navikt/familie-typer';
-import React, { useEffect } from 'react';
+import type React from 'react';
+import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useServiceContext } from '../ServiceContext';
 import { useTaskContext } from '../TaskProvider';
@@ -31,17 +32,9 @@ const TaskMedId: React.FC = () => {
         case RessursStatus.HENTER:
             return <Alert variant={'info'}>Laster tasker</Alert>;
         case RessursStatus.IKKE_TILGANG:
-            return (
-                <Alert variant={'warning'}>
-                    Ikke tilgang til tasker: {task.frontendFeilmelding}
-                </Alert>
-            );
+            return <Alert variant={'warning'}>Ikke tilgang til tasker: {task.frontendFeilmelding}</Alert>;
         case RessursStatus.FEILET:
-            return (
-                <Alert variant={'error'}>
-                    Innhenting av tasker feilet: {task.frontendFeilmelding}
-                </Alert>
-            );
+            return <Alert variant={'error'}>Innhenting av tasker feilet: {task.frontendFeilmelding}</Alert>;
         default:
             return <div />;
     }

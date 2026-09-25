@@ -37,16 +37,9 @@ const KommenteringModal: FC<IProps> = ({ settÅpen, task, åpen }) => {
         );
     };
     return (
-        <Modal
-            className={'kommentering'}
-            open={åpen}
-            onClose={() => settÅpen(false)}
-            header={{ heading: 'Kommenter' }}
-        >
+        <Modal className={'kommentering'} open={åpen} onClose={() => settÅpen(false)} header={{ heading: 'Kommenter' }}>
             <Modal.Body>
-                <BodyShort>
-                    Legg til kommentar og velge hvis task skal bli manuelloppfølgt
-                </BodyShort>
+                <BodyShort>Legg til kommentar og velge hvis task skal bli manuelloppfølgt</BodyShort>
                 <br />
 
                 <form

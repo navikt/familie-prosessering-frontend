@@ -46,9 +46,7 @@ const [TaskProvider, useTaskContext] = constate(() => {
 
     const [henterTasks, setHenterTasks] = useState<boolean>(false);
     const [tasks, settTasks] = useState<Ressurs<ITaskResponse>>(byggTomRessurs());
-    const [statusFilter, settStatusFilter] = useState<TaskStatus>(
-        getQueryParamStatusFilter(location)
-    );
+    const [statusFilter, settStatusFilter] = useState<TaskStatus>(getQueryParamStatusFilter(location));
     const [fagsystemFilter, settFagsystemFilter] = useState<Fagsystem>(Fagsystem.ALLE);
     const [side, settSide] = useState<number>(getQueryParamSide(location));
     const [typeFilter, settTypeFilter] = useState<string>(getQueryParamTaskType(location));
@@ -76,6 +74,7 @@ const [TaskProvider, useTaskContext] = constate(() => {
         }
     };
 
+    // biome-ignore lint/correctness/useExhaustiveDependencies: Reset the filter when the selected service changes.
     useEffect(() => {
         settFagsystemFilter(Fagsystem.ALLE);
     }, [valgtService]);
@@ -90,22 +89,20 @@ const [TaskProvider, useTaskContext] = constate(() => {
         }
     }, [valgtService]);
 
+    // biome-ignore lint/correctness/useExhaustiveDependencies: Refresh tasks when the selected filters change.
     useEffect(() => {
         hentEllerOppdaterTasks();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [valgtService, statusFilter, side, typeFilter, taskId, callId]);
 
+    // biome-ignore lint/correctness/useExhaustiveDependencies: Sync the URL when the filters change.
     useEffect(() => {
         if (
             getQueryParamStatusFilter(location) !== statusFilter ||
             getQueryParamSide(location) !== side ||
             getQueryParamTaskType(location) !== typeFilter
         ) {
-            navigate(
-                `${location.pathname}?statusFilter=${statusFilter}&side=${side}&taskType=${typeFilter}`
-            );
+            navigate(`${location.pathname}?statusFilter=${statusFilter}&side=${side}&taskType=${typeFilter}`);
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [statusFilter, side, typeFilter, history]);
 
     const rekjørTasks = (id?: number) => {
@@ -113,9 +110,7 @@ const [TaskProvider, useTaskContext] = constate(() => {
         if (
             valgtService &&
             statusFilter &&
-            (!rekjørAlleTasks ||
-                statusFilter === TaskStatus.MANUELL_OPPFØLGING ||
-                statusFilter === TaskStatus.FEILET)
+            (!rekjørAlleTasks || statusFilter === TaskStatus.MANUELL_OPPFØLGING || statusFilter === TaskStatus.FEILET)
         ) {
             rekjørTask(valgtService, statusFilter, typeFilter, id).then((response) => {
                 if (response.status === RessursStatus.SUKSESS) {

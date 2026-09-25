@@ -29,9 +29,7 @@ const env = Environment();
 export const oboConfig = (service: IService): IApi => {
     return {
         clientId: service.id,
-        scopes: service.scope
-            ? [service.scope]
-            : [utledScope(service.id, service.cluster, service.teamname)],
+        scopes: service.scope ? [service.scope] : [utledScope(service.id, service.cluster, service.teamname)],
     };
 };
 

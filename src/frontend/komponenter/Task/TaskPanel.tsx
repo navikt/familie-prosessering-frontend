@@ -6,13 +6,13 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import type { ITask } from '../../typer/task';
 import { taskStatusTekster, taskTypeTekster } from '../../typer/task';
+import { erProd } from '../../utils/miljø';
 import { useServiceContext } from '../ServiceContext';
 import { useTaskContext } from '../TaskProvider';
 import AvvikshåndteringModal from './AvvikshåndteringModal/AvvikshåndteringModal';
 import KommenteringModal from './KommenteringModal/kommenteringModal';
 import TaskElement from './TaskElement';
 import TaskLogg from './TaskLogg';
-import { erProd } from '../../utils/miljø';
 
 interface IProps {
     task: ITask;
@@ -45,10 +45,8 @@ const tjenesteUrlConfig = {
     },
 };
 
-const hentLenkeTilBehandling = (
-    tjeneste: keyof typeof tjenesteUrlConfig,
-    behandlingsId: string
-): string => `${tjenesteUrlConfig[tjeneste].behandling[erProd() ? 'prod' : 'dev']}${behandlingsId}`;
+const hentLenkeTilBehandling = (tjeneste: keyof typeof tjenesteUrlConfig, behandlingsId: string): string =>
+    `${tjenesteUrlConfig[tjeneste].behandling[erProd() ? 'prod' : 'dev']}${behandlingsId}`;
 
 const hentLenkeTilFagsak = (tjeneste: keyof typeof tjenesteUrlConfig, fagsakId: string): string =>
     `${tjenesteUrlConfig[tjeneste].fagsak[erProd() ? 'prod' : 'dev']}${fagsakId}`;
@@ -83,11 +81,7 @@ const TaskPanel: FC<IProps> = ({ task }) => {
                 task={task}
                 åpen={visAvvikshåndteringModal}
             />
-            <KommenteringModal
-                settÅpen={settVisKommenteringModal}
-                task={task}
-                åpen={visKommenteringModal}
-            />
+            <KommenteringModal settÅpen={settVisKommenteringModal} task={task} åpen={visKommenteringModal} />
             <div className={classNames('taskpanel__status', task.status)}>
                 <Label as="p">{taskStatusTekster[task.status]}</Label>
             </div>
@@ -103,9 +97,7 @@ const TaskPanel: FC<IProps> = ({ task }) => {
             <div className={'taskpanel__innhold'}>
                 <Heading size={'medium'}>
                     #{task.id}:{' '}
-                    {taskTypeTekster[task.taskStepType]
-                        ? taskTypeTekster[task.taskStepType]
-                        : task.taskStepType}
+                    {taskTypeTekster[task.taskStepType] ? taskTypeTekster[task.taskStepType] : task.taskStepType}
                 </Heading>
                 <div className={'taskpanel__innhold--elementer'}>
                     {Object.entries(task.metadata).map(([key, value]) => {
@@ -137,10 +129,7 @@ const TaskPanel: FC<IProps> = ({ task }) => {
                     })}
 
                     <TaskElement label={'Sist kjørt'} innhold={sistKjørt} />
-                    <TaskElement
-                        label={'Triggertid'}
-                        innhold={moment(task.triggerTid).format('DD.MM.YYYY HH:mm')}
-                    />
+                    <TaskElement label={'Triggertid'} innhold={moment(task.triggerTid).format('DD.MM.YYYY HH:mm')} />
                     {task.kommentar && <TaskElement label={'Kommentar'} innhold={task.kommentar} />}
                 </div>
             </div>
@@ -175,9 +164,7 @@ const TaskPanel: FC<IProps> = ({ task }) => {
             </div>
 
             <div className={'taskpanel__metadata'}>
-                <BodyShort size={'small'}>
-                    {moment(task.opprettetTidspunkt).format('DD.MM.YYYY HH:mm')}
-                </BodyShort>
+                <BodyShort size={'small'}>{moment(task.opprettetTidspunkt).format('DD.MM.YYYY HH:mm')}</BodyShort>
             </div>
             <div className={'taskpanel__vislogg taskpanel__gruppert'}>
                 <Button

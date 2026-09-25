@@ -1,4 +1,5 @@
 node_modules
+.pnpm-store/
 dist_frontend
 dist_backend
 .DS_Store

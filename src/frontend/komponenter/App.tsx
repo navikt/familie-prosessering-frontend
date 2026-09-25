@@ -7,9 +7,9 @@ import Dekoratør from './Felleskomponenter/Dekoratør/Dekoratør';
 import GruppertTasks from './GruppertTasks/GruppertTasks';
 import { ServiceProvider } from './ServiceContext';
 import Services from './Services/Services';
-import TasksMedCallId from './Task/TasksMedCallId';
 import TaskMedId from './Task/TaskMedId';
 import Tasks from './Task/Tasks';
+import TasksMedCallId from './Task/TasksMedCallId';
 import { TaskProvider } from './TaskProvider';
 
 const App: React.FunctionComponent = () => {
