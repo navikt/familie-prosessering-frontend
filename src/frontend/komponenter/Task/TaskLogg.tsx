@@ -2,7 +2,8 @@ import { BodyShort, Label } from '@navikt/ds-react';
 import type { Ressurs } from '@navikt/familie-typer';
 import { byggTomRessurs, RessursStatus } from '@navikt/familie-typer';
 import moment from 'moment';
-import React, { useEffect, useState } from 'react';
+import type React from 'react';
+import { useEffect, useState } from 'react';
 import { hentTaskLogg } from '../../api/task';
 import type { ITaskLogg } from '../../typer/task';
 import { useServiceContext } from '../ServiceContext';
@@ -42,11 +43,11 @@ const TaskLogg: React.FC<{ taskId: number; visLogg: boolean }> = ({ taskId, visL
         }
     };
 
+    // biome-ignore lint/correctness/useExhaustiveDependencies: Fetch the log when the task or visibility changes.
     useEffect(() => {
         if (visLogg && taskLogg.status === RessursStatus.IKKE_HENTET) {
             hentLogg();
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [taskId, visLogg]);
 
     if (taskLogg.status === RessursStatus.SUKSESS) {
@@ -64,9 +65,7 @@ const TaskLogg: React.FC<{ taskId: number; visLogg: boolean }> = ({ taskId, visL
                         <BodyShort size={'small'}>{logg.node}</BodyShort>
                     </div>
 
-                    {stackTrace && (
-                        <pre className={'taskpanel__logg--item-melding'}>{stackTrace}</pre>
-                    )}
+                    {stackTrace && <pre className={'taskpanel__logg--item-melding'}>{stackTrace}</pre>}
                 </div>
             );
         });

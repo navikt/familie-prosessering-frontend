@@ -18,9 +18,7 @@ const TaskListe: React.FC<IProps> = ({ tasks }) => {
             case Fagsystem.ALLE:
                 return true;
             case Fagsystem.UKJENT:
-                return (
-                    task.metadata.fagsystem === undefined || task.metadata.fagsystem === 'UKJENT'
-                );
+                return task.metadata.fagsystem === undefined || task.metadata.fagsystem === 'UKJENT';
             default:
                 return stringTilFagsystem[task.metadata.fagsystem] === fagsystemFilter;
         }

@@ -1,6 +1,6 @@
 import { Alert, Button, Heading, Loader } from '@navikt/ds-react';
 import { RessursStatus } from '@navikt/familie-typer';
-import React from 'react';
+import type React from 'react';
 import { useNavigate } from 'react-router-dom';
 import type { AntallTaskerMedStatusFeiletOgManuellOppfølging, IService } from '../../typer/service';
 import { IServiceGruppe } from '../../typer/service';
@@ -35,12 +35,8 @@ const Services: React.FunctionComponent = () => {
                             <ServiceGruppe
                                 key={serviceGruppe}
                                 gruppe={serviceGruppe}
-                                servicer={services.data.filter(
-                                    (service) => service.gruppe === serviceGruppe
-                                )}
-                                taskerFeiletOgTilManuellOppfølging={
-                                    taskerFeiletOgTilManuellOppfølging
-                                }
+                                servicer={services.data.filter((service) => service.gruppe === serviceGruppe)}
+                                taskerFeiletOgTilManuellOppfølging={taskerFeiletOgTilManuellOppfølging}
                             />
                         );
                     })}
@@ -49,11 +45,7 @@ const Services: React.FunctionComponent = () => {
         case RessursStatus.HENTER:
             return <Alert variant={'info'}>Laster tasker</Alert>;
         case RessursStatus.FEILET:
-            return (
-                <Alert variant={'error'}>
-                    Innhenting av services feilet: {services.frontendFeilmelding}
-                </Alert>
-            );
+            return <Alert variant={'error'}>Innhenting av services feilet: {services.frontendFeilmelding}</Alert>;
         default:
             return <div />;
     }
@@ -69,10 +61,7 @@ const gruppeTilTekst: Record<string, string> = {
 const ServiceGruppe: React.FC<{
     servicer: IService[];
     gruppe: string;
-    taskerFeiletOgTilManuellOppfølging: Record<
-        string,
-        AntallTaskerMedStatusFeiletOgManuellOppfølging
-    >;
+    taskerFeiletOgTilManuellOppfølging: Record<string, AntallTaskerMedStatusFeiletOgManuellOppfølging>;
 }> = ({ servicer, gruppe, taskerFeiletOgTilManuellOppfølging }) => {
     if (servicer.length === 0) {
         return undefined;
@@ -88,9 +77,7 @@ const ServiceGruppe: React.FC<{
                         key={service.id}
                         service={service}
                         servicer={servicer}
-                        taskerFeiletOgManuellOppfølging={
-                            taskerFeiletOgTilManuellOppfølging[service.id]
-                        }
+                        taskerFeiletOgManuellOppfølging={taskerFeiletOgTilManuellOppfølging[service.id]}
                     />
                 ))}
             </div>

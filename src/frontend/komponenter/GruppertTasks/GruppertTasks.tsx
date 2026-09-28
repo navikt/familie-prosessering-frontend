@@ -25,9 +25,7 @@ const GruppertTasks: FC = () => {
     const gruppertTasks: GruppertTasker =
         tasks.status === RessursStatus.SUKSESS
             ? tasks.data.tasks.reduce((gruppert: { [key: string]: ITask[] }, task: ITask) => {
-                  const gruppeTasks = gruppert[task.metadata.callId]
-                      ? gruppert[task.metadata.callId]
-                      : [];
+                  const gruppeTasks = gruppert[task.metadata.callId] ? gruppert[task.metadata.callId] : [];
 
                   return {
                       ...gruppert,
@@ -70,14 +68,10 @@ const GruppertTasks: FC = () => {
                                                 callId === displayCallId ? 'active-task' : ''
                                             )}
                                         >
-                                            <BodyShort size={'small'}>{`#${
-                                                sistKjørtTask.id
-                                            }, ${moment(sistKjørtTask.opprettetTidspunkt).format(
-                                                'DD.MM.YYYY HH:mm'
-                                            )}`}</BodyShort>
-                                            <BodyShort
-                                                size={'small'}
-                                            >{`Call id: ${displayCallId}`}</BodyShort>
+                                            <BodyShort size={'small'}>{`#${sistKjørtTask.id}, ${moment(
+                                                sistKjørtTask.opprettetTidspunkt
+                                            ).format('DD.MM.YYYY HH:mm')}`}</BodyShort>
+                                            <BodyShort size={'small'}>{`Call id: ${displayCallId}`}</BodyShort>
                                         </NavLink>
                                     );
                                 })}
@@ -85,9 +79,7 @@ const GruppertTasks: FC = () => {
                         </div>
 
                         <main className={'gruppert-tasks__container--main'}>
-                            {callId && gruppertTasks[callId] && (
-                                <TaskListe tasks={gruppertTasks[callId]} />
-                            )}
+                            {callId && gruppertTasks[callId] && <TaskListe tasks={gruppertTasks[callId]} />}
                         </main>
                     </div>
                 </div>
@@ -95,17 +87,9 @@ const GruppertTasks: FC = () => {
         case RessursStatus.HENTER:
             return <Alert variant={'info'}>Laster tasker</Alert>;
         case RessursStatus.IKKE_TILGANG:
-            return (
-                <Alert variant={'warning'}>
-                    Ikke tilgang til tasker: {tasks.frontendFeilmelding}
-                </Alert>
-            );
+            return <Alert variant={'warning'}>Ikke tilgang til tasker: {tasks.frontendFeilmelding}</Alert>;
         case RessursStatus.FEILET:
-            return (
-                <Alert variant={'error'}>
-                    Innhenting av tasker feilet: {tasks.frontendFeilmelding}
-                </Alert>
-            );
+            return <Alert variant={'error'}>Innhenting av tasker feilet: {tasks.frontendFeilmelding}</Alert>;
         default:
             return <div />;
     }

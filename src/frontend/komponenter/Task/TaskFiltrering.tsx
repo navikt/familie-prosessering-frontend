@@ -1,8 +1,8 @@
 import { Radio, RadioGroup } from '@navikt/ds-react';
-import * as React from 'react';
-import { useTaskContext } from '../TaskProvider';
+import type * as React from 'react';
 import type { ITask } from '../../typer/task';
 import { stringTilFagsystem } from '../../typer/task';
+import { useTaskContext } from '../TaskProvider';
 
 const utledFagsystem = (fagsystem: string | undefined) => {
     switch (fagsystem) {
@@ -14,9 +14,7 @@ const utledFagsystem = (fagsystem: string | undefined) => {
     }
 };
 
-const utledFagsystemer = (tasks: ITask[]) => [
-    ...new Set(tasks.map((task) => utledFagsystem(task.metadata.fagsystem))),
-];
+const utledFagsystemer = (tasks: ITask[]) => [...new Set(tasks.map((task) => utledFagsystem(task.metadata.fagsystem)))];
 
 interface Props {
     tasks: ITask[];

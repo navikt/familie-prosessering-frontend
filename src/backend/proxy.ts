@@ -1,14 +1,13 @@
+import type { ClientRequest, IncomingMessage, ServerResponse } from 'node:http';
 import type { Client } from '@navikt/familie-backend';
 import { getOnBehalfOfAccessToken } from '@navikt/familie-backend';
 import { logError, logWarn } from '@navikt/familie-logging';
 import type { NextFunction, Request, Response } from 'express';
-import { ClientRequest, IncomingMessage, ServerResponse } from 'http';
 import { createProxyMiddleware } from 'http-proxy-middleware';
 import { v4 as uuidv4 } from 'uuid';
 import { oboConfig } from './config.js';
 import type { IService } from './serviceConfig.js';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const restream = (proxyReq: ClientRequest, req: IncomingMessage, _res: ServerResponse) => {
     const requestBody = (req as Request).body;
     if (requestBody) {
@@ -25,7 +24,6 @@ export const doProxy = (service: IService) => {
         on: {
             proxyReq: restream,
         },
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         pathRewrite: (path: string, _req: Request) => {
             return `/api${path}`;
         },
@@ -47,8 +45,7 @@ export const attachToken = (authClient: Client, service: IService) => {
                     logWarn(`invalid_grant`);
                     _res.status(500).json({
                         status: 'IKKE_TILGANG',
-                        frontendFeilmelding:
-                            'Uventet feil. Det er mulig at du ikke har tilgang til applikasjonen.',
+                        frontendFeilmelding: 'Uventet feil. Det er mulig at du ikke har tilgang til applikasjonen.',
                     });
                 } else {
                     logError(`Uventet feil - getOnBehalfOfAccessToken`, e);

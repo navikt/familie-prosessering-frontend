@@ -1,11 +1,11 @@
 import { Alert } from '@navikt/ds-react';
-import * as React from 'react';
 import { RessursStatus } from '@navikt/familie-typer';
+import type * as React from 'react';
 import Paginering from '../Felleskomponenter/Paginering/Paginering';
-import TaskListe from './TaskListe';
 import TopBar from '../Felleskomponenter/TopBar/TopBar';
 import { useTaskContext } from '../TaskProvider';
 import TaskFiltrering from './TaskFiltrering';
+import TaskListe from './TaskListe';
 
 const Tasks: React.FunctionComponent = () => {
     const { tasks } = useTaskContext();
@@ -23,17 +23,9 @@ const Tasks: React.FunctionComponent = () => {
         case RessursStatus.HENTER:
             return <Alert variant={'info'}>Laster tasker</Alert>;
         case RessursStatus.IKKE_TILGANG:
-            return (
-                <Alert variant={'warning'}>
-                    Ikke tilgang til tasker: ${tasks.frontendFeilmelding}
-                </Alert>
-            );
+            return <Alert variant={'warning'}>Ikke tilgang til tasker: ${tasks.frontendFeilmelding}</Alert>;
         case RessursStatus.FEILET:
-            return (
-                <Alert variant={'error'}>
-                    Innhenting av tasker feilet: ${tasks.frontendFeilmelding}
-                </Alert>
-            );
+            return <Alert variant={'error'}>Innhenting av tasker feilet: ${tasks.frontendFeilmelding}</Alert>;
         default:
             return <div />;
     }

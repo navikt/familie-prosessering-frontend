@@ -84,16 +84,10 @@ if (process.env.ENV === 'local') {
 }
 
 export const utledScope = (appId: string, cluster: 'gcp' | 'fss', team: Team) => {
-    if (
-        (process.env.ENV === 'local' || process.env.ENV === 'lokalt-mot-preprod') &&
-        process.env.OVERRIDE_SCOPE
-    ) {
+    if ((process.env.ENV === 'local' || process.env.ENV === 'lokalt-mot-preprod') && process.env.OVERRIDE_SCOPE) {
         return process.env.OVERRIDE_SCOPE;
     }
-    const env =
-        process.env.ENV === 'local' || process.env.ENV === 'lokalt-mot-preprod'
-            ? 'dev'
-            : process.env.ENV;
+    const env = process.env.ENV === 'local' || process.env.ENV === 'lokalt-mot-preprod' ? 'dev' : process.env.ENV;
     return `api://${env}-${cluster}.${team}.${appId}/.default`;
 };
 

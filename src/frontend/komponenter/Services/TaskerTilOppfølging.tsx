@@ -1,14 +1,15 @@
-import { Button, Popover } from '@navikt/ds-react';
-import React, { useState } from 'react';
-import type { AntallTaskerMedStatusFeiletOgManuellOppfølging, IService } from '../../typer/service';
-import { Danger500, Success500, Warning500, Info500 } from '@navikt/ds-tokens/js';
 import {
-    ExclamationmarkTriangleFillIcon,
-    CheckmarkCircleFillIcon,
-    XMarkOctagonFillIcon,
-    InformationSquareFillIcon,
     BucketMopFillIcon,
+    CheckmarkCircleFillIcon,
+    ExclamationmarkTriangleFillIcon,
+    InformationSquareFillIcon,
+    XMarkOctagonFillIcon,
 } from '@navikt/aksel-icons';
+import { Button, Popover } from '@navikt/ds-react';
+import { Danger500, Info500, Success500, Warning500 } from '@navikt/ds-tokens/js';
+import type React from 'react';
+import { useState } from 'react';
+import type { AntallTaskerMedStatusFeiletOgManuellOppfølging, IService } from '../../typer/service';
 
 export interface TaskerTilOppfølgingProps {
     service: IService;
@@ -16,9 +17,7 @@ export interface TaskerTilOppfølgingProps {
     taskerFeiletOgManuellOppfølging: AntallTaskerMedStatusFeiletOgManuellOppfølging;
 }
 
-export const TaskerTilOppfølging: React.FC<TaskerTilOppfølgingProps> = ({
-    taskerFeiletOgManuellOppfølging,
-}) => {
+export const TaskerTilOppfølging: React.FC<TaskerTilOppfølgingProps> = ({ taskerFeiletOgManuellOppfølging }) => {
     const [ankerElement, settAnkerElement] = useState<HTMLButtonElement | null>(null);
     const [åpen, settÅpen] = useState(false);
 
@@ -31,36 +30,21 @@ export const TaskerTilOppfølging: React.FC<TaskerTilOppfølgingProps> = ({
                 key={taskerFeiletOgManuellOppfølging.serviceId}
                 variant={'tertiary'}
                 onClick={() => settÅpen(!åpen)}
-                icon={
-                    <IkonType.ikon
-                        width={'2rem'}
-                        height={'2rem'}
-                        style={{ color: IkonType.farge }}
-                    />
-                }
+                icon={<IkonType.ikon width={'2rem'} height={'2rem'} style={{ color: IkonType.farge }} />}
             />
-            <Popover
-                open={åpen}
-                onClose={() => settÅpen(!åpen)}
-                anchorEl={ankerElement}
-                placement="bottom"
-            >
+            <Popover open={åpen} onClose={() => settÅpen(!åpen)} anchorEl={ankerElement} placement="bottom">
                 <Popover.Content>{utledTekst(taskerFeiletOgManuellOppfølging)}</Popover.Content>
             </Popover>
         </div>
     );
 };
 
-const utledIkonType = (
-    taskerFeiletOgManuellOppfølging: AntallTaskerMedStatusFeiletOgManuellOppfølging
-) => {
-    const { harMottattSvar, antallFeilet, antallManuellOppfølging } =
-        taskerFeiletOgManuellOppfølging;
+const utledIkonType = (taskerFeiletOgManuellOppfølging: AntallTaskerMedStatusFeiletOgManuellOppfølging) => {
+    const { harMottattSvar, antallFeilet, antallManuellOppfølging } = taskerFeiletOgManuellOppfølging;
 
     const harFeiletTasker = harMottattSvar && antallFeilet > 0;
     const harTaskerTilManuellOppfølging = harMottattSvar && antallManuellOppfølging > 0;
-    const harTaskerTilOppfølging =
-        harMottattSvar && (harFeiletTasker || harTaskerTilManuellOppfølging);
+    const harTaskerTilOppfølging = harMottattSvar && (harFeiletTasker || harTaskerTilManuellOppfølging);
 
     if (!harMottattSvar) {
         return { ikon: ExclamationmarkTriangleFillIcon, farge: Warning500 };
@@ -75,16 +59,12 @@ const utledIkonType = (
     }
 };
 
-const utledTekst = (
-    taskerFeiletOgManuellOppfølging: AntallTaskerMedStatusFeiletOgManuellOppfølging
-): string => {
-    const { harMottattSvar, antallFeilet, antallManuellOppfølging } =
-        taskerFeiletOgManuellOppfølging;
+const utledTekst = (taskerFeiletOgManuellOppfølging: AntallTaskerMedStatusFeiletOgManuellOppfølging): string => {
+    const { harMottattSvar, antallFeilet, antallManuellOppfølging } = taskerFeiletOgManuellOppfølging;
 
     const harFeiletTasker = harMottattSvar && antallFeilet > 0;
     const harTaskerTilManuellOppfølging = harMottattSvar && antallManuellOppfølging > 0;
-    const harTaskerTilOppfølging =
-        harMottattSvar && (harFeiletTasker || harTaskerTilManuellOppfølging);
+    const harTaskerTilOppfølging = harMottattSvar && (harFeiletTasker || harTaskerTilManuellOppfølging);
 
     if (!harMottattSvar) {
         return 'Kunne ikke hente ut tasker som trenger oppfølging for denne tjenesten';
@@ -94,8 +74,7 @@ const utledTekst = (
         return `${taskerFeiletOgManuellOppfølging.antallManuellOppfølging} task(er) som trenger manuell oppfølging`;
     } else if (harMottattSvar && harTaskerTilOppfølging) {
         return `${
-            taskerFeiletOgManuellOppfølging.antallFeilet +
-            taskerFeiletOgManuellOppfølging.antallManuellOppfølging
+            taskerFeiletOgManuellOppfølging.antallFeilet + taskerFeiletOgManuellOppfølging.antallManuellOppfølging
         } task(er) som trenger oppfølging`;
     } else {
         return 'Noe er galt';

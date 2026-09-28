@@ -1,6 +1,6 @@
 import { createRoot } from 'react-dom/client';
-import App from './komponenter/App';
 import { initApm } from './apm';
+import App from './komponenter/App';
 
 import './index.less';
 
