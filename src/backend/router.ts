@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { renderNaisMetaTags } from '@nais/apm';
-import type { Client } from '@navikt/familie-backend';
+import type { Configuration } from '@navikt/familie-backend';
 import { ensureAuthenticated } from '@navikt/familie-backend';
 import type { Request, Response, Router } from 'express';
 import type { ViteDevServer } from 'vite';
@@ -9,7 +9,7 @@ import { frontendPath } from './config.js';
 import { erLokal } from './env.js';
 import type { IService } from './serviceConfig.js';
 
-export default async (authClient: Client, router: Router, servicer: IService[]) => {
+export default async (authConfig: Configuration, router: Router, servicer: IService[]) => {
     router.get('/version', (_req, res) => {
         res.status(200).send({ version: process.env.APP_VERSION }).end();
     });
@@ -47,7 +47,7 @@ export default async (authClient: Client, router: Router, servicer: IService[]) 
     let htmlInnholdProd: string | undefined;
 
     // APP
-    router.get('*splat', ensureAuthenticated(authClient, false), async (req: Request, res: Response) => {
+    router.get('*splat', ensureAuthenticated(authConfig, false), async (req: Request, res: Response) => {
         if (erLokal()) {
             if (!viteDevServer) {
                 throw new Error('ViteDevServer er ikke initialisert.');

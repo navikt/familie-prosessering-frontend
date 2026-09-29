@@ -36,7 +36,7 @@
         "@navikt/ds-css": "8.11.0",
         "@navikt/ds-react": "8.11.0",
         "@navikt/ds-tokens": "8.11.0",
-        "@navikt/familie-backend": "10.1.24",
+        "@navikt/familie-backend": "10.1.31-alpha.4.sha-f79576d",
         "@navikt/familie-logging": "7.0.7",
         "@navikt/familie-typer": "8.0.5",
         "autoprefixer": "10.5.0",
