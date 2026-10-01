@@ -1,5 +1,5 @@
 import type { ClientRequest, IncomingMessage, ServerResponse } from 'node:http';
-import type { Client } from '@navikt/familie-backend';
+import type { Configuration } from '@navikt/familie-backend';
 import { getOnBehalfOfAccessToken } from '@navikt/familie-backend';
 import { logError, logWarn } from '@navikt/familie-logging';
 import type { NextFunction, Request, Response } from 'express';
@@ -32,9 +32,9 @@ export const doProxy = (service: IService) => {
     });
 };
 
-export const attachToken = (authClient: Client, service: IService) => {
+export const attachToken = (authConfig: Configuration, service: IService) => {
     return async (req: Request, _res: Response, next: NextFunction) => {
-        getOnBehalfOfAccessToken(authClient, req, oboConfig(service))
+        getOnBehalfOfAccessToken(authConfig, req, oboConfig(service))
             .then((accessToken: string) => {
                 req.headers['Nav-Call-Id'] = uuidv4();
                 req.headers.Authorization = `Bearer ${accessToken}`;

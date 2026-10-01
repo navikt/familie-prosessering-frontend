@@ -19,7 +19,7 @@ loglevel.setDefaultLevel(loglevel.levels.INFO);
 
 const port = 8000;
 
-backend(sessionConfig).then(async ({ app, azureAuthClient, router }: IApp) => {
+backend(sessionConfig).then(async ({ app, azureAuthConfig, router }: IApp) => {
     if (!erLokal()) {
         app.use('/assets', express.static(path.join(process.cwd(), frontendPath, 'assets')));
         app.use('/favicon.ico', express.static(path.join(process.cwd(), frontendPath, 'favicon.ico')));
@@ -30,8 +30,8 @@ backend(sessionConfig).then(async ({ app, azureAuthClient, router }: IApp) => {
     servicer.map((service: IService) => {
         app.use(
             service.proxyPath,
-            ensureAuthenticated(azureAuthClient, true),
-            attachToken(azureAuthClient, service),
+            ensureAuthenticated(azureAuthConfig, true),
+            attachToken(azureAuthConfig, service),
             doProxy(service)
         );
     });
@@ -39,7 +39,7 @@ backend(sessionConfig).then(async ({ app, azureAuthClient, router }: IApp) => {
     // Sett opp parsing av request body og router etter proxy. Spesielt viktig med tanke på større payloads som blir parset
     app.use(express.json({ limit: '200mb' }));
     app.use(express.urlencoded({ limit: '200mb', extended: true }));
-    app.use('/', await setupRouter(azureAuthClient, router, servicer));
+    app.use('/', await setupRouter(azureAuthConfig, router, servicer));
 
     // Error-handling middleware - må registreres etter alle andre routes
     app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
