@@ -27,8 +27,8 @@ importers:
         specifier: 8.11.0
         version: 8.11.0
       '@navikt/familie-backend':
-        specifier: 10.1.31-alpha.4.sha-f79576d
-        version: 10.1.31-alpha.4.sha-f79576d(@opentelemetry/api@1.9.1)(supports-color@7.2.0)
+        specifier: 11.0.0
+        version: 11.0.0(@opentelemetry/api@1.9.1)(supports-color@7.2.0)
       '@navikt/familie-logging':
         specifier: 7.0.7
         version: 7.0.7
@@ -300,8 +300,9 @@ packages:
   '@navikt/ds-tokens@8.11.1':
     resolution: {integrity: sha512-jsPer8drVa+TxqdfHHanZVrsUNjowx+3ZcXQ7/+Nb3q81FTnrXmpvV2VeN7TTzSToWdX5/6oGH9LzrSyiN5UGw==, tarball: https://npm.pkg.github.com/download/@navikt/ds-tokens/8.11.1/15883c8c993965a47c8e12dcf588687095a70a4e}
 
-  '@navikt/familie-backend@10.1.31-alpha.4.sha-f79576d':
-    resolution: {integrity: sha512-cJnXGo4q6MnpgVkdQSVEaZXOGEeIW1CJgbC0ruQfjTDNip8udfCQR8jmQq976CugJSqp8Ea8lFn4hWpBbmmLeg==, tarball: https://npm.pkg.github.com/download/@navikt/familie-backend/10.1.31-alpha.4.sha-f79576d/36a2ab330ba6b8320648ccfdd66c6e529e69bdfb}
+  '@navikt/familie-backend@11.0.0':
+    resolution: {integrity: sha512-WiwPChADvBNciCQtHncWRN2BJHXVtEjRHhl/kDlfsP1VDaqYexajy3cQ5vQOpUYSCgRscwZCzcGFSMgPtgl5hQ==, tarball: https://npm.pkg.github.com/download/@navikt/familie-backend/11.0.0/b7e09a82539a32ac7676ee9e84a9e655c504383f}
+    engines: {node: '>=22.19.0'}
 
   '@navikt/familie-logging@7.0.10':
     resolution: {integrity: sha512-vwt7UohN0l7TOHpxyRTbLESEfThbdj9PRCAXey9k5qBk5Mk6hnZv7VG7PIIW4WbPZCmbvCDaXMSP81YITY6u0w==, tarball: https://npm.pkg.github.com/download/@navikt/familie-logging/7.0.10/d4e494fc6973f32357ce095393122aaf7eadbc13}
@@ -2164,7 +2165,7 @@ snapshots:
 
   '@navikt/ds-tokens@8.11.1': {}
 
-  '@navikt/familie-backend@10.1.31-alpha.4.sha-f79576d(@opentelemetry/api@1.9.1)(supports-color@7.2.0)':
+  '@navikt/familie-backend@11.0.0(@opentelemetry/api@1.9.1)(supports-color@7.2.0)':
     dependencies:
       '@navikt/familie-logging': 7.0.10
       '@types/cookie-parser': 1.4.8(@types/express@5.0.6)
