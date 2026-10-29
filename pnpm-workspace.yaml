@@ -5,7 +5,7 @@
 # fra dist_backend/server.js i containeren.
 nodeLinker: hoisted
 overrides:
-  qs: 6.15.2
+  qs: ^6.16.0
 # Avhengigheter får ikke kjøre (pre|post)install-scripts (sikkerhetstiltak).
 # Tilsvarer 'ignore-scripts true' som lå i .yarnrc. Ingen av dagens
 # avhengigheter har install-scripts; legg til 'pakke: false' her hvis pnpm
