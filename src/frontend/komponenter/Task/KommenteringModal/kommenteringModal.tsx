@@ -69,7 +69,7 @@ const KommenteringModal: FC<IProps> = ({ settÅpen, task, åpen }) => {
 
                     <br />
                     {feilMelding && <Alert variant={'error'}>{feilMelding}</Alert>}
-                    <Button className={'taskpanel__vislogg'}>Kommenter</Button>
+                    <Button>Kommenter</Button>
                 </form>
             </Modal.Body>
         </Modal>

@@ -66,7 +66,7 @@ const AvvikshåndteringModal: FC<IProps> = ({ settÅpen, task, åpen }) => {
                     />
 
                     <br />
-                    <Button className={'taskpanel__vislogg'}>Avvikshåndter task</Button>
+                    <Button>Avvikshåndter task</Button>
                 </form>
             </Modal.Body>
         </Modal>
